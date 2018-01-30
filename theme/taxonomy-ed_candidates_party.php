@@ -61,14 +61,14 @@ get_header(); ?>
 	<?php endif; ?>
 	<div class="one_column latest_news_small row_height_medium">
 		<h2>Latest <?php echo $party['name']; ?> party news</h2>
-		<p class="grey small">Recent articles that mention candidates from this party.</p>
+		<p class="grey small">Recent articles that mention candidates from this party are <a href="/frequently-asked-questions/#news">automatically gathered from Google News</a>.</p>
 		<?php $article_count = Election_Data_Option::get_option('news-count-party', 10);
 		display_news_titles( $candidates, false, $article_count ); ?>
 	</div>
 	<?php if ( $leader_query->post_count > 0 ) : ?>
 		<div class="one_column latest_news_small row_height_medium">
 			<h2 id="news">News that mentions the <?php echo $party['name']; ?> party leader</h2>
-			<p class="grey small">News articles are gathered from <a href="http://news.google.ca">Google News</a> by searching for the party name.</p>
+			<p class="grey small">News articles are <a href="/frequently-asked-questions/#news">automatically gathered from Google News</a> by searching party leader's full name.</p>
 			<?php $article_count = Election_Data_Option::get_option('news-count-party-leader', 10);
 			display_news_summaries( $leaders, 'Party', $article_count ); ?>
 		</div>

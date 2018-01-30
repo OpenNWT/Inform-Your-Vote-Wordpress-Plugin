@@ -21,12 +21,16 @@ get_header();?>
 			</div>
 		<?php endif; ?>
 		<div class='one_column'>
-			<h3>The <?php echo $constituency['name']; ?> Constituencies</h3>
+            <h3>Find Your Constituency</h3>
+            <p><a href="http://www.electionsmanitoba.ca/en/Voting/VotingInfo" target="_blank" id="where_to_vote">Elections Manitoba Address Lookup</a></p>
+            <br>
+			<h3>Select a <?php echo $constituency['name']; ?> Constituency</h3>
 			<ul>
 				<?php foreach ( $constituency['children'] as $name => $child ) :?>
 					<li><a href="<?php echo $child['url']; ?>"><?php echo $name; ?></a></li>
 				<?php endforeach; ?>
 			</ul>
+            <br>
 		</div>
    </div>
 <?php else :
@@ -35,7 +39,7 @@ get_header();?>
 	<h2><?php echo $constituency['name']; ?></h2>
 	<p>
 		There are <?php echo $wp_query->post_count; ?> candidates in this electoral division.
-		<em class="small grey">(Candidates are displayed in random order.)</em>
+		<em class="small grey">Candidates are displayed in random order.</em>
 	</p>
 	<div class="flow_it politicians">
 		<?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
@@ -51,10 +55,10 @@ get_header();?>
 			<div class="three_columns latest_news_small">
 		<?php endif; ?>
 			<h2 id="news">Latest Candidate News</h2>
-			<p class="grey small">Recent articles that mention candidates from this race.</p>
-			<br>
+			<p class="grey small">Articles that mention candidates from this race.</p>
 			<?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
 			display_news_titles( $candidate_references, false, $article_count ); ?>
+            <p class="grey small">Articles are <a href="/frequently-asked-questions/#news">automatically gathered from Google News</a> by searching for the candidate's full name.</a></p>
 		</div>
 	</div>
 

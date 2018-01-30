@@ -28,7 +28,7 @@ get_header(); ?>
 	<div class="three_columns">
 	<?php endif; ?>
 		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
-		<p class="news-article-notice">Articles are gathered from <a href="http://news.google.ca">Google News</a> by searching for the candidate's full name.</p>
+		<p class="news-article-notice">Articles are <a href="/frequently-asked-questions/#news">automatically gathered from Google News</a> by searching for the candidate's full name.</p>
 		<?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
 		display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
 	</div>

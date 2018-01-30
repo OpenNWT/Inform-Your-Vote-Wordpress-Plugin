@@ -32,22 +32,20 @@ get_header(); ?>
 	$google_plus_one = Election_Data_Option::get_option( 'google-plus-one' );
 	if ( $facebook || $twitter || $google_plus_one ) : ?>
 		<div class="one_column medium_row social">
-			<?php if ( $facebook ) : ?>
-				<div class="fb-page" data-href="<?php echo $facebook; ?>" data-width="275" data-height="255" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
-					<div class="fb-xfbml-parse-ignore">
-						<blockquote cite="<?php echo $facebook; ?>">
-							<a href="<?php echo $facebook; ?>">Manitoba Election</a>
-						</blockquote>
-					</div>
-				</div>
-			<?php endif;
-			if ( $twitter ) : ?>
+            <h2>ManitobaElection.ca</h2>
+            <p>Research the parties and candidates of the 2016 Manitoba Election.</p>
+            <p>A voter resource maintained by<br><a href="/about-us">Open Democracy Manitoba</a>.</p>
+            <h2>Join the Conversation</h2>
+            <p>Join the conversation at <a href="https://twitter.com/search?q=%23mbelxn&src=typd" target="_blank">#mbelxn</a>.</p> 
+            <?php if ( $twitter ) : ?>
 				<p><a href="http://twitter.com/<?php echo $twitter; ?>" class="twitter-follow-button">Follow @<?php echo $twitter; ?></a></p>
-			<?php endif;
-			if ( $google_plus_one ) : ?>
+            <?php endif ?>
+			<?php if ( $facebook ) : ?>
+                <iframe src="//www.facebook.com/plugins/like.php?href=<?= $facebook ?>&amp;width=270&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=61535010545" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:270px; height:80px;" allowTransparency="true"></iframe>
+            <?php endif ?>
+            <?php if ( $google_plus_one ) : ?>
 				<p><g:plusone></g:plusone></p>
 			<?php endif; ?>
-			
 		</div>
 	<?php endif;
 	$news_count = Election_Data_Option::get_option( 'news-count-front', 10 );
@@ -60,8 +58,6 @@ get_header(); ?>
 	if ( $parties ) : ?>
 		<div class="two_columns">
 			<h2><?php echo Election_Data_Option::get_option( 'party-label', 'The Political Parties' ); ?></h2>
-			<p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
-			<br>
 			<div class="parties_thumb" >
 				<?php foreach ( $parties as $party_id ) :
 					$party = get_party( $party_id ); ?>
@@ -74,7 +70,9 @@ get_header(); ?>
 						</div>
 					</div>
 				<?php endforeach; ?>
-			</div>
+            </div>
+            <br>
+			<p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
 		</div>
 	<?php endif; ?>
 </div>

@@ -19,6 +19,10 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
+<meta property="og:image" content="http://www.manitobaelection.ca/wp-content/themes/ElectionData/images/mb_leg_og.png" />
+<meta property="og:title" content="<?= wp_title( '|', true, 'right' ); ?>2016 Manitoba Election<?php if (is_front_page()): ?> - Inform Your Vote <?php endif ?>" />
+<meta property="og:description" content="News and candidate information for the Manitoba Election on April 19th." />
+<meta name="description" content="News and candidate information for the Manitoba Election this April 19th." />
 <title><?php
 /*
 * Print the <title> tag based on what is being viewed.
@@ -54,7 +58,10 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 				<img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" class="header_image" />
 			<?php endif; ?>
 				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
+				<h2 class="site-description">A Citizen Created Election Resource</h2>
 		</header><!-- #masthead .site-header -->
 		<?php wp_nav_menu( array( 'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile', 'menu_class' => '' ) ); ?>
+        <?php if (!is_front_page()): ?>
+        <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
+        <?php endif ?>
 		<div id="main" role="main">

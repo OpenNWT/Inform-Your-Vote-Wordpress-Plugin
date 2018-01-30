@@ -44,10 +44,12 @@ add_action( 'after_setup_theme', 'election_data_theme_setup' );
  */
 function election_data_theme_scripts() {
 	global $ed_taxonomies;
+
+    wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
 		
-    wp_enqueue_style( 'style', get_stylesheet_uri() );
+    wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.2a');
 	if ( is_front_page() ) {
-		wp_enqueue_script( 'facebook', get_template_directory_uri() . '/js/facebook.js' );
+		wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
 		wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js' );
 		wp_enqueue_script( 'google', 'https://apis.google.com/js/platform.js' );
 	}
@@ -76,6 +78,7 @@ add_action( 'after_switch_theme', 'configure_menu' );
 function election_data_init() {
 	register_nav_menu('header-menu', __( 'Header Menu' ) );
 	add_theme_support( 'custom-header' );
+    add_theme_support( 'post-thumbnails' );
 }
 
 add_action( 'init', 'election_data_init' );
@@ -108,7 +111,7 @@ function news_titles( $article_query, $paging_type, $candidate_ids = null, $pagi
 			foreach ( $candidates as $candidate ) :
 				$news_article_candidate_ids[] = $candidate->term_id;
 			endforeach;
-			$args = array( 
+			$args = array(
 				'post_type' => $ed_post_types['candidate'],
 				'meta_query' => array(
 					array(
@@ -125,9 +128,16 @@ function news_titles( $article_query, $paging_type, $candidate_ids = null, $pagi
 				$url = get_permalink( $query->post );
 				$name = esc_attr( get_the_title( $query->post ) );
 				$mentions[] = "<a href='$url'>$name</a>";
-			endwhile; ?>
+            endwhile;
+
+            $sources = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_source'] );
+            $source = $sources[0];
+            $source_label = esc_html( $source->description ? $source->description : $source->name ); ?>
 			<li>
-				<p class="link"><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a></p>
+                <p class="link">
+                    <a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
+                     - <span class="small grey"><?= $source_label ?></span>
+                </p>
 				<p class="mentions">Mentions:
 				<?php echo implode (', ', $mentions); ?>
 				</p>
@@ -135,7 +145,8 @@ function news_titles( $article_query, $paging_type, $candidate_ids = null, $pagi
 		<?php endwhile; ?>
 		</ul>
 		<?php if ( $paging_type == 'more' ) : ?>
-			<p class="more"><a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>">More News...</a></p>
+            <p class="more"><a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>">More News...</a></p>
+            <p class="small"><a href="http://www.manitobaelection.ca/frequently-asked-questions/#news">Details on our News Gathering Process.</a></p>
 		<?php elseif ( $paging_type ) :
 			$page = get_current_page( $paging_type );
 			display_news_pagination( get_paging_args( $paging_type, $page ) );
@@ -285,7 +296,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 	$display_news = in_array( 'news', $show_fields );
 	
 	?><div class="politician show_constituency">
-		<div class="image" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>;">
+        <div class="image <?= $candidate['party_leader'] ? 'leader' : '' ?>" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>;">
 			<?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
 			<?php if ( $candidate['party_leader'] ) :?>
 			<div class="leader">party leader</div>
@@ -320,6 +331,9 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 		<div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
 		<div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party: <a href="<?php echo $party['url']; ?>"><?php echo esc_html( $party['name'] ); ?></a></div>
 		<div class="phone <?php echo $candidate['phone'] ? '' : 'hidden' ?>">Phone: <?php echo esc_html( $candidate['phone'] ); ?></div>
+        <?php if (isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'qanda_active')): ?>
+        <div class="qanda"><strong>Questionnaire: <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">Read <?= explode(' ', $candidate['name'])[0] ?>'s Response</a></strong></div>
+        <?php endif ?>
 	</div>
 <?php }
 
@@ -374,4 +388,58 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
 		$candidates[] = $candidate['news_article_candidate_id'];
 		display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
 	}
+}
+
+function display_party_answer_stats() {
+    $parties = get_all_parties();
+    echo "<div>Parties:</div>";
+    echo "<div><table><tr><th>Party</th><th>Answered</th></tr>";
+    $total = 0;
+    foreach ( $parties as $party ) {
+        $answer_count = count( $party['answers'] );
+        if ( $answer_count > 0 ) {
+            $total += 1;
+            echo "<tr><td>{$party['name']}</td><td>$answer_count</td></tr>";
+        }
+    }
+    echo "</table></div>";
+    echo "<div>Number of parties that responded: $total</div>";
+}
+
+function display_candidate_answer_stats() {
+    $candidates = get_all_candidates();
+    echo "<div>Candidates:</div>";
+    echo "<div><table><tr><th>Party</th><th>Candidate</th><th>Answered</th></tr>";
+    $totals = array();
+    $total = 0;
+    foreach ( $candidates as $candidate_id => $candidate ) {
+        $answer_count = count( $candidate['answers'] );
+        if ( $answer_count > 0 ) {
+            $party = get_party_from_candidate( $candidate_id );
+            if ( array_key_exists( $party['name'], $totals ) ) {
+                $totals[$party['name']] += 1;
+            } else {
+                $totals[$party['name']] = 1;
+            }
+            $total += 1;
+            echo "<tr><td>{$party['name']}</td><td>{$candidate['name']}</td><td>$answer_count</td></tr>";
+        }
+    }
+    echo "</table></div>";
+    echo "<div>Responses by Party:</div><div><table><tr><th>Party</th><th>Responded</th></tr>";
+    foreach ( $totals as $party => $count ) {
+        echo "<tr><td>$party</td><td>$count</td></tr>";
+    }
+    echo "</table></div>";
+    echo "<div>Number of candidates that responded: $total</div>";
+}
+
+function display_news_article_stats() {
+    $sources = get_source_count();
+    echo "<div>Sources:</div>";
+    echo "<div><table><tr><th>Source</th><th>Approved</th><th>New</th><th>Rejected</th></tr>";
+    foreach ( $sources as $source => $counts ) {
+        echo "<tr><td>$source</td><td>$counts[0]</td><td>$counts[1]</td><td>$counts[2]</td></tr>";
+    }
+    echo "<table></div>";
 }

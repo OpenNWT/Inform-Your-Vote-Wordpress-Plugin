@@ -11,7 +11,7 @@ get_header();
     <div class="three_columns latest_news_large">
 		<h3>Latest News Articles</h3>
 		<div class="grey small">
-			<p>News articles are automatically gathered from Google News by searching for the full names of the candidates in the upcoming Manitoba election.</p>
+			<p>News articles are <a href="http://www.manitobaelection.ca/frequently-asked-questions/#news">automatically gathered from Google News</a> by searching for the full names of the candidates in the upcoming Manitoba election.</p>
 		</div>
 		<?php news_titles( $wp_query, 'News Article' ); ?>
 	</div>
