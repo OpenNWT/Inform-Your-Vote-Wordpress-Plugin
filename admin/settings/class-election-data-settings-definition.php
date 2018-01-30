@@ -72,20 +72,20 @@ class Election_Data_Settings_Definition {
 
 		return apply_filters( 'election_data_settings_tabs', $tabs );
 	}
-	
+
 	static public function get_js_updates() {
 		$settings = self::get_settings();
-		
+
 		$types = array();
 		foreach ( $settings as $tab ) {
 			foreach ( $tab as $setting => $options ) {
 				$types[$options['type']][] = array( $setting, $options );
 			}
 		}
-		
+
 		$localizations = array();
 		$dependancies = array();
-		
+
 		foreach ( $types as $type => $settings ) {
 			$method = "localize_$type";
 			if ( method_exists( 'Election_Data_Callback_Helper', $method ) ) {
@@ -96,7 +96,7 @@ class Election_Data_Settings_Definition {
 				$dependancies += Election_Data_Callback_Helper::$method();
 			}
 		}
-		
+
 		return array( $localizations, $dependancies );
 	}
 
@@ -338,7 +338,7 @@ class Election_Data_Settings_Definition {
 					),
 				),
 				'smtp-user' => array(
-					'name' => __( 'SMTP User', self::$plugin_name ), 
+					'name' => __( 'SMTP User', self::$plugin_name ),
 					'desc' => __( 'User name for the SMTP server', self::$plugin_name ),
 					'type' => 'text',
 				),
@@ -444,6 +444,11 @@ class Election_Data_Settings_Definition {
 				),
 			),
 			'general_tab' => array(
+				'footer' => array(
+					'name' => __('Footer', self::$plugin_name),
+					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
+					'type' => 'textarea'
+				),
 				'missing_candidate' => array(
 					'name' => __( 'Missing Candidate Image', self::$plugin_name ),
 					'desc' => __( 'The image to display if a candidate does not have a featured image.', self::$plugin_name ),

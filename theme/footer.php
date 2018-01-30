@@ -8,17 +8,17 @@
 * @since Election_Data_Theme 1.0
 */
 ?>
- 
+
 </div><!-- #main .site-main -->
- 
+
 <footer id="colophon" class="site-footer" role="contentinfo">
     <div class="site-info">
-        ManitobaElection.ca 2016 - Built with <span class="love">♥</span> by Open Democracy Manitoba - All Content is Public Domain.
+          <?php echo Election_Data_Option::get_option('footer');?>
         <?php do_action( 'election_data_theme_credits' ); ?>
     </div><!-- .site-info -->
 </footer><!-- #colophon .site-footer -->
 </div><!-- #page .hfeed .site -->
- 
+
 <?php wp_footer(); ?>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
