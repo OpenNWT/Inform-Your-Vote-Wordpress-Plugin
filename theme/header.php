@@ -19,37 +19,37 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
-<meta property="og:image" content="http://www.manitobaelection.ca/wp-content/themes/ElectionData/images/mb_leg_og.png" />
-<meta property="og:title" content="<?= wp_title( '|', true, 'right' ); ?>2016 Manitoba Election<?php if (is_front_page()): ?> - Inform Your Vote <?php endif ?>" />
-<meta property="og:description" content="News and candidate information for the Manitoba Election on April 19th." />
-<meta name="description" content="News and candidate information for the Manitoba Election this April 19th." />
+<meta property="og:image" content=<?php echo wp_get_attachment_image( Election_data_option::get_option('site_image'));?>
+<meta property="og:title" content="<?= Election_Data_Option::get_option('site_title');?>" />
+<meta property="og:description" content="<?= Election_Data_Option::get_option('site_description');?>" />
+<meta name="description" content="<?= Election_Data_Option::get_option('site_description');?>" />
 <title><?php
 /*
 * Print the <title> tag based on what is being viewed.
 */
 global $page, $paged;
- 
+
 wp_title( '|', true, 'right' );
- 
+
 // Add the blog name.
 bloginfo( 'name' );
- 
+
 // Add the blog description for the home/front page.
 $site_description = get_bloginfo( 'description', 'display' );
 if ( $site_description && ( is_home() || is_front_page() ) )
 echo " | $site_description";
- 
+
 // Add a page number if necessary:
 if ( $paged >= 2 || $page >= 2 )
 echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page ) );
- 
+
 ?></title>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 <?php wp_head(); ?>
 </head>
- 
+
 <body <?php body_class(); ?>>
 
 	<div id="container">

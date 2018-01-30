@@ -444,6 +444,21 @@ class Election_Data_Settings_Definition {
 				),
 			),
 			'general_tab' => array(
+				'site_title' => array(
+					'name' => __('Site Title', self::$plugin_name),
+					'desc' => __('The title you want to display as meta data.', self::$plugin_name),
+					'type' => 'text'
+				),
+				'site_description' => array(
+					'name' => __('Site Description', self::$plugin_name),
+					'desc' => __('A brief description of the site', self::$plugin_name),
+					'type' => 'textarea'
+				),
+				'site_image' => array(
+					'name' => __('Site Image', self::$plugin_name),
+					'desc' => __('An image that represents your site.', self::$plugin_name),
+					'type' => 'image'
+				),
 				'footer' => array(
 					'name' => __('Footer', self::$plugin_name),
 					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
