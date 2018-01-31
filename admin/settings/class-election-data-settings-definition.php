@@ -399,6 +399,11 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'A summary that will appear on the front page of the site. Can include links to important sites, election dates, etc.', self::$plugin_name ),
 					'type' => 'rich_editor',
 				),
+				'about-us' => array(
+					'name' => __( 'About Us', self::$plugin_name ),
+					'desc' => __( 'This will populate the contents of the top-right slide of the front page.'),
+					'type' => 'rich_editor',
+				),
 				'facebook-page' => array(
 					'name' => __( 'Facebook page', self::$plugin_name ),
 					'desc' => __( 'A facebook page that you would like featured on the front-page.', self::$plugin_name ),

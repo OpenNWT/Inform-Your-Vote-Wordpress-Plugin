@@ -32,11 +32,7 @@ get_header(); ?>
 	$google_plus_one = Election_Data_Option::get_option( 'google-plus-one' );
 	if ( $facebook || $twitter || $google_plus_one ) : ?>
 		<div class="one_column medium_row social">
-            <h2>ManitobaElection.ca</h2>
-            <p>Research the parties and candidates of the 2016 Manitoba Election.</p>
-            <p>A voter resource maintained by<br><a href="/about-us">Open Democracy Manitoba</a>.</p>
-            <h2>Join the Conversation</h2>
-            <p>Join the conversation at <a href="https://twitter.com/search?q=%23mbelxn&src=typd" target="_blank">#mbelxn</a>.</p> 
+            <?php echo Election_Data_Option::get_option( 'about-us' ); ?>
             <?php if ( $twitter ) : ?>
 				<p><a href="http://twitter.com/<?php echo $twitter; ?>" class="twitter-follow-button">Follow @<?php echo $twitter; ?></a></p>
             <?php endif ?>
