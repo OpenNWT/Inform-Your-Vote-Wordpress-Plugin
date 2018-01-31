@@ -406,7 +406,7 @@ class Election_Data_Settings_Definition {
 				),
 				'twitter' => array(
 					'name' => __( 'Twitter Account', self::$plugin_name ),
-					'desc' => __( 'A twitter account you would like featured on the front page'. self::$plugin_name ),
+					'desc' => __( 'A twitter account you would like featured on the front page.', self::$plugin_name ),
 					'type' => 'text',
 				),
 				'google-plus-one' => array(
@@ -451,7 +451,7 @@ class Election_Data_Settings_Definition {
 				),
 				'site_description' => array(
 					'name' => __('Site Description', self::$plugin_name),
-					'desc' => __('A brief description of the site', self::$plugin_name),
+					'desc' => __('A brief description of the site.', self::$plugin_name),
 					'type' => 'textarea'
 				),
 				'site_image' => array(
@@ -476,31 +476,36 @@ class Election_Data_Settings_Definition {
 				),
 				'news-count-party' => array(
 					'name' => __( 'Party News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display on the party page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display on the party page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-party-leader' => array(
 					'name' => __( 'Party Leader News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles about the party leader to display on the party page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles about the party leader to display on the party page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-candidate' => array(
 					'name' => __( 'Candidate News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display at a time on the candidate page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display at a time on the candidate page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-constituency' => array(
 					'name' => __( 'Constituency News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display at a time on the constituency page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display at a time on the constituency page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
+				),
+				'google-analytics' => array(
+					'name' => __( 'Google Analytics Script', self::$plugin_name ),
+					'desc' => __( 'If you wish to use Google Analytics, please paste the script provided by them here.' ),
+					'type' => 'textarea',
 				),
 			),
 		);
