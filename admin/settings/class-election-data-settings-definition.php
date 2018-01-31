@@ -203,6 +203,11 @@ class Election_Data_Settings_Definition {
 					'name' => '<strong>' . __( 'Header', self::$plugin_name ) . '</strong>',
 					'type' => 'header'
 				),*/
+				'news-scraping-subheading' => array(
+					'name' => __( 'Sub Heading', self::$plugin_name ),
+					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
+					'type' => __( 'rich_editor' ),
+				),
 				'location' => array(
 					'name' => __( 'Location', self::$plugin_name ),
 					'desc' => __( 'The location of the election.', self::$plugin_name ),

@@ -4,17 +4,17 @@
  *
  */
 
-//get_header(); 
+//get_header();
 $candidate_id = get_the_ID();
 $candidate = get_candidate( $candidate_id, true );
 $party = get_party_from_candidate( $candidate_id );
 $constituency = get_constituency_from_candidate( $candidate_id );
 $candidate_news = get_news( $candidate['news_article_candidate_id'] );
 $has_qanda = count( $candidate['answers'] ) > 0;
- 
+
 get_header(); ?>
 <h2 class="title"><?php echo $candidate['name']; ?></h2>
-<?php if ( $has_qanda ) : ?> 
+<?php if ( $has_qanda ) : ?>
 <div class="one_column_flow" >
 <?php else : ?>
 <div class="flow_it">
@@ -28,7 +28,7 @@ get_header(); ?>
 	<div class="three_columns">
 	<?php endif; ?>
 		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
-		<p class="news-article-notice">Articles are <a href="/frequently-asked-questions/#news">automatically gathered from Google News</a> by searching for the candidate's full name.</p>
+		<p class="news-article-notice"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
 		<?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
 		display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
 	</div>
