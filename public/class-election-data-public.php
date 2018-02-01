@@ -105,13 +105,14 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 	$results = array(
 		'id' => $constituency_id,
 		'name' => $constituency->name,
+		'number_of_winners' => get_tax_meta( $constituency_id, 'number_of_winners'),
 		'url' => get_term_link( $constituency, $ed_taxonomies['candidate_constituency'] ),
 	);
 	if ( $get_extra_data ) {
 		$results['details'] = get_tax_meta( $constituency_id, 'details' );
 		$map_image = get_tax_meta( $constituency_id, 'map' );
 		$results['map_id'] = $map_image ? $map_image : '';
-		
+
 		$child_terms = get_terms( $ed_taxonomies['candidate_constituency'], array( 'parent' =>$constituency_id, 'hide_empty' => false ) );
 		$results['children'] = array();
 		foreach ( $child_terms as $child )
@@ -122,7 +123,7 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 			);
 		}
 	}
-	
+
 	return $results;
 }
 
@@ -149,7 +150,7 @@ function get_root_constituencies() {
 		'fields' => 'ids',
 		'parent' => 0,
 	);
-	
+
 	$terms = get_terms( $ed_taxonomies['candidate_constituency'] , $args );
 	return $terms;
 }
@@ -162,7 +163,7 @@ function get_parties_random() {
 		'hide_empty' => false,
 		'fields' => 'ids',
 	);
-	
+
 	$terms = get_terms( $ed_taxonomies['candidate_party'] , $args );
 	shuffle( $terms );
 	return $terms;
@@ -175,13 +176,13 @@ function get_all_parties() {
         'order' => 'ASC',
         'hide_empty' => false,
    );
-   
+
     $terms = get_terms( $ed_taxonomies['candidate_party'], $args );
     $parties = array();
     foreach ( $terms as $term ) {
         $parties[] = get_party( $term );
     }
-    
+
     return $parties;
 }
 
@@ -193,15 +194,15 @@ function get_all_candidates() {
         'orderby' => 'title',
         'order' => 'ASC',
     );
-    
+
     $candidates = array();
     $query = new WP_Query( $query_args );
     while ( $query->have_posts() ) {
         $query->the_post();
-        
+
         $candidates[$query->post->ID] = get_candidate( $query->post->ID, true );
     }
-    
+
     return $candidates;
 }
 
@@ -209,7 +210,7 @@ function get_party( $party, $get_extra_data = true ) {
 	global $ed_taxonomies;
 	$party = get_term( $party, $ed_taxonomies['candidate_party'] );
 	$party_id = $party->term_id;
-	
+
 	$results = array(
 		'id' => $party_id,
 		'name' => $party->name,
@@ -217,7 +218,7 @@ function get_party( $party, $get_extra_data = true ) {
 		'url' => get_term_link( $party, $ed_taxonomies['candidate_party'] ),
 		'long_title' => $party->description,
 	);
-		
+
 	if ( $get_extra_data ) {
 		$results['answers'] = get_qanda_answers( 'party', $party );
 		$party_logo = get_tax_meta( $party_id, 'logo' );
@@ -258,7 +259,7 @@ function get_party( $party, $get_extra_data = true ) {
 			$results['icon_data'][$icon_type] = array( 'url' => $url, 'type' => $alt, 'alt' => ucfirst( $alt ) );
 		}
 	}
-	
+
 	return $results;
 }
 
@@ -290,7 +291,7 @@ function get_candidate_from_answer_candidate( $answer_candidate ) {
 
 function get_news_article( $news_article_id ) {
 	global $ed_taxonomies;
-	
+
 	$results = array(
 		'id' => $news_article_id,
 		'title' => get_the_title( $news_article_id ),
@@ -300,13 +301,13 @@ function get_news_article( $news_article_id ) {
 		'source_name' => '',
 		'summary' => '',
 	);
-	
+
 	if ( is_array( $results['summaries'] ) && count( $results['summaries'] > 0 ) ) {
 		$results['summary'] = $results['summaries'][array_rand( $results['summaries'] ) ];
 	} else {
 		$results['summary'] = '';
 	}
-	
+
 	$candidates = get_the_terms( $news_article_id, $ed_taxonomies['news_article_candidate'] );
 	foreach ( $candidates as $candidate ) {
 		$candidate_id = get_tax_meta( $candidate->term_id, 'reference_post_id' );
@@ -315,7 +316,7 @@ function get_news_article( $news_article_id ) {
 			'url' => get_permalink( $candidate_id ),
 		);
 	}
-	
+
 	$source = get_the_terms( $news_article_id, $ed_taxonomies['news_article_source'] );
 	if ( isset( $source[0] ) ) {
 		$results['source_name'] = $source[0]->description;
@@ -443,7 +444,7 @@ function get_qanda_answers( $type, $id, $count = null ) {
 function get_candidate( $candidate_id, $get_qanda = false ) {
 	$image_id = get_post_thumbnail_id( $candidate_id );
 	$image_id = $image_id ? $image_id : Election_Data_Option::get_option( 'missing_candidate' );
-	
+
 	$results = array(
 		'id' => $candidate_id,
 		'image_id' => $image_id,
@@ -493,10 +494,10 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 			$url = '';
 			$alt = "{$icon_type}_inactive";
 		}
-			
+
 		$icon_data[$icon_type] = array( 'url' => $url, 'type' => $alt, 'alt' => ucfirst( $alt ) );
 	}
-	
+
 	$results['icon_data'] = $icon_data;
 
 	return $results;
@@ -505,7 +506,7 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
-	
+
 	if ( ! $articles_per_page ) {
 		$articles_per_page = get_option( 'posts_per_page' );
 	}
@@ -522,7 +523,7 @@ function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) 
 		'paged' => $page,
 		'posts_per_page' => $articles_per_page,
 	);
-	
+
 	if ( ! is_null( $candidate_id ) ) {
 		$args['tax_query'] = array(
 			array(
@@ -532,8 +533,8 @@ function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) 
 			),
 		);
 	}
-	
-	$news_query = new WP_Query( $args ); 
+
+	$news_query = new WP_Query( $args );
 	return array(
 		'count' => $news_query->found_posts,
 		'articles' => $news_query,
@@ -580,11 +581,11 @@ function get_current_page( $type ) {
 
 function get_answer( $answer ) {
 	global $ed_post_types;
-	
+
 	$result = array(
 		'token' => 'abc123',
 	);
-	
+
 	return $result;
 }
 
@@ -597,7 +598,7 @@ function can_edit_answers( $type, $id ) {
 			$token = get_post_meta( $id, 'qanda_token', true );
 			break;
 	}
-    
+
 	return current_user_can( 'edit_posts' ) || get_query_var( 'token' ) == $token && ! empty( $token );
 }
 
@@ -607,7 +608,7 @@ function get_source_count() {
     $sources = array();
     $terms = get_terms( $ed_taxonomies['news_article_source'], array( 'childless' => true ) );
     foreach ( $terms as $term ) {
-        $args = array( 
+        $args = array(
             'post_type' => $ed_post_types['news_article'],
             'tax_query' => array (
                 array (
@@ -631,7 +632,7 @@ function get_source_count() {
             $sources[$term->name][] = $query->post_count;
         }
     }
-    
+
     arsort( $sources );
     return $sources;
 }

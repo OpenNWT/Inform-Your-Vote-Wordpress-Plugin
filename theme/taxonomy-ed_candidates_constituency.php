@@ -1,10 +1,10 @@
 <?php
 
 $constituency = get_constituency( $party_id = get_queried_object()->term_id );
-$constituency_id = $constituency['id']; 
+$constituency_id = $constituency['id'];
 
 get_header();?>
-<?php if ( $constituency['children'] ) : ?> 
+<?php if ( $constituency['children'] ) : ?>
 	<h2>Select Your <?php echo $constituency['name']; ?> Constituency</h2>
 	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
 	<div class='flow_it'>
@@ -38,7 +38,11 @@ get_header();?>
 	?>
 	<h2><?php echo $constituency['name']; ?></h2>
 	<p>
+		<?php if ($constituency['number_of_winners'] < 2) : ?>
 		There are <?php echo $wp_query->post_count; ?> candidates in this electoral division.
+	<?php else : ?>
+		There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
+	<?php endif ?>
 		<em class="small grey">Candidates are displayed in random order.</em>
 	</p>
 	<div class="flow_it politicians">
@@ -46,7 +50,7 @@ get_header();?>
 	</div>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
-			<div class="two_columns constit_description">	
+			<div class="two_columns constit_description">
 				<b><?php echo $constituency['name']; ?></b>
 				<p><?php echo $constituency['details']; ?></p>
 			</div>
