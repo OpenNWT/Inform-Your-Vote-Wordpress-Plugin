@@ -203,6 +203,11 @@ class Election_Data_Settings_Definition {
 					'name' => '<strong>' . __( 'Header', self::$plugin_name ) . '</strong>',
 					'type' => 'header'
 				),*/
+				'news-scraping-subheading' => array(
+					'name' => __( 'Sub Heading', self::$plugin_name ),
+					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
+					'type' => __( 'rich_editor' ),
+				),
 				'location' => array(
 					'name' => __( 'Location', self::$plugin_name ),
 					'desc' => __( 'The location of the election.', self::$plugin_name ),
@@ -399,6 +404,11 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'A summary that will appear on the front page of the site. Can include links to important sites, election dates, etc.', self::$plugin_name ),
 					'type' => 'rich_editor',
 				),
+				'about-us' => array(
+					'name' => __( 'About Us', self::$plugin_name ),
+					'desc' => __( 'This will populate the contents of the top-right slide of the front page.'),
+					'type' => 'rich_editor',
+				),
 				'facebook-page' => array(
 					'name' => __( 'Facebook page', self::$plugin_name ),
 					'desc' => __( 'A facebook page that you would like featured on the front-page.', self::$plugin_name ),
@@ -406,7 +416,7 @@ class Election_Data_Settings_Definition {
 				),
 				'twitter' => array(
 					'name' => __( 'Twitter Account', self::$plugin_name ),
-					'desc' => __( 'A twitter account you would like featured on the front page'. self::$plugin_name ),
+					'desc' => __( 'A twitter account you would like featured on the front page.', self::$plugin_name ),
 					'type' => 'text',
 				),
 				'google-plus-one' => array(
@@ -451,7 +461,7 @@ class Election_Data_Settings_Definition {
 				),
 				'site_description' => array(
 					'name' => __('Site Description', self::$plugin_name),
-					'desc' => __('A brief description of the site', self::$plugin_name),
+					'desc' => __('A brief description of the site.', self::$plugin_name),
 					'type' => 'textarea'
 				),
 				'site_image' => array(
@@ -476,31 +486,36 @@ class Election_Data_Settings_Definition {
 				),
 				'news-count-party' => array(
 					'name' => __( 'Party News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display on the party page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display on the party page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-party-leader' => array(
 					'name' => __( 'Party Leader News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles about the party leader to display on the party page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles about the party leader to display on the party page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-candidate' => array(
 					'name' => __( 'Candidate News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display at a time on the candidate page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display at a time on the candidate page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-constituency' => array(
 					'name' => __( 'Constituency News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display at a time on the constituency page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display at a time on the constituency page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
+				),
+				'google-analytics' => array(
+					'name' => __( 'Google Analytics Script', self::$plugin_name ),
+					'desc' => __( 'If you wish to use Google Analytics, please paste the script provided by them here.' ),
+					'type' => 'textarea',
 				),
 			),
 		);

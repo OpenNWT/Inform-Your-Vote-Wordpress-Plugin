@@ -10,7 +10,7 @@
  * @package    Election_Data
  * @subpackage Election_Data/includes
  */
- 
+
 require_once plugin_dir_path( __FILE__ ) . 'class-custom-post.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
@@ -41,7 +41,7 @@ class Election_Data_Candidate {
 	 *
 	 */
 	protected $custom_post;
-	
+
 	/**
 	 * The definition of the taxonomy names.
 	 *
@@ -51,7 +51,7 @@ class Election_Data_Candidate {
 	 *
 	 */
 	public $taxonomies;
-	
+
 	/**
 	 * Stores the name of the custom post type.
 	 *
@@ -73,7 +73,7 @@ class Election_Data_Candidate {
 	public function __construct( $define_hooks = true ) {
 		global $ed_post_types;
 		global $ed_taxonomies;
-		
+
 		$this->post_type = $ed_post_types['candidate'];
 		$this->taxonomies = array(
 			'party' => $ed_taxonomies['candidate_party'],
@@ -101,7 +101,7 @@ class Election_Data_Candidate {
 				'has_archive' => true,
 				'query_var' => __( 'candidate' ),
 				'rewrite' => array( 'slug' => __( 'candidates' ), 'with_front' => false ),
-				
+
 			),
 			'admin_column_names' => array( 'title' => __( 'Candidate Name' ) ),
 			'admin_field_names' => array( 'title' => __( 'Name' ), 'enter_title_here' =>  __( 'Enter Candidate Name' ) ),
@@ -377,6 +377,16 @@ class Election_Data_Candidate {
 				'constituency' => array(
 					'taxonomy' => $this->taxonomies['constituency'],
 					'fields' => array(
+            array(
+              'type' => 'number',
+              'id' => 'number_of_winners',
+              'desc' => __( "How many people can win the election?" ),
+              'label' => __( "Number of Seats in this Race" ),
+              'std' => 1,
+              'imported' => true,
+              'min' => 0,
+              'step' => 1,
+            ),
 						array(
 							'type' => 'image',
 							'id' => 'map',
@@ -406,7 +416,7 @@ class Election_Data_Candidate {
 				),
 			),
 		);
-		
+
 		$this->custom_post = new ED_Custom_Post_Type( $this->post_type, $args, $define_hooks );
 
 		if ( $define_hooks ) {
@@ -417,21 +427,21 @@ class Election_Data_Candidate {
 			add_action( "edited_{$this->taxonomies['constituency']}", array( $this, 'edited_constituency' ), 10, 2 );
 		}
 		add_image_size( 'candidate', 9999, 100, false );
-			
+
 		add_image_size( 'map_thumb', 100, 9999, false );
 		add_image_size( 'map', 598, 9999, false );
 		add_image_size( 'party', 175, 175, false );
 	}
-	
+
 	public static function qanda_random_token() {
 		return wp_generate_password( 30, false );
 	}
-	
+
 	public function ajax_qanda_random_token() {
 		echo $this->qanda_random_token();
 		wp_die();
 	}
-	
+
 	/**
 	 * Initializes the custom_post and taxonomies (Used during activation)
 	 *
@@ -442,10 +452,10 @@ class Election_Data_Candidate {
 	public function initialize() {
 		$this->custom_post->initialize();
 	}
-	
+
 	/**
 	 * Sets up the main query for displaying candidates by constituency, or by party'
-	 * 
+	 *
 	 * @access public
 	 * @since 1.0
 	 *
@@ -454,7 +464,7 @@ class Election_Data_Candidate {
 		if( is_admin() || !$query->is_main_query() ) {
 			return;
 		}
-		
+
 		if ( is_tax( $this->taxonomies['party'] ) ) {
 			$query->set( 'orderby', "taxonomy-{$this->taxonomies['constituency']}" );
 			$query->set( 'order', 'ASC' );
@@ -467,19 +477,19 @@ class Election_Data_Candidate {
 			$query->set( 'nopaging', 'true' );
 		}
 	}
-	
+
 	public function create_party( $term_id, $tt_id) {
 		$term = get_term( $term_id, $this->taxonomies['party'], 'ARRAY_A' );
 		$this->create_menu_item( __( 'Party' ), $this->taxonomies['party'], $term );
 	}
-	
+
 	public function create_constituency( $term_id, $tt_id ) {
 		$term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );
 		if ( $term['parent'] == 0 ) {
 			$this->create_menu_item( __( 'Constituency' ), $this->taxonomies['constituency'], $term );
 		}
 	}
-	
+
 	public function edited_constituency( $term_id, $tt_id ) {
 		$term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );
 		$menu_item_id = $this->get_menu_item( $this->taxonomies['constituency'], $term );
@@ -489,7 +499,7 @@ class Election_Data_Candidate {
 			$this->create_menu_item( __( 'Constituency' ), $this->taxonomies['constituency'], $term );
 		}
 	}
-	
+
 	public function get_menu_item( $taxonomy, $term ) {
 		$menu_name = __( 'Election Data Navigation Menu' );
 		$menu = wp_get_nav_menu_object( $menu_name );
@@ -503,10 +513,10 @@ class Election_Data_Candidate {
 				}
 			}
 		}
-		
+
 		return 0;
 	}
-	
+
 	public function create_menu_item( $parent_menu_item_name, $taxonomy, $term ) {
 		$menu_name = __( 'Election Data Navigation Menu' );
 		$menu = wp_get_nav_menu_object( $menu_name );
@@ -516,7 +526,7 @@ class Election_Data_Candidate {
 				if ( $parent_menu_item_name == $menu_item->title ) {
 					$args = array(
 						'menu-item-title' => $term['name'],
-						'menu-item-parent-id' => $menu_item->ID, 
+						'menu-item-parent-id' => $menu_item->ID,
 						'menu-item-status' => 'publish',
 						'menu-item-object' => $taxonomy,
 						'menu-item-object-id' => $term['term_id'],
@@ -527,9 +537,9 @@ class Election_Data_Candidate {
 					break;
 				}
 			}
-		}			
+		}
 	}
-	
+
 	/**
 	 * Exports the candidates, parties and constituencies to a single xml file.
 	 *
@@ -540,7 +550,7 @@ class Election_Data_Candidate {
 	 */
 	public function export_xml( $xml ) {
 	}
-	
+
 	/**
 	 * Exports the candidates to a csv file.
 	 *
@@ -554,15 +564,15 @@ class Election_Data_Candidate {
 			'post_title' => 'name',
 			'post_name' => 'slug',
 		);
-		
-		$taxonomies = array( 
+
+		$taxonomies = array(
 			$this->taxonomies['party'] => 'party',
 			$this->taxonomies['constituency'] => 'constituency'
 		);
-		
+
 		Post_Export::export_post_csv( $csv, $this->post_type, $this->custom_post->post_meta, $post_fields, 'photo', $taxonomies );
 	}
-	
+
 	/**
 	 * Exports the parties to a csv file
 	 *
@@ -573,10 +583,10 @@ class Election_Data_Candidate {
 	 */
 	protected function export_party_csv( $csv ) {
 		$party_fields = array( 'name', 'slug', 'description' );
-		
+
 		Post_Export::export_taxonomy_csv( $csv, 'party', $this->taxonomies['party'], $party_fields, $this->custom_post->taxonomy_meta['party'] );
 	}
-	
+
 	/**
 	 * Exports the constituencies to a csv file.
 	 *
@@ -587,10 +597,10 @@ class Election_Data_Candidate {
 	 */
 	protected function export_constituency_csv( $csv ) {
 		$constituency_fields = array( 'name', 'slug', 'parent' );
-		
+
 		Post_Export::export_taxonomy_csv( $csv, 'constituency', $this->taxonomies['constituency'], $constituency_fields, $this->custom_post->taxonomy_meta['constituency'], 0 );
 	}
-	
+
 	/**
 	 * Exports the candidates, parites or constituencies to a csv file
 	 *
@@ -606,11 +616,11 @@ class Election_Data_Candidate {
 		fclose( $file );
 		return $file_name;
 	}
-	
+
 	/**
 	 * Imports the candidates from a csv file
 	 *
-	 * @access protected 
+	 * @access protected
 	 * @since 1.0
 	 * @param file_handle $csv
 	 * @param string $mode
@@ -621,15 +631,15 @@ class Election_Data_Candidate {
 			'post_title' => 'name',
 			'post_name' => 'slug',
 		);
-		
-		$taxonomies = array( 
+
+		$taxonomies = array(
 			$this->taxonomies['party'] => 'party',
 			$this->taxonomies['constituency'] => 'constituency'
 		);
-		
+
 		return Post_import::import_post_csv( $csv, $mode, $this->post_type, $this->custom_post->post_meta, $post_fields, 'photo', $taxonomies );
 	}
-	
+
 	/**
 	 * Imports the parties from a CSV file.
 	 *
@@ -644,11 +654,11 @@ class Election_Data_Candidate {
 		$required_fields = array( 'name', 'description' );
 		return Post_Import::import_taxonomy_csv( $csv, $mode, 'party', $this->taxonomies['party'], $party_fields, $this->custom_post->taxonomy_meta['party'], null, array(), $required_fields );
 	}
-	
+
 	/**
 	 * Imports the constituencies from a CSV file.
 	 *
-	 * @access protected 
+	 * @access protected
 	 * @since 1.0
 	 * @param file_handle $csv
 	 * @param string $mode
@@ -657,10 +667,10 @@ class Election_Data_Candidate {
 	protected function import_constituency_csv( $csv, $mode ) {
 		$constituency_fields = array( 'name', 'slug' );
 		$parent_field = 'parent';
-		
+
 		return Post_Import::import_taxonomy_csv( $csv, $mode, 'constituency', $this->taxonomies['constituency'], $constituency_fields, $this->custom_post->taxonomy_meta['constituency'], $parent_field );
 	}
-	
+
 	/**
 	 * Imports the candidates, constituencies or parties from a CSV file.
 	 *
@@ -674,7 +684,7 @@ class Election_Data_Candidate {
 	public function import_csv( $type, $csv, $mode ) {
 		return call_user_func( array( $this, "import_{$type}_csv" ), $csv, $mode );
 	}
-	
+
 	/**
 	 * Erases all candidates, parties and constituencies from the database.
 	 * @access public
