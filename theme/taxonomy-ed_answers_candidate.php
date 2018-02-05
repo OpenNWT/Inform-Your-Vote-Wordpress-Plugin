@@ -28,14 +28,14 @@ $party = get_party_from_candidate( $candidate_id );
 $constituency = get_constituency_from_candidate( $candidate_id );
 
 
-get_header(); 
+get_header();
 
 add_filter('mce_buttons','my_editor_buttons',10,2);
 add_filter('tiny_mce_before_init','tinymce_call_wordcount',10,2);
 
 function tinymce_call_wordcount(array $init) {
 	$init['setup'] = "function(ed){
-		ed.on('KeyUp', function(){ 
+		ed.on('KeyUp', function(){
 			handle_word_count(this.getContent(),this.id);
 		});
 		ed.on('Init', function() {
@@ -69,7 +69,7 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 			<form id="candidate" class="post-edit front-end-form" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="candidate_id" value="<?php echo $answer_candidate->term_id; ?>" />
 				<?php wp_nonce_field( "update_candidate_qanda_{$answer_candidate->term_id}", 'update_candidate_qanda_nonce' ); ?>
-				
+
 				<?php foreach ( $questions as $answer_id => $question ) : ?>
 					<p><strong><?php echo $question; ?></strong></p>
 					<p class="word-count" id="question_<?php echo $answer_id; ?>_count">Word Count: <span class="total">0</span>

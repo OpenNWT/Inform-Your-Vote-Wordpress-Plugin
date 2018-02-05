@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $party = get_party( get_queried_object() );
 $party_id = $party['id'];
@@ -36,7 +36,7 @@ get_header(); ?>
 	<div class="two_column_flow">
 		<div class="flow_it">
 			<div class="parties">
-				<?php display_party( $party ); ?>	
+				<?php display_party( $party ); ?>
 			</div>
 			<?php if ( $leader_query->post_count > 0 ) : ?>
 				<div class="politicians">

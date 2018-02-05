@@ -10,7 +10,7 @@
  * @package    Election_Data
  * @subpackage Election_Data/includes
  */
- 
+
 require_once plugin_dir_path( __FILE__ ) . 'class-custom-post.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
@@ -43,7 +43,7 @@ class Election_Data_Answer {
 	 *
 	 */
 	protected $custom_post;
-	
+
 	/**
 	 * The definition of the taxonomy names.
 	 *
@@ -53,7 +53,7 @@ class Election_Data_Answer {
 	 *
 	 */
 	public $taxonomies;
-	
+
 	/**
 	 * Stores the name of the custom post type.
 	 *
@@ -85,7 +85,7 @@ class Election_Data_Answer {
 	public function __construct( $define_hooks = true ) {
 		global $ed_post_types;
 		global $ed_taxonomies;
-		
+
 		$this->post_type = $ed_post_types['answer'];
 		$this->taxonomies = array(
 			'question' => $ed_taxonomies['answer_question'],
@@ -240,14 +240,14 @@ class Election_Data_Answer {
 				),
 			),
 		);
-		
+
 		$this->custom_post = new ED_Custom_Post_Type( $this->post_type, $args, $define_hooks );
 
 		if ( $define_hooks ) {
 			$this->define_hooks();
 		}
 	}
-	
+
 	/**
 	 * Allows the 'token' query var to be used to allow editing of the questionnaire answers.
 	 *
@@ -259,7 +259,7 @@ class Election_Data_Answer {
 		$vars[] = 'token';
 		return $vars;
 	}
-	
+
 	/**
 	 * Initializes the custom_post and taxonomies (Used during activation)
 	 *
@@ -270,7 +270,7 @@ class Election_Data_Answer {
 	public function initialize() {
 		$this->custom_post->initialize();
 	}
-	
+
 	/**
 	 * Updates and returns the candidate taxonomy for answers. If a term doesn't exists, it is created.
 	 * Terms for candidates that no longer exist are removed.
@@ -287,16 +287,16 @@ class Election_Data_Answer {
 			'parent' => 0,
 		);
 		$existing_terms = get_terms( $this->taxonomies['candidate'], $args );
-		
+
 		$args = array(
 			'post_type' => $ed_post_types['candidate'],
 			'nopaging' => true,
 			'post_status' => 'publish',
 		);
 		$query = new WP_Query( $args );
-		
+
 		$candidate_terms = array();
-		
+
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$post = $query->post;
@@ -308,7 +308,7 @@ class Election_Data_Answer {
 			$candidate_id = (int) get_post_meta( $post->ID, 'qanda_candidate_id', true );
 			if ( empty( $candidate_id ) || !isset( $existing_terms[$candidate_id] ) ) {
 				$term = wp_insert_term( $name, $this->taxonomies['candidate'] );
-				
+
 				update_tax_meta( $term['term_id'], 'candidate_id', $post->ID );
 				update_post_meta( $post->ID, 'qanda_candidate_id', $term['term_id'] );
 				$candidate_terms[$term['term_id']] = $name;
@@ -325,10 +325,10 @@ class Election_Data_Answer {
 		{
 			wp_delete_term( $id, $this->taxonomies['candidate'] );
 		}
-		
+
 		return $candidate_terms;
 	}
-	
+
 	/**
 	 * Updates and returns the party taxonomy for answers. If a term doesn't exists, it is created.
 	 * Terms for parties that no longer exist are removed.
@@ -344,7 +344,7 @@ class Election_Data_Answer {
 			'hide_empty' => false,
 			'parent' => 0,
 		);
-		
+
 		$existing_terms = get_terms( $this->taxonomies['party'], $args );
 		$candidate_party_terms = get_terms( $ed_taxonomies['candidate_party'], $args );
 
@@ -365,15 +365,15 @@ class Election_Data_Answer {
 				unset ( $existing_terms[$qanda_party_id] );
 			}
 		}
-		
+
 		foreach ( $existing_terms as $id => $name )
 		{
 			wp_delete_term( $id, $this->taxonomies['party'] );
 		}
-		
+
 		return $party_terms;
 	}
-	
+
 	/**
 	 * Ajax call to create answer posts.
 	 *
@@ -386,7 +386,7 @@ class Election_Data_Answer {
 		$this->create_answers();
 		wp_die();
 	}
-	
+
 	/**
 	 * Ensures that an answer post has been created for each question for each candidate/party.
 	 *
@@ -403,7 +403,7 @@ class Election_Data_Answer {
 		$questions = get_terms( $this->taxonomies['question'], $args );
 		$candidates = $this->get_candidate_taxonomy_terms();
 		$parties = $this->get_party_taxonomy_terms();
-		
+
 		foreach ( $questions as $question_id => $question_name ) {
 			$is_party = get_tax_meta( $question_id, 'party' );
 			$term_ids = $is_party ? $parties : $candidates;
@@ -415,7 +415,7 @@ class Election_Data_Answer {
 					'posts_per_page' => 1,
 					'tax_query' => array(
 						'relation' => 'AND',
-						array( 
+						array(
 							'taxonomy' => $taxonomy,
 							'field' => 'term_id',
 							'terms' => $term_id,
@@ -441,7 +441,7 @@ class Election_Data_Answer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Defines the action and filter hooks used by the class.
 	 *
@@ -459,9 +459,9 @@ class Election_Data_Answer {
 		add_action( 'wp_ajax_election_data_reset_party_questionnaire', array( $this, 'ajax_reset_party_questionnaire' ) );
 		add_action( 'wp_ajax_election_data_reset_candidate_questionnaire', array( $this, 'ajax_reset_candidate_questionnaire' ) );
         add_action( 'wp_ajax_election_data_reset_questionnaire_unanswered', array( $this, 'ajax_reset_questionnaire_unanswered' ) );
-	}	
+	}
 
-	
+
 	/**
 	 * Exports the candidates, parties and constituencies to a single xml file.
 	 *
@@ -472,29 +472,29 @@ class Election_Data_Answer {
 	 */
 	public function export_xml( $xml ) {
 	}
-	
-	
+
+
 	public function export_answer_csv( $csv ) {
 		$post_fields = array(
 			'post_title' => 'name',
 			'post_name' => 'slug',
 		);
-		
-		$taxonomies = array( 
+
+		$taxonomies = array(
 			$this->taxonomies['question'] => 'question',
 			$this->taxonomies['candidate'] => 'candidate',
 			$this->taxonomies['party'] => 'party',
 		);
-		
+
 		Post_Export::export_post_csv( $csv, $this->post_type, $this->custom_post->post_meta, $post_fields, null, $taxonomies );
 	}
-	
+
 	protected function export_question_csv( $csv ) {
 		$question_fields = array( 'name', 'slug', 'description' );
-		
+
 		Post_Export::export_taxonomy_csv( $csv, 'question', $this->taxonomies['question'], $question_fields, $this->custom_post->taxonomy_meta['question'] );
 	}
-	
+
 	/**
 	 * Exports the candidates, parites or constituencies to a csv file
 	 *
@@ -510,7 +510,7 @@ class Election_Data_Answer {
 		fclose( $file );
 		return $file_name;
 	}
-	
+
 	public function get_term_by_slug_or_name( $label, $taxonomy ) {
 		$term = get_term_by( 'slug', $label, $taxonomy );
 		if ( empty( $term ) ) {
@@ -582,13 +582,13 @@ class Election_Data_Answer {
 				$terms[$this->taxonomies['candidate']] = $candidate;
 				$title = "{$candidate->name}";
 			}
-			
+
 			$title = "{$question->name}: $title";
 			$post_fields = array(
 				'post_title' => 'title',
 				'post_content' => 'answer',
 			);
-			$post_data = array( 
+			$post_data = array(
 				'title' => $title,
 				'answer' => $data['answer'],
 			);
@@ -596,7 +596,7 @@ class Election_Data_Answer {
 			if ( ! $post ) {
 				continue;
 			}
-			
+
 			foreach ( $terms as $taxonomy_name => $term ) {
 				$existing_terms = wp_get_post_terms( $post->ID, $taxonomy_name, array( 'fields' => 'ids' ) );
 				if ( 'overwite' == $mode || !$existing_terms ) {
@@ -626,7 +626,7 @@ class Election_Data_Answer {
 	public function import_csv( $type, $csv, $mode ) {
 		return call_user_func( array( $this, "import_{$type}_csv" ), $csv, $mode );
 	}
-	
+
 	public function send_email( $message_contents ){
 		require_once 'Html2Text.php';
 		require_once ABSPATH . WPINC . '/class-phpmailer.php';
@@ -656,10 +656,10 @@ class Election_Data_Answer {
 		$mail->Send();
 		$this->emails_sent++;
 	}
-	
+
 	public function get_pattern_replacements( $type, $term ) {
 		global $ed_taxonomies;
-		
+
 		$replacements = array();
 		switch( $type ) {
 			case 'party':
@@ -696,10 +696,10 @@ class Election_Data_Answer {
 			$pattern[] = "/\*$old\*/";
 			$replace[] = $new;
 		}
-		
+
 		return array( 'pattern' => $pattern, 'replacement' => $replace );
 	}
-		
+
 	public function email_party_questions() {
 		global $ed_taxonomies;
 		$email_limit = intval( Election_Data_Option::get_option( 'email-limit' ) );
@@ -717,7 +717,7 @@ class Election_Data_Answer {
 			if ( get_tax_meta( $party_id, 'qanda_sent' ) ) {
 				continue;
 			}
-			
+
 			$party = get_term( $party_id, $ed_taxonomies['candidate_party'] );
 			$replacements = $this->get_pattern_replacements( 'party', get_term( $answer_party_id, $this->taxonomies['party'] ) );
 			$pattern = $replacements['pattern'];
@@ -735,7 +735,7 @@ class Election_Data_Answer {
 			}
 		}
 	}
-	
+
 	public function email_candidate_questions() {
 		$email_limit = intval( Election_Data_Option::get_option( 'email-limit' ) );
 		$email_delay = intval( Election_Data_Option::get_option( 'email-delay' ) ) * 1000;
@@ -761,7 +761,7 @@ class Election_Data_Answer {
 			if ( get_post_meta( $candidate_id, 'qanda_sent', true ) ) {
 				continue;
 			}
-			
+
 			$candidate = get_post( $candidate_id );
 			$replacements = $this->get_pattern_replacements( 'candidate', get_term( $answer_candidate_id, $this->taxonomies['candidate'] ) );
 			$pattern = $replacements['pattern'];
@@ -779,23 +779,23 @@ class Election_Data_Answer {
 			}
 		}
 	}
-	
+
 	public function ajax_send_all_email() {
 		$this->email_candidate_questions();
 		$this->email_party_questions();
 		wp_die();
 	}
-    
+
     public function ajax_send_candidate_email() {
         $this->email_candidate_questions();
         wp_die();
     }
-    
+
     public function ajax_send_party_email() {
         $this->email_party_questions();
         wp_die();
     }
-    
+
 	public function reset_party_questionnaire( $only_unanswered = false ) {
 		global $ed_taxonomies;
 		global $ed_post_types;
@@ -804,7 +804,7 @@ class Election_Data_Answer {
 			'fields' => 'ids',
 		);
 		$term_ids = get_terms( $ed_taxonomies['candidate_party'], $args );
-        if ( $only_unanswered ) { 
+        if ( $only_unanswered ) {
             foreach ( $term_ids as $term_id ) {
                 $answers = get_qanda_answers( 'party', $term_id );
                 if ( count ( $answers ) == 0 ) {
@@ -842,23 +842,23 @@ class Election_Data_Answer {
         }
 	}
 
-	
+
 	public function ajax_reset_party_questionnaire() {
 		$this->reset_party_questionnaire();
 		wp_die();
 	}
-	
+
 	public function ajax_reset_candidate_questionnaire() {
 		$this->reset_candidate_questionnaire();
 		wp_die();
 	}
-    
+
     public function ajax_reset_questionnaire_unanswered() {
         $this->reset_party_questionnaire( true );
         $this->reset_candidate_questionnaire( true );
         wp_die();
     }
-	
+
 	/**
 	 * Erases all candidates, parties and constituencies from the database.
 	 * @access public

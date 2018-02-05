@@ -1,4 +1,4 @@
-<?php 
+<?php
 global $ed_taxonomies;
 $answer_party = get_queried_object();
 $party = get_candidate_party_from_answer_party( $answer_party );
@@ -25,7 +25,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 
 $has_qanda = count( $party['answers'] ) > 0;
 
-get_header(); 
+get_header();
 add_filter('mce_buttons','my_editor_buttons',10,2);
 add_filter('tiny_mce_before_init','tinymce_call_wordcount',10,2);
 
@@ -54,7 +54,7 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 	<div class="one_column_flow">
 		<div class="flow_it">
 			<div class="parties">
-				<?php display_party( $party ); ?>	
+				<?php display_party( $party ); ?>
 			</div>
 		</div>
 	</div>
@@ -65,7 +65,7 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 			<form id="party" class="post-edit front-end-form" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="party_id" value="<?php echo $answer_party->term_id; ?>" />
 				<?php wp_nonce_field( "update_party_qanda_{$answer_party->term_id}", 'update_party_qanda_nonce' ); ?>
-				
+
 				<?php foreach ( $questions as $answer_id => $question ) : ?>
 					<p><strong><?php echo $question; ?></strong></p>
 					<p class="word-count" id="question_<?php echo $answer_id; ?>_count">Word Count: <span class="total">0</span>

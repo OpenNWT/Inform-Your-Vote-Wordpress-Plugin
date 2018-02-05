@@ -3,7 +3,7 @@ jQuery(document).ready( function($) {
 		if ( !tm_load_button_ajax.hasOwnProperty( id ) ) {
 			continue;
 		}
-		
+
 		$( '#' + id + '_button' ).click( ( function( id, action ) {
 			return function(event) {
 				var ajaxdata = {

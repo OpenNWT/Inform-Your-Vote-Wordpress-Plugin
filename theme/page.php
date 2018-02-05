@@ -12,9 +12,9 @@
  * @package Election_Data_Theme
  * @since Election_Data_Theme 1.0
  */
- 
+
 get_header(); ?>
- 
+
         <div id="primary" class="content-area">
             <div id="content" class="site-content" role="main">
 				<?php if ( have_posts()) :
@@ -23,9 +23,9 @@ get_header(); ?>
                         the_content();
                     endwhile;
                 endif; ?>
-			
+
             </div><!-- #content .site-content -->
         </div><!-- #primary .content-area -->
- 
+
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
