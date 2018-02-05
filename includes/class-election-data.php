@@ -22,7 +22,7 @@
   */
  global $ed_post_types;
  $ed_post_types = array();
- 
+
  /**
   * Stores the names of the taxonomies defined by the Election Data plugin.
   *
@@ -32,7 +32,7 @@
   */
  global $ed_taxonomies;
  $taxonomies = array();
- 
+
 /**
  * The core plugin class.
  *
@@ -76,13 +76,13 @@ class Election_Data {
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
-	
+
 	protected $candidate;
-	
+
 	protected $news_artice;
-	
+
 	protected $answer;
-		
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -103,9 +103,9 @@ class Election_Data {
 		$this->define_public_hooks();
 
 		$this->candidate = new Election_Data_Candidate();
-		
+
 		$this->news_article = new Election_Data_News_Article();
-		
+
 		$this->answer = new Election_Data_Answer();
 	}
 
@@ -156,11 +156,11 @@ class Election_Data {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-election-data-sanitization-helper.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-election-data-settings-definition.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-election-data-settings.php';
-		
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-candidate.php';
-		
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-activator.php';
-		
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-news-article.php';
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-answer.php';
@@ -277,13 +277,13 @@ class Election_Data {
 	public function get_version() {
 		return $this->version;
 	}
-	
+
 	public function remove_menus() {
 		remove_menu_page( 'edit.php' );
 		remove_menu_page( 'edit-comments.php' );
 		remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
-	
+
 	public static function import_csv( $csv, $mode ) {
 		$headings = fgetcsv( $csv );
 		$found = true;
@@ -291,11 +291,11 @@ class Election_Data {
 		foreach ( $fields as $field ) {
 			$found |= in_array( $field, $headings );
 		}
-		
+
 		if ( ! $found ) {
 			return false;
 		}
-		$importable_settings = array( 
+		$importable_settings = array(
 			'plugin' => array(
 				'location' => '',
 				'time' => '',
@@ -320,7 +320,7 @@ class Election_Data {
 				'date_format' => '',
 				'posts_per_page' => '',
 				'permalink_structure' => '',
-				
+
 			),
 		);
 		while ( ( $data = fgetcsv( $csv ) ) !== false ) {
@@ -344,16 +344,16 @@ class Election_Data {
 				}
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public static function import( $file_type, $file_data, $mode ) {
 		set_time_limit( 60 * 60 );
 		$candidate = new Election_Data_Candidate( false );
 		$news_article = new Election_Data_News_Article( false );
 		$answer = new Election_Data_Answer( false );
-		
+
 		$file_name = $file_data['tmp_name'];
 
 		switch ( $file_type ) {
@@ -377,8 +377,8 @@ class Election_Data {
 					$zip->close();
 					return false;
 				}
-				
-				
+
+
 				foreach ( $candidate_types as $type ) {
 					$csv = $zip->getStream( "$type.csv" );
 					$success |= $candidate->import_csv( $type, $csv, $mode );
@@ -386,7 +386,7 @@ class Election_Data {
 					wp_cache_flush();
 					gc_collect_cycles();
 				}
-				
+
 				foreach( $news_types as $type ) {
 					$csv = $zip->getStream( "$type.csv" );
 					$success |= $news_article->import_csv( $type, $csv, $mode );
@@ -394,7 +394,7 @@ class Election_Data {
 					wp_cache_flush();
 					gc_collect_cycles();
 				}
-				
+
 				foreach ($answer_types as $type ) {
 					$csv = $zip->getStream( "$type.csv" );
 					$success |= $answer->import_csv( $type, $csv, $mode );
@@ -402,7 +402,7 @@ class Election_Data {
 					wp_cache_flush();
 					gc_collect_cycles();
 				}
-				
+
 				$csv = $zip->getStream( 'settings.csv' );
 				$success != self::import_csv( $csv, $mode );
 				$zip->close();
@@ -435,13 +435,13 @@ class Election_Data {
 				$success = false;
 				break;
 		}
-		
+
 		return $success;
 	}
-	
+
 	public static function export_xml( $xml ) {
 	}
-	
+
 	public static function export_csv() {
 		plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-option.php';
 		plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-post-export.php';
@@ -451,7 +451,7 @@ class Election_Data {
 		$headings_data = array_combine( $headings, $headings );
 		Post_Export::write_csv_row( $csv, $headings_data, $headings );
 		$exportable_settings = array(
-			'plugin' => array( 
+			'plugin' => array(
 				array( 'Election_Data_Option', 'get_option' ),
 				array ( 'location', 'time', 'frequency', 'summary', 'facebook-page', 'twitter', 'google-plus-one', 'constituency-label', 'constituency-subtext', 'party-label', 'party-subtet', 'news-count-front', 'news-count-party', 'news-count-party_leader', 'news-count-candidate' ),
 			),
@@ -471,7 +471,7 @@ class Election_Data {
 		fclose( $csv );
 		return $file_name;
 	}
-	
+
 	public static function export( $file_type ) {
 		set_time_limit( 60 * 60 );
 		$candidate = new Election_Data_Candidate( false );
@@ -518,7 +518,7 @@ class Election_Data {
 				$csv_file = self::export_csv();
 				$zip->addFile( $csv_file, 'settings.csv' );
 				$csv_files[] = $csv_file;
-				
+
 				$zip->close();
 				foreach ( $csv_files as $csv_file ) {
 					unlink( $csv_file );
@@ -557,7 +557,7 @@ class Election_Data {
 			default:
 				return;
 		}
-		
+
 		header( "Content-Type: $content_type" );
 		header( 'Content-Length: ' . filesize( $file ) );
 		header( "Content-Disposition: attachment; filename=\"$file_name\"" );
@@ -565,7 +565,7 @@ class Election_Data {
 		unlink( $file );
 		exit();
 	}
-	
+
 	function erase_data()
 	{
 		$this->candidate->erase_data();
@@ -573,12 +573,12 @@ class Election_Data {
 		$this->answer->erase_data();
 		wp_die();
 	}
-	
+
 	public function set_main_query_parameters( $query ) {
 		if ( is_admin() || ! $query->is_main_query() ) {
 			return;
 		}
-		
+
 		if ( is_search() ) {
 			$query->set( 'orderby', array( 'post_type', 'date' ) );
 			$query->set( 'order', array( 'ASC', 'DESC' ) );

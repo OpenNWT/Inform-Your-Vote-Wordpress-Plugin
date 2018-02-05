@@ -9,25 +9,25 @@ jQuery(document).ready( function($) {
 		var x = $( query );
 		$( query ).hide();
 	}
-	
+
 	for ( var field in tm_rename_fields ) {
 		if ( !tm_rename_fields.hasOwnProperty( field ) ) {
 			continue;
 		}
-		
+
 		var label = tm_rename_fields[field];
 		query = ' .term-' + field + '-wrap label, .column-' + field + ' a span';
 		var x = $( query );
 		$( query ).text(label);
 	}
-	
+
 	$( document ).ajaxComplete(function( event, xhr, settings ) {
       try{
         respo = $.parseXML(xhr.responseText);
-      
+
         //exit on error
         if ($(respo).find('wp_error').length) return;
-        
+
         $(respo).find('response').each(function(i,e){
           if ($(e).attr('action').indexOf("add-tag") > -1){
             var tid = $(e).find('term_id');

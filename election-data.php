@@ -73,4 +73,3 @@ function run_election_data() {
 
 }
 run_election_data();
-	

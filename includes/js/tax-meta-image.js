@@ -5,14 +5,14 @@ jQuery(document).ready( function($) {
 		if ( !tm_image_data.hasOwnProperty( image ) ) {
 			continue;
 		}
-		
+
 		$( '#' + label + '_add' ).click( ( function( label, media_frames, image ) {
 			return function( event ) {
 				if ( image in media_frames ) {
 					media_frames[image].open();
 					return;
 				}
-				
+
 				media_frames[image] = wp.media({
 					title: '',
 					button: {
@@ -20,7 +20,7 @@ jQuery(document).ready( function($) {
 					},
 					multiple: false  // Set to true to allow multiple files to be selected
 				} );
-				
+
 				media_frames[image].on( 'select', function() {
 					// Get media attachment details from the frame state
 					var attachment = media_frames[image].state().get( 'selection' ).first().toJSON();
@@ -29,7 +29,7 @@ jQuery(document).ready( function($) {
 					$( '#' + label + '_add' ).addClass( 'hidden' );
 					$( '#' + label + '_del' ).removeClass( 'hidden' );
 				} );
-				
+
 				media_frames[image].open();
 			};
 		} )( label, media_frames, image ) );

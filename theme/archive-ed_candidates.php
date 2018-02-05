@@ -4,7 +4,7 @@
  *
  */
 
-get_header(); 
+get_header();
 
 ?>
 <div id="primary">

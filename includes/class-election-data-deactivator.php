@@ -32,10 +32,10 @@ class Election_Data_Deactivator {
 	public static function deactivate() {
 		flush_rewrite_rules();
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-news-article.php';
-		
+
 		$news_articles = new Election_Data_News_Article( '', '', false );
 		$news_articles->stop_cron();
-		
+
 		$previous_theme = Election_Data_Option::get_option( 'previous_theme' );
 		if ( $previous_theme ) {
 			$theme = wp_get_theme( $previous_theme );

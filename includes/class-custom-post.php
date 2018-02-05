@@ -10,14 +10,14 @@
  * @package    Election_Data
  * @subpackage Election_Data/includes
  */
- 
+
 require_once plugin_dir_path( __FILE__ ) . 'class-post-meta.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-taxonomy-meta.php';
 
 
 /**
  * The custom post class.
- * This class takes care of everything required to define the custom post type, 
+ * This class takes care of everything required to define the custom post type,
  * and display it's fields during creation and editting in the admin interface.
  *
  *
@@ -27,7 +27,7 @@ require_once plugin_dir_path( __FILE__ ) . 'class-taxonomy-meta.php';
  * @author     Robert Burton <RobertBurton@gmail.com>
  */
 class ED_Custom_Post_Type {
-	
+
 	/**
 	 * The name of the custom post.
 	 *
@@ -37,7 +37,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	 protected $post_type;
-	 
+
 	/**
 	 * The definition of the custom post type.
 	 *
@@ -47,7 +47,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $custom_post_args;
-	
+
 	/**
 	 * The definition of the taxonomies associated with the custom post type.
 	 *
@@ -57,7 +57,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $taxonomy_args;
-	
+
 	/**
 	 * The Post_Meta object that takes care of the custom post type's meta data.
 	 *
@@ -67,7 +67,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	public $post_meta;
-	
+
 	/**
 	 * The Taxonomy_Meta object that takes care of the taxonomy meta data.
 	 *
@@ -77,7 +77,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	public $taxonomy_meta;
-	
+
 	/**
 	 * The existing admin columns that will have their name changed.
 	 *
@@ -87,7 +87,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $admin_column_names;
-	 
+
 	/**
 	 * The existing admin columns that will be hidden.
 	 *
@@ -97,7 +97,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $hidden_admin_columns;
-	
+
 	/*
 	 * The existing filters that will be removed from the administrative interface.
 	 * (Currently only the date filter is supported)
@@ -108,7 +108,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $hidden_admin_filters;
-	 
+
 	/**
 	 * The taxonomies for which to show a filter.
 	 *
@@ -118,7 +118,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $taxonomy_filters;
-	
+
 	/**
 	 * The taxonomies for which the column in the admin interface is sortable.
 	 *
@@ -128,7 +128,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $sortable_taxonomies;
-	
+
 	/**
 	 *
 	 * The taxonomies that are displayed in the admin column.
@@ -139,7 +139,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $taxonomy_admin_columns;
-	
+
 	/**
 	 * The existing admin quick-edit/bulk-edit/edit/add fields that will have their name changed.
 	 *
@@ -149,7 +149,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $admin_field_names;
-	
+
 	/**
 	 * The existing admin quick-edit/bulk-edit/edit/add fields that will be hidden.
 	 *
@@ -159,7 +159,7 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	protected $hidden_admin_fields;
-	 
+
 	/**
 	 * Constructur
 	 *
@@ -187,12 +187,12 @@ class ED_Custom_Post_Type {
 			}
 		}
 		$this->meta_filters = empty( $args['meta_filters'] ) ? array() : $args['meta_filters'];
-		
+
 		$this->sortable_taxonomies = empty( $args['sortable_taxonomies'] ) ? array() : $args['sortable_taxonomies'];
-		
+
 		if ( ! empty( $args['custom_post_meta'] ) ) {
 			$custom_post_meta = $args['custom_post_meta'];
-			$this->post_meta = new Post_Meta( 
+			$this->post_meta = new Post_Meta(
 				$custom_post_meta['meta_box'],
 				$custom_post_meta['fields'],
 				isset( $custom_post_meta['admin_columns'] ) ? $custom_post_meta['admin_columns'] : array(),
@@ -201,21 +201,21 @@ class ED_Custom_Post_Type {
 		} else {
 			$this->post_meta = null;
 		}
-		
+
 		$this->taxonomy_meta = array();
 		foreach ( $taxonomy_meta as $name => $tax_meta_config ) {
 			$this->taxonomy_meta[$name] = new Tax_Meta( $tax_meta_config, $define_hooks );
 		}
-		
+
 		if ( $define_hooks ) {
 			$this->define_hooks();
 		}
 	}
-	
+
 	function taxonomy_radio_meta_box ($post, $box) {
 		echo "Needs to be written."; // See post_categories_meta_box in wordpress/admin/includes/meta_boxes.php, wp_terms_checklist in wordpress/admin/includes/template.php and Walker_Category_Checklist in wordpress/admin/includes/template.php for ideas on how to implement.
 	}
-	
+
 	/**
 	 * Registers the custom post type and the taxonomies with WordPress.
 	 *
@@ -231,7 +231,7 @@ class ED_Custom_Post_Type {
 					$taxonomy['meta_box_cb'] = array( $this, 'taxonomy_radio_meta_box' );
 				}
 			}
-			
+
 			register_taxonomy( $taxonomy_name, $this->post_type, $taxonomy );
 			if ( isset( $this->taxonomy_filters[$taxonomy_name] ) ) {
 				if ( isset( $taxonomy['query_var'] ) ){
@@ -246,15 +246,15 @@ class ED_Custom_Post_Type {
 			}
 			if ( isset( $taxonomy['show_admin_column'] ) && $taxonomy['show_admin_column'] ) {
 				$this->taxonomy_admin_columns[$taxonomy_name] = '';
-			}				
+			}
 		}
 	}
-	
+
 	/**
 	 * Changes the Enter Title Here in the add/edit screen to the requested value.
 	 * If the field name 'enter_title_here' has been defined, will use it, otherwise
 	 * the 'title' field is uses. If neither are available, nothing is changed.
-	 * 
+	 *
 	 * @since 1.0
 	 * @access public
 	 * @param string $label
@@ -263,7 +263,7 @@ class ED_Custom_Post_Type {
 	public function update_title( $label )
 	{
 		global $post_type;
-	
+
 		if ( is_admin() && $this->post_type == $post_type )
 		{
 			if ( isset( $this->admin_field_names['enter_title_here'] ) ) {
@@ -272,10 +272,10 @@ class ED_Custom_Post_Type {
 				return $this->admin_field_names['title'];
 			}
 		}
-		
+
 		return $label;
 	}
-	
+
 
 	/**
 	 * Identifies the columns to display in the administrative interface.
@@ -291,16 +291,16 @@ class ED_Custom_Post_Type {
 				$columns[$column_name] = $title;
 			}
 		}
-		
+
 		if ( ! empty( $this->hidden_admin_columns ) ) {
 			foreach ( $this->hidden_admin_columns as $column_name ) {
 				unset( $columns[$column_name] );
 			}
 		}
-		
+
 		return $columns;
 	}
-	
+
 	/**
 	 * Identifies the sortable columns in the administrative interface.
 	 *
@@ -315,17 +315,17 @@ class ED_Custom_Post_Type {
 				$columns["taxonomy-$taxonomy"] = "taxonomy-$taxonomy";
 			}
 		}
-		
+
 		return $columns;
 	}
-	
+
 	/**
-	 * If the orderby has been set to taxonomy-{taxonomy_name}, 
+	 * If the orderby has been set to taxonomy-{taxonomy_name},
 	 * update the sql query clauses so that the results are sorted using the name field of the taxonomy.
 	 *
 	 * @since 1.0
 	 * @access public
-	 * @param array $clauses 
+	 * @param array $clauses
 	 * @param object $wp_query
 	 *
 	 */
@@ -346,11 +346,11 @@ SQL;
 				}
 			}
 		}
-		
-		
+
+
 		return $clauses;
 	}
-	
+
 	/**
 	 * Removes the date filter from the admin column.
 	 *
@@ -363,10 +363,10 @@ SQL;
 		if ( $this->post_type == get_post_type() ) {
 			return array();
 		}
-		
+
 		return $vars;
 	}
-	
+
 	/**
 	 * Adds taxonomy filters to the admin screen.
 	 *
@@ -377,7 +377,7 @@ SQL;
 	public function add_filters() {
 		$screen = get_current_screen();
 		global $wp_query;
-		
+
 		if ( $this->post_type == $screen->post_type ) {
 			foreach ( $this->taxonomy_filters as $taxonomy_name => $query) {
 				$selected = '';
@@ -387,7 +387,7 @@ SQL;
 						$selected = (int)$term->term_id;
 					}
 				}
-				
+
 				$args = array(
 					'show_option_all' => "All {$this->taxonomy_args[$taxonomy_name]['labels']['name']}",
 					'taxonomy' => $taxonomy_name,
@@ -400,12 +400,12 @@ SQL;
 					'hide_empty' => false,
 					'value_field' => 'slug'
 				);
-				
+
 				wp_dropdown_categories( $args );
 			}
 		}
 	}
-	
+
 	/**
 	 * Localizes and enqueues the quick-edit javascript file if hiding or renaming quick/bulk edit feilds.
 	 *
@@ -415,7 +415,7 @@ SQL;
 	 */
 	public function setup_admin_scripts() {
 		global $current_screen;
-		
+
 		if ( $current_screen->id == "edit-{$this->post_type}" && ( ! empty( $this->hidden_admin_fields ) || ! empty( $this->admin_column_names ) ) ) {
 			$script_name = "quick-edit-{$this->post_type}";
 			wp_register_script( $script_name, plugin_dir_url( __FILE__ )  . 'js/quick-edit.js', array( 'jquery', 'inline-edit-post' ), '', true );
@@ -425,33 +425,33 @@ SQL;
 			}
 
 			wp_localize_script( $script_name, 'ed_remove_columns', $translation_array );
-			
+
 			$translation_array = array();
 			foreach ( $this->admin_column_names as $column => $name ) {
 				$translation_array[ucfirst($column)	] = $name;
 			}
-			
+
 			wp_localize_script( $script_name, 'ed_rename_columns', $translation_array );
-		
+
 			wp_enqueue_script( $script_name );
 		}
-					
+
 		foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy_args ) {
 			if ( $current_screen->id == "edit-$taxonomy_name" && $taxonomy_args['hierarchical'] == true ) {
 				$script_name = "bulk-$taxonomy_name";
 				wp_register_script( $script_name, plugin_dir_url( __FILE__ ) . 'js/tax-bulk.js', array( 'jquery' ), '', true );
-				
+
 				$translation_array = array(
 					'set_parent' => __( 'Set Parent' ),
 				);
-				
+
 				wp_localize_script( $script_name, 'ed_tax_bulk_local', $translation_array );
-				
+
 				wp_enqueue_script( $script_name );
 			}
 		}
 	}
-	
+
 	/**
 	 * Gets all existing root taxonomy terms. If the requested root terms are not already created, creates them.
 	 *
@@ -472,18 +472,18 @@ SQL;
 		foreach ( $terms as $term ) {
 			$root_ids[$term->name] = $term->term_id;
 		}
-		
+
 		// If a required term is not present, create it.
 		foreach ( $root_names as $name ) {
 			if ( !isset( $root_ids[$name] ) ) {
-				$ids = wp_insert_term( $name, $taxonomy_name, array( 'parent' => 0 ) ); 
+				$ids = wp_insert_term( $name, $taxonomy_name, array( 'parent' => 0 ) );
 				$root_ids[$name] = $ids['term_id'];
 			}
-		}	
-		
+		}
+
 		return $root_ids;
 	}
-	
+
 	public function load_edit_tags() {
 		$taxonomy_name = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
 		if ( isset( $this->taxonomy_args[$taxonomy_name] ) ) {
@@ -493,20 +493,20 @@ SQL;
 			}
 
 			add_action( 'admin_footer', array( $this, 'create_parent_select' ) );
-			
+
 			if ( empty( $_REQUEST['action' ]) || empty( $_REQUEST['delete_tags'] ) || $_REQUEST['action'] != 'bulk_set_parent' ) {
 				return;
 			}
 
 			$term_ids = $_REQUEST['delete_tags'];
 			$referer = wp_get_referer();
-			
+
 			if ( $referer && false != strpos( $referer, 'edit-tags.php') ) {
 				$location = $referer;
 			} else {
 				$location = add_query_arg( 'taxonomy', $taxonomy_name, 'edit-tags.php' );
 			}
-			
+
 			if ( empty( $_REQUEST['parent'] ) ) {
 				$result = false;
 			} else {
@@ -531,10 +531,10 @@ SQL;
 			die();
 		}
 	}
-	
+
 	public function create_parent_select() {
 		global $taxonomy;
-		
+
 		echo '<div id="ed_input_set_parent" style="display:none">';
 			wp_dropdown_categories( array(
 				'hide_empty' => false,
@@ -547,7 +547,7 @@ SQL;
 			) );
 		echo '</div>';
 	}
-	
+
 	public function admin_notice() {
 		if ( !isset( $_GET['ed_message'] ) )
 			return;
@@ -555,7 +555,7 @@ SQL;
 		if ( ! isset( $this->taxonomy_args[$taxonomy_name] ) && get_post_type() != $this->post_type ) {
 			return;
 		}
-		
+
 		switch ( $_GET['ed_message'] ) {
 		case  'term-updated':
 			echo '<div id="message" class="updated"><p>' . __( 'Terms updated.', 'term-management-tools' ) . '</p></div>';
@@ -565,7 +565,7 @@ SQL;
 			echo '<div id="message" class="error"><p>' . __( 'Terms not updated.', 'term-management-tools' ) . '</p></div>';
 			break;
 	}}
-	
+
 	/**
 	 * Sets up all of the filter and action hooks required by the custom post type.
 	 *
@@ -583,16 +583,16 @@ SQL;
 		if ( in_array( 'date', $this->hidden_admin_filters ) ) {
 			add_filter( 'months_dropdown_results', array( $this, 'remove_dates' ) );
 		}
-		
+
 		if ( isset( $this->admin_field_names['enter_title_here'] ) || isset( $this->admin_field_names['title'] ) ) {
 			add_filter( 'enter_title_here', array( $this, 'update_title' ) );
 		}
-		
+
 		add_action( 'load-edit-tags.php', array( $this, 'load_edit_tags' ) );
 		add_action( 'init',  array( $this, 'initialize' ) );
 		add_action( 'admin_notices', array( $this, 'admin_notice' ) );
 	}
-	
+
 	/**
 	 * Erases all of the posts of the defined type and all of the taxonomy terms for the defined taxonomies.
 	 *
@@ -610,7 +610,7 @@ SQL;
 			$query->the_post();
 			wp_delete_post( $query->post->ID, true );
 		}
-		
+
 		foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
 			$args = array(
 				'hide_empty' => false,

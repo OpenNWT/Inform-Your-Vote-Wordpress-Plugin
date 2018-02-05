@@ -26,13 +26,13 @@ if ( ! function_exists( 'election_data_theme_setup' ) ):
  * @since Election_Data_Theme 1.0
  */
 function election_data_theme_setup() {
- 
+
    /**
      * Make theme available for translation
      * Translations can be filed in the /languages/ directory
      */
     load_theme_textdomain( 'election_data_theme', get_template_directory() . '/languages' );
- 
+
 }
 endif; // election_data_theme_setup
 add_action( 'after_setup_theme', 'election_data_theme_setup' );
@@ -46,14 +46,14 @@ function election_data_theme_scripts() {
 	global $ed_taxonomies;
 
     wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
-		
+
     wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.2a');
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
 		wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js' );
 		wp_enqueue_script( 'google', 'https://apis.google.com/js/platform.js' );
 	}
-	
+
 	if ( is_tax( $ed_taxonomies['candidate_constituency'] ) ) {
 		wp_enqueue_script( 'jquery-map-highlight', get_template_directory_uri() . '/js/jquery.maphilight.min.js', array( 'jquery' ) );
 		wp_enqueue_script( 'map-highlight', get_template_directory_uri() . '/js/map_highlight.js', array( 'jquery-map-highlight' ) );
@@ -196,7 +196,7 @@ function display_news_summaries ( $candidate_ids, $type, $articles_per_page ) {
 				$sources = wp_get_post_terms( $article->ID, $ed_taxonomies['news_article_source'] );
 				$source = $sources[0];
 				$source_label = esc_html( $source->description ? $source->description : $source->name ); ?>
-				<div class="news-article">	
+				<div class="news-article">
 					<h3><a href="<?php echo esc_attr( get_post_meta( $article->ID, 'url', true ) ); ?>"><?php echo get_the_title( $article->ID ); ?></a></h3>
 					<p class="date"><?php echo get_the_date( $date_format, $article->ID ); ?></p>
 					<p class="summary" >
@@ -208,7 +208,7 @@ function display_news_summaries ( $candidate_ids, $type, $articles_per_page ) {
 		endwhile;
 		if ( $news['count'] > $articles_per_page ) {
 			display_news_pagination( $args );
-		} 
+		}
 	} else { ?>
 		<em>No articles found yet.</em>
 	<?php }
@@ -228,7 +228,7 @@ function display_news_article( $article, $candidates = false ){
 				$summaries[$candidate['id']] = $articles['summaries'][$candidate['id']];
 			}
 		}
-		
+
 		if ( $summaries ) {
 			$summary = $summaries[array_rand( $summaries )];
 		} else {
@@ -238,7 +238,7 @@ function display_news_article( $article, $candidates = false ){
 		$summary = $article['summary'];
 		$mention_data = $candidates ? $article['mentions'] : array();
 	}
-	
+
 	$mentions = array();
 	foreach ( $mention_data as $mention ) {
 		$mentions[] = "<a href='{$mention['url']}'>{$mention['name']}</a>";
@@ -294,7 +294,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 	$display_party = in_array('party', $show_fields );
 	$display_constituency = in_array( 'constituency', $show_fields );
 	$display_news = in_array( 'news', $show_fields );
-	
+
 	?><div class="politician show_constituency">
         <div class="image <?= $candidate['party_leader'] ? 'leader' : '' ?>" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>;">
 			<?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
