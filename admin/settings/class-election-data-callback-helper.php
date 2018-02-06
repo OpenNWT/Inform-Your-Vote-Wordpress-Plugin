@@ -31,7 +31,7 @@ class Election_Data_Callback_Helper {
 		$this->plugin_name = $plugin_name;
 
 	}
-	
+
 	private function get_attribute_value( $value ) {
 		return "election_data_settings[$value]";
 	}
@@ -77,7 +77,7 @@ class Election_Data_Callback_Helper {
 	public function header_callback( $args ) {
 		echo '<hr/>';
 	}
-	
+
 	public static function localize_image( $element_settings ) {
 		$translation_array = array();
 		foreach ( $element_settings as $settings ) {
@@ -85,10 +85,10 @@ class Election_Data_Callback_Helper {
 			$options = $settings[1];
 			$translation_array[$id] = "election_data_settings[$id]";
 		}
-		
+
 		return array( 'ed_settings_image_data' => $translation_array );
 	}
-	
+
 	public static function localize_button( $element_settings ) {
 		$actions = array();
 		$messages = array();
@@ -100,19 +100,19 @@ class Election_Data_Callback_Helper {
 				$messages[$id] = $options['message'];
 			}
 		}
-		
+
 		return array(
 			'ed_settings_button_actions' => $actions,
 			'ed_settings_button_messages' => $messages,
 		);
 	}
-	
+
 	public static function js_dependancies_image() {
 		wp_enqueue_media();
-		
+
 		return array( 'jquery', 'media-upload', 'thickbox' );
 	}
-	
+
 	public function image_callback( $args ) {
 		$value = Election_Data_Option::get_option( $args['id'], '' );
 		$url = $value ? esc_url( wp_get_attachment_url( $value ) ) : '';
@@ -135,7 +135,7 @@ class Election_Data_Callback_Helper {
 			<br><label><?php echo $args['desc']; ?></label>
 		<?php endif;
 	}
-	
+
 	protected function display_import_export( $mode, $args ) {
 		$options = $args['options'];
 		$form_id = "{$options['id']}_form";
@@ -155,7 +155,7 @@ class Election_Data_Callback_Helper {
 		<fieldset class="radiogroup">
 		<legend><?php echo $legend; ?></legend>
 			<ul class="radio">
-				<?php foreach ( $options['formats'] as $type => $label ) : 
+				<?php foreach ( $options['formats'] as $type => $label ) :
 					if ( isset( $options['required_modules'][$type] ) ) :
 						$loaded = true;
 						foreach ( $options['required_modules'][$type] as $module ) :
@@ -164,7 +164,7 @@ class Election_Data_Callback_Helper {
 								$loaded = false;
 							endif;
 						endforeach;
-						
+
 						$disabled = $loaded ? '' : ' disabled';
 					else :
 						$disabled = '';
@@ -200,15 +200,15 @@ class Election_Data_Callback_Helper {
 			</ul>
 		<?php endif;
 	}
-	
+
 	public function import_callback( $args ) {
 		$this->display_import_export( 'import', $args );
 	}
-	
+
 	public function export_callback( $args ) {
 		$this->display_import_export( 'export', $args );
 	}
-	
+
 	/**
 	 * Checkbox Callback
 	 *

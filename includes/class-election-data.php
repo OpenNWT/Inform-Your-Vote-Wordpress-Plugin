@@ -32,7 +32,6 @@
   */
  global $ed_taxonomies;
  $taxonomies = array();
-
 /**
  * The core plugin class.
  *
