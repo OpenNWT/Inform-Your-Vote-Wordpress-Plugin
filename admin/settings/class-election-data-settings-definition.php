@@ -474,6 +474,11 @@ class Election_Data_Settings_Definition {
 					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
 					'type' => 'textarea'
 				),
+				'missing_constituency' => array(
+					'name' => __( 'Missing Constituency Map Image', self::$plugin_name ),
+					'desc' => __( 'The image to display if a parent constitency does not have any child ones.', self::$plugin_name ),
+					'type' => 'image',
+				),
 				'missing_candidate' => array(
 					'name' => __( 'Missing Candidate Image', self::$plugin_name ),
 					'desc' => __( 'The image to display if a candidate does not have a featured image.', self::$plugin_name ),
