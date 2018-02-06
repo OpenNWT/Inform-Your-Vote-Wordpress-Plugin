@@ -19,17 +19,28 @@ get_header();?>
 					<?php endforeach; ?>
 				</map>
 			</div>
-		<?php endif; ?>
+		<?php endif;?>
 		<div class='one_column'>
             <h3>Find Your Constituency</h3>
             <p><a href="http://www.electionsmanitoba.ca/en/Voting/VotingInfo" target="_blank" id="where_to_vote">Elections Manitoba Address Lookup</a></p>
             <br>
-			<h3>Select a <?php echo $constituency['name']; ?> Constituency</h3>
-			<ul>
-				<?php foreach ( $constituency['children'] as $name => $child ) :?>
-					<li><a href="<?php echo $child['url']; ?>"><?php echo $name; ?></a></li>
-				<?php endforeach; ?>
-			</ul>
+				<h3>Select a <?php echo $constituency['name']; ?> Constituency</h3>
+
+					<?php foreach ( $constituency['children'] as $name => $child ) :?>
+						<?php $child_constituency = get_constituency($child['id']);?>
+
+						<?php if($child_constituency['children']):?>
+							<h3><?php echo $name; ?></h3>
+							<ul>
+								<?php foreach ( $child_constituency['children'] as $name => $child) :?>
+									<li><a href="<?php echo $child['url']; ?>"><?php echo $name; ?></a></li>
+								<?php endforeach;?>
+							</ul>
+						<?php else:?>
+							<li><a href="<?php echo $child['url']; ?>"><?php echo $name; ?></a></li>
+						<?php endif;?>
+
+					<?php endforeach; ?>
             <br>
 		</div>
    </div>

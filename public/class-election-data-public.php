@@ -118,10 +118,21 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 		foreach ( $child_terms as $child )
 		{
 			$results['children'][$child->name] = array(
+				'id' => $child->term_id,
 				'url' => get_term_link( $child, $ed_taxonomies['candidate_constituency'] ),
 				'coordinates' => get_tax_meta( $child->term_id, 'coordinates' ),
 			);
+
+			$grandchild_terms = get_terms( $ed_taxonomies['candidate_constituency'], array( 'parent' =>$child->term_id, 'hide_empty' => false ) );
+			  foreach ( $grandchild_terms as $grandchild )
+			 {
+			 	$results['grandchildren'][$grandchild->name] = array(
+			 		'url' => get_term_link( $grandchild, $ed_taxonomies['candidate_constituency'] ),
+			 		'coordinates' => get_tax_meta( $grandchild->term_id, 'coordinates' ),
+			 	);
+			 }
 		}
+
 	}
 
 	return $results;

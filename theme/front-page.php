@@ -21,7 +21,11 @@ get_header(); ?>
 				<div class="mini_maps">
 					<p class="small"><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
 					<a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
-						<?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
+						<?php if($constituency['map_id']):?>
+							<?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
+						<?php else:?>
+								<?php echo wp_get_attachment_image( Election_data_option::get_option('missing_constituency')); ?>
+						<?php endif;?>
 					</a>
 				</div>
 			<?php endforeach; ?>
