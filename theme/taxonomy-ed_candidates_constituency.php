@@ -3,6 +3,14 @@
 $constituency = get_constituency( $party_id = get_queried_object()->term_id );
 $constituency_id = $constituency['id'];
 
+$child_constituencies = "";
+
+if($constituency['grandchildren']){
+	$child_constituencies = 'grandchildren';
+} else{
+	$child_constituencies = "children";
+}
+
 get_header();?>
 <?php if ( $constituency['children'] ) : ?>
 	<h2>Select Your <?php echo $constituency['name']; ?> Constituency</h2>
@@ -12,11 +20,13 @@ get_header();?>
 			<div class='two_columns hidden_block_when_mobile'>
 				<?php echo wp_get_attachment_image($constituency['map_id'], 'map', false, array( 'alt' => $constituency['name'], 'usemap' => '#constituency_map', 'class' => 'highmap'	) ); ?>
 				<map id="constituency_map" name="constituency_map">
-					<?php foreach ( $constituency['children'] as $name => $child ) :?>
-						<?php if ( $child['coordinates'] ) : ?>
-							<area alt='<?php echo $name; ?>' coords='<?php echo $child['coordinates']; ?>' href='<?php echo $child['url']; ?>' shape='poly' title='<?php echo $name; ?>'>
-						<?php endif; ?>
-					<?php endforeach; ?>
+
+						<?php foreach ( $constituency[$child_constituencies] as $name => $child ) :?>
+							<?php if ( $child['coordinates'] ) : ?>
+								<area alt='<?php echo $name; ?>' coords='<?php echo $child['coordinates']; ?>' href='<?php echo $child['url']; ?>' shape='poly' title='<?php echo $name; ?>'>
+							<?php endif; ?>
+						<?php endforeach; ?>
+
 				</map>
 			</div>
 		<?php endif;?>

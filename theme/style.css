@@ -68,7 +68,7 @@ a:hover {
 #container {
 	  width: 960px;
 	  margin: 0 auto; }
-	  
+
 footer {
   border-top: 1px solid #e5e5e5;
   margin-top: 20px;
@@ -107,15 +107,21 @@ header {
 
 .hidden {
 	display: none; }
-		
 
-		
+.float-right{
+	float:right;
+}
+
+.float-left{
+	float: left;
+}
+
 .flow_it {
 	  width: 100%;
 	  overflow: hidden;
 	  zoom: 1;
 	  margin-bottom: 1em; }
-  
+
 .one_column, .two_columns, .three_columns, .two_columns_early_shrink {
 	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	-icab-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -150,7 +156,7 @@ header {
 	width: 598px; }
 
 .one_column {
-	width: 278px; }
+	width: 278px;}
 
 .two_column_flow {
 	width: 640px;
@@ -161,10 +167,15 @@ header {
 	float: left; }
 
 .medium_row {
-	height: 350px; }
+	height: 350px;
+	}
 
 .short_row {
 	height: 235px; }
+
+.scroll{
+	overflow: scroll;
+}
 
 .news-article {
 	margin-bottom: 2em; }
@@ -183,8 +194,8 @@ p.news-article-notice{
 	font-size: 0.9em;
 	margin-bottom: 20px;
 	margin-top: -10px; }
-	
-		
+
+
 .politician, .party {
 	position: relative;
 	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -206,8 +217,8 @@ p.news-article-notice{
 
 .constituency {
 	margin-top: 10px; }
-	
-		
+
+
 .politician .name {
 	margin: 1em 0;
 	font-size: 11.5px; }
@@ -216,7 +227,7 @@ p.news-article-notice{
 	margin: 1em 0;
     font-weight: bold;
     font-size: 1.2em; }
-	
+
 .election-website, .website {
 	color: #999999;
 	font-size: 0.8em;
@@ -326,15 +337,25 @@ p.news-article-notice{
 
 .mini_maps {
 	float: left;
-	margin-left: 12px; 
-	height: 150px;
-	width: 125px; }
-	.mini_maps p {
-		margin-bottom: 3px; }
-		
+	margin-left: 12px;
+	margin-bottom:50px;
+	width: 90%; }
+
+.mini_maps p {
+	margin-bottom: 3px; }
+
+.mini_maps .mini_map_image{
+	width:40%;
+}
+
+.mini_maps .links{
+		margin-left: 20px;
+		margin-top:20px;
+}
+
 .parties_thumb {
 	overflow: auto;
-	zoom: 1; 
+	zoom: 1;
     margin-bottom: -15px;}
 
   .party_thumb {
@@ -348,7 +369,7 @@ p.news-article-notice{
 		height: 95px;
         width: auto; }
 
-		
+
 #main {
 	position: relative; }
 
@@ -368,7 +389,7 @@ p.news-article-notice{
 
 	.two_columns_early_shrink {
 		width: 278px; } }
-		
+
 @media all and (max-width: 639px) {
 	header {
         background-image: none;
@@ -400,7 +421,7 @@ p.news-article-notice{
 
 	.hidden_block_when_mobile {
 		display: none; } }
-		
+
 .latest_news_small h4, .latest_news_large h4 {
   color: #666666; }
 .latest_news_small span.source, .latest_news_large span.source {
@@ -440,21 +461,21 @@ p.mentions a {
   color: #8F9CC3;
 }
 
-  
-/* ================================================================ 
+
+/* ================================================================
 This copyright notice must be untouched at all times.
 
 The original version of this stylesheet and the associated (x)html
 is available at http://www.cssplay.co.uk/menus/droplist-flyout.html
 Copyright (c) 2005-2010 Stu Nicholls. All rights reserved.
-This stylesheet and the associated (x)html may be modified in any 
+This stylesheet and the associated (x)html may be modified in any
 way to fit your requirements.
 =================================================================== */
 
 /* this is a CSS answer to fix the hover/focus '~' and hover/focus '+' problem in safari and chrome */
 html {-webkit-animation: safariSelectorFix infinite 1s;}
 @-webkit-keyframes safariSelectorFix {
-0% {zoom:1;} 
+0% {zoom:1;}
 100% {zoom:1;}
 }
 

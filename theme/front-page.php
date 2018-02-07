@@ -13,20 +13,24 @@ get_header(); ?>
 		</div>
 	<?php endif;
 	if ( $constituencies ) : ?>
-		<div class="one_column medium_row">
+		<div class="one_column medium_row scroll">
 			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
 			<p class="small grey"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
 			<?php foreach ( $constituencies as $constituency_id ) :
 				$constituency = get_constituency( $constituency_id ); ?>
 				<div class="mini_maps">
-					<p class="small"><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
 					<a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
-						<?php if($constituency['map_id']):?>
-							<?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
-						<?php else:?>
-								<?php echo wp_get_attachment_image( Election_data_option::get_option('missing_constituency')); ?>
-						<?php endif;?>
+						<div class="mini_map_image float-left">
+							<?php if($constituency['map_id']):?>
+									<?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
+							<?php else:?>
+									<?php echo wp_get_attachment_image( Election_data_option::get_option('missing_constituency')); ?>
+							<?php endif;?>
+					</div>
 					</a>
+					<div class="links float-left">
+						<p class="small"><strong><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></strong></p>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		</div>
