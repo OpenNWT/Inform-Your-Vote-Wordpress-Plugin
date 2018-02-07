@@ -221,8 +221,16 @@ class Election_Data_Candidate {
 						'std' => '',
 						'imported' => false,
 					),
+					'candidate_votes' => array(
+						'label' => __( 'Number of Votes received.' ),
+						'id' => 'candidate_votes',
+						'desc' => __( 'Once the Election is held, record the number of votes here.' ),
+						'type' => 'text',
+						//'std' => '-1',
+						'imported' => true,
+					),
 				),
-				'admin_columns' => array( 'phone', 'email', 'website', 'party_leader' ),
+				'admin_columns' => array( 'phone', 'email', 'website', 'party_leader', 'candidate_votes' ),
 			),
 			'taxonomy_args' => array(
 				$this->taxonomies['party'] => array(
