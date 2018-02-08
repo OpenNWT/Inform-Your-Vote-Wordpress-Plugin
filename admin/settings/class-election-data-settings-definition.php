@@ -454,6 +454,11 @@ class Election_Data_Settings_Definition {
 				),
 			),
 			'general_tab' => array(
+				'party_election' => array(
+					'name' => __('Party Election', self::$plugin_name),
+					'desc' => __('Check if the current election is based on political parties.', self::$plugin_name),
+					'type' => 'checkbox'
+				),
 				'site_title' => array(
 					'name' => __('Site Title', self::$plugin_name),
 					'desc' => __('The title you want to display as meta data.', self::$plugin_name),
