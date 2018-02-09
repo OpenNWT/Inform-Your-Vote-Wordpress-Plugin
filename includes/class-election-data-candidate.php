@@ -225,7 +225,7 @@ class Election_Data_Candidate {
 						'label' => __( 'Number of Votes received.' ),
 						'id' => 'candidate_votes',
 						'desc' => __( 'Once the Election is held, record the number of votes here.' ),
-						'type' => 'text',
+						'type' => 'number',
 						//'std' => '-1',
 						'imported' => true,
 					),
