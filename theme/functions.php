@@ -291,7 +291,7 @@ function display_party( $party ) {
 
 function display_candidate( $candidate, $constituency, $party, $show_fields=array(), $incumbent_location='name' ) {
 	$display_name = in_array( 'name', $show_fields );
-	$display_party = in_array('party', $show_fields );
+	if(Election_Data_Option::get_option('party_election') == 1){$display_party = in_array('party', $show_fields );}
 	$display_constituency = in_array( 'constituency', $show_fields );
 	$display_news = in_array( 'news', $show_fields );
 
@@ -443,3 +443,63 @@ function display_news_article_stats() {
     }
     echo "<table></div>";
 }
+
+/* Heng start */
+class new_walker extends Walker_Nav_Menu
+{
+	function start_lvl( &$output, $depth = 0, $args = array()) {
+		if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+			$t = '';
+			$n = '';
+		} else {
+			$t = "\t";
+			$n = "\n";
+		}
+		$output .= $n."<input class=\"submenu\" id=\"submenu".$id."\" type=\"checkbox\"><label for=\"submenu".$id."\"></label><ul class=\"sub-menu\" id=\"subp".$id."\"><li class=\"back\"><a>Voter Resources</a><label for=\"submenu".$id."\"></label></li>".$n;
+	}
+
+	 function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+		if ( ! $element ) {
+			return;
+		}
+
+		$id_field = $this->db_fields['id'];
+		$id       = $element->$id_field;
+
+		//display this element
+		$this->has_children = ! empty( $children_elements[ $id ] );
+		if ( isset( $args[0] ) && is_array( $args[0] ) ) {
+			$args[0]['has_children'] = $this->has_children; // Back-compat.
+		}
+
+		$cb_args = array_merge( array(&$output, $element, $depth), $args);
+		call_user_func_array(array($this, 'start_el'), $cb_args);
+
+		// descend only when the depth is right and there are childrens for this element
+		if ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {
+
+			foreach ( $children_elements[ $id ] as $child ){
+
+				if ( !isset($newlevel) ) {
+					$newlevel = true;
+					//start the child delimiter
+					$cb_args = array_merge( array(&$output, $depth,$id), $args);
+					call_user_func_array(array($this, 'start_lvl'), $cb_args);
+				}
+				$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );
+			}
+			unset( $children_elements[ $id ] );
+		}
+
+		if ( isset($newlevel) && $newlevel ){
+			//end the child delimiter
+			$cb_args = array_merge( array(&$output, $depth), $args);
+			call_user_func_array(array($this, 'end_lvl'), $cb_args);
+		}
+
+		//end this element
+		$cb_args = array_merge( array(&$output, $element, $depth), $args);
+		call_user_func_array(array($this, 'end_el'), $cb_args);
+	}
+}
+/* Heng end */

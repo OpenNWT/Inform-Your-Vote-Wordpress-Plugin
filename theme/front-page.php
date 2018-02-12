@@ -2,6 +2,7 @@
 
 $constituencies = get_root_constituencies();
 $parties = get_parties_random();
+$is_party_election = Election_Data_Option::get_option('party_election');
 
 get_header(); ?>
 
@@ -59,25 +60,27 @@ get_header(); ?>
 			<?php display_news_titles( null, true, $news_count ); ?>
 		</div>
 	<?php endif;
-	if ( $parties ) : ?>
-		<div class="two_columns">
-			<h2><?php echo Election_Data_Option::get_option( 'party-label', 'The Political Parties' ); ?></h2>
-			<div class="parties_thumb" >
-				<?php foreach ( $parties as $party_id ) :
-					$party = get_party( $party_id ); ?>
-					<div class="party_thumb" >
-						<p><a href="<?php echo $party['url']; ?>"><?php echo $party['name']; ?></a></p>
-						<div>
-						<a href="<?php echo $party['url']; ?>">
-							<?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
-						</a>
+	if ($is_party_election):
+		if ( $parties ) : ?>
+			<div class="two_columns">
+				<h2><?php echo Election_Data_Option::get_option( 'party-label', 'The Political Parties' ); ?></h2>
+				<div class="parties_thumb" >
+					<?php foreach ( $parties as $party_id ) :
+						$party = get_party( $party_id ); ?>
+						<div class="party_thumb" >
+							<p><a href="<?php echo $party['url']; ?>"><?php echo $party['name']; ?></a></p>
+							<div>
+							<a href="<?php echo $party['url']; ?>">
+								<?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
+							</a>
+							</div>
 						</div>
-					</div>
-				<?php endforeach; ?>
-            </div>
-            <br>
-			<p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
-		</div>
-	<?php endif; ?>
+					<?php endforeach; ?>
+	            </div>
+	            <br>
+				<p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
+			</div>
+		<?php endif; ?>
+	<?php endif;?>
 </div>
 <?php get_footer(); ?>
