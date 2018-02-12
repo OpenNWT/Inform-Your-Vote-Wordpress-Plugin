@@ -28,28 +28,28 @@
 * Print the <title> tag based on what is being viewed.
 */
 global $page, $paged;
-
+ 
 wp_title( '|', true, 'right' );
-
+ 
 // Add the blog name.
 bloginfo( 'name' );
-
+ 
 // Add the blog description for the home/front page.
 $site_description = get_bloginfo( 'description', 'display' );
 if ( $site_description && ( is_home() || is_front_page() ) )
 echo " | $site_description";
-
+ 
 // Add a page number if necessary:
 if ( $paged >= 2 || $page >= 2 )
 echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page ) );
-
+ 
 ?></title>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 <?php wp_head(); ?>
 </head>
-
+ 
 <body <?php body_class(); ?>>
 
 	<div id="container">
@@ -60,7 +60,18 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 				<h2 class="site-description">A Citizen Created Election Resource</h2>
 		</header><!-- #masthead .site-header -->
-		<?php wp_nav_menu( array( 'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile', 'menu_class' => '' ) ); ?>
+		<!-- Heng start -->
+		<input id="menu-toggle" type="checkbox">
+		<div id="menu-trigger">
+		<label for="menu-toggle">
+		<span class="icon-bar"></span>
+		<span class="icon-bar icon-bart"></span>
+		<span class="icon-bar icon-bart"></span>
+		</label>
+		</div>
+		<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
+		<!-- Heng end -->
+
         <?php if (!is_front_page()): ?>
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
         <?php endif ?>
