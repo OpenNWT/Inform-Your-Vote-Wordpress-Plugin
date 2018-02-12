@@ -18,7 +18,11 @@ require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
 global $ed_post_types;
 $ed_post_types['candidate'] = 'ed_candidates';
 global $ed_taxonomies;
-$ed_taxonomies['candidate_party'] = "{$ed_post_types['candidate']}_party";
+
+if(Election_Data_Option::get_option('party_election')){
+  $ed_taxonomies['candidate_party'] = "{$ed_post_types['candidate']}_party";
+}
+
 $ed_taxonomies['candidate_constituency'] = "{$ed_post_types['candidate']}_constituency";
 
 
@@ -108,7 +112,9 @@ class Election_Data_Candidate {
 			'hidden_admin_columns' => array( 'date' ),
 			'hidden_admin_fields' => array( 'password', 'date' ),
 			'hidden_admin_filters' => array( 'date' ),
-			'taxonomy_filters' => array( $this->taxonomies['party'], $this->taxonomies['constituency'] ),
+			'taxonomy_filters' => array(
+        (Election_Data_Option::get_option('party_election')? $this->taxonomies['party']:$this->taxonomies['constituency']),
+        $this->taxonomies['constituency'] ),
 			'sortable_taxonomies' => array( $this->taxonomies['party'], $this->taxonomies['constituency'] ),
 			'custom_post_meta' => array(
 				'meta_box' => array(
