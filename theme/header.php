@@ -24,6 +24,7 @@
 <meta property="og:description" content="<?= Election_Data_Option::get_option('site_description');?>" />
 <meta name="description" content="<?= Election_Data_Option::get_option('site_description');?>" />
 <title><?php
+
 /*
 * Print the <title> tag based on what is being viewed.
 */
