@@ -202,7 +202,6 @@ class Election_Data_Activator {
 		} else {
 			$menu_id = $menu->term_id;
 		}
-
 		return $menu_id;
 	}
 
