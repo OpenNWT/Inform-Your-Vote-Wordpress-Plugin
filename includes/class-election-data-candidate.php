@@ -17,6 +17,7 @@ require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
 
 global $ed_post_types;
 $ed_post_types['candidate'] = 'ed_candidates';
+
 global $ed_taxonomies;
 
 if(Election_Data_Option::get_option('party_election')){
@@ -439,6 +440,7 @@ class Election_Data_Candidate {
 			add_action( "create_{$this->taxonomies['party']}", array( $this, 'create_party' ), 10, 2 );
 			add_action( "create_{$this->taxonomies['constituency']}", array( $this, 'create_constituency' ), 10, 2 );
 			add_action( "edited_{$this->taxonomies['constituency']}", array( $this, 'edited_constituency' ), 10, 2 );
+      add_action('wp_head', array($this, 'toggle_party_menu'));
 		}
 		add_image_size( 'candidate', 9999, 100, false );
 
@@ -446,6 +448,73 @@ class Election_Data_Candidate {
 		add_image_size( 'map', 598, 9999, false );
 		add_image_size( 'party', 175, 175, false );
 	}
+
+  public function toggle_party_menu(){
+    global $ed_taxonomies;
+    $menu_name = __('Election Data Navigation Menu');
+    $menu = wp_get_nav_menu_object($menu_name);
+    $menu_id = $menu->term_id;
+
+    $menu_items = wp_get_nav_menu_items($menu_id);
+
+    $constituency_items = array();
+
+    if(Election_Data_Option::get_option('party_election')){
+      $old_parent_item_id = 7;
+      $new_parent_item_id = 9;
+    } else{
+      $old_parent_item_id = 9;
+      $new_parent_item_id = 7;
+    }
+
+    foreach($menu_items as $menu_item){
+
+      if($menu_item->menu_item_parent == $old_parent_item_id &&
+         $menu_item->title != "Party" &&
+         $menu_item->title != "Constituency"){
+        array_push($constituency_items, array(
+        'ID' => $menu_item->ID,
+        'name' => $menu_item->title,
+        'url' => $menu_item->url,
+        'object_id' => $menu_item->object_id
+        ));
+      }
+
+      if(!Election_Data_Option::get_option('party_election')){
+        if($menu_item->title == "Party"){
+          echo( "<style>
+                    li#menu-item-". $menu_item->ID."{
+                      display:none;
+                    }
+                </style>");
+        }
+
+        if($menu_item->title == "Constituency"){
+          echo( "<style>
+                    li#menu-item-". $menu_item->ID."{
+                      display:none;
+                    }
+                </style>");
+        }
+      }
+    }
+
+    for($i=0; $i<count($constituency_items); $i++){
+
+      $args = array(
+      		'menu-item-title' => $constituency_items[$i]['name'],
+      		'menu-item-parent-id' => $new_parent_item_id,
+      		'menu-item-status' => 'publish',
+      		'menu-item-object' => $ed_taxonomies['candidate_constituency'],
+      		'menu-item-type' => 'taxonomy',
+          'menu-item-object-id' => $constituency_items[$i]['object_id'],
+          'menu-item-url' => $constituency_items[$i]['url']
+      		);
+
+        wp_update_nav_menu_item($menu_id, $constituency_items[$i]['ID'], $args);
+    }
+
+  }
 
 	public static function qanda_random_token() {
 		return wp_generate_password( 30, false );
@@ -494,13 +563,13 @@ class Election_Data_Candidate {
 
 	public function create_party( $term_id, $tt_id) {
 		$term = get_term( $term_id, $this->taxonomies['party'], 'ARRAY_A' );
-		$this->create_menu_item( __( 'Party' ), $this->taxonomies['party'], $term );
+    $this->create_menu_item( __( 'Party' ), $this->taxonomies['party'], $term );
 	}
 
 	public function create_constituency( $term_id, $tt_id ) {
 		$term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );
 		if ( $term['parent'] == 0 ) {
-			$this->create_menu_item( __( 'Constituency' ), $this->taxonomies['constituency'], $term );
+       $this->create_menu_item( __( 'Constituency' ), $this->taxonomies['constituency'], $term );
 		}
 	}
 
@@ -534,6 +603,7 @@ class Election_Data_Candidate {
 	public function create_menu_item( $parent_menu_item_name, $taxonomy, $term ) {
 		$menu_name = __( 'Election Data Navigation Menu' );
 		$menu = wp_get_nav_menu_object( $menu_name );
+
 		if ( $menu ) {
 			$menu_items = wp_get_nav_menu_items( $menu );
 			foreach ( $menu_items as $menu_item ) {
@@ -548,7 +618,7 @@ class Election_Data_Candidate {
 						);
 					wp_update_nav_menu_item( $menu->term_id, 0, $args
 					 );
-					break;
+           break;
 				}
 			}
 		}
