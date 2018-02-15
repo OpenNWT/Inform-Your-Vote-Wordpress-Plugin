@@ -127,6 +127,9 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 			  foreach ( $grandchild_terms as $grandchild )
 			 {
 			 	$results['grandchildren'][$grandchild->name] = array(
+					'id' => $grandchild->term_id,
+					'name' => $grandchild->name,
+					'number_of_winners' => get_tax_meta( $grandchild->term_id, 'number_of_winners'),
 			 		'url' => get_term_link( $grandchild, $ed_taxonomies['candidate_constituency'] ),
 			 		'coordinates' => get_tax_meta( $grandchild->term_id, 'coordinates' ),
 			 	);
