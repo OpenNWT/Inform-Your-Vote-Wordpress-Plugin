@@ -12,6 +12,8 @@
 </div><!-- #main .site-main -->
 
 <footer id="colophon" class="site-footer" role="contentinfo">
+  <?php wp_nav_menu( array( 'container_class' => 'site-footer', 'theme_location' => 'footer-menu' ) );
+   ?>
     <div class="site-info">
           <?php echo Election_Data_Option::get_option('footer');?>
         <?php do_action( 'election_data_theme_credits' ); ?>

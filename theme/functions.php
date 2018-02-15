@@ -77,6 +77,7 @@ add_action( 'after_switch_theme', 'configure_menu' );
 
 function election_data_init() {
 	register_nav_menu('header-menu', __( 'Header Menu' ) );
+  register_nav_menu('footer-menu', __( 'Footer Menu' ) );
 	add_theme_support( 'custom-header' );
     add_theme_support( 'post-thumbnails' );
 }
@@ -455,7 +456,7 @@ class new_walker extends Walker_Nav_Menu
 			$t = "\t";
 			$n = "\n";
 		}
-		$output .= $n."<input class=\"submenu\" id=\"submenu".$id."\" type=\"checkbox\"><label for=\"submenu".$id."\"></label><ul class=\"sub-menu\" id=\"subp".$id."\"><li class=\"back\"><a>Voter Resources</a><label for=\"submenu".$id."\"></label></li>".$n;
+		$output .= $n."<input class=\"submenu\" id=\"submenu".$id."\" type=\"checkbox\"><label for=\"submenu".$id."\"></label><ul class=\"sub-menu\" id=\"subp".$id."\"><li class=\"back\"><label for=\"submenu".$id."\"></label></li>".$n;
 	}
 
 	 function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
