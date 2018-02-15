@@ -143,7 +143,7 @@ class Post_Meta {
 	 */
 	static public function init()
 	{
-		self::$allowed_admin_column_types = array( 'text' => '', 'url' => '', 'email' => '', 'checkbox' => '', 'pulldown' => '' );
+		self::$allowed_admin_column_types = array( 'text' => '', 'number' => '', 'url' => '', 'email' => '', 'checkbox' => '', 'pulldown' => '' );
 	}
 
 	/**
@@ -583,6 +583,10 @@ class Post_Meta {
 				}
 				break;
 		}
+	}
+
+	protected function show_number ( $field, $mode, $value ) {
+		$this->show_text( $field, $mode, $value, 'number' );
 	}
 
 	protected function show_hidden( $field, $mode, $value ) {

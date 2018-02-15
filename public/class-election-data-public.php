@@ -128,6 +128,8 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 			 {
 			 	$results['grandchildren'][$grandchild->name] = array(
 					'id' => $grandchild->term_id,
+					'name' => $grandchild->name,
+					'number_of_winners' => get_tax_meta( $grandchild->term_id, 'number_of_winners'),
 			 		'url' => get_term_link( $grandchild, $ed_taxonomies['candidate_constituency'] ),
 			 		'coordinates' => get_tax_meta( $grandchild->term_id, 'coordinates' ),
 			 	);
@@ -471,6 +473,7 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 		'party_leader' => get_post_meta( $candidate_id, 'party_leader', true ),
 		'url' => get_permalink( $candidate_id ),
 		'news_article_candidate_id' => get_post_meta( $candidate_id, 'news_article_candidate_id', true ),
+		'candidate_votes' => get_post_meta($candidate_id, 'candidate_votes', true),
 	);
 	if ( $get_qanda ) {
 		$results['answers'] = get_qanda_answers( 'candidate', $candidate_id );

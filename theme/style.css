@@ -79,7 +79,9 @@ footer {
   clear: both; }
 
 header {
-  background: url(/wp-content/themes/ElectionData/images/MEheader_2col.png) no-repeat bottom right;
+  background: url(/wp-content/themes/ElectionData/images/MEheader_2col.png) no-repeat bottom right; 
+  
+  
   background-size: 530px 87px;
   position: relative;
   padding: 25px 10px 0 10px;
@@ -376,6 +378,9 @@ p.news-article-notice{
 @media all and (max-width: 959px) {
 	header {
         background: url(/wp-content/themes/ElectionData/images/MEheader_2col.png) no-repeat bottom right;
+
+
+
 		padding-top: 1em;
 		height: 100px; }
 		header h1 {
@@ -418,10 +423,161 @@ p.news-article-notice{
 
 	.visible_block_when_mobile {
 		display: block; }
-
 	.hidden_block_when_mobile {
-		display: none; } }
+		display: none;  }
 
+	/* Heng start */
+	#container #menu-trigger{display:block;}
+	#container .mobile-menu{
+	display: block;
+	position: fixed;
+    left: -320px;
+    width: 320px;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    margin-top: 0px;
+    overflow-x: hidden;
+    background: rgba(255,255,255,0.95);
+    z-index: 1;
+    -webkit-transition: left 0.5s 0s;
+    -o-transition: left 0.5s 0s;
+    -moz-transition: left 0.5s 0s;
+    transition: left 0.5s 0s;
+	margin:0;
+	padding:0;
+	}
+	#container .mobile-menu ul {
+    width: 320px;
+    float: none;
+	}
+	#container .mobile-menu > ul{
+	width: 320px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    border: none;
+    min-height: 500px;
+    -o-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -icab-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -khtml-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    background-color: transparent;
+    text-align: left;
+    overflow: visible;
+    -webkit-transition: left 0.5s 0s;
+    -o-transition: left 0.5s 0s;
+    -moz-transition: left 0.5s 0s;
+    transition: left 0.5s 0s;
+	}
+	#container .mobile-menu ul li{
+	display: block;
+    position: static;
+    width: 320px;
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+	}
+	#container .mobile-menu ul li a{
+	font-size: 18px;
+    font-weight: normal;
+    font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding-left: 20px;
+    line-height: 50px;
+	}
+	#container .mobile-menu li.menu-item-has-children > label, #container .mobile-menu li.back > label {
+    display: block;
+    height: 100%;
+    cursor: pointer;
+	}
+	#container .mobile-menu li.menu-item-has-children > label::after {
+    float: right;
+    background-image: url('images/arrow-right.png');
+	}
+	#container .mobile-menu li.back > label::after{
+	float: none;
+    background-image: url('images/arrow-left.png');
+	}
+	#container .mobile-menu ul li.menu-item-has-children > label::after, #container .mobile-menu li.back > label::after {
+    content: "";
+    display: block;
+    padding-top: 5px;
+    width: 40px;
+    height: 40px;
+    background-size: auto 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+	}
+	#container .mobile-menu ul li ul.sub-menu {
+    display: block;
+    left: 320px;
+    top: 0px;
+    background-color: transparent;
+    -o-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -icab-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -khtml-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -moz-box-shadow: 0 0 0 rgba(0,0,0,0);
+    -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    border: none;
+    padding: 0px;
+    margin: 0px;
+	}
+	#container .mobile-menu ul li ul li:hover a {
+    background: transparent;
+	}
+	#container .mobile-menu ul li.back>a {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-left: 40px;
+    line-height: 46px;
+	}
+	#container .mobile-menu ul > li > a, #container .mobile-menu  ul li.back>a {
+    float: left;
+    position: relative;
+	}
+	#container .mobile-menu  ul li.back>a {z-index: -1;}
+	#container .mobile-menu  ul  li ul.sub-menu {
+	background: #fff;
+    height: auto;
+	min-height:500px;
+	}
+	#container .mobile-menu  ul  li ul.sub-menu li .sub-menu{
+		z-index:99;
+	}
+	#container .mobile-menu ul li.menu-item-has-children > a{
+		z-index: -1;
+	}
+	
+	#menu-toggle:checked ~ .mobile-menu {
+		left: 0;
+		box-shadow: 1px 0px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	#menu-toggle:checked ~ #menu-trigger {
+		left: 275px;
+	}
+
+	#menu-toggle:checked ~ #menu-trigger label {
+		background: none;
+	}
+
+	#container .mobile-menu ul li  input[type='checkbox']:checked ~ .sub-menu{
+		left: 0; 
+	}
+	/* Heng end */
+	
+	}
+		
 .latest_news_small h4, .latest_news_large h4 {
   color: #666666; }
 .latest_news_small span.source, .latest_news_large span.source {
@@ -571,3 +727,52 @@ ul.voter {
 ul.voter li {
     margin-bottom: 0.5em;
 }
+
+/* Heng start */
+#menu-trigger {
+    position: fixed;
+    left: 0;
+    top: 5px;
+    color: #fff;
+    display: none;
+    z-index: 2;
+}
+#menu-trigger label {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    padding: 10px;
+    background: rgba(255,255,255,0.95);
+    -o-border-radius: 0px 5px 5px 0px;
+    -icab-border-radius: 0px 5px 5px 0px;
+    -khtml-border-radius: 0px 5px 5px 0px;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 0px;
+    border-radius: 0px 5px 5px 0px;
+}
+#menu-trigger label .icon-bar {
+    display: block;
+    width: 22px;
+    height: 5px;
+    background-color: #333;
+    border-radius: 1px;
+}
+#menu-trigger label .icon-bart {
+    margin-top: 2px;
+}
+.submenu,
+	#menu-toggle{
+	position: absolute;
+	display: none;
+	}
+.mobile-menu li.menu-item-has-children > label, .mobile-menu li.back > label{display:none;}
+@media all and (max-width: 375px) {
+header.site-header{text-align:center;}
+}
+/* Heng end */
+
