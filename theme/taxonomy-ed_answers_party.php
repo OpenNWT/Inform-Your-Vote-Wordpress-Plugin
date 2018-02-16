@@ -1,4 +1,11 @@
 <?php
+
+/**
+ *	Standard template for candidates to answer their questions, and users to see their answers.
+ *  This is the version for candidates in a party.
+ *  @author Robert Burton
+ */
+
 global $ed_taxonomies;
 $answer_party = get_queried_object();
 $party = get_candidate_party_from_answer_party( $answer_party );

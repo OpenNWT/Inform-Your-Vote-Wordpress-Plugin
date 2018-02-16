@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *	Standard template for displaying a party and its candidates.
+ *  @author Robert Burton
+ */
+
 $party = get_party( get_queried_object() );
 $party_id = $party['id'];
 global $ed_post_types;

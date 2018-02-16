@@ -18,7 +18,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/public
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Public {
 
@@ -44,8 +44,8 @@ class Election_Data_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param    string    $plugin_name       The name of the plugin.
+	 * @param    string    $version				    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -98,6 +98,14 @@ class Election_Data_Public {
 	}
 }
 
+/**
+ * Gets the indicated Constituency.
+ *
+ *
+ * @param 	$constituency 		the indicated Constituency id.
+ * @param 	$get_extra_data 	whether or not to grab additional fields. Default is true.
+ * @return	array $results		an array containing information about the Constituency.
+ */
 function get_constituency( $constituency, $get_extra_data = true ) {
 	global $ed_taxonomies;
 	$constituency = get_term( $constituency, $ed_taxonomies['candidate_constituency'] );
@@ -141,6 +149,13 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 	return $results;
 }
 
+/**
+ * Gets the Constituency from the indicated Candidate.
+ * @see get_constituency for what Constituency information will be returned
+ *
+ * @param 	$candidate_id			the Candidate's id.
+ * @return 	array 						the array containing the candidate's Constituency information.
+ */
 function get_constituency_from_candidate( $candidate_id ) {
 	global $ed_taxonomies;
 	$all_terms = get_the_terms( $candidate_id, $ed_taxonomies['candidate_constituency'] );
@@ -155,6 +170,11 @@ function get_constituency_from_candidate( $candidate_id ) {
 	}
 }
 
+/**
+ * Retrieves the root constituences.
+ *
+ * @return	array		an array containing the ids of the root Constituencies.
+ */
 function get_root_constituencies() {
 	global $ed_taxonomies;
 	$args = array(
@@ -169,6 +189,11 @@ function get_root_constituencies() {
 	return $terms;
 }
 
+/**
+ * Retrieve the registered parties in a random order.
+ *
+ * @return array $terms		an array containing the parties in a random order.
+ */
 function get_parties_random() {
 	global $ed_taxonomies;
 	$args = array(
@@ -183,6 +208,11 @@ function get_parties_random() {
 	return $terms;
 }
 
+/**
+ * Retrieve all the registered parties.
+ *
+ * @return array		$parties	an array containing all the parties.
+ */
 function get_all_parties() {
     global $ed_taxonomies;
     $args = array(
@@ -200,6 +230,11 @@ function get_all_parties() {
     return $parties;
 }
 
+/**
+ * Retrieve all the registered candidates.
+ *
+ * @return array $candidates	an array containing all the candidates.
+ */
 function get_all_candidates() {
     global $ed_post_types;
     $query_args = array(
@@ -220,6 +255,13 @@ function get_all_candidates() {
     return $candidates;
 }
 
+/**
+ * Retrieve the indicated party.
+ *
+ * @param 	$party					the id of the party to be retrieved.
+ * @param 	$get_extra_data	indicates if additional fields should be retrieved. Default is true.
+ * @return 	array $results	an array containing information about the party.
+ */
 function get_party( $party, $get_extra_data = true ) {
 	global $ed_taxonomies;
 	$party = get_term( $party, $ed_taxonomies['candidate_party'] );
@@ -277,6 +319,12 @@ function get_party( $party, $get_extra_data = true ) {
 	return $results;
 }
 
+/**
+ * Retrieve information about a given Candidate's party.
+ *
+ * @param 	$candidate_id		the id of the given Candidate.
+ * @return 	array						the array containing all the party information.
+ */
 function get_party_from_candidate( $candidate_id ) {
 	global $ed_taxonomies;
 	$all_terms = get_the_terms( $candidate_id, $ed_taxonomies['candidate_party'] );
@@ -293,16 +341,34 @@ function get_party_from_candidate( $candidate_id ) {
 	}
 }
 
+/**
+ * Retrieve the party information from the answer party.
+ *
+ * @param 	$answer_party	the id of the answer party.
+ * @return	array 				an array containing the party information.
+ */
 function get_candidate_party_from_answer_party( $answer_party ) {
 	$party_id = get_tax_meta( $answer_party->term_id, 'candidate_party_term_id' );
 	return get_party( $party_id, true );
 }
 
+/**
+ * Retrieve the candidate information from the answer candidate.
+ *
+ * @param 	$answer_candidate	the id of the answer candidate.
+ * @return	array 						an array containing the candidate information.
+ */
 function get_candidate_from_answer_candidate( $answer_candidate ) {
 	$candidate_id = get_tax_meta( $answer_candidate->term_id, 'candidate_id' );
 	return get_candidate( $candidate_id, true );
 }
 
+/**
+ * Retrieves a given news article.
+ *
+ * @param 	$news_article_id	the id of the news articles.
+ * @return	array $results		an array containing information on the article.
+ */
 function get_news_article( $news_article_id ) {
 	global $ed_taxonomies;
 
@@ -340,6 +406,13 @@ function get_news_article( $news_article_id ) {
 	return $results;
 }
 
+/**
+ * Get the q and a questions.
+ *
+ * @param 	$type	indicates the type of questions that should be retrieved.
+ * @param 	$term the search term
+ * @return	array $questions	an array containing all the questions.
+ */
 function get_qanda_questions( $type, $term ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
@@ -394,6 +467,14 @@ function get_qanda_questions( $type, $term ) {
 	return $questions;
 }
 
+/**
+ * Retrieves the q and a answers.
+ *
+ * @param 	$type		the type of answers to be retrieved
+ * @param 	$id			the id of the answers
+ * @param		$count	Indicates if there is to be paging: if not null, the number indicates how much per page. Default is null.
+ * @return	$answers	an array containing all the q and a answers.
+ */
 function get_qanda_answers( $type, $id, $count = null ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
@@ -455,6 +536,13 @@ function get_qanda_answers( $type, $id, $count = null ) {
 	return $answers;
 }
 
+/**
+ * Retrieves the information about a Candidate.
+ *
+ * @param 	$candidate_id		the id of the Candidate
+ * @param 	$get_qanda			indicates if the questions and answers should be retrieved. Default is false.
+ * @return 	$results				an array containing all the Candidate's information.
+ */
 function get_candidate( $candidate_id, $get_qanda = false ) {
 	$image_id = get_post_thumbnail_id( $candidate_id );
 	$image_id = $image_id ? $image_id : Election_Data_Option::get_option( 'missing_candidate' );
@@ -518,6 +606,17 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 	return $results;
 }
 
+/**
+ * Retrieve news articles to be displayed about a given candidate.
+ *
+ * @global $ed_post_types
+ * @global $ed_taxonomies
+ *
+ * @param 	$candidate_id				the Candidate to have news about. Default is null.
+ * @param 	$page								the number of pages for pagination. Default is 1.
+ * @param		$articles_per_page	the amount of articles per page. Default is null.
+ * @return	array 							an array containing news articles, paginated according to parameters.
+ */
 function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
@@ -557,6 +656,13 @@ function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) 
 	);
 }
 
+/**
+ * Get paging arguments.
+ *
+ * @param 	$type		the kind of paging args, to be used in a switch statement.
+ * @param 	$page		indicates the current page number
+ * @return	$args		an array containing the paging arguments.
+ */
 function get_paging_args( $type, $page ) {
 	switch ( $type ) {
 		case 'Candidate':
@@ -578,6 +684,12 @@ function get_paging_args( $type, $page ) {
 	return $args;
 }
 
+/**
+ * Retrieves the current page number.
+ *
+ * @param 	$type		the type that could have a page
+ * @return 	$page 	the current page number
+ */
 function get_current_page( $type ) {
 	switch ( $type ) {
 		case 'Candidate':
@@ -594,6 +706,11 @@ function get_current_page( $type ) {
 	return $page;
 }
 
+/**
+ * Deprecated test function. Has no other referencces within the plugin.
+ * Flagging for deletion at a later point.
+ *
+ */
 function get_answer( $answer ) {
 	global $ed_post_types;
 
@@ -604,6 +721,13 @@ function get_answer( $answer ) {
 	return $result;
 }
 
+/**
+ * Indicates if the current user can edit a given set of q and a.
+ *
+ * @param 	$type		the type of answers that could be edited
+ * @param 	$id			the id of the answer set
+ * @return  boolean if the user can edit posts.
+ */
 function can_edit_answers( $type, $id ) {
 	switch ( $type ) {
 		case 'party':
@@ -617,6 +741,11 @@ function can_edit_answers( $type, $id ) {
 	return current_user_can( 'edit_posts' ) || get_query_var( 'token' ) == $token && ! empty( $token );
 }
 
+/**
+ * Retrieves a count of all approved news articles.
+ *
+ * @return 	$sources	an array containing all the sources
+ */
 function get_source_count() {
     global $ed_taxonomies;
     global $ed_post_types;

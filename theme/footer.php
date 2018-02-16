@@ -23,7 +23,8 @@
 
 <?php wp_footer(); ?>
 <script>
-<?php  echo Election_Data_Option::get_option('google-analytics'); ?>
+<?php //this is the google analytics script
+  echo Election_Data_Option::get_option('google-analytics'); ?>
 
 </script>
 </body>
