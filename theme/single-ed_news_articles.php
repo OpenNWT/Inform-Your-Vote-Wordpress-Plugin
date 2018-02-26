@@ -4,6 +4,7 @@
  *
  * @package ElectionData
  * @since 1.0
+ * @author Robert Burton
  */
 
 $article_id = get_the_ID();
