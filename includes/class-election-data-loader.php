@@ -19,7 +19,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/includes
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Loader {
 

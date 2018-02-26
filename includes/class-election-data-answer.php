@@ -39,7 +39,6 @@ class Election_Data_Answer {
 	 * @var object
 	 * @access protected
 	 * @since 1.0
-
 	 *
 	 */
 	protected $custom_post;
@@ -471,9 +470,17 @@ class Election_Data_Answer {
 	 *
 	 */
 	public function export_xml( $xml ) {
+		//FLAG FOR DELETION?
 	}
 
-
+	/**
+	 * Exports the answers to a csv file.
+	 *
+	 * @access public
+	 * @since 1.0
+	 * @param string $xml
+	 *
+	 */
 	public function export_answer_csv( $csv ) {
 		$post_fields = array(
 			'post_title' => 'name',
@@ -489,6 +496,14 @@ class Election_Data_Answer {
 		Post_Export::export_post_csv( $csv, $this->post_type, $this->custom_post->post_meta, $post_fields, null, $taxonomies );
 	}
 
+	/**
+	 * Exports the questions to a csv file.
+	 *
+	 * @access public
+	 * @since 1.0
+	 * @param string $csv
+	 *
+	 */
 	protected function export_question_csv( $csv ) {
 		$question_fields = array( 'name', 'slug', 'description' );
 
@@ -511,6 +526,13 @@ class Election_Data_Answer {
 		return $file_name;
 	}
 
+	/**
+	 * Get a term by either its slug, or if the slug returns nothing, its name.
+	 *
+	 * @since 1.0.0.
+	 * @param $label
+	 * @param $taxonomy
+	 */
 	public function get_term_by_slug_or_name( $label, $taxonomy ) {
 		$term = get_term_by( 'slug', $label, $taxonomy );
 		if ( empty( $term ) ) {
@@ -519,6 +541,10 @@ class Election_Data_Answer {
 		return $term;
 	}
 
+	/**
+	 * Deprecated function.
+	 * @since 1.0.0.
+	 */
 	public function import_answer_csv( $csv, $mode ){
 		global $ed_taxonomies;
 		global $ed_post_types;
@@ -607,6 +633,10 @@ class Election_Data_Answer {
 		//return Post_import::import_post_csv( $csv, $mode, $this->post_type, $this->custom_post->post_meta, $post_fields, null, $taxonomies, array(), $required_fields );
 	}
 
+	/**
+	 * Imports questions based off a csv.
+	 *
+	 */
 	protected function import_question_csv( $csv, $mode ) {
 		$question_fields = array( 'name', 'slug', );
 		$required_fields = array( 'name', 'party', 'question' );
