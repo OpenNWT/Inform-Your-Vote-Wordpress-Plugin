@@ -7,7 +7,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/admin/settings
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Sanitization_Helper {
 
@@ -39,7 +39,6 @@ class Election_Data_Sanitization_Helper {
 	public function __construct( $plugin_name ) {
 
 		$this->plugin_name = $plugin_name;
-
 		$this->registered_settings = Election_Data_Settings_Definition::get_settings();
 
 		add_filter( 'election_data_settings_sanitize_text', array( $this, 'sanitize_text_field' ) );

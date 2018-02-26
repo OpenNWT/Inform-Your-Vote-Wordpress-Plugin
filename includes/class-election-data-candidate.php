@@ -449,6 +449,11 @@ class Election_Data_Candidate {
 		add_image_size( 'party', 175, 175, false );
 	}
 
+  /**
+    * Toggles whether or not the party menu is visible.
+    * @since 1.1
+    * @return void
+    */
   public function toggle_party_menu(){
     global $ed_taxonomies;
     $menu_name = __('Election Data Navigation Menu');
@@ -516,6 +521,10 @@ class Election_Data_Candidate {
 
   }
 
+  /**
+   * Generate a token for q and a.
+   * @since 1.0.0.
+   */
 	public static function qanda_random_token() {
 		return wp_generate_password( 30, false );
 	}
