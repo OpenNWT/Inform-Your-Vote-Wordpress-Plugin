@@ -7,6 +7,8 @@
 * @since Election_Data_Theme 1.1
 */
 
+global $is_party_election;
+
 $constituency = get_constituency( $party_id = get_queried_object()->term_id );
 $constituency_id = $constituency['id'];
 
@@ -55,7 +57,7 @@ get_header(); ?>
           ?>
           <table>
             <tr> <th>Candidate</th>
-              <?php if (Election_Data_Option::get_option('party_election') ): ?> <th>Party</th> <?php endif ?>
+              <?php if ($is_party_election ): ?> <th>Party</th> <?php endif ?>
               <th>Votes</th>
               <th>Percentage</th>
             </tr>
@@ -64,7 +66,7 @@ get_header(); ?>
               $can_party = get_party_from_candidate( $result['id'] ); ?>
               <tr style="color:<?php echo $can_party['colour'] ?>;">
                 <td><?php echo $result['name']; ?></td>
-                <?php if ( Election_Data_Option::get_option('party_election') ):
+                <?php if ( $is_party_election ):
                    $total_votes[$can_party['name']] += $result['candidate_votes']; ?>
                   <td><?php echo $can_party['name']; ?></td>
                 <?php endif; ?>
@@ -83,7 +85,7 @@ get_header(); ?>
     <?php endif;?>
   <?php endforeach; ?>
 
-  <?php if (Election_Data_Option::get_option('party_election') ) {
+  <?php if ($is_party_election ) {
 			foreach ($total_votes as $party_name => $party_total) {
 				echo '<p>Those under the ' . $party_name . ' banner received ' . $party_total . ' votes this election.';
 			}

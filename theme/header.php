@@ -19,10 +19,20 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
-<meta property="og:image" content=<?php echo wp_get_attachment_image( Election_data_option::get_option('site_image'));?>
-<meta property="og:title" content="<?= Election_Data_Option::get_option('site_title');?>" />
-<meta property="og:description" content="<?= Election_Data_Option::get_option('site_description');?>" />
-<meta name="description" content="<?= Election_Data_Option::get_option('site_description');?>" />
+
+<?php if(Election_data_option::get_option('site_image')):?>
+	<meta property="og:image" content=<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'))[0];?>>
+<?php endif;?>
+
+<?php if(Election_Data_Option::get_option('site_title')):?>
+	<meta property="og:title" content="<?= Election_Data_Option::get_option('site_title');?>" />
+<?php endif;?>
+
+<?php if(Election_Data_Option::get_option('site_description')): ?>
+	<meta property="og:description" content="<?= Election_Data_Option::get_option('site_description');?>" />
+	<meta name="description" content="<?= Election_Data_Option::get_option('site_description');?>" />
+<?php endif; ?>
+
 <title><?php
 
 /*
@@ -77,3 +87,5 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
         <?php endif ?>
 		<div id="main" role="main">
+
+			

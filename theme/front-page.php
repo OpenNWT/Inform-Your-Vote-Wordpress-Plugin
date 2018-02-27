@@ -2,7 +2,7 @@
 
 $constituencies = get_root_constituencies();
 $parties = get_parties_random();
-$is_party_election = Election_Data_Option::get_option('party_election');
+global $is_party_election;
 
 get_header(); ?>
 

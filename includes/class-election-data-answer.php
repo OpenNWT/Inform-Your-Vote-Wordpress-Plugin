@@ -17,10 +17,16 @@ require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
 
 global $ed_post_types;
 $ed_post_types['answer'] = 'ed_answers';
+
 global $ed_taxonomies;
 $ed_taxonomies['answer_question'] = "{$ed_post_types['answer']}_question";
 $ed_taxonomies['answer_candidate'] = "{$ed_post_types['answer']}_candidate";
-$ed_taxonomies['answer_party'] = "{$ed_post_types['answer']}_party";
+
+global $is_party_election;
+if($is_party_election){
+	$ed_taxonomies['answer_party'] = "{$ed_post_types['answer']}_party";
+}
+
 
 
 /**
@@ -38,7 +44,7 @@ class Election_Data_Answer {
 	 *
 	 * @var object
 	 * @access protected
-	 * @since 1.0
+	 * @since 1.0.0
 
 	 *
 	 */
@@ -69,7 +75,7 @@ class Election_Data_Answer {
 	 *
 	 * @var integer
 	 * @access private
-	 * @since 1.0
+	 * @since 1.0.0
 	 *
 	 */
 	private $emails_sent = 0;
@@ -85,13 +91,16 @@ class Election_Data_Answer {
 	public function __construct( $define_hooks = true ) {
 		global $ed_post_types;
 		global $ed_taxonomies;
+		global $is_party_election;
 
 		$this->post_type = $ed_post_types['answer'];
+
 		$this->taxonomies = array(
 			'question' => $ed_taxonomies['answer_question'],
 			'candidate' => $ed_taxonomies['answer_candidate'],
 			'party' => $ed_taxonomies['answer_party'],
 		);
+
 		$args = array(
 			'custom_post_args' => array(
 				'labels' => array(
@@ -221,25 +230,44 @@ class Election_Data_Answer {
 					'taxonomy' => $this->taxonomies['question'],
 					'fields' => array(
 						array(
-							'type' => 'checkbox',
-							'id' => 'party',
-							'std' => false,
-							'label' => __( 'Party Question' ),
-							'desc' => __( 'Indicates that the question is targeted towards the party as opposed to a candidate.' ),
-							'imported' => true,
-						),
-						array(
 							'type' => 'wysiwyg',
 							'id' => 'question',
 							'std' => '',
 							'label' => __( 'The Question' ),
-							'desc' => __( "The question for the candidate or for the party. The following substitutions will occur for both candidate and party questions:<br><list><li>*party* → The name of the candidate's party</li><li>*party_alt* → The alternate name of the candidate's party</li></list><br>Additionally, the following substitution will occur for candidate questions:<br><list><li>*candidate* → The name of the candidate</li></list>" ),
+							'desc' => ($is_party_election) ? __("The question for the candidate or for the party.
+														The following substitutions will occur for both candidate and party questions:
+								            <br>
+														<list>
+															<li>*party* → The name of the candidate's party</li>
+															<li>*party_alt* → The alternate name of the candidate's party</li>
+														</list><br>
+														Additionally, the following substitution will occur for candidate questions:<br>
+														<list>
+															<li>*candidate* → The name of the candidate</li>
+														</list>" ) :
+														__("The question for the candidate.
+																The following substitutions will occur for candidate:
+										            <br>
+																<list>
+																	<li>*candidate* → The name of the candidate</li>
+																</list>"),
 							'imported' => true,
 						),
 					),
 				),
 			),
 		);
+
+		if($is_party_election){
+			array_unshift($args['taxonomy_meta']['question']['fields'], array(
+				'type' => 'checkbox',
+				'id' => 'party',
+				'std' => false,
+				'label' => __( 'Party Question' ),
+				'desc' => __( 'Indicates that the question is targeted towards the party as opposed to a candidate.' ),
+				'imported' => true,
+			));
+		}
 
 		$this->custom_post = new ED_Custom_Post_Type( $this->post_type, $args, $define_hooks );
 
