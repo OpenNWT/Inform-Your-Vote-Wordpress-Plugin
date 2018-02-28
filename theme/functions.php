@@ -85,7 +85,7 @@ add_action( 'after_switch_theme', 'configure_menu' );
  */
 function election_data_init() {
 	register_nav_menu('header-menu', __( 'Header Menu' ) );
-  register_nav_menu('footer-menu', __( 'Footer Menu' ) );
+  // register_nav_menu('footer-menu', __( 'Footer Menu' ) );
 	add_theme_support( 'custom-header' );
   add_theme_support( 'post-thumbnails' );
 }
@@ -388,14 +388,17 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 					</a>
 				<?php endif;
 			endforeach; ?>
-		</div>
-		<div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
-		<div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party: <a href="<?php echo $party['url']; ?>"><?php echo esc_html( $party['name'] ); ?></a></div>
-		<div class="phone <?php echo $candidate['phone'] ? '' : 'hidden' ?>">Phone: <?php echo esc_html( $candidate['phone'] ); ?></div>
-        <?php if (isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'qanda_active')): ?>
-        <div class="qanda"><strong>Questionnaire: <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">Read <?= explode(' ', $candidate['name'])[0] ?>'s Response</a></strong></div>
-        <?php endif ?>
-	</div>
+    </div>
+    <div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
+    <div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party:
+      <a href="<?php echo $party['url'] ? $party['url'] : '#' ; ?>">
+      <?php if ($party['name']) { echo esc_html( $party['name'] ); } else { echo 'N/A'; } ?>
+    </a></div> <?php if ($display_party == '') {echo '<br />';} ?>
+    <div class="phone <?php echo $candidate['phone'] ? '' : 'hidden' ?>">Phone: <?php echo esc_html( $candidate['phone'] ); ?></div>
+    <?php if (isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'qanda_active')): ?>
+    <div class="qanda"><strong>Questionnaire: <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">Read <?= explode(' ', $candidate['name'])[0] ?>'s Response</a></strong></div>
+    <?php endif ?>
+</div>
 <?php }
 
 /**

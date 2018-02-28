@@ -203,7 +203,7 @@ class Tax_Meta {
 		$id = esc_attr( "{$this->prefix}{$field['id']}" );
 		$desc = $field['desc'];
 		echo "$header<img id='{$id}_img' src='$image_url' style='max-width:100%'/>";
-		echo "<input type='text' name='$id' id='$id' value='$image_id' />";
+		//THIS IS THE EVIL LINE! echo "<input type='text' name='$id' id='$id' value='$image_id' />";
 		echo "<br><input type='button' id='{$id}_add' name='{$id}_add' value='Select Image' $add_class/>";
 		echo "<br><input type='button' id='{$id}_del' name='{$id}_del' value='Remove Image' $del_class/>";
 		echo "<p>$desc</p>$footer";
