@@ -87,5 +87,3 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
         <?php endif ?>
 		<div id="main" role="main">
-
-			
