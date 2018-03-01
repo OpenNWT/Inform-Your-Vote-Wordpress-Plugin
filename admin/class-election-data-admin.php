@@ -43,8 +43,8 @@ class Election_Data_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @var      string    $plugin_name       The name of this plugin.
-	 * @var      string    $version    				The version of this plugin.
+	 * @var      string    $plugin_name     The name of this plugin.
+	 * @var      string    $version    	The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
