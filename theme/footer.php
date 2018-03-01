@@ -12,8 +12,10 @@
 </div><!-- #main .site-main -->
 
 <footer id="colophon" class="site-footer" role="contentinfo">
-  <?php wp_nav_menu( array( 'container_class' => 'site-footer', 'theme_location' => 'footer-menu' ) );
-   ?>
+
+    <div id = "footer_left"><?php echo Election_Data_Option::get_option('footer-left');?></div>
+    <div id = "footer_center"><?php echo Election_Data_Option::get_option('footer-center');?></div>
+    <div id = "footer_right"><?php echo Election_Data_Option::get_option('footer-right');?></div>
     <div class="site-info">
           <?php echo Election_Data_Option::get_option('footer');?>
         <?php do_action( 'election_data_theme_credits' ); ?>
@@ -23,8 +25,8 @@
 
 <?php wp_footer(); ?>
 <script>
-<?php  echo Election_Data_Option::get_option('google-analytics'); ?>
-
+<?php //this is the google analytics script
+  echo Election_Data_Option::get_option('google-analytics'); ?>
 </script>
 </body>
 </html>

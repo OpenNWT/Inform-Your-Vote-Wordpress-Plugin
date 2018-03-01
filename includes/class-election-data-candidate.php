@@ -15,12 +15,14 @@ require_once plugin_dir_path( __FILE__ ) . 'class-custom-post.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
 
+global $is_party_election;
+
 global $ed_post_types;
 $ed_post_types['candidate'] = 'ed_candidates';
 
 global $ed_taxonomies;
 
-if(Election_Data_Option::get_option('party_election')){
+if($is_party_election){
   $ed_taxonomies['candidate_party'] = "{$ed_post_types['candidate']}_party";
 }
 
@@ -78,6 +80,7 @@ class Election_Data_Candidate {
 	public function __construct( $define_hooks = true ) {
 		global $ed_post_types;
 		global $ed_taxonomies;
+    global $is_party_election;
 
 		$this->post_type = $ed_post_types['candidate'];
 		$this->taxonomies = array(
@@ -114,7 +117,7 @@ class Election_Data_Candidate {
 			'hidden_admin_fields' => array( 'password', 'date' ),
 			'hidden_admin_filters' => array( 'date' ),
 			'taxonomy_filters' => array(
-        (Election_Data_Option::get_option('party_election')? $this->taxonomies['party']:$this->taxonomies['constituency']),
+        ($is_party_election ? $this->taxonomies['party']:$this->taxonomies['constituency']),
         $this->taxonomies['constituency'] ),
 			'sortable_taxonomies' => array( $this->taxonomies['party'], $this->taxonomies['constituency'] ),
 			'custom_post_meta' => array(
@@ -397,7 +400,7 @@ class Election_Data_Candidate {
               'id' => 'number_of_winners',
               'desc' => __( "How many people can win the election?" ),
               'label' => __( "Number of Seats in this Race" ),
-              'std' => 1,
+              'std' => 0, // Default this to zero, to prevent parent constituencies from having a winner.
               'imported' => true,
               'min' => 0,
               'step' => 1,
@@ -428,6 +431,9 @@ class Election_Data_Candidate {
 						),
 					),
 					'hidden' => array( 'description' ),
+          'renamed' => array(
+					//	'slug' => 'Alternate Name', // transforms 'Slug' into something else
+					),
 				),
 			),
 		);
@@ -449,8 +455,15 @@ class Election_Data_Candidate {
 		add_image_size( 'party', 175, 175, false );
 	}
 
+  /**
+    * Toggles whether or not the party menu is visible.
+    * @since 1.1
+    * @return void
+    */
   public function toggle_party_menu(){
     global $ed_taxonomies;
+    global $is_party_election;
+
     $menu_name = __('Election Data Navigation Menu');
     $menu = wp_get_nav_menu_object($menu_name);
     $menu_id = $menu->term_id;
@@ -459,15 +472,26 @@ class Election_Data_Candidate {
 
     $constituency_items = array();
 
-    if(Election_Data_Option::get_option('party_election')){
-      $old_parent_item_id = 7;
-      $new_parent_item_id = 9;
-    } else{
-      $old_parent_item_id = 9;
-      $new_parent_item_id = 7;
-    }
-
     foreach($menu_items as $menu_item){
+
+      if($menu_item->title == "Candidates")
+      {
+        if($is_party_election){
+          $old_parent_item_id = $menu_item->ID;
+        }
+        else{
+          $new_parent_item_id = $menu_item->ID;
+        }
+      }
+
+      if($menu_item->title == "Constituency"){
+        if($is_party_election){
+          $new_parent_item_id = $menu_item->ID;
+        }
+        else{
+          $old_parent_item_id = $menu_item->ID;
+        }
+      }
 
       if($menu_item->menu_item_parent == $old_parent_item_id &&
          $menu_item->title != "Party" &&
@@ -480,7 +504,7 @@ class Election_Data_Candidate {
         ));
       }
 
-      if(!Election_Data_Option::get_option('party_election')){
+      if(!$is_party_election){
         if($menu_item->title == "Party"){
           echo( "<style>
                     li#menu-item-". $menu_item->ID."{
@@ -516,6 +540,10 @@ class Election_Data_Candidate {
 
   }
 
+  /**
+   * Generate a token for q and a.
+   * @since 1.0.0.
+   */
 	public static function qanda_random_token() {
 		return wp_generate_password( 30, false );
 	}
@@ -572,6 +600,7 @@ class Election_Data_Candidate {
        $this->create_menu_item( __( 'Constituency' ), $this->taxonomies['constituency'], $term );
 		}
 	}
+
 
 	public function edited_constituency( $term_id, $tt_id ) {
 		$term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );

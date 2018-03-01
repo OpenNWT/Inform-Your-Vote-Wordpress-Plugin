@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying all single posts and attachments
- *
+ * Specifically, this is for displaying all candidates.
  */
 
 get_header();

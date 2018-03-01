@@ -11,6 +11,7 @@
  *
  * @package Election_Data_Theme
  * @since Election_Data_Theme 1.0
+ * @author Robert Burton
  */
 
 get_header(); ?>

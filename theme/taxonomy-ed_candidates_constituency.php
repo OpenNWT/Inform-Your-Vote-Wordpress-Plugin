@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *	Standard template for displaying candidates in a constituency.
+ *  @author Robert Burton
+ */
+
 $constituency = get_constituency( $party_id = get_queried_object()->term_id );
 $constituency_id = $constituency['id'];
 

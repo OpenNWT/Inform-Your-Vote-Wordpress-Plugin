@@ -17,10 +17,16 @@ require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
 
 global $ed_post_types;
 $ed_post_types['answer'] = 'ed_answers';
+
 global $ed_taxonomies;
 $ed_taxonomies['answer_question'] = "{$ed_post_types['answer']}_question";
 $ed_taxonomies['answer_candidate'] = "{$ed_post_types['answer']}_candidate";
-$ed_taxonomies['answer_party'] = "{$ed_post_types['answer']}_party";
+
+global $is_party_election;
+if($is_party_election){
+	$ed_taxonomies['answer_party'] = "{$ed_post_types['answer']}_party";
+}
+
 
 
 /**
@@ -38,8 +44,7 @@ class Election_Data_Answer {
 	 *
 	 * @var object
 	 * @access protected
-	 * @since 1.0
-
+	 * @since 1.0.0
 	 *
 	 */
 	protected $custom_post;
@@ -69,7 +74,7 @@ class Election_Data_Answer {
 	 *
 	 * @var integer
 	 * @access private
-	 * @since 1.0
+	 * @since 1.0.0
 	 *
 	 */
 	private $emails_sent = 0;
@@ -85,13 +90,16 @@ class Election_Data_Answer {
 	public function __construct( $define_hooks = true ) {
 		global $ed_post_types;
 		global $ed_taxonomies;
+		global $is_party_election;
 
 		$this->post_type = $ed_post_types['answer'];
+
 		$this->taxonomies = array(
 			'question' => $ed_taxonomies['answer_question'],
 			'candidate' => $ed_taxonomies['answer_candidate'],
 			'party' => $ed_taxonomies['answer_party'],
 		);
+
 		$args = array(
 			'custom_post_args' => array(
 				'labels' => array(
@@ -221,25 +229,44 @@ class Election_Data_Answer {
 					'taxonomy' => $this->taxonomies['question'],
 					'fields' => array(
 						array(
-							'type' => 'checkbox',
-							'id' => 'party',
-							'std' => false,
-							'label' => __( 'Party Question' ),
-							'desc' => __( 'Indicates that the question is targeted towards the party as opposed to a candidate.' ),
-							'imported' => true,
-						),
-						array(
 							'type' => 'wysiwyg',
 							'id' => 'question',
 							'std' => '',
 							'label' => __( 'The Question' ),
-							'desc' => __( "The question for the candidate or for the party. The following substitutions will occur for both candidate and party questions:<br><list><li>*party* → The name of the candidate's party</li><li>*party_alt* → The alternate name of the candidate's party</li></list><br>Additionally, the following substitution will occur for candidate questions:<br><list><li>*candidate* → The name of the candidate</li></list>" ),
+							'desc' => ($is_party_election) ? __("The question for the candidate or for the party.
+														The following substitutions will occur for both candidate and party questions:
+								            <br>
+														<list>
+															<li>*party* → The name of the candidate's party</li>
+															<li>*party_alt* → The alternate name of the candidate's party</li>
+														</list><br>
+														Additionally, the following substitution will occur for candidate questions:<br>
+														<list>
+															<li>*candidate* → The name of the candidate</li>
+														</list>" ) :
+														__("The question for the candidate.
+																The following substitutions will occur for candidate:
+										            <br>
+																<list>
+																	<li>*candidate* → The name of the candidate</li>
+																</list>"),
 							'imported' => true,
 						),
 					),
 				),
 			),
 		);
+
+		if($is_party_election){
+			array_unshift($args['taxonomy_meta']['question']['fields'], array(
+				'type' => 'checkbox',
+				'id' => 'party',
+				'std' => false,
+				'label' => __( 'Party Question' ),
+				'desc' => __( 'Indicates that the question is targeted towards the party as opposed to a candidate.' ),
+				'imported' => true,
+			));
+		}
 
 		$this->custom_post = new ED_Custom_Post_Type( $this->post_type, $args, $define_hooks );
 
@@ -471,9 +498,17 @@ class Election_Data_Answer {
 	 *
 	 */
 	public function export_xml( $xml ) {
+		//FLAG FOR DELETION?
 	}
 
-
+	/**
+	 * Exports the answers to a csv file.
+	 *
+	 * @access public
+	 * @since 1.0
+	 * @param string $xml
+	 *
+	 */
 	public function export_answer_csv( $csv ) {
 		$post_fields = array(
 			'post_title' => 'name',
@@ -489,6 +524,14 @@ class Election_Data_Answer {
 		Post_Export::export_post_csv( $csv, $this->post_type, $this->custom_post->post_meta, $post_fields, null, $taxonomies );
 	}
 
+	/**
+	 * Exports the questions to a csv file.
+	 *
+	 * @access public
+	 * @since 1.0
+	 * @param string $csv
+	 *
+	 */
 	protected function export_question_csv( $csv ) {
 		$question_fields = array( 'name', 'slug', 'description' );
 
@@ -511,6 +554,13 @@ class Election_Data_Answer {
 		return $file_name;
 	}
 
+	/**
+	 * Get a term by either its slug, or if the slug returns nothing, its name.
+	 *
+	 * @since 1.0.0.
+	 * @param $label
+	 * @param $taxonomy
+	 */
 	public function get_term_by_slug_or_name( $label, $taxonomy ) {
 		$term = get_term_by( 'slug', $label, $taxonomy );
 		if ( empty( $term ) ) {
@@ -519,6 +569,10 @@ class Election_Data_Answer {
 		return $term;
 	}
 
+	/**
+	 * Deprecated function.
+	 * @since 1.0.0.
+	 */
 	public function import_answer_csv( $csv, $mode ){
 		global $ed_taxonomies;
 		global $ed_post_types;
@@ -607,6 +661,10 @@ class Election_Data_Answer {
 		//return Post_import::import_post_csv( $csv, $mode, $this->post_type, $this->custom_post->post_meta, $post_fields, null, $taxonomies, array(), $required_fields );
 	}
 
+	/**
+	 * Imports questions based off a csv.
+	 *
+	 */
 	protected function import_question_csv( $csv, $mode ) {
 		$question_fields = array( 'name', 'slug', );
 		$required_fields = array( 'name', 'party', 'question' );
