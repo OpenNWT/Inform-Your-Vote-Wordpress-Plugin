@@ -452,6 +452,7 @@ class Election_Data_Candidate {
 		add_image_size( 'party', 175, 175, false );
 	}
 
+
   public function toggle_party_menu(){
     global $ed_taxonomies;
     global $is_party_election;
@@ -587,8 +588,8 @@ class Election_Data_Candidate {
 		if ( $term['parent'] == 0 ) {
        $this->create_menu_item( __( 'Constituency' ), $this->taxonomies['constituency'], $term );
 		}
-
 	}
+
 
 	public function edited_constituency( $term_id, $tt_id ) {
 		$term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );
