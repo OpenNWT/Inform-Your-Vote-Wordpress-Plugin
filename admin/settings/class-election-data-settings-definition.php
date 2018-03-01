@@ -15,7 +15,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/includes
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Settings_Definition {
 
@@ -63,6 +63,7 @@ class Election_Data_Settings_Definition {
 
 		$tabs                = array();
 		$tabs['front_page_tab'] = __( 'Front Page', self::$plugin_name );
+		$tabs['footer_tab'] = __('Footer', self::$plugin_name );
 		$tabs['news_scraping_tab'] = __( 'News Scraping', self::$plugin_name );
 		$tabs['general_tab'] = __( 'General Settings', self::$plugin_name );
 		$tabs['questions_tab'] = __( 'Question Settings', self::$plugin_name );
@@ -426,7 +427,7 @@ class Election_Data_Settings_Definition {
 					'std' => true,
 				),
 				'constituency-label' => array(
-					'name' => __( 'Constiuency Label', self::$plugin_name ),
+					'name' => __( 'Constituency Label', self::$plugin_name ),
 					'desc' => __( 'The label you would like to use for the constituency section.', self::$plugin_name ),
 					'type' => 'text',
 				),
@@ -453,6 +454,28 @@ class Election_Data_Settings_Definition {
 					'step' => 1,
 				),
 			),
+			'footer_tab' => array(
+				'footer' => array(
+					'name' => __('Footer', self::$plugin_name),
+					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
+					'type' => 'textarea',
+				),
+				'footer-left' => array(
+					'name' => __('Footer Left', self::$plugin_name),
+					'desc' => __('Text which will be displayed in the left of the footer of each page.', self::$plugin_name),
+					'type' => 'rich_editor',
+				),
+				'footer-center' => array(
+					'name' => __('Footer Center', self::$plugin_name),
+					'desc' => __('Text which will be displayed in the center of the footer of each page.', self::$plugin_name),
+					'type' => 'rich_editor',
+				),
+				'footer-right' => array(
+					'name' => __('Footer Right', self::$plugin_name),
+					'desc' => __('Text which will be displayed in the right of the footer of each page.', self::$plugin_name),
+					'type' => 'rich_editor',
+				),
+			),
 			'general_tab' => array(
 				'party_election' => array(
 					'name' => __('Party Election', self::$plugin_name),
@@ -473,11 +496,6 @@ class Election_Data_Settings_Definition {
 					'name' => __('Site Image', self::$plugin_name),
 					'desc' => __('An image that represents your site.', self::$plugin_name),
 					'type' => 'image'
-				),
-				'footer' => array(
-					'name' => __('Footer', self::$plugin_name),
-					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
-					'type' => 'textarea'
 				),
 				'missing_constituency' => array(
 					'name' => __( 'Missing Constituency Map Image', self::$plugin_name ),
@@ -524,7 +542,7 @@ class Election_Data_Settings_Definition {
 				),
 				'google-analytics' => array(
 					'name' => __( 'Google Analytics Script', self::$plugin_name ),
-					'desc' => __( 'If you wish to use Google Analytics, please paste the script provided by them here.' ),
+					'desc' => __( 'If you wish to use Google Analytics, please paste the script provided by them here. Note that Script tags are already included.' ),
 					'type' => 'textarea',
 				),
 			),

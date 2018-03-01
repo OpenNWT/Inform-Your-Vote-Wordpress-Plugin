@@ -16,7 +16,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/admin
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 
 class Election_Data_Admin {
@@ -44,7 +44,7 @@ class Election_Data_Admin {
 	 *
 	 * @since    1.0.0
 	 * @var      string    $plugin_name       The name of this plugin.
-	 * @var      string    $version    The version of this plugin.
+	 * @var      string    $version    				The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ *	The front page.
+ *
+ * @package Election_Data_Theme
+ * @since Election_Data_Theme 1.0
+ * @author Robert Burton
+ */
+
 $constituencies = get_root_constituencies();
 $parties = get_parties_random();
 global $is_party_election;

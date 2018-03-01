@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying all single posts and attachments
- *
+ * Specifically, this is for dealing with news articles.
  */
 
 get_header();
@@ -12,6 +12,7 @@ get_header();
 		<h3>Latest News Articles</h3>
 		<div class="grey small">
 			<p>News articles are <a href="http://www.manitobaelection.ca/frequently-asked-questions/#news">automatically gathered from Google News</a> by searching for the full names of the candidates in the upcoming Manitoba election.</p>
+      <!-- shouldn't this be < echo Election_Data_Option::get_option( 'news-scraping-subheading' ) > ??? -->
 		</div>
 		<?php news_titles( $wp_query, 'News Article' ); ?>
 	</div>

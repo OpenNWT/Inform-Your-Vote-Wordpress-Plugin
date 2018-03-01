@@ -1,7 +1,7 @@
 <?php
 /**
  * The template for displaying all single posts and attachments
- *
+ * @author Robert Burton
  */
 
 //get_header();

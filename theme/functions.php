@@ -61,6 +61,10 @@ function election_data_theme_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'election_data_theme_scripts' );
 
+/**
+ * Configures the Election Data Menu.
+ *
+ */
 function configure_menu() {
 	$menu_name = 'Election Data Navigation Menu';
 	$menu = wp_get_nav_menu_object( $menu_name );
@@ -72,24 +76,47 @@ function configure_menu() {
 		}
 	}
 }
-
 add_action( 'after_switch_theme', 'configure_menu' );
 
+/**
+ * Initalises the menus to be displayed in the header and footer, along with theme support.
+ * @since Election_Data_Theme 1.0
+ *
+ */
 function election_data_init() {
 	register_nav_menu('header-menu', __( 'Header Menu' ) );
-  register_nav_menu('footer-menu', __( 'Footer Menu' ) );
+  // register_nav_menu('footer-menu', __( 'Footer Menu' ) );
 	add_theme_support( 'custom-header' );
-    add_theme_support( 'post-thumbnails' );
+  add_theme_support( 'post-thumbnails' );
 }
-
 add_action( 'init', 'election_data_init' );
 
+/**
+ * Displays the news articles about a candidate.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param 	$candidate_ids			the Candidate to have news about. Default is null.
+ * @param 	$show_more
+ * @param		$count	            the amount of articles per page. Default is null.
+ */
 function display_news_titles ( $candidate_ids, $show_more, $count ) {
 	$news = get_news( $candidate_ids, 1, $count );
 	$articles = $news['articles'];
 	news_titles( $articles, $show_more ? 'more' : '', $candidate_ids );
 }
 
+/**
+ * Outputs out a series of news article titles, which will include who published them.
+ * @since Election_Data_Theme 1.0
+ *
+ * @global $ed_post_types
+ * @global $ed_taxonomies
+ *
+ * @param    $article_query  Query containing article information.
+ * @param    $paging_type    The type of paging.
+ * @param    $candidate_ids  Relevant candidate ids. Default is null.
+ * @param    $paging_args    Paging arguments in an array. Default is an empty array.
+ */
 function news_titles( $article_query, $paging_type, $candidate_ids = null, $paging_args = array() ) {
 	global $ed_post_types, $ed_taxonomies;
 	$last_date = '';
@@ -157,17 +184,28 @@ function news_titles( $article_query, $paging_type, $candidate_ids = null, $pagi
 	<?php endif;
 }
 
+/**
+ * Displays news pagination.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $args An array of arguments required to display paginated news.
+ */
 function display_news_pagination( $args ) {
 	$default_args = array(
 		'mid_size' => 1,
 	);
-
 	$args = wp_parse_args( $args, $default_args );
-
 	echo paginate_links( $args );
 }
 
-
+/**
+ * Displays new summaries for articles about a Candidate.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $candidate_ids      the id of the Candidate
+ * @param $type               the type, either Candidate or Party
+ * @param $articles_per_page  the number for pagination of articles
+ */
 function display_news_summaries ( $candidate_ids, $type, $articles_per_page ) {
 	$page = get_current_page( $type );
 	$args = get_paging_args( $type, $page );
@@ -215,6 +253,12 @@ function display_news_summaries ( $candidate_ids, $type, $articles_per_page ) {
 	<?php }
 }
 
+/**
+ *  Displays a given news article.
+ *  @since Election_Data_Theme 1.0
+ *  @param $article       An array containing the articles information.
+ *  @param $candidates    If the article is about a candidate or not. Default is false.
+ */
 function display_news_article( $article, $candidates = false ){
 	$date_format = get_option( 'date_format' );
 	if ( is_array( $candidates ) ) {
@@ -255,6 +299,12 @@ function display_news_article( $article, $candidates = false ){
 	</div>
 <?php }
 
+/**
+ * Outputs out the designated party.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $party    An array containing the party information.
+ */
 function display_party( $party ) {
 	?>
 	<div class="party">
@@ -290,6 +340,16 @@ function display_party( $party ) {
 	</div>
 <?php }
 
+/**
+ * Outputs a given candidate to a page.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $candidate            the candiddate's id
+ * @param $constituency         the candidate's constituency
+ * @param $party                the candidate's party
+ * @param $show_fields          Default is empty array.
+ * @param $incumbent_location   Default is 'name'.
+ */
 function display_candidate( $candidate, $constituency, $party, $show_fields=array(), $incumbent_location='name' ) {
   global $is_party_election;
   
@@ -330,16 +390,26 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 					</a>
 				<?php endif;
 			endforeach; ?>
-		</div>
-		<div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
-		<div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party: <a href="<?php echo $party['url']; ?>"><?php echo esc_html( $party['name'] ); ?></a></div>
-		<div class="phone <?php echo $candidate['phone'] ? '' : 'hidden' ?>">Phone: <?php echo esc_html( $candidate['phone'] ); ?></div>
-        <?php if (isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'qanda_active')): ?>
-        <div class="qanda"><strong>Questionnaire: <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">Read <?= explode(' ', $candidate['name'])[0] ?>'s Response</a></strong></div>
-        <?php endif ?>
-	</div>
+    </div>
+    <div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
+    <div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party:
+      <a href="<?php echo $party['url'] ? $party['url'] : '#' ; ?>">
+      <?php if ($party['name']) { echo esc_html( $party['name'] ); } else { echo 'N/A'; } ?>
+    </a></div> <?php if ($display_party == '') {echo '<br />';} ?>
+    <div class="phone <?php echo $candidate['phone'] ? '' : 'hidden' ?>">Phone: <?php echo esc_html( $candidate['phone'] ); ?></div>
+    <?php if (isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'qanda_active')): ?>
+    <div class="qanda"><strong>Questionnaire: <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">Read <?= explode(' ', $candidate['name'])[0] ?>'s Response</a></strong></div>
+    <?php endif ?>
+</div>
 <?php }
 
+/**
+ * Display the results of a given search query.
+ * @since Election_Data_Theme 1.0
+ *
+ * @global $ed_post_types
+ * @param $search_query   a query containing the relevant search information.
+ */
 function display_search_results( $search_query ) {
 	global $ed_post_types;
 	while ( $search_query->have_posts() ) {
@@ -360,6 +430,12 @@ function display_search_results( $search_query ) {
 	}
 }
 
+/**
+ * Display all the candidates registered.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $candidate_query  the query containing all the candidates.
+ */
 function display_all_candidates( $candidate_query ) {
 	while ( $candidate_query->have_posts() ) {
 		$candidate_query->the_post();
@@ -371,6 +447,14 @@ function display_all_candidates( $candidate_query ) {
 	}
 }
 
+/**
+ * Display all the candidates in a given party.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $candidate_query  the query containing all the relevant candidates
+ * @param $party            the party that the candidates belong to
+ * @param $candidates       an array that will have the candidate's news article id in it
+ */
 function display_party_candidates( $candidate_query, $party, &$candidates ) {
 	while ( $candidate_query->have_posts() ) {
 		$candidate_query->the_post();
@@ -382,6 +466,14 @@ function display_party_candidates( $candidate_query, $party, &$candidates ) {
 	}
 }
 
+/**
+ * Display all the candidates in a constituency.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param $candidate_query  the query containing all the relevant candidates
+ * @param $constituency     the constituency of the candidate
+ * @param $candidates       an array that will have the candidate's news article id in it
+ */
 function display_constituency_candidates( $candidate_query, $constituency, &$candidates ) {
 	while ( $candidate_query->have_posts() ) {
 		$candidate_query->the_post();
@@ -393,6 +485,11 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
 	}
 }
 
+/**
+ * Displays stats about the answers from a party.
+ * @since Election_Data_Theme 1.0
+ *
+ */
 function display_party_answer_stats() {
     $parties = get_all_parties();
     echo "<div>Parties:</div>";
@@ -409,6 +506,11 @@ function display_party_answer_stats() {
     echo "<div>Number of parties that responded: $total</div>";
 }
 
+/**
+ * Displays stats about the answers from a candidate.
+ * @since Election_Data_Theme 1.0
+ *
+ */
 function display_candidate_answer_stats() {
     $candidates = get_all_candidates();
     echo "<div>Candidates:</div>";
@@ -437,6 +539,11 @@ function display_candidate_answer_stats() {
     echo "<div>Number of candidates that responded: $total</div>";
 }
 
+/**
+ * Displays stats about news articles.
+ * @since Election_Data_Theme 1.0
+ *
+ */
 function display_news_article_stats() {
     $sources = get_source_count();
     echo "<div>Sources:</div>";

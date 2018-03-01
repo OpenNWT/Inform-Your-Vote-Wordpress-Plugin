@@ -16,7 +16,7 @@
  * Plugin Name:       Election Data
  * Plugin URI:        http://opendemocracymanitoba.ca/election-data
  * Description:       Allows the distribution of voter resources for an election.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Robert Burton
  * Author URI:        http://opendemocracymanitoba.ca/
  * License:           GPL-2.0+

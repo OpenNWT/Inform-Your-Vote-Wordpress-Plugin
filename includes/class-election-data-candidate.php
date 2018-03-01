@@ -400,7 +400,7 @@ class Election_Data_Candidate {
               'id' => 'number_of_winners',
               'desc' => __( "How many people can win the election?" ),
               'label' => __( "Number of Seats in this Race" ),
-              'std' => 1,
+              'std' => 0, // Default this to zero, to prevent parent constituencies from having a winner.
               'imported' => true,
               'min' => 0,
               'step' => 1,
@@ -431,6 +431,9 @@ class Election_Data_Candidate {
 						),
 					),
 					'hidden' => array( 'description' ),
+          'renamed' => array(
+					//	'slug' => 'Alternate Name', // transforms 'Slug' into something else
+					),
 				),
 			),
 		);
@@ -452,7 +455,11 @@ class Election_Data_Candidate {
 		add_image_size( 'party', 175, 175, false );
 	}
 
-
+  /**
+    * Toggles whether or not the party menu is visible.
+    * @since 1.1
+    * @return void
+    */
   public function toggle_party_menu(){
     global $ed_taxonomies;
     global $is_party_election;
@@ -533,6 +540,10 @@ class Election_Data_Candidate {
 
   }
 
+  /**
+   * Generate a token for q and a.
+   * @since 1.0.0.
+   */
 	public static function qanda_random_token() {
 		return wp_generate_password( 30, false );
 	}
