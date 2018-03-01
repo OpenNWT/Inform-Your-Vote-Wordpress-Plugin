@@ -35,8 +35,13 @@ jQuery(document).ready( function($) {
               $('#addtag')[0].reset();
 			  }
           }
+
+					// Reloads the taxonomy page after a new term is added
+					location.reload();
         });
       }catch(err) {}
+
     });
+
 
 })

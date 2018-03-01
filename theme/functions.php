@@ -351,8 +351,10 @@ function display_party( $party ) {
  * @param $incumbent_location   Default is 'name'.
  */
 function display_candidate( $candidate, $constituency, $party, $show_fields=array(), $incumbent_location='name' ) {
+  global $is_party_election;
+  
 	$display_name = in_array( 'name', $show_fields );
-	if(Election_Data_Option::get_option('party_election') == 1){$display_party = in_array('party', $show_fields );}
+	if($is_party_election){$display_party = in_array('party', $show_fields );}
 	$display_constituency = in_array( 'constituency', $show_fields );
 	$display_news = in_array( 'news', $show_fields );
 

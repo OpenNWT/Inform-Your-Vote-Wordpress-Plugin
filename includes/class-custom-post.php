@@ -161,17 +161,18 @@ class ED_Custom_Post_Type {
 	protected $hidden_admin_fields;
 
 	/**
-	 * Constructur
+	 * Constructor
 	 *
 	 * @since 1.0
 	 * @access public
-	 * @param array $custom_post
-	 * @param array $args
+	 * @param array $post_type The Post Type
+	 * @param array $args      Array of different arguments
 	 *
 	 */
 	public function __construct( $post_type, $args, $define_hooks = true ) {
 		$this->post_type = $post_type;
 		$this->custom_post_args = $args['custom_post_args'];
+
 		$this->taxonomy_args = empty( $args['taxonomy_args'] ) ? array() : $args['taxonomy_args'];
 		$taxonomy_meta = empty( $args['taxonomy_meta'] ) ? array() : $args['taxonomy_meta'];
 		$this->admin_column_names = empty( $args['admin_column_names'] ) ? array() : $args['admin_column_names'];
@@ -181,11 +182,13 @@ class ED_Custom_Post_Type {
 		$this->hidden_admin_filters = empty( $args['hidden_admin_filters'] ) ? array() : $args['hidden_admin_filters'];
 		$this->taxonomy_admin_columns = array();
 		$this->taxonomy_filters = array();
+
 		if ( ! empty( $args['taxonomy_filters'] ) ) {
 			foreach ( $args['taxonomy_filters'] as $taxonomy ) {
 				$this->taxonomy_filters[$taxonomy] = '';
 			}
 		}
+
 		$this->meta_filters = empty( $args['meta_filters'] ) ? array() : $args['meta_filters'];
 
 		$this->sortable_taxonomies = empty( $args['sortable_taxonomies'] ) ? array() : $args['sortable_taxonomies'];
@@ -212,8 +215,16 @@ class ED_Custom_Post_Type {
 		}
 	}
 
+	/**
+	 * [taxonomy_radio_meta_box description]
+	 * @param  [type] $post [description]
+	 * @param  [type] $box  [description]
+	 * @return [type]       [description]
+	 */
 	function taxonomy_radio_meta_box ($post, $box) {
-		echo "Needs to be written."; // See post_categories_meta_box in wordpress/admin/includes/meta_boxes.php, wp_terms_checklist in wordpress/admin/includes/template.php and Walker_Category_Checklist in wordpress/admin/includes/template.php for ideas on how to implement.
+		echo "Needs to be written."; // See post_categories_meta_box in wordpress/admin/includes/meta_boxes.php,
+		//wp_terms_checklist in wordpress/admin/includes/template.php and Walker_Category_Checklist
+		//in wordpress/admin/includes/template.php for ideas on how to implement.
 	}
 
 	/**
@@ -224,7 +235,9 @@ class ED_Custom_Post_Type {
 	 *
 	 */
 	public function initialize() {
+
 		register_post_type( $this->post_type, $this->custom_post_args );
+
 		foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
 			if ( isset( $taxonomy['use_radio_button'] ) && $taxonomy['use_radio_button'] ) {
 				if ( $taxonomy['hierarchical'] ) {
@@ -251,16 +264,16 @@ class ED_Custom_Post_Type {
 	}
 
 	/**
-	 * Changes the Enter Title Here in the add/edit screen to the requested value.
+	 * Changes the "Enter Title Here" in the add/edit screen to the requested value.
 	 * If the field name 'enter_title_here' has been defined, will use it, otherwise
-	 * the 'title' field is uses. If neither are available, nothing is changed.
+	 * the 'title' field is used. If neither are available, nothing is changed.
 	 *
-	 * @since 1.0
+	 * @since 1.0.0
 	 * @access public
 	 * @param string $label
 	 *
 	 */
-	public function update_title( $label )
+	public function update_title($label)
 	{
 		global $post_type;
 
@@ -335,9 +348,9 @@ class ED_Custom_Post_Type {
 			foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
 				if ( "taxonomy-$taxonomy_name" == $wp_query->query_vars['orderby'] ) {
 					$clauses['join'] .= <<<SQL
-LEFT OUTER JOIN {$wpdb->term_relationships} tr2 ON {$wpdb->posts}.ID=tr2.object_id
-LEFT OUTER JOIN {$wpdb->term_taxonomy} tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id AND (tt2.taxonomy = '$taxonomy_name' OR tt2.taxonomy IS NULL)
-LEFT OUTER JOIN {$wpdb->terms} t2 on tt2.term_id = t2.term_id
+					LEFT OUTER JOIN {$wpdb->term_relationships} tr2 ON {$wpdb->posts}.ID=tr2.object_id
+					LEFT OUTER JOIN {$wpdb->term_taxonomy} tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id AND (tt2.taxonomy = '$taxonomy_name' OR tt2.taxonomy IS NULL)
+					LEFT OUTER JOIN {$wpdb->terms} t2 on tt2.term_id = t2.term_id 
 SQL;
 
 					$clauses['groupby'] = "tr2.object_id";
@@ -346,7 +359,6 @@ SQL;
 				}
 			}
 		}
-
 
 		return $clauses;
 	}
@@ -484,8 +496,13 @@ SQL;
 		return $root_ids;
 	}
 
+	/**
+	 * Loads the edit page of a taxonomy
+	 *
+	 */
 	public function load_edit_tags() {
 		$taxonomy_name = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
+
 		if ( isset( $this->taxonomy_args[$taxonomy_name] ) ) {
 			$taxonomy = get_taxonomy( $taxonomy_name );
 			if ( ! $taxonomy || ! current_user_can( $taxonomy->cap->manage_terms ) ) {
@@ -532,6 +549,10 @@ SQL;
 		}
 	}
 
+	/**
+	 * Creates a select html element of the taxonomy.
+	 *
+	 */
 	public function create_parent_select() {
 		global $taxonomy;
 
@@ -548,6 +569,10 @@ SQL;
 		echo '</div>';
 	}
 
+	/**
+	 * Notifies if the term was updated or not.
+	 *
+	 */
 	public function admin_notice() {
 		if ( !isset( $_GET['ed_message'] ) )
 			return;
