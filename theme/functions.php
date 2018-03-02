@@ -352,7 +352,7 @@ function display_party( $party ) {
  */
 function display_candidate( $candidate, $constituency, $party, $show_fields=array(), $incumbent_location='name' ) {
   global $is_party_election;
-  
+
 	$display_name = in_array( 'name', $show_fields );
 	if($is_party_election){$display_party = in_array('party', $show_fields );}
 	$display_constituency = in_array( 'constituency', $show_fields );
@@ -481,8 +481,32 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
 		$candidate = get_candidate( $candidate_id );
 		$party = get_party_from_candidate( $candidate_id );
 		$candidates[] = $candidate['news_article_candidate_id'];
-		display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
+		display_candidate_new( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
 	}
+}
+
+/**
+ * New test function.
+ *
+ * Author: Joel
+ */
+function display_candidate_new ( $candidate, $constituency, $party, $show_fields=array(), $testing ) {
+  $display_name = in_array( 'name', $show_fields );
+  if(Election_Data_Option::get_option('party_election') == 1){$display_party = in_array('party', $show_fields );}
+  $display_constituency = in_array( 'constituency', $show_fields );
+  $display_news = in_array( 'news', $show_fields );
+
+  ?><div class ="float_left">
+		<div class="new_politician image <?= $candidate['party_leader'] ? 'leader' : '' ?>" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>;">
+			<a href="<?php echo $candidate['url'] ?>">
+			<?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
+			</a>
+		</div>
+     	<div class="name <?php echo $display_name ? '' : 'hidden'; ?>">
+		<strong><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></strong>
+		</div>
+	</div>
+  <?php
 }
 
 /**
