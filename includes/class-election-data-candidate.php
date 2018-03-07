@@ -398,9 +398,9 @@ class Election_Data_Candidate {
             array(
               'type' => 'number',
               'id' => 'number_of_winners',
-              'desc' => __( "How many people can win the election?" ),
+              'desc' => __( "All electoral devisions to which candidates will be assigned should have at least one seat." ),
               'label' => __( "Number of Seats in this Race" ),
-              'std' => 0, // Default this to zero, to prevent parent constituencies from having a winner.
+              'std' => 0,
               'imported' => true,
               'min' => 0,
               'step' => 1,
@@ -432,7 +432,7 @@ class Election_Data_Candidate {
 					),
 					'hidden' => array( 'description' ),
           'renamed' => array(
-					//	'slug' => 'Alternate Name', // transforms 'Slug' into something else
+						'slug' => 'Slug (Friendly URL)', // transforms 'Slug' into something more descriptive
 					),
 				),
 			),

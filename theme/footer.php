@@ -24,9 +24,7 @@
 </div><!-- #page .hfeed .site -->
 
 <?php wp_footer(); ?>
-<script>
 <?php //this is the google analytics script
   echo Election_Data_Option::get_option('google-analytics'); ?>
-</script>
 </body>
 </html>

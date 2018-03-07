@@ -542,7 +542,7 @@ class Election_Data_Settings_Definition {
 				),
 				'google-analytics' => array(
 					'name' => __( 'Google Analytics Script', self::$plugin_name ),
-					'desc' => __( 'If you wish to use Google Analytics, please paste the script provided by them here. Note that Script tags are already included.' ),
+					'desc' => __( 'To track visitor analytics sign up for a Google Analytics account and past their provided tracking script here.' ),
 					'type' => 'textarea',
 				),
 			),
