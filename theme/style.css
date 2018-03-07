@@ -793,3 +793,30 @@ header.site-header{text-align:center;}
 	width: 33%;
 	text-align: left;
 }
+
+.float_left {
+	float: left;
+	width: 288px;
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.new_politician {
+	-o-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+	-icab-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+	-khtml-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+	box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+	position: relative;
+	top: 0;
+	right: 0;
+	width: 100px;
+    height: 100px;
+    overflow: hidden;
+
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+
+}
