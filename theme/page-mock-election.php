@@ -116,7 +116,7 @@ $constituency_id = $constituency['id'];
           <p style="text-align:center;"><a href="<?php echo $c_child['url']; ?>"><?php echo $c_name; ?></a></p>
           <?php
           $g_constituencies = get_constituency( $c_child['id'] );
-
+          $winners_total = $g_constituencies['number_of_winners'];
           $can_array = array();
           $sort_vote = array();
           $winner = true;
@@ -146,6 +146,9 @@ $constituency_id = $constituency['id'];
 
           if ( !empty( $can_array ) && $can_array[0]['candidate_votes'] != 0 ) :
             ?>
+            <?php if ( $winners_total > 1 ): ?>
+              <p style="text-align:center">There are <?php echo $Winners_total ?> winners in this constituency.</p>
+            <?php endif; ?>
             <table class = "election_table">
               <tr> <th class="election_th">Candidate</th>
                 <?php if ($is_party_election ): ?> <th class="election_th">Party</th> <?php endif; ?>
@@ -211,6 +214,9 @@ $constituency_id = $constituency['id'];
 
                 $winner = 0; ?>
                 <div id="<?php echo $new_constituency['name']?>">
+                  <?php if ( $winners_total > 1 ): ?>
+                    <p style="text-align:center">There are <?php echo $winners_total ?> winners in this constituency.</p>
+                  <?php endif; ?>
                   <table class = "election_table">
                     <tr>
                       <th class = "election_th">Candidate</td>
