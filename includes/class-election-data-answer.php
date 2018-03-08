@@ -701,9 +701,12 @@ class Election_Data_Answer {
 			$mail->SMTPAuth = false;
 		}
 		$mail->SMTPSecure = Election_Data_Option::get_option( 'smtp-encryption' );
+
+
 		if ( !empty( Election_Data_Option::get_option( 'reply-to' ) ) ) {
 			$mail->AddReplyTo( Election_Data_Option::get_option( 'reply-to' ) );
 		}
+		
 		$mail->SetFrom(Election_Data_Option::get_option( 'from-email-address' ), Election_Data_Option::get_option( 'from-email-name' ) );
 		$mail->Subject = $message_contents['subject'];
 		$mail->Body = $message_contents['body'];
