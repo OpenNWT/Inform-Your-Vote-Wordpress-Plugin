@@ -581,7 +581,7 @@ function display_news_article_stats() {
 /* Heng start */
 class new_walker extends Walker_Nav_Menu
 {
-	function start_lvl( &$output, $depth = 0, $args = array()) {
+	function start_lvl( &$output, $depth = 0, $id = 0, $args = array()) {
 		if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
 			$t = '';
 			$n = '';
@@ -636,4 +636,6 @@ class new_walker extends Walker_Nav_Menu
 		call_user_func_array(array($this, 'end_el'), $cb_args);
 	}
 }
+
+
 /* Heng end */
