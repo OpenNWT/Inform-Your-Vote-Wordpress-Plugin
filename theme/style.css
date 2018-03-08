@@ -820,3 +820,25 @@ header.site-header{text-align:center;}
 	display: block;
 
 }
+
+
+.election_table {
+	margin: auto;
+}
+
+.election_th {
+	padding-left: 3px;
+	padding-right: 2px;
+	padding-bottom: 3px;
+	text-align: center;
+}
+
+.election_tr {
+	border: 1px solid #BBBBBB;
+}
+
+.election_td {
+	border: 1px solid #BBBBBB;
+	padding: 2px 2px 2px 5px;
+	text-align: center;
+}
