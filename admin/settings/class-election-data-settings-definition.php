@@ -73,20 +73,20 @@ class Election_Data_Settings_Definition {
 
 		return apply_filters( 'election_data_settings_tabs', $tabs );
 	}
-
+	
 	static public function get_js_updates() {
 		$settings = self::get_settings();
-
+		
 		$types = array();
 		foreach ( $settings as $tab ) {
 			foreach ( $tab as $setting => $options ) {
 				$types[$options['type']][] = array( $setting, $options );
 			}
 		}
-
+		
 		$localizations = array();
 		$dependancies = array();
-
+		
 		foreach ( $types as $type => $settings ) {
 			$method = "localize_$type";
 			if ( method_exists( 'Election_Data_Callback_Helper', $method ) ) {
@@ -97,7 +97,7 @@ class Election_Data_Settings_Definition {
 				$dependancies += Election_Data_Callback_Helper::$method();
 			}
 		}
-
+		
 		return array( $localizations, $dependancies );
 	}
 
@@ -204,11 +204,6 @@ class Election_Data_Settings_Definition {
 					'name' => '<strong>' . __( 'Header', self::$plugin_name ) . '</strong>',
 					'type' => 'header'
 				),*/
-				'news-scraping-subheading' => array(
-					'name' => __( 'Sub Heading', self::$plugin_name ),
-					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
-					'type' => __( 'rich_editor' ),
-				),
 				'location' => array(
 					'name' => __( 'Location', self::$plugin_name ),
 					'desc' => __( 'The location of the election.', self::$plugin_name ),
@@ -219,6 +214,22 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'The time of the initial scrape. ie. 2am CDT', self::$plugin_name ),
 					'type' => 'text',
 					'std' => '2am'
+				),
+				'source' => array(
+					'name' => __( 'Source', self::$plugin_name ),
+					'desc' => __( 'Choose between Google News Scraper and RSS Search. Google News produces lots of false positives.', self::$plugin_name ),
+					'type' => 'select',
+					'std' => 'api',
+					'options' => array (
+						'api' => __( 'RSS Search', self::$plugin_name ),
+						'google' => __( 'Google News Scraper', self::$plugin_name ),
+					),
+				),
+				'source-api' => array(
+					'name' => __( 'Source API URL', self::$plugin_name ),
+					'desc' => __( 'API URL for searching RSS feeds', self::$plugin_name ),
+					'type' => 'text',
+					'std' => '',
 				),
 				'frequency' => array(
 					'name' => __( 'Frequency', self::$plugin_name ),
@@ -344,7 +355,7 @@ class Election_Data_Settings_Definition {
 					),
 				),
 				'smtp-user' => array(
-					'name' => __( 'SMTP User', self::$plugin_name ),
+					'name' => __( 'SMTP User', self::$plugin_name ), 
 					'desc' => __( 'User name for the SMTP server', self::$plugin_name ),
 					'type' => 'text',
 				),
