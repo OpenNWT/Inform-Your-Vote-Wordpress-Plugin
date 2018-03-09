@@ -119,7 +119,6 @@ $constituency_id = $constituency['id'];
           $winners_total = $g_constituencies['number_of_winners'];
           $can_array = array();
           $sort_vote = array();
-          $winner = true;
           $num_votes = 0;
 
           $query_args = array(
@@ -145,9 +144,10 @@ $constituency_id = $constituency['id'];
           array_multisort( $sort_vote, SORT_DESC, $can_array );
 
           if ( !empty( $can_array ) && $can_array[0]['candidate_votes'] != 0 ) :
+            $winner = 0;
             ?>
             <?php if ( $winners_total > 1 ): ?>
-              <p style="text-align:center">There are <?php echo $Winners_total ?> winners in this constituency.</p>
+              <p style="text-align:center">There are <?php echo $winners_total ?> winners in this constituency.</p>
             <?php endif; ?>
             <table class = "election_table">
               <tr> <th class="election_th">Candidate</th>
@@ -157,21 +157,35 @@ $constituency_id = $constituency['id'];
               </tr>
               <?php
               foreach( $can_array as $r=>$result ) :
-                $can_party = get_party_from_candidate( $result['id'] ); ?>
-                <tr class="election_tr" style="color:<?php echo $can_party['colour'] ?>; <?php if ( $winner ) { echo "font-weight: bold;"; $winner = false; }; ?>">
-                  <td class="election_td"><?php echo $result['name']; ?></td>
-                  <?php if ( $is_party_election ):
-                    $total_votes[$can_party['name']] += $result['candidate_votes']; ?>
-                    <td class="election_td"><?php echo $can_party['name']; ?></td>
-                  <?php endif; ?>
-                  <td class="election_td"><?php echo $result['candidate_votes']; ?></td>
-                  <td class="election_td"><?php if ( $result['candidate_votes']>0 ) {
-                    echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                  }	?></td>
-                </tr>
-              <?php endforeach; //end result foreach ?>
-              <tr><td>Number of votes: <?php echo $num_votes ?> </td></tr>
-              <tr><td><a href="#top">Back to top</a></td></tr>
+                      $can_party = get_party_from_candidate( $result['id'] ); ?>
+                        <?php if ( $winner < $winners_total ) : ?>
+                          <tr style="color: <?php echo $can_party['colour'] ?>;font-weight: bold;">
+                            <td class="election_td"><?php echo $result['name'] ?></td>
+                            <?php if ( $is_party_election ): ?>
+                              <td class="election_td"><?php echo $can_party['name']; ?></td>
+                            <?php endif; ?>
+                            <td class="election_td"><?php echo $result['candidate_votes']?></td>
+                            <td class="election_td"><?php if ($result['candidate_votes']>0) {
+                              echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
+                            }	?>			</td>
+                          </tr>
+                          <?php $winner++;
+                          else : ?>
+                          <tr style="color:<?php echo $can_party['colour'] ?>;">
+                            <td class="election_td"><?php echo $result['name'] ?></td>
+                            <?php if ( $is_party_election ): ?>
+                              <td class="election_td"><?php echo $can_party['name']; ?></td>
+                            <?php endif; ?>
+                            <td class="election_td"><?php echo $result['candidate_votes']?></td>
+                            <td class="election_td"><?php if ($result['candidate_votes']>0) {
+                              echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
+                            }	?>			</td>
+                          </tr>
+                          <?php
+                        endif; //for winners
+                      endforeach; //for results ?>
+                      <tr><td>Number of votes: <?php echo $num_votes ?> </td></tr>
+                      <tr><td><a href="#top">Back to top</a></td></tr>
             </table>
             <br />
           <?php else : ?>
