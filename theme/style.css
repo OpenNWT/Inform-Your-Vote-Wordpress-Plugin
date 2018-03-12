@@ -68,7 +68,7 @@ a:hover {
 #container {
 	  width: 960px;
 	  margin: 0 auto; }
-	  
+
 footer {
   border-top: 1px solid #e5e5e5;
   margin-top: 20px;
@@ -80,11 +80,11 @@ footer {
 
 header {
   /* background: url(/wp-content/themes/ElectionData/images/MEheader_2col.png) no-repeat bottom right; */
-  
+
   /* Heng start */
   background: none;
-  /* Heng end */  
-  
+  /* Heng end */
+
   background-size: 530px 87px;
   position: relative;
   padding: 25px 10px 0 10px;
@@ -112,15 +112,26 @@ header {
 
 .hidden {
 	display: none; }
-		
 
-		
+.float-right{
+	float:right;
+}
+
+.float-left{
+	float:left;
+}
+
+.scroll{
+	overflow:scroll;
+}
+
+
 .flow_it {
 	  width: 100%;
 	  overflow: hidden;
 	  zoom: 1;
 	  margin-bottom: 1em; }
-  
+
 .one_column, .two_columns, .three_columns, .two_columns_early_shrink {
 	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	-icab-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -188,8 +199,8 @@ p.news-article-notice{
 	font-size: 0.9em;
 	margin-bottom: 20px;
 	margin-top: -10px; }
-	
-		
+
+
 .politician, .party {
 	position: relative;
 	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -211,8 +222,8 @@ p.news-article-notice{
 
 .constituency {
 	margin-top: 10px; }
-	
-		
+
+
 .politician .name {
 	margin: 1em 0;
 	font-size: 11.5px; }
@@ -221,7 +232,7 @@ p.news-article-notice{
 	margin: 1em 0;
     font-weight: bold;
     font-size: 1.2em; }
-	
+
 .election-website, .website {
 	color: #999999;
 	font-size: 0.8em;
@@ -329,17 +340,27 @@ p.news-article-notice{
 .tiny {
 	font-size: 0.5em; }
 
-.mini_maps {
-	float: left;
-	margin-left: 12px; 
-	height: 150px;
-	width: 125px; }
+	.mini_maps {
+		float: left;
+		margin-left: 12px;
+		margin-bottom:50px;
+		width: 90%; }
+
 	.mini_maps p {
 		margin-bottom: 3px; }
-		
+
+	.mini_maps .mini_map_image{
+		width:40%;
+	}
+
+	.mini_maps .links{
+		margin-left: 20px;
+		margin-top:20px;
+}
+
 .parties_thumb {
 	overflow: auto;
-	zoom: 1; 
+	zoom: 1;
     margin-bottom: -15px;}
 
   .party_thumb {
@@ -353,7 +374,7 @@ p.news-article-notice{
 		height: 95px;
         width: auto; }
 
-		
+
 #main {
 	position: relative; }
 
@@ -380,9 +401,9 @@ p.news-article-notice{
 		width: 278px; }
 	/* Heng start */
 	.head-top header .menu > ul > li:last-child > a{padding:0 23px 0 15px;}
-	/* Heng end */	
+	/* Heng end */
 		}
-		
+
 @media all and (max-width: 639px) {
 	header {
         background-image: none;
@@ -417,26 +438,26 @@ p.news-article-notice{
 	/* Heng start */
 	body .head-top header.site-header{width:320px;}
 	.head-top .header-time{
-		width:100%;    
+		width:100%;
 		padding: 20px 0;
     	text-align: center;
     }
 
-	.head-top #menu-trigger{ 
+	.head-top #menu-trigger{
 		bottom: 7px;
 		top: inherit;
 	}
 
 	#searchform .letterinput{width:217px;}
-	
+
 	.head-top .menu-tog{display:block;}
-	.head-top .search-form{ 
+	.head-top .search-form{
 	    position: static;
 		width:100%;
 		margin-top: 25px;
     }
 	.search-form #searchform{float:left;}
-	
+
 	#menu-toggle:checked ~ .mobile-menu {
 		left: 0;
 		right:inherit;
@@ -455,7 +476,7 @@ p.news-article-notice{
 	}
 	#container .view-all .view-all-lt, #container .view-all .view-all-rt{width:32%;}
 	.head-top header .mobile-menu{
-	 left: -320px; 
+	 left: -320px;
 	 right:inherit;
 	}*/
 	/* Heng end */
@@ -501,21 +522,21 @@ p.mentions a {
   color: #8F9CC3;
 }
 
-  
-/* ================================================================ 
+
+/* ================================================================
 This copyright notice must be untouched at all times.
 
 The original version of this stylesheet and the associated (x)html
 is available at http://www.cssplay.co.uk/menus/droplist-flyout.html
 Copyright (c) 2005-2010 Stu Nicholls. All rights reserved.
-This stylesheet and the associated (x)html may be modified in any 
+This stylesheet and the associated (x)html may be modified in any
 way to fit your requirements.
 =================================================================== */
 
 /* this is a CSS answer to fix the hover/focus '~' and hover/focus '+' problem in safari and chrome */
 html {-webkit-animation: safariSelectorFix infinite 1s;}
 @-webkit-keyframes safariSelectorFix {
-0% {zoom:1;} 
+0% {zoom:1;}
 100% {zoom:1;}
 }
 
@@ -741,7 +762,7 @@ font-size: 11px;
 		.head-top .mobile-menu ul li.menu-item-has-children > a{
 			z-index: -1;
 		}
-		
+
 		#menu-toggle:checked ~ .mobile-menu {
 			/* left: 0; */
 			right:0;
@@ -760,7 +781,7 @@ font-size: 11px;
 		}
 
 		.head-top .mobile-menu ul li  input[type='checkbox']:checked ~ .sub-menu{
-			left: 0; 
+			left: 0;
 		}
 		.head-top .menu-tog{display:block;}
 /* Heng end */
@@ -803,7 +824,7 @@ ul.voter li {
     right: 0;
     top: 23px;
     color: #fff;
-    display: none; 
+    display: none;
     z-index: 2;
 	width: 37px;
     height: 37px;
@@ -813,7 +834,7 @@ ul.voter li {
 .head-top .menu{background:none;margin:0;}
 .head-top .menu > ul{float:right;}
 .head-top .menu > ul > li > a{color:#18181A;}
-.search-form{ 
+.search-form{
 	overflow: hidden;
     position: absolute;
     top: 20px;
@@ -823,12 +844,12 @@ ul.voter li {
     background: #38303B;
     padding: 3px;
 	color: #fff;
-	-moz-border-radius:5px;  
-	-ms-border-radius:5px;  
-	-o-border-radius:5px;  
-	border-radius:5px;  
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
 }
-#searchform .letterinput{    
+#searchform .letterinput{
 background: #A48AAC;
     margin: 0;
     border: none;
@@ -836,10 +857,10 @@ background: #A48AAC;
 	font-size:15px;
 	color: #fff;
 	}
-input::-webkit-input-placeholder{ 
+input::-webkit-input-placeholder{
 color: #fff;
 　　}
-input:-moz-placeholder { 
+input:-moz-placeholder {
 color: #fff;
 　　}
 input::-moz-placeholder {
@@ -872,7 +893,7 @@ float: right;
     display: block;
     position: absolute;
     left: 0;
-    top: 0; 
+    top: 0;
     cursor: pointer;
 	width: 100%;
     height: 100%;
