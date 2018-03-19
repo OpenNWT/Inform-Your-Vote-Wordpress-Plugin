@@ -62,27 +62,38 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 </head>
 
 <body <?php body_class(); ?>>
-
-	<div id="container">
+		<!-- Heng start -->
+		<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
+
 			<?php if ( get_header_image() ) : ?>
-				<img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" class="header_image" />
+				<!-- <img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" class="header_image" /> -->
+				
+				<?php echo '<style type="text/css">.head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: 100% 100%;}</style>';?>
 			<?php endif; ?>
 				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<h2 class="site-description">A Citizen Created Election Resource</h2>
-		</header><!-- #masthead .site-header -->
-		<!-- Heng start -->
+				<h2 class="site-description"><?php echo $site_description; ?></h2>
+		<div class="search-form">
+			<form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
+				<input class="letterinput" type="text" name="s" value="" placeholder="Search" />
+				<input class="gobutton" type="submit" value="" />
+			</form>
+		</div>
 		<input id="menu-toggle" type="checkbox">
 		<div id="menu-trigger">
 		<label for="menu-toggle">
-		<span class="icon-bar"></span>
-		<span class="icon-bar icon-bart"></span>
-		<span class="icon-bar icon-bart"></span>
 		</label>
 		</div>
+		
 		<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
+		</header><!-- #masthead .site-header -->
+		<div class="header-time">
+		<p>Election Day is</p>
+		<h2><?php echo date('F d,Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
+		</div>
+		</div>
 		<!-- Heng end -->
-
+	<div id="container">
         <?php if (!is_front_page()): ?>
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
         <?php endif ?>

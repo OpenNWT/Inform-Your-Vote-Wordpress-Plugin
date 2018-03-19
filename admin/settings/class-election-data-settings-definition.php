@@ -453,6 +453,69 @@ class Election_Data_Settings_Definition {
 					'min' => 0,
 					'step' => 1,
 				),
+
+				/* Heng start */
+				'who_title' => array(
+				'name' => __( 'Who Title', self::$plugin_name ),
+				'desc' => __( 'The title of the "Who should I vote"e column.' ),
+				'type' => 'text',
+				),
+				'who_url' => array(
+				'name' => __( 'Who Url', self::$plugin_name ),
+				'desc' => __( 'The url for the "Who should I vote" column linking to.'),
+				'type' => 'text',
+				),
+				'who_excerpt' => array(
+				'name' => __( 'Who Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content of the "Who should I vote" column.'),
+				'type' => 'textarea',
+				),
+				'who_img' => array(
+				'name' => __( 'Who Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display the "Who should I vote" column.'),
+				'type' => 'image',
+				),
+				'where_title' => array(
+				'name' => __( 'Where Title', self::$plugin_name ),
+				'desc' => __( 'The title of the "Where do I vote" column.' ),
+				'type' => 'text',
+				),
+				'where_url' => array(
+				'name' => __( 'Where Url', self::$plugin_name ),
+				'desc' => __( 'The url of the "Where do I vote" column.'),
+				'type' => 'text',
+				),
+				'where_excerpt' => array(
+				'name' => __( 'Where Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content of the "Where do I vote" column.'),
+				'type' => 'textarea',
+				),
+				'where_img' => array(
+				'name' => __( 'Where Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display the "Where do I vote" column.'),
+				'type' => 'image',
+				),
+				'what_title' => array(
+				'name' => __( 'What Title', self::$plugin_name ),
+				'desc' => __( 'The title of the "What am I voting for" column.' ),
+				'type' => 'text',
+				),
+				'what_url' => array(
+				'name' => __( 'What Url', self::$plugin_name ),
+				'desc' => __( 'The url for the "What am I voting for" column linking to.'),
+				'type' => 'text',
+				),
+				'what_excerpt' => array(
+				'name' => __( 'What Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content of the "What am I voting for" column.'),
+				'type' => 'textarea',
+				),
+				'what_img' => array(
+				'name' => __( 'What Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display the "What am I voting for" column.'),
+				'type' => 'image',
+				),
+				/*Heng end*/
 			),
 			'footer_tab' => array(
 				'footer' => array(
@@ -477,6 +540,11 @@ class Election_Data_Settings_Definition {
 				),
 			),
 			'general_tab' => array(
+				'election_date' => array(
+				'name' => __( 'Election Date', self::$plugin_name ),
+				'desc' => __( 'The date of the election, foramt: "Year-Month-Day"'),
+				'type' => 'text',
+				),
 				'party_election' => array(
 					'name' => __('Party Election', self::$plugin_name),
 					'desc' => __('Check if the current election is based on political parties.', self::$plugin_name),
