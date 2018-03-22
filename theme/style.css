@@ -116,10 +116,6 @@ footer p{
 		font-size: 17px;
 }
 
-body .page-id-3719 {
-	background: url(/wp-content/themes/ElectionData/images/MEheader_2col.png) no-repeat bottom right;
-}
-
 header {
   background: none;
   background-size: 530px 87px;
@@ -726,7 +722,7 @@ font-size: 11px;
 	    -o-transition: left 0.5s 0s;
 	    -moz-transition: left 0.5s 0s;
 	    transition: left 0.5s 0s;
-    
+    }
 	.head-top .mobile-menu ul li{
 		display: block;
 	    position: static;
