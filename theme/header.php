@@ -65,10 +65,10 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 		<!-- Heng start -->
 		<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
-			<?php if ( get_header_image() ) : ?>
-				<!-- <img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" class="header_image" /> -->
-				
-				<?php echo '<style type="text/css">.head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: 100% 100%;}</style>';?>
+		<?php 
+			if ( get_header_image() ) : ?>
+			<?php echo '<style type="text/css">.head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){
+body .head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: auto 100%;}}</style>';?>
 			<?php endif; ?>
 				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 				<h2 class="site-description"><?php echo $site_description; ?></h2>
@@ -88,7 +88,7 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 		</header><!-- #masthead .site-header -->
 		<div class="header-time">
 		<p>Election Day is</p>
-		<h2><?php echo date('F d,Y',mktime(0,0,0,10,24,2018));?></h2>
+		<h2><?php echo date('F d,Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
 		</div>
 		</div>
 		<!-- Heng end -->
