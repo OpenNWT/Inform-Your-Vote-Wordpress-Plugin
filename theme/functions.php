@@ -714,5 +714,4 @@ function display_front_page_news($candidate_ids, $count){
 	<?php endif;
 }
 
-
 /* Heng end */

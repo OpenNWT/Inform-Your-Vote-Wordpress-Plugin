@@ -388,6 +388,8 @@ class Election_Data {
 				'location' => '',
 				'time' => '',
 				'frequency' => '',
+				'source' => '',
+				'source-api' => '',
 				'summary' => '',
 				'facebook-page' => '',
 				'twitter' => '',
@@ -565,7 +567,7 @@ class Election_Data {
 		$exportable_settings = array(
 			'plugin' => array(
 				array( 'Election_Data_Option', 'get_option' ),
-				array ( 'location', 'time', 'frequency', 'summary', 'facebook-page', 'twitter', 'google-plus-one', 'constituency-label', 'constituency-subtext', 'party-label', 'party-subtet', 'news-count-front', 'news-count-party', 'news-count-party_leader', 'news-count-candidate' ),
+				array ( 'location', 'time', 'frequency', 'source', 'source-api', 'summary', 'facebook-page', 'twitter', 'google-plus-one', 'constituency-label', 'constituency-subtext', 'party-label', 'party-subtet', 'news-count-front', 'news-count-party', 'news-count-party_leader', 'news-count-candidate' ),
 			),
 			'wordpress' => array(
 				'get_option',

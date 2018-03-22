@@ -153,8 +153,18 @@ header {
 .hidden {
 	display: none; }
 		
+.float-right{
+	float:right;
+}
 
-		
+.float-left{
+	float:left;
+}
+
+.scroll{
+	overflow:scroll;
+}
+
 .flow_it {
 	  width: 100%;
 	  overflow: hidden;
@@ -417,7 +427,6 @@ p.news-article-notice{
 	.head-top header .menu > ul > li:last-child > a{
 		padding:0 23px 0 15px;}
 
-
 	}
 		
 @media all and (max-width: 639px) {
@@ -450,7 +459,6 @@ p.news-article-notice{
 		display: block; }
 	.hidden_block_when_mobile {
 		display: none;  }
-
 
 	body .head-top header.site-header{
 		width:320px;}
@@ -513,6 +521,7 @@ p.news-article-notice{
 	#footer_right {
 		margin-left: 15%;
 	}
+
 
 	#footer_right h3{
 		margin-top: 90px;
@@ -585,7 +594,6 @@ html {-webkit-animation: safariSelectorFix infinite 1s;}
 	background:#eee; 
 	margin:0 9px 15px 9px; 
 	padding-left:20px;
-
 }
 
 .menu ul {margin:0; padding:0; list-style:none; white-space:nowrap; position:relative;}
@@ -666,6 +674,7 @@ font-size: 11px;
 	body .head-top{height:353px;}
 	.head-top .header-time{bottom:0}
 	body .head-top header{width:640px;background:none;padding:10px 0;}
+
 	.head-top header h1{font-size:26px;}
 	.head-top header h2{font-size:16px;}
 	.head-top #menu-trigger{display:block;}
@@ -717,7 +726,7 @@ font-size: 11px;
 	    -o-transition: left 0.5s 0s;
 	    -moz-transition: left 0.5s 0s;
 	    transition: left 0.5s 0s;
-	}
+    
 	.head-top .mobile-menu ul li{
 		display: block;
 	    position: static;
@@ -828,7 +837,6 @@ font-size: 11px;
 	}
 
 	.news-content span.news-date-time, .news-content p.post-news-mention{font-size:15px;}
-
 }
 
 ul.issues li {
@@ -843,9 +851,7 @@ ul.voter li {
     margin-bottom: 0.5em;
 }
 
-
 /* Header and responsive menu */
-
 .head-top{
     height: 500px;
 	position: relative;
@@ -877,6 +883,7 @@ ul.voter li {
     padding-right: 0;    
     position: relative;
 }
+
 #menu-trigger {
     position: absolute;
     right: 0;
@@ -889,6 +896,7 @@ ul.voter li {
     background: url("images/imagesself/menu.png") no-repeat;
     background-size: 100%;
 }
+
 .head-top .menu{
 	background:none;margin:0;
 }
@@ -959,7 +967,7 @@ input:-ms-input-placeholder {
     left: 0;
     top: 0; 
     cursor: pointer;
-	width: 100%;
+	  width: 100%;
     height: 100%;
     -o-border-radius: 0px 5px 5px 0px;
     -icab-border-radius: 0px 5px 5px 0px;
