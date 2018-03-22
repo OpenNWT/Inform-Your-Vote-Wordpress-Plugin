@@ -542,7 +542,7 @@ class Election_Data_Settings_Definition {
 			'general_tab' => array(
 				'election_date' => array(
 				'name' => __( 'Election Date', self::$plugin_name ),
-				'desc' => __( 'The date of the election, foramt: "Year-Month-Day"'),
+				'desc' => __( 'The date of the election, format: "Year-Month-Day"'),
 				'type' => 'text',
 				),
 				'party_election' => array(

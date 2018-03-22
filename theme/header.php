@@ -65,11 +65,18 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 		<!-- Heng start -->
 		<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
-
-			<?php if ( get_header_image() ) : ?>
+		<!-- Different page using different image -->
+			<?php 
+			$multiple_images = is_tax( $taxonomy = 'ed_candidates_party' ) || is_tax( $taxonomy = 'ed_candidates_constituency' ) || is_singular($post_type = 'ed_candidates') || is_page( 'about-us' );
+			if ($multiple_images) {
+				echo '<style type="text/css">.head-top{background: url(/wp-content/themes/ElectionData/images/imagesself/img-2.png) no-repeat; background-size: 100% 100%;}@media (max-width: 1024px){
+body .head-top{background:url(/wp-content/themes/ElectionData/images/imagesself/img-2.png) no-repeat;background-size: auto 100%;}}</style>';
+			}
+			 else if  ( get_header_image() ) : ?>
 				<!-- <img src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" class="header_image" /> -->
 				
-				<?php echo '<style type="text/css">.head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: 100% 100%;}</style>';?>
+				<?php echo '<style type="text/css">.head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){
+body .head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: auto 100%;}}</style>';?>
 			<?php endif; ?>
 				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 				<h2 class="site-description"><?php echo $site_description; ?></h2>
