@@ -104,6 +104,15 @@ class Election_Data {
    */
 	protected $answer;
 
+  /**
+	 * Instance of the Election_Data_Address class.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Election_Data_Address    $address   Instantiates a new Election_Data_Address class.
+	 */
+	protected $address;
+
 	/**
 	 * Define the core functionality of the plugin.
 	 *
@@ -128,6 +137,8 @@ class Election_Data {
 		$this->news_article = new Election_Data_News_Article();
 
 		$this->answer = new Election_Data_Answer();
+
+    $this->address = new Election_Data_Address();
 	}
 
 	/**
@@ -216,6 +227,11 @@ class Election_Data {
      * This class also defines the 'party' and 'constituency' custom taxonomies which are a part of 'candidate' custom post type.
      */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-candidate.php';
+
+    /**
+     * This class defines the 'address' custom post type.
+     */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-address.php';
 
     /**
      * This class defines all code necessary to run during the plugin's activation.
@@ -452,6 +468,7 @@ class Election_Data {
 		set_time_limit( 60 * 60 );
 
 		$candidate = new Election_Data_Candidate( false );
+    $address = new Election_Data_Address( false );
 		$news_article = new Election_Data_News_Article( false );
 		$answer = new Election_Data_Answer( false );
 
@@ -467,9 +484,10 @@ class Election_Data {
 				$zip = new ZipArchive();
 				$zip->open( $file_name );
 				$candidate_types = array( 'party', 'constituency', 'candidate' );
+        $address_types = array( 'address' );
 				$news_types = array( 'news_source', 'news_article', 'news_mention' );
 				$answer_types = array( 'question', 'answer' );
-				$all_types = array_merge( $candidate_types, $news_types, $answer_types );
+				$all_types = array_merge( $candidate_types, $address_types, $news_types, $answer_types );
 				$all_types[] = 'settings';
 				foreach ( $all_types as $type ) {
 					$success &= $zip->locateName( "$type.csv" ) !== false;
@@ -483,6 +501,14 @@ class Election_Data {
 				foreach ( $candidate_types as $type ) {
 					$csv = $zip->getStream( "$type.csv" );
 					$success |= $candidate->import_csv( $type, $csv, $mode );
+					fclose( $csv );
+					wp_cache_flush();
+					gc_collect_cycles();
+				}
+
+        foreach ( $address_types as $type ) {
+					$csv = $zip->getStream( "$type.csv" );
+					$success |= $address->import_csv( $type, $csv, $mode );
 					fclose( $csv );
 					wp_cache_flush();
 					gc_collect_cycles();
@@ -514,6 +540,11 @@ class Election_Data {
 				$type = substr( $file_type, 4 );
 				$csv = fopen( $file_name, 'r' );
 				$success = $candidate->import_csv( $type, $csv, $mode );
+				break;
+      case 'csv_address':
+				$type = substr( $file_type, 4 );
+				$csv = fopen( $file_name, 'r' );
+				$success = $address->import_csv( $type, $csv, $mode );
 				break;
 			case 'csv_news_source':
 			case 'csv_news_article':
@@ -596,6 +627,7 @@ class Election_Data {
 		set_time_limit( 60 * 60 );
 
 		$candidate = new Election_Data_Candidate( false );
+    $address = new Election_Data_Address( false );
 		$news_article = new Election_Data_News_Article( false );
 		$answer = new Election_Data_Answer( false );
 
@@ -606,6 +638,7 @@ class Election_Data {
 				$xml->openURI( "file://$file" );
 				$xml->startDocument( '1.0' );
 				$candidate->export_xml( $xml );
+        $address->export_xml( $xml );
 				$news_article->export_xml ( $xml );
 				self::export_xml( $xml );
 				$xml->endDocument();
@@ -617,19 +650,29 @@ class Election_Data {
 				$file = tempnam( 'tmp', 'zip' );
 				$zip = new ZipArchive();
 				$zip->open( $file, ZipArchive::OVERWRITE );
+        $csv_files = array();
+
 				$types = array( 'candidate', 'party', 'constituency' );
-				$csv_files = array();
 				foreach ( $types as $type ) {
 					$csv_file = $candidate->export_csv( $type );
 					$zip->addFile( $csv_file, "$type.csv" );
 					$csv_files[] = $csv_file;
 				}
+
+        $types = array( 'address' );
+				foreach ( $types as $type ) {
+					$csv_file = $address->export_csv( $type );
+					$zip->addFile( $csv_file, "$type.csv" );
+					$csv_files[] = $csv_file;
+				}
+
 				$types = array( 'news_article', 'news_source', 'news_mention' );
 				foreach ( $types as $type ) {
 					$csv_file = $news_article->export_csv( $type );
 					$zip->addFile( $csv_file, "$type.csv" );
 					$csv_files[] = $csv_file;
 				}
+
 				$types = array( 'answer', 'question' );
 				foreach ( $types as $type ) {
 					$csv_file = $answer->export_csv( $type );
@@ -652,6 +695,12 @@ class Election_Data {
 			case 'csv_constituency':
 				$type = substr( $file_type, 4 );
 				$file = $candidate->export_csv( $type );
+				$content_type = 'text/csv';
+				$file_name = "$type.csv";
+				break;
+      case 'csv_address':
+				$type = substr( $file_type, 4 );
+				$file = $address->export_csv( $type );
 				$content_type = 'text/csv';
 				$file_name = "$type.csv";
 				break;
@@ -697,12 +746,13 @@ class Election_Data {
 		$this->candidate->erase_data();
 		$this->news_article->erase_data();
 		$this->answer->erase_data();
+    $this->address->erase_data();
 		wp_die();
 	}
 
   /**
    * Sets all the main query parameters.
-   * @param string $query Query parameter to set as the main paramter.
+   * @param string $query Query parameter to set as the main parameter.
    */
 	public function set_main_query_parameters( $query ) {
 		if ( is_admin() || ! $query->is_main_query() ) {

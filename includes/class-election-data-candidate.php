@@ -509,6 +509,10 @@ class Election_Data_Candidate {
           echo( "<style>
                     li#menu-item-". $menu_item->ID."{
                       display:none;
+
+                    .mobile-menu ul li #menu-item-". $menu_item->ID."{
+                      display:none;
+                    }
                     }
                 </style>");
         }
@@ -517,6 +521,10 @@ class Election_Data_Candidate {
           echo( "<style>
                     li#menu-item-". $menu_item->ID."{
                       display:none;
+
+                    .mobile-menu ul li #menu-item-". $menu_item->ID."{
+                      display:none;
+                    }
                     }
                 </style>");
         }
@@ -580,10 +588,14 @@ class Election_Data_Candidate {
 			$query->set( 'orderby', "taxonomy-{$this->taxonomies['constituency']}" );
 			$query->set( 'order', 'ASC' );
 			$query->set( 'nopaging', 'true' );
-		} elseif ( is_tax( $this->taxonomies['constituency'] ) ) {
+		}
+
+    if ( is_tax( $this->taxonomies['constituency'] ) ) {
 			$query->set( 'orderby', 'rand' );
 			$query->set( 'nopaging', 'true' );
-		} elseif ( is_post_type_archive( $this->post_type ) ) {
+		}
+    
+    if ( is_post_type_archive( $this->post_type ) ) {
 			$query->set( 'orderby', 'rand' );
 			$query->set( 'nopaging', 'true' );
 		}

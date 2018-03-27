@@ -46,6 +46,7 @@ function election_data_theme_scripts() {
 	global $ed_taxonomies;
 
     wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
+    wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-slookup.js' );
 
     wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.2a');
 	if ( is_front_page() ) {

@@ -73,20 +73,20 @@ class Election_Data_Settings_Definition {
 
 		return apply_filters( 'election_data_settings_tabs', $tabs );
 	}
-	
+
 	static public function get_js_updates() {
 		$settings = self::get_settings();
-		
+
 		$types = array();
 		foreach ( $settings as $tab ) {
 			foreach ( $tab as $setting => $options ) {
 				$types[$options['type']][] = array( $setting, $options );
 			}
 		}
-		
+
 		$localizations = array();
 		$dependancies = array();
-		
+
 		foreach ( $types as $type => $settings ) {
 			$method = "localize_$type";
 			if ( method_exists( 'Election_Data_Callback_Helper', $method ) ) {
@@ -97,7 +97,7 @@ class Election_Data_Settings_Definition {
 				$dependancies += Election_Data_Callback_Helper::$method();
 			}
 		}
-		
+
 		return array( $localizations, $dependancies );
 	}
 
@@ -127,6 +127,7 @@ class Election_Data_Settings_Definition {
 							'csv_party' => __( 'CSV file containing parties', self::$plugin_name ),
 							'csv_constituency' => __( 'CSV file containing constituencies', self::$plugin_name ),
 							'csv_candidate' => __( 'CSV file containing candidates', self::$plugin_name ),
+							'csv_address' => __( 'CSV file containing addresses.', self::$plugin_name ),
 							'csv_news_source' => __( 'CSV file containing news sources', self::$plugin_name ),
 							'csv_news_article' => __( 'CSV file containing news articles', self::$plugin_name ),
 							'csv_news_mention' => __( 'CSV file containing news_mentions', self::$plugin_name ),
@@ -175,6 +176,7 @@ class Election_Data_Settings_Definition {
 							'csv_party' => __( 'CSV file containing parties', self::$plugin_name ),
 							'csv_constituency' => __( 'CSV file containing constituencies', self::$plugin_name ),
 							'csv_candidate' => __( 'CSV file containing candidates', self::$plugin_name ),
+							'csv_address' => __( 'CSV file containing addresses.', self::$plugin_name ),
 							'csv_news_source' => __( 'CSV file containing news sources', self::$plugin_name ),
 							'csv_news_article' => __( 'CSV file containing news articles', self::$plugin_name ),
 							'csv_news_mention' => __( 'CSV file containing news mentions', self::$plugin_name ),
@@ -355,7 +357,7 @@ class Election_Data_Settings_Definition {
 					),
 				),
 				'smtp-user' => array(
-					'name' => __( 'SMTP User', self::$plugin_name ), 
+					'name' => __( 'SMTP User', self::$plugin_name ),
 					'desc' => __( 'User name for the SMTP server', self::$plugin_name ),
 					'type' => 'text',
 				),
@@ -492,6 +494,11 @@ class Election_Data_Settings_Definition {
 					'name' => __('Party Election', self::$plugin_name),
 					'desc' => __('Check if the current election is based on political parties.', self::$plugin_name),
 					'type' => 'checkbox'
+				),
+				'street_types' => array(
+					'name' => __('Street Types', self::$plugin_name),
+					'desc' => __('Types of street for address lookup tool. Add Street Types seperated with comma.', self::$plugin_name),
+					'type' => 'textarea'
 				),
 				'site_title' => array(
 					'name' => __('Site Title', self::$plugin_name),
