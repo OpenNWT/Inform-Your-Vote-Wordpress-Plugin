@@ -1,5 +1,5 @@
 /*
-Theme Name: Election Data
+Theme Name: Election Data - V2
 Theme URI: http://opendemocracymanitoba.com/
 Author: Robert Burton
 Author URI: http://opendemocracymanitoba.com/
@@ -114,10 +114,6 @@ footer h3{
 	
 footer p{
 		font-size: 17px;
-}
-
-body .page-id-3719 {
-	background: url(/wp-content/themes/ElectionData/images/MEheader_2col.png) no-repeat bottom right;
 }
 
 header {
@@ -726,7 +722,7 @@ font-size: 11px;
 	    -o-transition: left 0.5s 0s;
 	    -moz-transition: left 0.5s 0s;
 	    transition: left 0.5s 0s;
-    
+    }
 	.head-top .mobile-menu ul li{
 		display: block;
 	    position: static;

@@ -465,68 +465,66 @@ class Election_Data_Settings_Definition {
 					'step' => 1,
 				),
 
-				/* Heng start */
-				'who_title' => array(
-				'name' => __( 'Who Title', self::$plugin_name ),
-				'desc' => __( 'The title of the "Who should I vote"e column.' ),
+				'left_column_title' => array(
+				'name' => __( 'Left Column Title', self::$plugin_name ),
+				'desc' => __( 'The title for the left column.' ),
 				'type' => 'text',
 				),
-				'who_url' => array(
-				'name' => __( 'Who Url', self::$plugin_name ),
-				'desc' => __( 'The url for the "Who should I vote" column linking to.'),
+				'left_column_url' => array(
+				'name' => __( 'Left Column Url', self::$plugin_name ),
+				'desc' => __( 'The url that the left column links to.'),
 				'type' => 'text',
 				),
-				'who_excerpt' => array(
-				'name' => __( 'Who Excerpt', self::$plugin_name ),
-				'desc' => __( 'The content of the "Who should I vote" column.'),
+				'left_column_excerpt' => array(
+				'name' => __( 'Left Column Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content for the left column.'),
 				'type' => 'textarea',
 				),
-				'who_img' => array(
-				'name' => __( 'Who Image Logo', self::$plugin_name ),
-				'desc' => __( 'The image to display the "Who should I vote" column.'),
+				'left_column_img' => array(
+				'name' => __( 'Left Column Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display on the left column.'),
 				'type' => 'image',
 				),
-				'where_title' => array(
-				'name' => __( 'Where Title', self::$plugin_name ),
-				'desc' => __( 'The title of the "Where do I vote" column.' ),
+				'center_column_title' => array(
+				'name' => __( 'Center Column Title', self::$plugin_name ),
+				'desc' => __( 'The title for the center column.' ),
 				'type' => 'text',
 				),
-				'where_url' => array(
-				'name' => __( 'Where Url', self::$plugin_name ),
-				'desc' => __( 'The url of the "Where do I vote" column.'),
+				'center_column_url' => array(
+				'name' => __( 'Center Column Url', self::$plugin_name ),
+				'desc' => __( 'The url that the center column links to.'),
 				'type' => 'text',
 				),
-				'where_excerpt' => array(
-				'name' => __( 'Where Excerpt', self::$plugin_name ),
-				'desc' => __( 'The content of the "Where do I vote" column.'),
+				'center_column_excerpt' => array(
+				'name' => __( 'Center Column Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content for the center column.'),
 				'type' => 'textarea',
 				),
-				'where_img' => array(
-				'name' => __( 'Where Image Logo', self::$plugin_name ),
-				'desc' => __( 'The image to display the "Where do I vote" column.'),
+				'center_column_img' => array(
+				'name' => __( 'Center Column Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display on the center column.'),
 				'type' => 'image',
 				),
-				'what_title' => array(
-				'name' => __( 'What Title', self::$plugin_name ),
-				'desc' => __( 'The title of the "What am I voting for" column.' ),
+				'right_column_title' => array(
+				'name' => __( 'Right Column Title', self::$plugin_name ),
+				'desc' => __( 'The title for the right column.' ),
 				'type' => 'text',
 				),
-				'what_url' => array(
-				'name' => __( 'What Url', self::$plugin_name ),
-				'desc' => __( 'The url for the "What am I voting for" column linking to.'),
+				'right_column_url' => array(
+				'name' => __( 'Right Column Url', self::$plugin_name ),
+				'desc' => __( 'The url that the right column links to.'),
 				'type' => 'text',
 				),
-				'what_excerpt' => array(
-				'name' => __( 'What Excerpt', self::$plugin_name ),
-				'desc' => __( 'The content of the "What am I voting for" column.'),
+				'right_column_excerpt' => array(
+				'name' => __( 'Right Column Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content for the right column.'),
 				'type' => 'textarea',
 				),
-				'what_img' => array(
-				'name' => __( 'What Image Logo', self::$plugin_name ),
-				'desc' => __( 'The image to display the "What am I voting for" column.'),
+				'right_column_img' => array(
+				'name' => __( 'Right Column Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display on the right column.'),
 				'type' => 'image',
 				),
-				/*Heng end*/
 			),
 			'footer_tab' => array(
 				'footer' => array(
@@ -553,7 +551,7 @@ class Election_Data_Settings_Definition {
 			'general_tab' => array(
 				'election_date' => array(
 				'name' => __( 'Election Date', self::$plugin_name ),
-				'desc' => __( 'The date of the election, format: "Year-Month-Day"'),
+				'desc' => __( 'To display the election date, use this format YYYY-MM-DD.'),
 				'type' => 'text',
 				),
 				'party_election' => array(

@@ -637,10 +637,10 @@ class new_walker extends Walker_Nav_Menu
 	}
 }
 
-function my_init() {
+/*function my_init() {
 	add_post_type_support('page', array('excerpt'));
 }
-add_action('init', 'my_init');
+add_action('init', 'my_init');*/
 
 
 /**

@@ -1,76 +1,31 @@
-<?php
-
-/**
- *	The front page.
- *
- * @package Election_Data_Theme
- * @since Election_Data_Theme 1.0
- * @author Robert Burton
- */
-
-$constituencies = get_root_constituencies();
-$parties = get_parties_random();
-global $is_party_election;
-
-get_header(); ?>
-
-
-<!-- Heng start -->
-<div class="page-list">
-	<ul>
-		<li>
-			<div class="page-article">
-				<h1 class="ptitle">
-					<a href="<?php echo Election_Data_Option::get_option( 'who_url' );?>"><?php echo Election_Data_Option::get_option( 'who_title' );?></a>
-				</h1>
-				<p class="excerpt">
-					<?php echo Election_Data_Option::get_option( 'who_excerpt' ); ?>
-				</p>
-				<p class="pimg">
-					<a href="<?php echo Election_Data_Option::get_option( 'who_url' );?>" ><?php echo wp_get_attachment_image(Election_Data_Option::get_option( 'who_img' ));?></a>
-				</p>
-			</div>
-		</li>
-		<li>
-			<div class="page-article">
-				<h1 class="ptitle">
-					<a href="<?php echo Election_Data_Option::get_option( 'where_url' );?>" target="_blank"><?php echo Election_Data_Option::get_option( 'where_title' );?></a>
-				</h1>
-				<p class="excerpt">
-					<?php echo Election_Data_Option::get_option( 'where_excerpt' ); ?>
-				</p>
-				<p class="pimg">
-					<a href="<?php echo Election_Data_Option::get_option( 'where_url' );?>" target="_blank"><?php echo wp_get_attachment_image(Election_Data_Option::get_option( 'where_img' ));?></a>
-				</p>
-			</div>
-		</li>
-		<li>
-			<div class="page-article">
-				<h1 class="ptitle">
-					<a href="<?php echo Election_Data_Option::get_option('what_url');?>"><?php echo Election_Data_Option::get_option('what_title');?></a>
-				</h1>
-				<p class="excerpt">
-					<?php echo Election_Data_Option::get_option( 'what_excerpt'); ?>
-				 </p>
-				<p class="pimg">
-					<a href="<?php echo Election_Data_Option::get_option('what_url');?>"><?php echo wp_get_attachment_image(Election_Data_Option::get_option( 'what_img' ));?></a>
-				</p>
-			</div>
-		</li>
-	</ul>
-</div>
-
-<div class="latest-news">
-	<div class="head-title">Latest News</div>
-		<?php 
-			$news_count = Election_Data_Option::get_option( 'news-count-front', 10 );
-			
-			display_front_page_news(null, $news_count);?>		
-	<div class="view-all">
-		<div class="view-all-lt"></div>
-		<div class="view-all-con"><a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>" target="_blank">View All</a></div>
-		<div class="view-all-rt"></div>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome using the Election Data Plugin</title>
+	<style>
+		h1,p {font-family: 'Noto Sans', sans-serif; text-align: center; margin-top: 30px;}	
+		p {font-size: 24px;}
+		.versions {margin: 10px auto; width: 1400px; height: 900px;}
+		.column {float: left; width: 600px; margin: 10px 30px; }
+		.title {font-size: 22px; margin-bottom: 30px; font-weight: bold;}
+		span {font-weight: bold;}
+		img {height: 700px; width: 600px;}
+		body {background-color: #f0f5f5;}
+	</style>
+</head>
+<body>
+	<h1>Please select a theme</h1>	
+	<div class="versions">
+		<p>There are two themes in the ElectionData plugin. You can select them by going into the WordPress dashboard and selecting 'Appearance' -> 'Themes' then choose either <span>Election Data - V1</span> or <span>Election Data - V2</span>. You can switch between them at anytime by using these same steps.</p>
+		<div class="column">
+			<p class="title">Electon Data - V1</p>
+			<img src="/wp-content/themes/ElectionData/images/theme-v1.jpg" alt="theme-v1" />
+		</div>
+		<div class="column">
+			<p class="title">Electon Data - V2</p>
+			<img src="/wp-content/themes/ElectionData/images/theme-v2.jpg" alt="theme-v2" />
+		</div>
 	</div>
-</div>
-<!-- Heng end -->
-<?php get_footer(); ?>
+	
+</body>
+</html>
