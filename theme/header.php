@@ -17,6 +17,7 @@
 <!--<![endif]-->
 
 <head>
+<link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
 
@@ -32,6 +33,11 @@
 	<meta property="og:description" content="<?= Election_Data_Option::get_option('site_description');?>" />
 	<meta name="description" content="<?= Election_Data_Option::get_option('site_description');?>" />
 <?php endif; ?>
+
+<script type="text/javascript">
+addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>';
+</script>
 
 <title><?php
 
