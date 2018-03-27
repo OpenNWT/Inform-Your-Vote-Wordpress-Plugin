@@ -433,6 +433,7 @@ class Election_Data_Address {
 	public function delete(){
 		global $ed_post_types;
 
+<<<<<<< Updated upstream
 		$addresses = new WP_QUERY(array(
 			'post_type' => $ed_post_types['address'],
 			'posts_per_page' => 5000,
@@ -448,6 +449,23 @@ class Election_Data_Address {
 
 			update_post_meta(get_the_ID(), 'school_division_name', 'St. James - Assiniboia');
 		}
+=======
+		// $addresses = new WP_QUERY(array(
+		// 	'post_type' => $ed_post_types['address'],
+		// 	'posts_per_page' => 5000,
+		// 	'meta_query' => array(
+		// 		array(
+		// 			'key'     => 'new_ward',
+		// 			'value'   => 'Charleswood - Tuxedo',
+		// 		),
+		// )));
+		//
+		// while($addresses->have_posts()){
+		// 	$addresses->the_post();
+		//
+		// 	update_post_meta(get_the_ID(), 'school_division_name', 'St. James - Assiniboia');
+		// }
+>>>>>>> Stashed changes
 
 		echo $addresses->post_count;
 	}
@@ -503,7 +521,11 @@ class Election_Data_Address {
 
 				$constituency_id = $constituency->term_id;
 				$school_ward_id = $school_ward->term_id;
+<<<<<<< Updated upstream
 				
+=======
+
+>>>>>>> Stashed changes
 
 			}
 
