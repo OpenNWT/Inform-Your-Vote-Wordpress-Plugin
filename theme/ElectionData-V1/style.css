@@ -572,9 +572,7 @@ p.news-article-notice{
 	#container .mobile-menu ul li  input[type='checkbox']:checked ~ .sub-menu{
 		left: 0; 
 	}
-	/* Heng end */
-	
-	}
+}
 		
 .latest_news_small h4, .latest_news_large h4 {
   color: #666666; }

@@ -61,7 +61,7 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 				<h2 class="site-description">A Citizen Created Election Resource</h2>
 		</header><!-- #masthead .site-header -->
-		<!-- Heng start -->
+		<!-- Responsive menu -->
 		<input id="menu-toggle" type="checkbox">
 		<div id="menu-trigger">
 		<label for="menu-toggle">
@@ -71,7 +71,6 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 		</label>
 		</div>
 		<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
-		<!-- Heng end -->
 
         <?php if (!is_front_page()): ?>
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
