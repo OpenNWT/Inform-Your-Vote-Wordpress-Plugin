@@ -112,7 +112,11 @@ footer h3{
 }
 	
 footer p{
+<<<<<<< HEAD:theme/ElectionData-V2/style.css
 		font-size: 18px;
+=======
+		font-size: 17px;
+>>>>>>> dev-branch:theme/style.css
 }
 
 header {
