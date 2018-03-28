@@ -433,23 +433,6 @@ class Election_Data_Address {
 	public function delete(){
 		global $ed_post_types;
 
-<<<<<<< Updated upstream
-		$addresses = new WP_QUERY(array(
-			'post_type' => $ed_post_types['address'],
-			'posts_per_page' => 5000,
-			'meta_query' => array(
-				array(
-					'key'     => 'new_ward',
-					'value'   => 'Charleswood - Tuxedo',
-				),
-		)));
-
-		while($addresses->have_posts()){
-			$addresses->the_post();
-
-			update_post_meta(get_the_ID(), 'school_division_name', 'St. James - Assiniboia');
-		}
-=======
 		// $addresses = new WP_QUERY(array(
 		// 	'post_type' => $ed_post_types['address'],
 		// 	'posts_per_page' => 5000,
@@ -465,9 +448,7 @@ class Election_Data_Address {
 		//
 		// 	update_post_meta(get_the_ID(), 'school_division_name', 'St. James - Assiniboia');
 		// }
->>>>>>> Stashed changes
-
-		echo $addresses->post_count;
+		// echo $addresses->post_count;
 	}
 
   public function return_candidates(){
@@ -499,8 +480,7 @@ class Election_Data_Address {
 
 		$addresses = new WP_QUERY(array(
 			'post_type' => $ed_post_types['address'],
-			'posts_per_page' => 1,
-			's' => $street_address
+			'name' => $street_address
 		));
 
 		if($addresses->have_posts()){
@@ -509,23 +489,20 @@ class Election_Data_Address {
 		    $post_id = get_the_ID();
 				$title = get_the_title();
 
-				//echo $title;
+				//echo $addresses->post_count;
 				$new_ward = get_post_meta($post_id, 'new_ward');
 				$school_division = get_post_meta($post_id, 'school_division_name');
 				$school_division_ward = get_post_meta($post_id, 'school_division_ward');
 
 				$school_division_name = "{$school_division[0]} {$school_division_ward[0]}";
 
-				$constituency = get_term_by('name' , $new_ward, $ed_taxonomies['candidate_constituency']);
-				$school_ward = get_term_by('name', $school_division_name, $ed_taxonomies['candidate_constituency']);
+				$constituency = get_term_by('name' , $new_ward, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
+				$school_ward = get_term_by('name', $school_division_name, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
 
-				$constituency_id = $constituency->term_id;
-				$school_ward_id = $school_ward->term_id;
-<<<<<<< Updated upstream
-				
-=======
 
->>>>>>> Stashed changes
+
+				$constituency_id = $constituency["term_id"];
+				$school_ward_id = $school_ward["term_id"];
 
 			}
 
@@ -541,7 +518,7 @@ class Election_Data_Address {
 						)
 				)));
 
-				echo ("<div class = 'flow_it politicians'><h2>Ward Candidates</h2></div>");
+				echo ("</div><div class = 'flow_it politicians result_head'><style>.candidates h2{text-align:center; line-height: 36px;}</style><h2>Ward Candidates</h2>");
 				display_constituency_candidates($ward_candidates, $constituency_id, $candidate_references);
 				wp_reset_query();
 			}
@@ -556,7 +533,7 @@ class Election_Data_Address {
 						)
 				)));
 
-				echo ("<div class = 'flow_it politicians'><h2>School Trustees</h2></div>");
+				echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates</h2></div>");
 				display_constituency_candidates($school_ward_candidates, $school_ward_id, $candidate_references);
 				wp_reset_query();
 			}

@@ -89,7 +89,7 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 		</header><!-- #masthead .site-header -->
 		<div class="header-time">
 		<p>Election Day is</p>
-		<h2><?php echo date('F d,Y',mktime(0,0,0,10,24,2018));?></h2>
+		<h2><?php echo date('F d,Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
 		</div>
 		</div>
 		<!-- Heng end -->

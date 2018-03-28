@@ -27,17 +27,17 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
-	vertical-align: baseline; }
+	font-family: "Libre Franklin";
+	vertical-align: baseline;}
 
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 10px;
 	padding: 0;
 	border: 0;
 	vertical-align: baseline;
-	font-family: Georgia, "Bitstream Charter", serif; }
+	font-family: "Libre Franklin"; }
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
-		font-family: Georgia, "Bitstream Charter", serif; }
+		font-family: "Libre Franklin"; }
 
 footer, header, hgroup, menu, nav, section {
 	display: block; }
@@ -46,7 +46,8 @@ body {
 	line-height: 1;
 	font-size: 14px;
 	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: none; }
+	-ms-text-size-adjust: none;
+	}
 
 table {
 	border-collapse: collapse;
@@ -62,16 +63,18 @@ p {
 	margin-bottom: 1em;
 	margin-left: 10px; }
 
-a:hover {
-	text-decoration: underline; }
 
 #container {
 	  width: 960px;
-	  margin: 0 auto; }
+	  margin: 0 auto;
+	 	margin-top:-15px;
+		margin-bottom:-10px;
+
+	}
 
 footer {
   border-top: 1px solid #e5e5e5;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 20px;
   padding-top: 20px;
   padding-bottom: 2px;
@@ -79,6 +82,7 @@ footer {
   clear: both;
   background-color: #A48AAC;
   background: rgba(161, 136, 163, 0.81);
+	line-height: 1.5;
 }
 
 
@@ -167,7 +171,6 @@ header {
 .scroll{
 	overflow:scroll;
 }
-
 
 .flow_it {
 	  width: 100%;
@@ -502,8 +505,7 @@ p.news-article-notice{
 
 	#menu-toggle:checked ~ .mobile-menu {
 		left: 0;
-		right:inherit;
-	}
+		right:inherit;}
 	#menu-toggle:checked ~ #menu-trigger {
 		left: 275px;
 		right:inherit;}
@@ -641,7 +643,7 @@ box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 
 .menu a {
 	display:block;
-	font-size: 18px;
+	font-size: 15px;
 	color:#181719;
 	line-height:25px;
 	text-decoration:none;
@@ -693,6 +695,7 @@ font-size: 11px;
 	.head-top .header-time{bottom:0}
 	body .head-top header{width:640px;background:none;padding:10px 0;}
 	.head-top header h1{font-size:24px;}
+	.head-top header h1{font-size:26px;}
 	.head-top header h2{font-size:16px;}
 	.head-top #menu-trigger{display:block;}
 	.head-top header .mobile-menu{
@@ -761,21 +764,21 @@ font-size: 11px;
 	    text-decoration: none;
 	    padding-left: 20px;
 	    line-height: 50px;
-		}
-		.head-top .mobile-menu li.menu-item-has-children > label, .head-top .mobile-menu li.back > label {
+	}
+	.head-top .mobile-menu li.menu-item-has-children > label, .head-top .mobile-menu li.back > label {
 	    display: block;
 	    height: 100%;
 	    cursor: pointer;
-		}
-		.head-top .mobile-menu li.menu-item-has-children > label::after {
+	}
+	.head-top .mobile-menu li.menu-item-has-children > label::after {
 	    float: right;
 	    background-image: url('images/arrow-right.png');
-		}
-		.head-top .mobile-menu li.back > label::after{
+	}
+	.head-top .mobile-menu li.back > label::after{
 		float: none;
 	    background-image: url('images/arrow-left.png');
-		}
-		.head-top .mobile-menu ul li.menu-item-has-children > label::after, .head-top .mobile-menu li.back > label::after {
+	}
+	.head-top .mobile-menu ul li.menu-item-has-children > label::after, .head-top .mobile-menu li.back > label::after {
 	    content: "";
 	    display: block;
 	    padding-top: 5px;
@@ -784,8 +787,8 @@ font-size: 11px;
 	    background-size: auto 50%;
 	    background-repeat: no-repeat;
 	    background-position: center;
-		}
-		.head-top .mobile-menu ul li ul.sub-menu {
+	}
+	.head-top .mobile-menu ul li ul.sub-menu {
 	    display: block;
 	    left: 320px;
 	    top: 0px;
@@ -799,22 +802,24 @@ font-size: 11px;
 	    border: none;
 	    padding: 0px;
 	    margin: 0px;
-		}
-		.head-top .mobile-menu ul li ul li:hover a {
+	}
+	.head-top .mobile-menu ul li ul li:hover a {
 	    background: transparent;
-		}
-		.head-top .mobile-menu ul li.back>a {
+	}
+	.head-top .mobile-menu ul li.back>a {
 	    font-weight: bold;
 	    text-transform: uppercase;
 	    padding-left: 40px;
 	    line-height: 46px;
-		}
-		.head-top .mobile-menu ul > li > a, .head-top .mobile-menu  ul li.back>a {
+	}
+	.head-top .mobile-menu ul > li > a, .head-top .mobile-menu  ul li.back>a {
 	    float: left;
 	    position: relative;
-		}
-		.head-top .mobile-menu  ul li.back>a {z-index: -1;}
-		.head-top .mobile-menu  ul  li ul.sub-menu {
+	}
+	.head-top .mobile-menu  ul li.back>a {
+		z-index: -1;
+	}
+	.head-top .mobile-menu  ul  li ul.sub-menu {
 		background: #fff;
 	    height: auto;
 		min-height:500px;
@@ -881,7 +886,7 @@ ul.voter li {
     margin-bottom: 0.5em;
 }
 
-/* Heng start */
+/* Header and responsive menu */
 .head-top{
     height: 500px;
 	position: relative;
@@ -890,6 +895,7 @@ ul.voter li {
 	position: absolute;
 	bottom: 0px;
 	width: 400px;
+	background-color: #A58AAC;
 	background: rgba(161, 136, 163, 0.81);
 	padding: 20px 0 20px 20px;
 }
@@ -941,7 +947,8 @@ ul.voter li {
     top: 20px;
     right: 0;
 }
-#searchform{float: right;
+#searchform{
+	float: right;
     background: #38303B;
     padding: 3px;
 	color: #fff;
@@ -965,14 +972,13 @@ input:-moz-placeholder {
 	color: #fff;
 }
 input::-moz-placeholder {
-color: #fff;
-　　}
+	color: #fff;
+}
 input:-ms-input-placeholder {
-color: #fff
+	color: #fff
 }
 #searchform .gobutton{
-background:url("images/imagesself/search.png") no-repeat;
-/*background: url(images/imagesself/search.png);*/
+	background:url("images/imagesself/search.png") no-repeat;
     background-size: 100% 100%;
     width: 25px;
     border: none;
@@ -981,7 +987,7 @@ background:url("images/imagesself/search.png") no-repeat;
 	padding: 7px;
 }
 .menu-tog{
-float: right;
+	float: right;
     width: 37px;
     height: 37px;
     background: url("images/imagesself/menu.png") no-repeat;
@@ -996,10 +1002,8 @@ float: right;
     left: 0;
     top: 0;
     cursor: pointer;
-	width: 100%;
+	  width: 100%;
     height: 100%;
-    /* padding: 10px; */
-    /* background: rgba(255,255,255,0.95); */
     -o-border-radius: 0px 5px 5px 0px;
     -icab-border-radius: 0px 5px 5px 0px;
     -khtml-border-radius: 0px 5px 5px 0px;
@@ -1080,19 +1084,19 @@ float: right;
     overflow: hidden;
     border-bottom: 2px solid #B7B7B7;}
 .news-content .news-title{
-    font-size: 24px;
+    font-size: 20px;
     color: #18181A;
     margin: 10px 0 10px 0;
     max-height: 100px;
 	font-weight: bold;}
 .news-content .news-date-time{
 	padding-bottom: 5px;
-	font-size:18px;
+	font-size:14px;
 	font-weight: 500;}
 .news-content p{
 	margin: 0;
     padding-top: 20px;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 2px;
     line-height: 20px;
@@ -1119,21 +1123,85 @@ float: right;
 }
 .view-all-con{
 	float: left;
-	width: 33%;
-	text-align: left;
+	font-size: 17px;
+    padding: 0 23px;}
+.head-top .menu > ul > li:last-child > a{
+	padding:0 0 0 15px;}
+
+@media all and (max-width: 1200px) {
+	.home #main{
+		padding:0 4%;}
+	.home footer{
+		padding-left:4%;
+		padding-right:4%;}
+	body.home .head-top header{
+		width:92%;
+		margin:0 4%;}
+
+}
+@media all and (max-width: 1024px) {
+	.head-top{
+		height:471px;}
+	.head-top .header-time{
+		bottom:0;}
+	#main .page-list ul li a{
+		font-size:23px;}
 }
 
-#footer_center {
-	float: left;
-	width: 34%;
-	text-align: left;
+@media all and (max-width: 736px){
+
+	.news-content .news-title{
+	    font-size: 21px;
+	    color: #18181A;
+	    margin: 10px 0 10px 0;
+	    max-height: 100px;
+	}
+
+	.head-title{
+		text-align: center;
+	    margin-bottom: 50px;
+	    font-size: 36px;
+		font-weight: 600;}
+
+}
+@media all and (max-width: 668px) {
+
+	footer p{
+			font-size: 14px;
+	}
+
 }
 
-#footer_right {
-	float: left;
-	width: 33%;
-	text-align: left;
+
+@media all and (max-width: 375px) {
+	header.site-header{
+		text-align:center;}
+
+	#footer_right {
+		margin-left: 10%;
+
+	}
 }
+
+/* who-page */
+.who_constituencies_lists h2{
+	font-size: 32px;
+	margin-bottom: 20px;}
+.who_constituencies_lists .mini_maps{
+	width:50%;
+	margin-left:0;
+	height:auto;}
+.who_constituencies_lists .mini_maps p{
+	margin-bottom:10px;
+	font-size:1.3em;}
+.who_constituencies_lists .mini_maps .mini_maps_con{
+	padding:15px 10px;}
+.who_constituencies_lists .mini_maps .mini_maps_con img{
+	width:100%;}
+
+
+
+
 
 .float_left {
 	float: left;
@@ -1183,3 +1251,338 @@ float: right;
 	padding: 2px 2px 2px 5px;
 	text-align: center;
 }
+
+/* Address Lookup Tool */
+
+.search_text{
+	margin-left:-20px;
+	margin-top:75px;
+}
+
+.search_text .enter_address_text{
+	color: #181719;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 36px;
+}
+
+.search_text .random_order_text{
+	color: #181719;
+	font-size: 18px;
+	font-style: italic;
+	line-height: 30px;
+}
+
+#address_lookup_form{
+	width:60%;
+	margin-left:40%;
+	margin-bottom:25px;
+  background: #38303B;
+  padding: 5px;
+	color: #fff;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
+}
+
+input::-webkit-input-placeholder{
+	color: #fff;
+}
+input:-moz-placeholder {
+	color: #fff;
+}
+input::-moz-placeholder {
+	color: #fff;
+}
+input:-ms-input-placeholder {
+	color: #fff
+}
+
+#address_lookup_form #submit{
+	background-color: inherit;
+  border: none;
+	cursor: pointer;
+	padding: 7px;
+	color: #FFFFFF;
+	font-weight: 400;
+	font-size:15px;
+	font-family: "Libre Franklin";
+	font-style: italic;
+}
+
+#address_lookup_form #street_number,#address_lookup_form #street_name,
+#address_lookup_form select, #address_lookup_form #street_direction{
+	border: none;
+	color: #FFFFFF;
+	font-size: 16px;
+	line-height: 0;
+	background: #A48AAC;
+	padding:3px;
+	border-radius: 3px;
+	font-family: "Libre Franklin";
+	font-style: italic;
+}
+
+#address_lookup_form #street_number {
+	height: 25px;
+	width: 67px;
+	margin-right:2px;
+}
+
+#address_lookup_form #street_name{
+	height: 25px;	width: 250px; 	margin-right:2px;
+}
+
+#address_lookup_form #street_direction
+{
+	height: 25px;	width: 76px; 	margin-right:2px;
+}
+
+#address_lookup_form select{
+	height: 30px;	width: 76px; 	margin-right:2px;
+}
+
+@media all and (max-width: 1200px) {
+
+	#address_lookup_form{
+		width:70%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px;
+		width: 67px;
+		margin-right:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 137px; 	margin-right:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 76px; 	margin-right:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 76px; 	margin-right:2px;
+	}
+}
+
+@media all and (max-width: 1024px){
+	/* iPad / iPad Pro Standing Position */
+	.search_text{
+		margin-top:75px;
+		margin-left: 50px;
+	}
+
+	#address_lookup_form{
+		width:60%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 67px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 200px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 137px; 	margin:2px;
+	}
+}
+
+@media all and (max-width: 823px){
+	/* iPhone X Sitting, Pixel 2Xl Sitting */
+	#address_lookup_form{
+		width:90%;
+		margin:25px auto;
+	}
+}
+
+@media all and (max-width: 768px) {
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-top:75px;
+		margin-left: 50px;
+	}
+
+	#address_lookup_form{
+		width:70%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 67px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 137px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 137px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 73px; 	margin:2px;
+	}
+
+}
+
+@media all and (max-width: 668px){
+	/* iPhone 6/7/8 Sitting Position, Galaxy S5 Sitting Position*/
+
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number{
+		height: 25px;	width: 100px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 200px; 	margin:2px;
+	}
+
+}
+
+@media all and (max-width: 414px){
+	/* Pixel 2/ 2Xl, iPhone 6/7/8 Plus */
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 30px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 120px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 67px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 80px; 	margin:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-top: 0px;
+	}
+}
+
+@media all and (max-width: 375px){
+	/* iPhone 6/7/8/X, Galaxy S5,  */
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 30px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 90px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 50px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 67px; 	margin:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-right:10px;
+	}
+}
+
+@media all and (max-width: 320px){
+	/* iPhone 5/SE */
+
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 30px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 190px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 150px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 75px; 	margin:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-right:10px;
+	}
+}
+
+/* End of Address Lookup Tool */

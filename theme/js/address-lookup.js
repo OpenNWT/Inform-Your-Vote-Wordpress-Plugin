@@ -21,7 +21,7 @@ jQuery(document).ready( function($) {
       type: "POST",
       data: {form_data: form_data, action : 'address_lookup'},
       success: function(data){
-        $('#ajax_result').html(data);
+        $('.candidates').html(data);
       }
     });
 

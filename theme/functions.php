@@ -46,7 +46,7 @@ function election_data_theme_scripts() {
 	global $ed_taxonomies;
 
     wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
-    wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-slookup.js' );
+    wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js' );
 
     wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.2a');
 	if ( is_front_page() ) {
@@ -638,5 +638,81 @@ class new_walker extends Walker_Nav_Menu
 	}
 }
 
+function my_init() {
+	add_post_type_support('page', array('excerpt'));
+}
+add_action('init', 'my_init');
+
+
+/**
+ * Displays the news articles at the front page.
+ * @since Election_Data_Theme 1.0
+ *
+ * @param 	$candidate_ids			the Candidate to have news about. Default is null.
+ * @param	$count	            	the amount of articles per page. Default is null.
+ */
+function display_front_page_news($candidate_ids, $count){
+	global $ed_post_types, $ed_taxonomies;
+	$news = get_news( $candidate_ids, 1, $count );
+	$articles = $news['articles'];
+	$last_date = '';
+	if($articles->have_posts()):
+		$date_format = get_option( 'date_format' );
+		while ( $articles->have_posts() ) :
+			$articles->the_post();
+			$article_id = $articles->post->ID;
+			$date = get_the_date( $date_format, $article_id );
+			$time = get_the_date(get_option('time_format'), $article_id);
+
+			if ( $date != $last_date ) :
+				if ( $last_date != '' ) : ?>
+					</ul>
+				<?php endif;
+				$last_date = $date; ?>
+				<ul class="news-list">
+			<?php endif;
+
+			$candidates = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_candidate'] );
+			$news_article_candidate_ids = array();
+			foreach ( $candidates as $candidate ) :
+				$news_article_candidate_ids[] = $candidate->term_id;
+			endforeach;
+			$args = array(
+				'post_type' => $ed_post_types['candidate'],
+				'meta_query' => array(
+					array(
+						'key' => 'news_article_candidate_id',
+						'value' => $news_article_candidate_ids,
+						'compare' => 'IN'
+							),
+						),
+					);
+			$mentions = array();
+			$query = new WP_Query( $args );
+			while ( $query->have_posts() ) :
+				$query->the_post();
+				$url = get_permalink( $query->post );
+				$name = esc_attr( get_the_title( $query->post ) );
+				$mentions[] = "<a href='$url'>$name</a>";
+		    endwhile;
+		     $sources = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_source'] );
+		     $source = $sources[0];
+		     $source_label = esc_html( $source->description ? $source->description : $source->name ); ?>
+			<li>
+				<div class="news-content">
+			    	<div class="post-news-title-time">
+			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>" target="blank"><?php echo get_the_title( $article_id ); ?></a>
+			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span>
+			        </div>
+					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
+					<p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>" target="blank">Read more...</a></p>
+				</div>
+			</li>
+		<?php endwhile; ?>
+		</ul>
+	<?php else : ?>
+		<em>No articles found yet.</em>
+	<?php endif;
+}
 
 /* Heng end */

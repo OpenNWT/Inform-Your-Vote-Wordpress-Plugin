@@ -11,15 +11,21 @@
 
 </div><!-- #main .site-main -->
 
+
+</div> <!-- end the <div id="container">-->
+
+	
 <footer id="colophon" class="site-footer" role="contentinfo">
 
-    <div id = "footer_left"><?php echo Election_Data_Option::get_option('footer-left');?></div>
+	<div id = "footer_left"><?php echo Election_Data_Option::get_option('footer-left');?></div>
     <div id = "footer_center"><?php echo Election_Data_Option::get_option('footer-center');?></div>
     <div id = "footer_right"><?php echo Election_Data_Option::get_option('footer-right');?></div>
     <div class="site-info">
           <?php echo Election_Data_Option::get_option('footer');?>
         <?php do_action( 'election_data_theme_credits' ); ?>
     </div><!-- .site-info -->
+
+    
 </footer><!-- #colophon .site-footer -->
 </div><!-- #page .hfeed .site -->
 

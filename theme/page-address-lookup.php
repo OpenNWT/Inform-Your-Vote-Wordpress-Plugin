@@ -10,25 +10,32 @@
 
   $street_types = explode(', ', Election_Data_Option::get_option('street_types'));
 ?>
+  <div class = "address_lookup_page">
 
-  <form id="address_lookup_form" method="POST" action="">
-    <input type="text" name="street_number"  id="street_number" placeholder='Street Number'>
-    <input type="text" name="street_name"  id="street_name" placeholder="Street Name">
-    <select>
-      <option value = "All" >(All)</option>
-      <?php
-        foreach($street_types as $street){
-          echo "<option value='" . $street . "'>". $street ."</option>";
-        }
-      ?>
-    </select>
-    <input type="text" name="street_direction"  id="street_direction" placeholder="Street Direction">
-    <input type="submit" name="submit" id="submit" value="Find">
-    <input type="button" name = "delete" id = "delete" value = "Delete" disabled>
-  </form>
+    <div class="search_text">
+      <span class="enter_address_text">Enter Your Address To Reveal Your Candidates</span><br>
+      <span class="random_order_text">All candidates are displayed in random order.</span>
+    </div>
+
+    <form id="address_lookup_form" method="POST" action="">
+      <input type="text" name="street_number"  id="street_number" placeholder='#'>
+      <input type="text" name="street_name"  id="street_name" placeholder="Name">
+      <select>
+        <option value = "All" >(All)</option>
+        <?php
+          foreach($street_types as $street){
+            echo "<option value='" . $street . "'>". $street ."</option>";
+          }
+        ?>
+      </select>
+      <input type="text" name="street_direction"  id="street_direction" placeholder="Direction">
+      <input type="submit" name="submit" id="submit" value="Find">
+      <!-- <input type="button" name = "delete" id = "delete" value = "Delete" disabled> -->
+    </form>
 
 
-  <div id="ajax_result">
+    <div class ="candidates">
+    </div>
 
   </div>
 
