@@ -445,7 +445,7 @@ function display_news_article_stats() {
     echo "<table></div>";
 }
 
-/* Heng start */
+
 class new_walker extends Walker_Nav_Menu
 {
 	function start_lvl( &$output, $depth = 0, $id = 0, $args = array()) {
@@ -456,7 +456,7 @@ class new_walker extends Walker_Nav_Menu
 			$t = "\t";
 			$n = "\n";
 		}
-		$output .= $n."<input class=\"submenu\" id=\"submenu".$id."\" type=\"checkbox\"><label for=\"submenu".$id."\"></label><ul class=\"sub-menu\" id=\"subp".$id."\"><li class=\"back\"><label for=\"submenu".$id."\"></label></li>".$n;
+		$output .= $n."<input class=\"submenu\" id=\"submenu".$id."\" type=\"checkbox\"><label for=\"submenu".$id."\"></label><ul class=\"sub-menu\" id=\"subp".$id."\"><li class=\"back\"><a>Back</a><label for=\"submenu".$id."\"></label></li>".$n;
 	}
 
 	 function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
@@ -503,4 +503,4 @@ class new_walker extends Walker_Nav_Menu
 		call_user_func_array(array($this, 'end_el'), $cb_args);
 	}
 }
-/* Heng end */
+

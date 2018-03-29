@@ -573,6 +573,8 @@ p.news-article-notice{
 		left: 0; 
 	}
 }
+
+.menu .back {display:none};
 		
 .latest_news_small h4, .latest_news_large h4 {
   color: #666666; }
