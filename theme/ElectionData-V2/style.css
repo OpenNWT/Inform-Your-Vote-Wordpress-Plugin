@@ -1,5 +1,5 @@
 /*
-Theme Name: Election Data
+Theme Name: Election Data - V2
 Theme URI: http://opendemocracymanitoba.com/
 Author: Robert Burton
 Author URI: http://opendemocracymanitoba.com/
@@ -70,7 +70,6 @@ p {
 footer {
   border-top: 1px solid #e5e5e5;
   margin-top: 5px;
-  margin-bottom: 20px;
   padding-top: 20px;
   padding-bottom: 2px;
   font-size: 16px;
@@ -113,7 +112,11 @@ footer h3{
 }
 	
 footer p{
+<<<<<<< HEAD:theme/ElectionData-V2/style.css
+		font-size: 18px;
+=======
 		font-size: 17px;
+>>>>>>> dev-branch:theme/style.css
 }
 
 header {
@@ -126,7 +129,7 @@ header {
   header h1 {
     margin: -10px 0 0 0;
     font-family: "Libre Franklin";
-    font-size: 38px;
+    font-size: 36px;
     font-weight: bold;
     }
   header h1 a {
@@ -409,7 +412,7 @@ p.news-article-notice{
 		height: 100px; }
 	header h1 {
 		margin-top: 0.1em; 
-		font-size: 38px;}
+		font-size: 36px;}
 
 	#container {
 		width: 640px; }
@@ -671,7 +674,7 @@ font-size: 11px;
 	.head-top .header-time{bottom:0}
 	body .head-top header{width:640px;background:none;padding:10px 0;}
 
-	.head-top header h1{font-size:26px;}
+	.head-top header h1{font-size:24px;}
 	.head-top header h2{font-size:16px;}
 	.head-top #menu-trigger{display:block;}
 	.head-top header .mobile-menu{
@@ -866,10 +869,10 @@ ul.voter li {
     font-family: "Libre Franklin";
 }
 .header-time h2{     
-	font-size: 30px;
+	font-size: 38px;
     margin-bottom: 0;
     font-family: "Libre Franklin";
-    font-weight: bold;
+    font-weight: 300;
 }
 .head-top header{
 	width:960px;
@@ -1108,6 +1111,15 @@ input:-ms-input-placeholder {
 		font-size:23px;}
 }
 
+@media all and (max-width: 825px) {
+
+	footer p{
+			font-size: 15px;
+	}
+
+}
+
+
 @media all and (max-width: 736px){
 
 	.news-content .news-title{
@@ -1127,7 +1139,7 @@ input:-ms-input-placeholder {
 @media all and (max-width: 668px) {
 
 	footer p{
-			font-size: 14px;
+			font-size: 13px;
 	}
 
 }

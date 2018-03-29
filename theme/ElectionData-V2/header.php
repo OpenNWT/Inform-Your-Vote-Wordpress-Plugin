@@ -19,6 +19,7 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
+<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,700" rel="stylesheet">
 
 <?php if(Election_data_option::get_option('site_image')):?>
 	<meta property="og:image" content=<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'))[0];?>>
@@ -62,16 +63,23 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 </head>
 
 <body <?php body_class(); ?>>
-		<!-- Heng start -->
 		<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
-		<?php 
-			if ( get_header_image() ) : ?>
-			<?php echo '<style type="text/css">.head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){
-body .head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255, 255, 255, 0)),url("'.get_header_image().'") no-repeat;background-size: auto 100%;}}</style>';?>
-			<?php endif; ?>
-				<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<h2 class="site-description"><?php echo $site_description; ?></h2>
+			<!-- Different page using different image -->			
+			<?php 			
+				$is_multiple_images = is_tax( $taxonomy = 'ed_candidates_party' ) || is_tax( $taxonomy = 'ed_candidates_constituency' ) || is_singular($post_type = 'ed_candidates') || is_page( 'about-us' );
+
+				$header_image = get_header_image() ?: '/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
+
+				echo '<style type="text/css">.head-top{background:url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>';
+
+				if ($is_multiple_images)
+						$header_image = '/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/img-2.png';
+					echo '<style type="text/css">.head-top{background:url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>'	
+			;?>
+		
+			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<h2 class="site-description"><?php echo $site_description; ?></h2>
 		<div class="search-form">
 			<form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
 				<input class="letterinput" type="text" name="s" value="" placeholder="Search" />
@@ -88,10 +96,9 @@ body .head-top{background:linear-gradient(to bottom,rgb(255, 255, 255),rgba(255,
 		</header><!-- #masthead .site-header -->
 		<div class="header-time">
 		<p>Election Day is</p>
-		<h2><?php echo date('F d,Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
+		<h2><?php echo date('F d, Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
 		</div>
 		</div>
-		<!-- Heng end -->
 	<div id="container">
         <?php if (!is_front_page()): ?>
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
