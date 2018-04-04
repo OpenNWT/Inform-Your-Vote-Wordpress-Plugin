@@ -465,7 +465,7 @@ class Election_Data {
    */
 	public static function import( $file_type, $file_data, $mode ) {
 
-		set_time_limit( 60 * 60 );
+		// set_time_limit( 60 * 60 );
 
 		$candidate = new Election_Data_Candidate( false );
     $address = new Election_Data_Address( false );
