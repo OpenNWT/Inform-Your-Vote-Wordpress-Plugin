@@ -63,6 +63,7 @@ class Election_Data_Settings_Definition {
 
 		$tabs                = array();
 		$tabs['front_page_tab'] = __( 'Front Page', self::$plugin_name );
+		$tabs['header_image_tab'] = __('Header Image', self::$plugin_name);
 		$tabs['footer_tab'] = __('Footer', self::$plugin_name );
 		$tabs['news_scraping_tab'] = __( 'News Scraping', self::$plugin_name );
 		$tabs['general_tab'] = __( 'General Settings', self::$plugin_name );
@@ -523,6 +524,23 @@ class Election_Data_Settings_Definition {
 				'right_column_img' => array(
 				'name' => __( 'Right Column Image Logo', self::$plugin_name ),
 				'desc' => __( 'The image to display on the right column.'),
+				'type' => 'image',
+				),
+			),
+			'header_image_tab' => array(
+				'candidates_party_header_img' => array(
+				'name' => __( 'Party Header Image', self::$plugin_name ),
+				'desc' => __( 'The header image to display on the party page. If it is not selected, it will display the same image as the front page.'),
+				'type' => 'image',
+				),
+				'candidates_constituency_header_img' => array(
+				'name' => __( 'Constituency Header Image', self::$plugin_name ),
+				'desc' => __( 'The header image to display on the constituency page. If it is not selected, it will display the same image as the front page.'),
+				'type' => 'image',
+				),
+				'candidates_header_img' => array(
+				'name' => __( 'Candidates Header Image', self::$plugin_name ),
+				'desc' => __( 'The header image to display on the candidates page. If it is not selected, it will display the same image as the front page.'),
 				'type' => 'image',
 				),
 			),

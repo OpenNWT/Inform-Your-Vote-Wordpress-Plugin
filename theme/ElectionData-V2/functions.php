@@ -578,7 +578,10 @@ function display_news_article_stats() {
     echo "<table></div>";
 }
 
-/* Heng start */
+/**
+ * Add a menu for the mobile device
+ * Author: Heng Yu
+ */
 class new_walker extends Walker_Nav_Menu
 {
 	function start_lvl( &$output, $depth = 0, $id = 0, $args = array()) {
@@ -636,12 +639,6 @@ class new_walker extends Walker_Nav_Menu
 		call_user_func_array(array($this, 'end_el'), $cb_args);
 	}
 }
-
-/*function my_init() {
-	add_post_type_support('page', array('excerpt'));
-}
-add_action('init', 'my_init');*/
-
 
 /**
  * Displays the news articles at the front page.
@@ -713,5 +710,3 @@ function display_front_page_news($candidate_ids, $count){
 		<em>No articles found yet.</em>
 	<?php endif;
 }
-
-/* Heng end */

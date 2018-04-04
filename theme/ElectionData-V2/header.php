@@ -55,6 +55,10 @@ echo " | $site_description";
 if ( $paged >= 2 || $page >= 2 )
 echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page ) );
 
+$siteurl = home_url();
+$candidates_party_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_party_header_img'),'full')[0];
+$candidates_constituency_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_constituency_header_img'),'full')[0];
+$candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_header_img'),'full')[0];
 ?></title>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
@@ -63,42 +67,52 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 </head>
 
 <body <?php body_class(); ?>>
-		<div class="head-top">
+	<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
 			<!-- Different page using different image -->			
-			<?php 			
-				$is_multiple_images = is_tax( $taxonomy = 'ed_candidates_party' ) || is_tax( $taxonomy = 'ed_candidates_constituency' ) || is_singular($post_type = 'ed_candidates') || is_page( 'about-us' );
+			<?php
+				$default_header_image = get_header_image() ?: $siteurl.'/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
 
-				$header_image = get_header_image() ?: '/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
+				if(is_tax( $taxonomy = 'ed_candidates_party' ) ){
+					$header_image =($candidates_party_header_img!='') ? $candidates_party_header_img : $default_header_image;
+				}
+				else if(is_tax( $taxonomy = 'ed_candidates_constituency' )){
+					$header_image = ($candidates_constituency_header_img!='') ? $candidates_constituency_header_img : $default_header_image;
+				}
+				else if(is_singular($post_type = 'ed_candidates')){
+					$header_image = ($candidates_header_img!='') ? $candidates_header_img : $default_header_image;
+				}
+				else if (is_page()){
+					$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full');
+					$header_image = has_post_thumbnail() ? $full_image_url[0] : $default_header_image;
+				}
+				else
+					$header_image = $default_header_image;
 
 				echo '<style type="text/css">.head-top{background:url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>';
-
-				if ($is_multiple_images)
-						$header_image = '/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/img-2.png';
-					echo '<style type="text/css">.head-top{background:url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>'	
 			;?>
 		
 			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 class="site-description"><?php echo $site_description; ?></h2>
-		<div class="search-form">
-			<form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
-				<input class="letterinput" type="text" name="s" value="" placeholder="Search" />
-				<input class="gobutton" type="submit" value="" />
-			</form>
-		</div>
-		<input id="menu-toggle" type="checkbox">
-		<div id="menu-trigger">
-		<label for="menu-toggle">
-		</label>
-		</div>
-		
-		<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
+			<div class="search-form">
+				<form role="search" method="get" id="searchform" action="<?php echo home_url( '/' ); ?>">
+					<input class="letterinput" type="text" name="s" value="" placeholder="Search" />
+					<input class="gobutton" type="submit" value="" />
+				</form>
+			</div>
+			<input id="menu-toggle" type="checkbox">
+			<div id="menu-trigger">
+			<label for="menu-toggle">
+			</label>
+			</div>
+			
+			<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
 		</header><!-- #masthead .site-header -->
 		<div class="header-time">
-		<p>Election Day is</p>
-		<h2><?php echo date('F d, Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
+			<p>Election Day is</p>
+			<h2><?php echo date('F d, Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
 		</div>
-		</div>
+	</div>
 	<div id="container">
         <?php if (!is_front_page()): ?>
         <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
