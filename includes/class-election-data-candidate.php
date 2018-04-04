@@ -467,7 +467,7 @@ class Election_Data_Candidate {
     $menu_name = __('Election Data Navigation Menu');
     $menu = wp_get_nav_menu_object($menu_name);
     $menu_id = $menu->term_id;
-
+    $old_parent_item_id = '';
     $menu_items = wp_get_nav_menu_items($menu_id);
 
     $constituency_items = array();
@@ -594,7 +594,7 @@ class Election_Data_Candidate {
 			$query->set( 'orderby', 'rand' );
 			$query->set( 'nopaging', 'true' );
 		}
-    
+
     if ( is_post_type_archive( $this->post_type ) ) {
 			$query->set( 'orderby', 'rand' );
 			$query->set( 'nopaging', 'true' );
