@@ -233,130 +233,127 @@ class Election_Data_Address {
         $constituency_id = '';
         $candidate_references = array();
 
-				print_r($data);
-        foreach($data as $key=>$value){
-            if($value['name'] != 'street_type' && $value['name'] != 'street_direction' && $value['name'] != 'page'){
-                    $street_address .= $value['value'] . " ";
-            }
-        }
-        $addresses = new WP_QUERY(array(
-            'post_type' => $ed_post_types['address'],
-            'name' => $street_address
-        ));
-        if($addresses->have_posts()){
-            while ($addresses->have_posts()) {
-            $addresses->the_post();
-            $post_id = get_the_ID();
-                $title = get_the_title();
-                //echo $addresses->post_count;
-                $new_ward = get_post_meta($post_id, 'new_ward');
-                $school_division = get_post_meta($post_id, 'school_division_name');
-                $school_division_ward = get_post_meta($post_id, 'school_division_ward');
-                $school_division_name = "{$school_division[0]} {$school_division_ward[0]}";
-                $string = [];
-                $string[0] = "/ - /";
-                $string[1] = "/ /";
-                $constituency = get_term_by('slug' , preg_replace($string, "-", $new_ward[0]), $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
-                $school_ward = get_term_by('slug', preg_replace($string, "-", $school_division_name), $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
-                $constituency_id = $constituency["term_id"];
-                $school_ward_id = $school_ward["term_id"];
-            }
-            wp_reset_query();
-						$testing_page_name = (string)$data[3]['value'];
-						$dontgohere = "Results";
-            if( strcmp($testing_page_name, $dontgohere) !== 0 ) {
-							echo "Hey the results equation didn't work out <br />" . $testing_page_name . '<br />';
-                if( $constituency ){
-                    $ward_candidates = new WP_Query(array(
-                        'tax_query' => array(
-                            array(
-                                    'taxonomy' => $ed_taxonomies['candidate_constituency'],
-                                    'field' => 'term_id',
-                                    'terms' => $constituency_id,
-                            )
-                    )));
-                    echo ("</div><div class = 'flow_it politicians result_head'><style>.candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward[0]}</h2>");
-                    display_constituency_candidates($ward_candidates, $constituency_id, $candidate_references);
-                    wp_reset_query();
-                }
-                if($school_ward){
-                    $school_ward_candidates = new WP_Query(array(
-                        'tax_query' => array(
-                            array(
-                                    'taxonomy' => $ed_taxonomies['candidate_constituency'],
-                                    'field' => 'term_id',
-                                    'terms' => $school_ward_id,
-                            )
-                    )));
-                    echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
-                    display_constituency_candidates($school_ward_candidates, $school_ward_id, $candidate_references);
-                    wp_reset_query();
-                }
-                $mayoral_candidates_query = new WP_QUERY(array(
-                    'tax_query' => array(
-                        array(
-                                'taxonomy' => $ed_taxonomies['candidate_constituency'],
-                                'field' => 'term_id',
-                                'terms' => 781,
-                        )
-                )));
-                echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
-                display_constituency_candidates($mayoral_candidates_query, 781, $candidate_references);
-                wp_reset_query();
-            }
-            else {
-								echo 'The thing worked! <br/>';
-                 self::display_election_results($constituency, $school_ward, $ward_candidate);
-								//display_election_results($constituency, $school_ward, $ward_candidate);
-            }
-        }
-        else{
-            echo ("Oops! Address Not Found.");
-        }
-    }
-
-		/**
-		*
-		*
-		*/
-		public function display_election_results( $constituency, $school_ward = array(), $ward_candidates = array() ){
-			echo "Display results for {$constituency['name']}";
+	/**
+	 * Search for candidates associated with the constituency in which the address lies.
+	 *
+	 * @param  array $data An array of address form data
+	 * @access public
+	 * @since 1.1
+	 */
+	public function search_candidates( $data ){
+		global $ed_post_types;
+		global $ed_taxonomies;
 
 			print_r($constituency);
 
-			self::output_election_results( $constituency );
-			echo '<br/> and that is the regular constituency result <br />';
-			if (!empty ( $school_ward ) ) {
-				self::output_election_results ( $school_ward );
+		foreach($data as $key=>$value){
+			if($value['name'] != 'street_type' && $value['name'] != 'street_direction' && $value['name'] != 'page'){
+					$street_address .= $value['value'] . " ";
 			}
-			if (!empty ($ward_candidates) ) {
-				self::output_election_results ( $ward_candidates );
+		}
+
+		$addresses = new WP_QUERY(array(
+			'post_type' => $ed_post_types['address'],
+			'name' => $street_address
+		));
+
+
+		if($addresses->have_posts()){
+			while ($addresses->have_posts()) {
+		    $addresses->the_post();
+		    $post_id = get_the_ID();
+				$title = get_the_title();
+
+				//echo $addresses->post_count;
+				$new_ward = get_post_meta($post_id, 'new_ward');
+				$school_division = get_post_meta($post_id, 'school_division_name');
+				$school_division_ward = get_post_meta($post_id, 'school_division_ward');
+
+				$school_division_name = "{$school_division[0]} {$school_division_ward[0]}";
+
+				$string = [];
+				$string[0] = "/ - /";
+				$string[1] = "/ /";
+
+				$constituency = get_term_by('slug' , preg_replace($string, "-", $new_ward[0]), $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
+				$school_ward = get_term_by('slug', preg_replace($string, "-", $school_division_name), $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
+
+				$constituency_id = $constituency["term_id"];
+				$school_ward_id = $school_ward["term_id"];
+
 			}
 
 }
 
-public function output_election_results ( $result_input ) {
-	$result_constituency = get_constituency( $result_input['term_id'] );
-	$can_array = array();
-	$sort_vote = array();
-	$winner = 0;
-	$winners_total = $result_constituency['number_of_winners'];
-	$query_args = array(
-		'post_type' => $ed_post_types['candidate'],
-		'constituency' => $result_constituency['name'],
-	);
-	$candidates = array();
-	$query = new WP_Query( $query_args );
+			if(strcmp($data[3]['value'], "Address Lookup")){
+				if($constituency){
+					$ward_candidates = new WP_Query(array(
+						'tax_query' => array(
+							array(
+									'taxonomy' => $ed_taxonomies['candidate_constituency'],
+									'field' => 'term_id',
+									'terms' => $constituency_id,
+							)
+					)));
 
-	while ( $query->have_posts() ) {
-		$query->the_post();
-		$candidates[$query->post->ID] = get_candidate( $query->post->ID, true );
+					echo ("<div class = 'flow_it politicians result_head'><style>.candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward[0]}</h2></div>");
+					display_constituency_candidates($ward_candidates, $constituency_id, $candidate_references);
+					wp_reset_query();
+				}
+
+				if($school_ward){
+					$school_ward_candidates = new WP_Query(array(
+						'tax_query' => array(
+							array(
+									'taxonomy' => $ed_taxonomies['candidate_constituency'],
+									'field' => 'term_id',
+									'terms' => $school_ward_id,
+							)
+					)));
+
+					echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+					display_constituency_candidates($school_ward_candidates, $school_ward_id, $candidate_references);
+					wp_reset_query();
+				}
+
+				$mayoral_candidates_query = new WP_QUERY(array(
+					'tax_query' => array(
+						array(
+								'taxonomy' => $ed_taxonomies['candidate_constituency'],
+								'field' => 'term_id',
+								'terms' => 781,
+						)
+				)));
+
+				echo ("<div class = 'flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
+				display_constituency_candidates($mayoral_candidates_query, 781, $candidate_references);
+				wp_reset_query();
+			}
+			else{
+				self::display_results($constituency);
+			}
+
+		}
+		else{
+			echo ("Oops! Address Not Found.");
+		}
+
 	}
 
-	// for each candidate, grab their votes, name and id
-	foreach( $candidates as $can ){
-		$can_array[] = array( 'candidate_votes' => $can['candidate_votes'], 'name' => $can['name'], 'id' => $can['id'] );
-		$num_votes += $can['candidate_votes'];
+	public function display_results($constituency){
+
+		echo "Display results for {$constituency['name']}";
+	}
+
+	/**
+	 * Initializes the custom_post and taxonomies (Used during activation)
+	 *
+	 * @access public
+	 * @since 1.0
+	 *
+	 */
+	public function initialize() {
+		$this->custom_post->initialize();
 	}
 	// for each candidate, add their votes to a seperate array
 	foreach( $can_array as $v=>$key ) {
