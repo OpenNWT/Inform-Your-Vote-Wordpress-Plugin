@@ -11,7 +11,7 @@
 
 /* Left column*/
 $left_column_title = Election_Data_Option::get_option('left_column_title') ?: "Who Am I Voting For?";
-$left_column_excerpt = Election_Data_Option::get_option('left_column_excerpt') ?: "Find out more here about Mayoral, Council and  Trustee candidate.";
+$left_column_excerpt = Election_Data_Option::get_option('left_column_excerpt') ?: "Find out more here about Mayoral, Council and Trustee candidate.";
 $left_column_img = wp_get_attachment_image(Election_Data_Option::get_option('left_column_img'));
 $left_column_url = Election_Data_Option::get_option('left_column_url') ?: "";
 
@@ -39,13 +39,13 @@ get_header(); ?>
 
 				<h1 class="ptitle">
 
-					<a href="<?php echo $left_column_url;?>" target="_blank"><?php echo $left_column_title;?></a>
+					<a href="<?php echo $left_column_url;?>"><?php echo $left_column_title;?></a>
 				</h1>
 				<p class="excerpt">
 					<?php echo $left_column_excerpt; ?>
 				</p>
 				<p class="pimg">
-					<a href="<?php echo $left_column_url;?>" target="_blank"> 
+					<a href="<?php echo $left_column_url;?>"> 
 						<?php 
 							if($left_column_img) :
 								echo $left_column_img;
@@ -59,13 +59,13 @@ get_header(); ?>
 		<li>
 			<div class="page-article">
 				<h1 class="ptitle">
-					<a href="<?php echo $center_column_url;?>" target="_blank"><?php echo $center_column_title;?></a>
+					<a href="<?php echo $center_column_url;?>"><?php echo $center_column_title;?></a>
 				</h1>
 				<p class="excerpt">
 					<?php echo $center_column_excerpt; ?>
 				</p>
 				<p class="pimg">
-					<a href="<?php echo $center_column_url;?>" target="_blank">
+					<a href="<?php echo $center_column_url;?>">
 						<?php 
 							if($center_column_img) :
 								echo $center_column_img;
@@ -79,13 +79,13 @@ get_header(); ?>
 		<li>
 			<div class="page-article">
 				<h1 class="ptitle">
-					<a href="<?php echo $right_column_url;?>" target="_blank"><?php echo $right_column_title;?></a>
+					<a href="<?php echo $right_column_url;?>"><?php echo $right_column_title;?></a>
 				</h1>
 				<p class="excerpt">
 					<?php echo $right_column_excerpt; ?>
 				 </p>
 				<p class="pimg">
-					<a href="<?php echo $right_column_url;?>" target="_blank">
+					<a href="<?php echo $right_column_url;?>">
 						<?php 
 							if($right_column_img) :
 								echo $right_column_img;
@@ -102,11 +102,13 @@ get_header(); ?>
 <!--News part -->
 <div class="latest-news">
 	<div class="head-title">Latest News</div>
-		<?php display_front_page_news(null, $news_count);?>		
+		<ul class="news-list">
+			<?php display_front_page_news(null, $news_count);?>		
+		</ul>
 	<div class="view-all">
 		<div class="view-all-lt"></div>
 		<div class="view-all-con">
-			<a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>" target="_blank">View All</a>
+			<a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>">View All</a>
 		</div>
 		<div class="view-all-rt"></div>
 	</div>
