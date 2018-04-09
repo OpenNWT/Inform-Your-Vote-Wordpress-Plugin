@@ -578,7 +578,10 @@ function display_news_article_stats() {
     echo "<table></div>";
 }
 
-/* Heng start */
+/**
+ * Add a menu for the mobile device
+ * Author: Heng Yu
+ */
 class new_walker extends Walker_Nav_Menu
 {
 	function start_lvl( &$output, $depth = 0, $id = 0, $args = array()) {
@@ -637,12 +640,6 @@ class new_walker extends Walker_Nav_Menu
 	}
 }
 
-/*function my_init() {
-	add_post_type_support('page', array('excerpt'));
-}
-add_action('init', 'my_init');*/
-
-
 /**
  * Displays the news articles at the front page.
  * @since Election_Data_Theme 1.0
@@ -662,14 +659,6 @@ function display_front_page_news($candidate_ids, $count){
 			$article_id = $articles->post->ID;
 			$date = get_the_date( $date_format, $article_id );
 			$time = get_the_date(get_option('time_format'), $article_id);
-
-			if ( $date != $last_date ) :
-				if ( $last_date != '' ) : ?>
-					</ul>
-				<?php endif;
-				$last_date = $date; ?>				
-				<ul class="news-list">
-			<?php endif;
 					
 			$candidates = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_candidate'] );
 			$news_article_candidate_ids = array();
@@ -700,11 +689,11 @@ function display_front_page_news($candidate_ids, $count){
 			<li>
 				<div class="news-content">
 			    	<div class="post-news-title-time">
-			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>" target="blank"><?php echo get_the_title( $article_id ); ?></a>
+			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
 			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span> 
 			        </div>
 					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
-					<p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>" target="blank">Read more...</a></p>
+					<p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>">Read more...</a></p>
 				</div>
 			</li>
 		<?php endwhile; ?>
@@ -713,5 +702,3 @@ function display_front_page_news($candidate_ids, $count){
 		<em>No articles found yet.</em>
 	<?php endif;
 }
-
-/* Heng end */
