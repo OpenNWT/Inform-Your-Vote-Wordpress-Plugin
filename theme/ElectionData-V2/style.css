@@ -26,7 +26,7 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 80%;
+	font-size: 100%; 
 	font-family: "Libre Franklin";
 	vertical-align: baseline; }
 
@@ -99,11 +99,12 @@ footer {
 }
 
 footer .site-info{
-		font-size: 12px;
-		text-align: left;
-		margin-left: 3%;
-		padding-top: 18px;
-		padding-bottom: 8px;
+	font-size: 14px;
+	text-align: left;
+	margin-left: 3%;
+	padding-top: 18px;
+	padding-bottom: 8px;
+	letter-spacing: 0.5px;
 }
 
 footer h3{
@@ -112,7 +113,7 @@ footer h3{
 }
 
 footer p{
-		font-size: 18px;
+		font-size: 16px;
 }
 
 header {
@@ -1033,7 +1034,7 @@ input:-ms-input-placeholder {
 .head-title{
 	text-align: center;
     margin-bottom: 50px;
-    font-size: 40px;
+    font-size: 30px;
 	font-weight: 600;}
 .news-content .news-title,.news-content .news-date-time{
 	width:100%;
@@ -1044,7 +1045,7 @@ input:-ms-input-placeholder {
     border-bottom: 2px solid #B7B7B7;
 	margin-top: 30px;}
 .news-content .news-title{
-    font-size: 24px;
+    font-size: 20px;
     color: #18181A;
     margin: 10px 0 10px 0;
     max-height: 160px;
@@ -1052,12 +1053,12 @@ input:-ms-input-placeholder {
 .news-content .news-date-time{
 	padding-top: 5px;
 	padding-bottom: 5px;
-	font-size:18px;
+	font-size:14px;
 	font-weight: 500;}
 .news-content p{
 	/*margin: 0;*/
     padding-top: 20px;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 2px;
     line-height: 20px;
@@ -1069,7 +1070,7 @@ input:-ms-input-placeholder {
 	width: 100%;
     display: inline-block;
     color: #000;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
 	margin-top: 15px;}
 .view-all{
@@ -1084,7 +1085,7 @@ input:-ms-input-placeholder {
 }
 .view-all-con{
 	float: left;
-	font-size: 17px;
+	font-size: 14px;
     padding: 0 23px;}
 .head-top .menu > ul > li:last-child > a{
 	padding:0 0 0 15px;}

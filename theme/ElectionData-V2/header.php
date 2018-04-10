@@ -39,8 +39,6 @@ addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).rea
 var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>';
 </script>
 
-<link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
-
 <title><?php
 
 /*
