@@ -266,7 +266,7 @@ class Election_Data_Address {
 
       }
 
-      if( strcmp( $data[3]['value'], "Address Lookup") ) {
+      if( (string)$data[3]['value'] == 'Address_Lookup' ) {
         if( $constituency ) {
           $ward_candidates = new WP_Query( array(
             'tax_query' => array(
@@ -278,6 +278,7 @@ class Election_Data_Address {
             )
           ));
           echo ("</div><div class = 'flow_it politicians result_head'><style>.candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward[0]}</h2>");
+          shuffle($ward_candidates->posts);
           display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
           wp_reset_query();
         }
@@ -293,6 +294,7 @@ class Election_Data_Address {
             )
           ));
           echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+          shuffle($school_ward_candidates->posts);
           display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
           wp_reset_query();
         }
@@ -307,12 +309,14 @@ class Election_Data_Address {
           )
         ));
         echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+        shuffle($mayoral_candidates_query->posts);
         display_constituency_candidates( $mayoral_candidates_query, 781, $candidate_references );
         wp_reset_query();
       }
         //else is the results page
         else {
-          self::display_election_results( $constituency, $school_ward, $ward_Candidates );
+          // Need to establish a councilor_ward_id somehow
+          self::display_election_results( $constituency, $school_ward_id, $councilor_ward_id );
         }
 
       }
@@ -323,34 +327,56 @@ class Election_Data_Address {
     }
 
     /**
-    *
+    * Output results of a given constituency (and/or school ward and councilor ward) once the votes have been added
+    * @param array constituency   a given constituency to have its results displayed
+    * @param array school_ward    if a school ward is provided, results will be displayed for it
+    * @param array councilors     if a councilor ward is provided, results will be displayed for it
     *
     */
-    public function display_election_results( $constituency, $school_ward = array(), $ward_candidates = array() ) {
+    public function display_election_results( $constituency, $school_id = -1, $council_id = -1 ) {
       echo "Display results for {$constituency['name']}";
 
-      print_r($constituency);
-
-      self::output_election_results( $constituency );
-      echo '<br/> and that is the regular constituency result <br />';
-      if (!empty ( $school_ward ) ) {
-        self::output_election_results ( $school_ward );
+      //If these are empty, then ignore them
+      if (empty($school_id)) {
+        $school_id = -1;
       }
-      if (!empty ($ward_candidates) ) {
-        self::output_election_results ( $ward_candidates );
+      if (empty($council_id)){
+        $council_id = -1;
+      }
+
+      echo '<br/>';
+      echo 'School id is ' . $school_id;
+      echo '<br/>';
+      echo 'Council id is ' . $council_id;
+      echo '<br/>';
+
+      //Emergency backup - $result_constituency = get_constituency( $result_input['term_id'] );
+      $result_constituency = get_constituency( $constituency['term_id'] );
+      self::output_election_results( $result_constituency );
+
+      if ( $school_id != -1 ) {
+        $result_constituency = get_constituency( $school_id );
+        self::output_election_results ( $result_constituency );
+      }
+      if ( $council_id != -1 ) {
+        $result_constituency = get_constituency( $council_id );
+        self::output_election_results ( $result_constituency );
       }
 
     }
 
     public function output_election_results ( $result_input ) {
-      $result_constituency = get_constituency( $result_input['term_id'] );
+      //echo 'testing the input:<br />';
+      //print_r($result_input);
+      //echo '<br/><br/>';
+      global $is_party_election;
       $can_array = array();
       $sort_vote = array();
       $winner = 0;
-      $winners_total = $result_constituency['number_of_winners'];
+      $winners_total = $result_input['number_of_winners'];
       $query_args = array(
         'post_type' => $ed_post_types['candidate'],
-        'constituency' => $result_constituency['name'],
+        'constituency' => $result_input['name'],
       );
       $candidates = array();
       $query = new WP_Query( $query_args );
@@ -376,7 +402,7 @@ class Election_Data_Address {
       if ( !empty( $can_array ) ):
         $winner = 0; ?>
         <div>
-          <h3 style="text-align:center;"><?php echo $result_constituency['name'];?></h3>
+          <h3 style="text-align:center;"><?php echo $result_input['name'];?></h3>
           <table class = "election_table">
             <tr> <th class="election_th">Candidate</th>
               <?php if ($is_party_election ): ?> <th class="election_th">Party</th> <?php endif; ?>
@@ -386,11 +412,12 @@ class Election_Data_Address {
             <?php
             foreach( $can_array as $r=>$result ) :
               $can_party = get_party_from_candidate( $result['id'] ); ?>
-              <tr class="election_tr" style="color:<?php echo $can_party['colour'] ?>;">
                 <?php if ( $winner < $winners_total ) : ?>
-                  <tr style="font-weight:bold">
+                  <tr class="election_tr" style="color:<?php echo $can_party['colour'] ?>; font-weight:bold;">
                     <td class="election_td"><?php echo $result['name'] ?></td>
-                    <td class="election_td"></td>
+                    <?php if ( $is_party_election ): ?>
+                      <td class="election_td"><?php echo $can_party['name']; ?></td>
+                    <?php endif; ?>
                     <td class="election_td"><?php echo $result['candidate_votes']?></td>
                     <td class="election_td"><?php if ($result['candidate_votes']>0) {
                       echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
@@ -398,9 +425,11 @@ class Election_Data_Address {
                   </tr>
                   <?php $winner++;
                   else : ?>
-                  <tr>
+                  <tr class="election_tr" style="color:<?php echo $can_party['colour'] ?>;">
                     <td class = "election_td"><?php echo $result['name'] ?></td>
-                    <td class = "election_td"></td>
+                    <?php if ( $is_party_election ): ?>
+                      <td class="election_td"><?php echo $can_party['name']; ?></td>
+                    <?php endif; ?>
                     <td class = "election_td"><?php echo $result['candidate_votes']?></td>
                     <td class="election_td"><?php if ($result['candidate_votes']>0) {
                       echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
