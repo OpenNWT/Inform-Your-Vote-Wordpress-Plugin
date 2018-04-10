@@ -26,7 +26,7 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 80%;
 	font-family: "Libre Franklin";
 	vertical-align: baseline; }
 
@@ -66,14 +66,14 @@ p {
 #container {
 	  width: 960px;
 	  margin: 0 auto; }
-	  
+
 footer {
+	line-height: 30px;
   border-top: 1px solid #e5e5e5;
   margin-top: 5px;
   padding-top: 20px;
   padding-bottom: 2px;
-  font-size: 16px;
-  clear: both; 
+  clear: both;
   background-color: #A48AAC;
   background: rgba(161, 136, 163, 0.81);
 }
@@ -105,12 +105,12 @@ footer .site-info{
 		padding-top: 18px;
 		padding-bottom: 8px;
 }
-	
+
 footer h3{
 		padding-top: 20px;
 		font-size: 18px;
 }
-	
+
 footer p{
 		font-size: 18px;
 }
@@ -129,12 +129,12 @@ header {
     font-weight: bold;
     }
   header h1 a {
-    color: #181719; 
+    color: #181719;
   	}
   header h2 {
     font-size: 15px;
     color: #181719;
-    margin: 0.5em 0 0 0; 
+    margin: 0.5em 0 0 0;
     font-family: "Libre Franklin";
     font-style: italic; }
   header img {
@@ -147,7 +147,7 @@ header {
 
 .hidden {
 	display: none; }
-		
+
 .float-right{
 	float:right;
 }
@@ -165,7 +165,7 @@ header {
 	  overflow: hidden;
 	  zoom: 1;
 	  margin-bottom: 1em; }
-  
+
 .one_column, .two_columns, .three_columns, .two_columns_early_shrink {
 	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	-icab-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -233,8 +233,8 @@ p.news-article-notice{
 	font-size: 0.9em;
 	margin-bottom: 20px;
 	margin-top: -10px; }
-	
-		
+
+
 .politician, .party {
 	position: relative;
 	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -256,8 +256,8 @@ p.news-article-notice{
 
 .constituency {
 	margin-top: 10px; }
-	
-		
+
+
 .politician .name {
 	margin: 1em 0;
 	font-size: 11.5px; }
@@ -266,7 +266,7 @@ p.news-article-notice{
 	margin: 1em 0;
     font-weight: bold;
     font-size: 1.2em; }
-	
+
 .election-website, .website {
 	color: #999999;
 	font-size: 0.8em;
@@ -376,15 +376,15 @@ p.news-article-notice{
 
 .mini_maps {
 	float: left;
-	margin-left: 12px; 
+	margin-left: 12px;
 	height: 150px;
 	width: 125px; }
 	.mini_maps p {
 		margin-bottom: 3px; }
-		
+
 .parties_thumb {
 	overflow: auto;
-	zoom: 1; 
+	zoom: 1;
     margin-bottom: -15px;}
 
   .party_thumb {
@@ -398,7 +398,7 @@ p.news-article-notice{
 		height: 95px;
         width: auto; }
 
-		
+
 #main {
 	position: relative; }
 
@@ -407,7 +407,7 @@ p.news-article-notice{
 		padding-top: 1em;
 		height: 100px; }
 	header h1 {
-		margin-top: 0.1em; 
+		margin-top: 0.1em;
 		font-size: 36px;}
 
 	#container {
@@ -423,7 +423,7 @@ p.news-article-notice{
 		padding:0 23px 0 15px;}
 
 	}
-		
+
 @media all and (max-width: 639px) {
 	header {
         background-image: none;
@@ -458,27 +458,27 @@ p.news-article-notice{
 	body .head-top header.site-header{
 		width:320px;}
 	.head-top .header-time{
-		width:100%;    
+		width:100%;
 		padding: 20px 0;
     	text-align: center;}
 
-	.head-top #menu-trigger{ 
+	.head-top #menu-trigger{
 		bottom: 7px;
 		top: inherit;}
 
 	#searchform .letterinput{
 		width:calc(100% - 50px);}
-	
+
 	.head-top .menu-tog{
 		display:block;}
-	.head-top .search-form{ 
+	.head-top .search-form{
 	    position: static;
 		width:100%;
 		margin-top: 25px; }
 	.search-form #searchform{
-		float:left; 
+		float:left;
 		width: calc(100% - 50px);}
-	
+
 	#menu-toggle:checked ~ .mobile-menu {
 		left: 0;
 		right:inherit;}
@@ -489,10 +489,10 @@ p.news-article-notice{
 	.home #container #main .page-list ul li, .home #container #main .page-image-icon ul li, .home #container #main .latest-news ul li{
 		width:100%;
 		margin-bottom: 25px;}
-	
+
 	.home #container #main .page-list ul li:nth-child(3n+2),.home #container #main .latest-news ul li:nth-child(3n+2){
 		margin:0 0 25px;}
-	
+
 	body.home #container #main .page-list ul li a {
     	font-size: 24px;}
 	.home #main .page-list ul li p{
@@ -566,28 +566,28 @@ p.mentions a {
   color: #8F9CC3;
 }
 
-  
-/* ================================================================ 
+
+/* ================================================================
 This copyright notice must be untouched at all times.
 
 The original version of this stylesheet and the associated (x)html
 is available at http://www.cssplay.co.uk/menus/droplist-flyout.html
 Copyright (c) 2005-2010 Stu Nicholls. All rights reserved.
-This stylesheet and the associated (x)html may be modified in any 
+This stylesheet and the associated (x)html may be modified in any
 way to fit your requirements.
 =================================================================== */
 
 /* this is a CSS answer to fix the hover/focus '~' and hover/focus '+' problem in safari and chrome */
 html {-webkit-animation: safariSelectorFix infinite 1s;}
 @-webkit-keyframes safariSelectorFix {
-0% {zoom:1;} 
+0% {zoom:1;}
 100% {zoom:1;}
 }
 
 .menu {
-	height:25px; 
-	background:#eee; 
-	margin:0 9px 15px 9px; 
+	height:25px;
+	background:#eee;
+	margin:0 9px 15px 9px;
 	padding-left:20px;
 }
 
@@ -620,10 +620,10 @@ box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu a {
-	display:block; 
-	font-size: 18px; 
-	color:#181719; 
-	line-height:25px; 
+	display:block;
+	font-size: 15px;
+	color:#181719;
+	line-height:25px;
 	text-decoration:none;
 	padding:0 23px 0 15px;
 	font-family: "Libre Franklin";
@@ -804,7 +804,7 @@ font-size: 11px;
 	.head-top .mobile-menu ul li.menu-item-has-children > a{
 		z-index: -1;
 	}
-		
+
 	#menu-toggle:checked ~ .mobile-menu {
 		right:0;
 		box-shadow: 1px 0px 12px rgba(0, 0, 0, 0.1);
@@ -812,13 +812,13 @@ font-size: 11px;
 	#menu-toggle:checked ~ #menu-trigger {
 		right:10px;
 		position: fixed;
-		top:10px;				
+		top:10px;
 	}
 	#menu-toggle:checked ~ #menu-trigger label {
 		background: none;
 	}
 	.head-top .mobile-menu ul li  input[type='checkbox']:checked ~ .sub-menu{
-		left: 0; 
+		left: 0;
 	}
 	.head-top .menu-tog{
 		display:block;
@@ -859,13 +859,13 @@ ul.voter li {
 	background: rgba(161, 136, 163, 0.81);
 	padding: 20px 0 20px 20px;
 }
-.header-time p{    
-	font-size: 30px;
+.header-time p{
+	font-size: 25px;
     margin-bottom: 10px;
     font-family: "Libre Franklin";
 }
-.header-time h2{     
-	font-size: 38px;
+.header-time h2{
+	font-size: 30px;
     margin-bottom: 0;
     font-family: "Libre Franklin";
     font-weight: 300;
@@ -873,9 +873,9 @@ ul.voter li {
 .head-top header{
 	width:960px;
 	margin:0 auto;
-	height:auto;    
+	height:auto;
 	padding-left: 0;
-    padding-right: 0;    
+    padding-right: 0;
     position: relative;
 }
 
@@ -884,7 +884,7 @@ ul.voter li {
     right: 0;
     top: 23px;
     color: #fff;
-    display: none; 
+    display: none;
     z-index: 2;
 	width: 37px;
     height: 37px;
@@ -901,7 +901,7 @@ ul.voter li {
 .head-top .menu > ul > li > a{
 	color:#181719;
 }
-.search-form{ 
+.search-form{
 	overflow: hidden;
     position: absolute;
     top: 20px;
@@ -912,12 +912,12 @@ ul.voter li {
     background: #38303B;
     padding: 3px;
 	color: #fff;
-	-moz-border-radius:5px;  
-	-ms-border-radius:5px;  
-	-o-border-radius:5px;  
-	border-radius:5px;  
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
 }
-#searchform .letterinput{    
+#searchform .letterinput{
 	background: #A48AAC;
     margin: 0;
     border: none;
@@ -925,10 +925,10 @@ ul.voter li {
 	font-size:15px;
 	color: #fff;
 }
-input::-webkit-input-placeholder{ 
+input::-webkit-input-placeholder{
 	color: #fff;
 }
-input:-moz-placeholder { 
+input:-moz-placeholder {
 	color: #fff;
 }
 input::-moz-placeholder {
@@ -960,7 +960,7 @@ input:-ms-input-placeholder {
     display: block;
     position: absolute;
     left: 0;
-    top: 0; 
+    top: 0;
     cursor: pointer;
 	  width: 100%;
     height: 100%;
@@ -997,12 +997,12 @@ input:-ms-input-placeholder {
 .home #container{
 	width:100%;
 	max-width:1200px;}
-.page-list{    
+.page-list{
 	padding: 50px 0 10px;
     overflow: hidden;}
 .page-list ul li p{
 	font-size:16px;
-	padding-top:15px;    
+	padding-top:15px;
 	line-height: 20px;}
 .page-list ul li .page-article .ptitle{
 	height:32px;
@@ -1021,7 +1021,7 @@ input:-ms-input-placeholder {
 .latest-news{
 	margin-top:80px;}
 .page-list ul li,.page-image-icon ul li,.latest-news ul li{
-	list-style:none;    
+	list-style:none;
 	width: 31%;
     float: left;
     text-align:center;}
@@ -1049,7 +1049,7 @@ input:-ms-input-placeholder {
     margin: 10px 0 10px 0;
     max-height: 160px;
 	font-weight: bold;}
-.news-content .news-date-time{ 
+.news-content .news-date-time{
 	padding-top: 5px;
 	padding-bottom: 5px;
 	font-size:18px;
@@ -1075,7 +1075,7 @@ input:-ms-input-placeholder {
 .view-all{
 	margin:25px 0;
 	overflow:hidden;}
-.view-all-lt,.view-all-rt{    
+.view-all-lt,.view-all-rt{
 	width: calc((100% - 115px) /2);
     height: 2px;
     background: #B7B7B7;
@@ -1228,3 +1228,344 @@ input:-ms-input-placeholder {
 	padding: 2px 2px 2px 5px;
 	text-align: center;
 }
+
+/* Address Lookup Tool */
+
+.search_text{
+	margin-left:-20px;
+	margin-top:75px;
+}
+
+.search_text .enter_address_text{
+	color: #181719;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 36px;
+}
+
+.search_text .random_order_text{
+	color: #181719;
+	font-size: 18px;
+	font-style: italic;
+	line-height: 30px;
+}
+
+#address_lookup_form{
+	width:60%;
+	margin-left:40%;
+	margin-bottom:25px;
+  background: #38303B;
+  padding: 5px;
+	color: #fff;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	-o-border-radius:5px;
+	border-radius:5px;
+}
+
+input::-webkit-input-placeholder{
+	color: #fff;
+}
+input:-moz-placeholder {
+	color: #fff;
+}
+input::-moz-placeholder {
+	color: #fff;
+}
+input:-ms-input-placeholder {
+	color: #fff
+}
+
+#address_lookup_form #submit{
+	background-color: inherit;
+  border: none;
+	cursor: pointer;
+	padding: 7px;
+	color: #FFFFFF;
+	font-weight: 400;
+	font-size:15px;
+	font-family: "Libre Franklin";
+	font-style: italic;
+}
+
+#address_lookup_form #street_number,#address_lookup_form #street_name,
+#address_lookup_form select, #address_lookup_form #street_direction{
+	border: none;
+	color: #FFFFFF;
+	font-size: 16px;
+	line-height: 0;
+	background: #A48AAC;
+	padding:3px;
+	border-radius: 3px;
+	font-family: "Libre Franklin";
+	font-style: italic;
+}
+
+#address_lookup_form #street_number {
+	height: 25px;
+	width: 67px;
+	margin-right:2px;
+}
+
+#address_lookup_form #street_name{
+	height: 25px;	width: 250px; 	margin-right:2px;
+}
+
+#address_lookup_form #street_direction
+{
+	height: 25px;	width: 76px; 	margin-right:2px;
+}
+
+#address_lookup_form select{
+	height: 30px;	width: 76px; 	margin-right:2px;
+}
+
+@media all and (max-width: 1200px) {
+
+	#address_lookup_form{
+		width:70%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px;
+		width: 67px;
+		margin-right:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 137px; 	margin-right:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 76px; 	margin-right:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 76px; 	margin-right:2px;
+	}
+}
+
+@media all and (max-width: 1024px){
+	/* iPad / iPad Pro Standing Position */
+	.search_text{
+		margin-top:75px;
+		margin-left: 50px;
+	}
+
+	#address_lookup_form{
+		width:60%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 67px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 200px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 137px; 	margin:2px;
+	}
+}
+
+@media all and (max-width: 823px){
+	/* iPhone X Sitting, Pixel 2Xl Sitting */
+	#address_lookup_form{
+		width:90%;
+		margin:25px auto;
+	}
+}
+
+@media all and (max-width: 768px) {
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-top:75px;
+		margin-left: 50px;
+	}
+
+	#address_lookup_form{
+		width:70%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 67px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 137px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 137px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 73px; 	margin:2px;
+	}
+
+}
+
+@media all and (max-width: 668px){
+	/* iPhone 6/7/8 Sitting Position, Galaxy S5 Sitting Position*/
+
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number{
+		height: 25px;	width: 100px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 200px; 	margin:2px;
+	}
+
+}
+
+@media all and (max-width: 414px){
+	/* Pixel 2/ 2Xl, iPhone 6/7/8 Plus */
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 30px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 120px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 67px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 80px; 	margin:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-top: 0px;
+	}
+}
+
+@media all and (max-width: 375px){
+	/* iPhone 6/7/8/X, Galaxy S5,  */
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 30px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 90px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 50px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 67px; 	margin:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-right:10px;
+	}
+}
+
+@media all and (max-width: 320px){
+	/* iPhone 5/SE */
+
+	#container {
+		  width: 100%;
+		  margin: 0 auto;
+	}
+
+	.search_text{
+		margin-left:5px;
+		margin-top:75px;
+	}
+
+	#address_lookup_form{
+		width:95%;
+		margin:25px auto;
+	}
+
+	#address_lookup_form #street_number {
+		height: 25px; width: 30px; margin:2px;
+	}
+
+	#address_lookup_form #street_name{
+		height: 25px;	width: 190px; 	margin:2px;
+	}
+
+	#address_lookup_form #street_direction
+	{
+		height: 25px;	width: 150px; 	margin:2px;
+	}
+
+	#address_lookup_form select{
+		height: 30px;	width: 75px; 	margin:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-right:10px;
+	}
+}
+
+.candidates > h2{
+	letter-spacing: 2px;
+	text-align:center;
+	margin:25px auto;
+}
+
+/* End of Address Lookup Tool */

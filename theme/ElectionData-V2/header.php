@@ -34,6 +34,13 @@
 	<meta name="description" content="<?= Election_Data_Option::get_option('site_description');?>" />
 <?php endif; ?>
 
+<script type="text/javascript">
+addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>';
+</script>
+
+<link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
+
 <title><?php
 
 /*
@@ -69,7 +76,7 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 <body <?php body_class(); ?>>
 	<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
-			<!-- Different page using different image -->			
+			<!-- Different page using different image -->
 			<?php
 				$default_header_image = get_header_image() ?: $siteurl.'/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
 
@@ -89,9 +96,9 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 				else
 					$header_image = $default_header_image;
 
-				echo '<style type="text/css">.head-top{background:url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>';
+				echo '<style type="text/css">.head-top{background:linear-gradient(to bottom, rgb(225,225,225) 20%, rgba(225,225,225,0) 80%),url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>';
 			;?>
-		
+
 			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 class="site-description"><?php echo $site_description; ?></h2>
 			<div class="search-form">
@@ -105,7 +112,7 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 			<label for="menu-toggle">
 			</label>
 			</div>
-			
+
 			<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
 		</header><!-- #masthead .site-header -->
 		<div class="header-time">

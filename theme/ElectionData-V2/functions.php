@@ -46,6 +46,7 @@ function election_data_theme_scripts() {
 	global $ed_taxonomies;
 
     wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
+    wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js' );
 
     wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.2a');
 	if ( is_front_page() ) {
@@ -659,7 +660,7 @@ function display_front_page_news($candidate_ids, $count){
 			$article_id = $articles->post->ID;
 			$date = get_the_date( $date_format, $article_id );
 			$time = get_the_date(get_option('time_format'), $article_id);
-					
+
 			$candidates = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_candidate'] );
 			$news_article_candidate_ids = array();
 			foreach ( $candidates as $candidate ) :
@@ -690,7 +691,7 @@ function display_front_page_news($candidate_ids, $count){
 				<div class="news-content">
 			    	<div class="post-news-title-time">
 			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
-			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span> 
+			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span>
 			        </div>
 					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
 					<p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>">Read more...</a></p>
