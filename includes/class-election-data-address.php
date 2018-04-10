@@ -277,7 +277,7 @@ class Election_Data_Address {
               )
             )
           ));
-          echo ("</div><div class = 'flow_it politicians result_head'><style>.candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward[0]}</h2>");
+          echo ("</div><div class='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward[0]}</h2>");
           display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
           wp_reset_query();
         }
@@ -306,7 +306,7 @@ class Election_Data_Address {
             )
           )
         ));
-        echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+        echo ("<div class ='flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
         display_constituency_candidates( $mayoral_candidates_query, 781, $candidate_references );
         wp_reset_query();
       }
