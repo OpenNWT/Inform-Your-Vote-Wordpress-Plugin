@@ -45,8 +45,8 @@ get_header(); ?>
 					<?php echo $left_column_excerpt; ?>
 				</p>
 				<p class="pimg">
-					<a href="<?php echo $left_column_url;?>"> 
-						<?php 
+					<a href="<?php echo $left_column_url;?>">
+						<?php
 							if($left_column_img) :
 								echo $left_column_img;
 							else :?>
@@ -66,7 +66,7 @@ get_header(); ?>
 				</p>
 				<p class="pimg">
 					<a href="<?php echo $center_column_url;?>">
-						<?php 
+						<?php
 							if($center_column_img) :
 								echo $center_column_img;
 							else :?>
@@ -86,7 +86,7 @@ get_header(); ?>
 				 </p>
 				<p class="pimg">
 					<a href="<?php echo $right_column_url;?>">
-						<?php 
+						<?php
 							if($right_column_img) :
 								echo $right_column_img;
 							else :?>
@@ -103,7 +103,7 @@ get_header(); ?>
 <div class="latest-news">
 	<div class="head-title">Latest News</div>
 		<ul class="news-list">
-			<?php display_front_page_news(null, $news_count);?>		
+			<?php display_front_page_news(null, $news_count);?>
 		</ul>
 	<div class="view-all">
 		<div class="view-all-lt"></div>
