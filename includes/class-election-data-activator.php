@@ -31,6 +31,8 @@ class Election_Data_Activator {
 	 */
 	public static function activate() {
 
+		self::create_required_pages();
+
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-candidate.php';
 
 		$candidate = new Election_Data_Candidate( false );
@@ -64,6 +66,25 @@ class Election_Data_Activator {
 			$warnings[] = __ ( 'Unable to set up the Election Data Theme that is required for the plugin to work properly. Please copy the theme folder in the Election Data plugin to the wordpress theme folder and activate the Election Data Theme.' );
 			Election_Data_Option::update_option ( 'warnings', $warnings);
 		}
+	}
+
+	/**
+	* Creates the pages required by the plugin.
+	*/
+	private static function create_required_pages(){
+
+		// Creates the page for Address Lookup Tool
+		wp_insert_post(array(
+			'post_title' => __("Address Lookup"),
+			'post_type' => 'page',
+			'post_status' => 'publish'
+		));
+
+		wp_insert_post(array(
+			'post_title' => __("Who Constituency"),
+			'post_type' => 'page',
+			'post_status' => 'publish'
+		));
 	}
 
 	/**
