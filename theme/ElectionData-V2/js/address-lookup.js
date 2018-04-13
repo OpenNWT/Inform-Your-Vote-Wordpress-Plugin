@@ -13,7 +13,7 @@ jQuery(document).ready( function($) {
   // });
 
   $('#address_lookup_form').submit(function(){
-
+    $('#candidates').css('display', 'none');
     var form_data = $(this).serializeArray();
 
     $.ajax({
@@ -21,7 +21,9 @@ jQuery(document).ready( function($) {
       type: "POST",
       data: {form_data: form_data, action : 'address_lookup'},
       success: function(data){
-        $('.candidates').html(data);
+        $('.search_candidates_text').css('display', 'none');
+        $('#candidates').css('display', 'block');
+        $('#candidates').html(data);
       }
     });
 

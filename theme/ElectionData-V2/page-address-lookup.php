@@ -30,11 +30,16 @@
       <input type="submit" name="submit" id="submit" value="Find">
       <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
     </form>
-    <div class ="candidates">
+
+    <div class="search_candidates_text">
       <hr>
         <h2>Please enter your address to search for candidates within your area.</h2>
       <hr>
       <br>
+    </div>
+
+    <div id ="candidates" class = "animated fadeIn">
+
     </div>
   </div>
 <?php

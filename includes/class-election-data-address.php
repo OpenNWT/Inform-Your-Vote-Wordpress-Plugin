@@ -308,7 +308,7 @@ class Election_Data_Address {
             )
           )
         ));
-        echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+        echo ("<div class = 'flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
         shuffle($mayoral_candidates_query->posts);
         display_constituency_candidates( $mayoral_candidates_query, 781, $candidate_references );
         wp_reset_query();
