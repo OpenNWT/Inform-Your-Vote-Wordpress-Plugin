@@ -653,6 +653,7 @@ function display_front_page_news($candidate_ids, $count){
 	$news = get_news( $candidate_ids, 1, $count );
 	$articles = $news['articles'];
 	$last_date = '';
+  $active_theme = wp_get_theme();
 	if($articles->have_posts()):
 		$date_format = get_option( 'date_format' );
 		while ( $articles->have_posts() ) :
@@ -666,6 +667,7 @@ function display_front_page_news($candidate_ids, $count){
 			foreach ( $candidates as $candidate ) :
 				$news_article_candidate_ids[] = $candidate->term_id;
 			endforeach;
+      $summary = get_post_meta($article_id, 'summaries', true);
 			$args = array(
 				'post_type' => $ed_post_types['candidate'],
 				'meta_query' => array(
@@ -686,13 +688,21 @@ function display_front_page_news($candidate_ids, $count){
 		    endwhile;
 		     $sources = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_source'] );
 		     $source = $sources[0];
-		     $source_label = esc_html( $source->description ? $source->description : $source->name ); ?>
+		     $source_label = esc_html( $source->description ? $source->description : $source->name );
+         ?>
 			<li>
 				<div class="news-content">
 			    	<div class="post-news-title-time">
 			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
 			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span>
 			        </div>
+          <?php
+          if($active_theme == 'Election Data - V2'):
+              $summary_candidate = get_term_by('name', $name, $ed_taxonomies['news_article_candidate'], "ARRAY_A");
+          ?>
+              <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=substr($summary[$summary_candidate['term_id']], 0, 200) . '...'?></a></p>
+          <?php endif;?>
+
 					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
 					<p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>">Read more...</a></p>
 				</div>

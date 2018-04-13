@@ -326,6 +326,7 @@ class Election_Data {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_filter( 'pre_get_posts', $this, 'set_main_query_parameters' );
+    $this->loader->add_action('wp_ajax_setup_theme_for_user', $this, 'setup_theme_for_user');
 
 	}
 
@@ -379,6 +380,19 @@ class Election_Data {
 		remove_menu_page( 'edit-comments.php' );
 		remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
+
+  /**
+   * Setups the theme based on the admin choice in the front page.
+   * Ajax request is recieved from the front page.
+   */
+  function setup_theme_for_user(){
+
+    $theme = $_POST['theme'];
+    echo "Theme {$theme} has been activated".
+    switch_theme($theme);
+
+    wp_die();
+  }
 
   /**
    * Imports the data provided by the csv file.
