@@ -40,11 +40,14 @@ $street_types = explode(', ', Election_Data_Option::get_option('street_types'));
     </div>
   </div>
 
-<a href="?results=all"> Reveal All Results</a>
-  <div id = "all_results_html">
-    <?php $all_res = filter_input(INPUT_GET, 'results', FILTER_SANITIZE_STRING);
-    if ($all_res == 'all'):
-      ?>
+
+
+
+<?php
+//DEUS VULT
+//AVE MARIA
+//NON NUBIS DOMINE
+?>
 <a name="top"></a>
 <section id="primary" class="content-area">
   <div id="content" class="site-content" role="main">
@@ -314,9 +317,5 @@ $street_types = explode(', ', Election_Data_Option::get_option('street_types'));
     </div>
   </section>
 
-<?php endif; ?>
-
-
-  </div>
 
 <?php get_footer(); ?>
