@@ -391,6 +391,9 @@ class Election_Data_Candidate {
 					'renamed' => array(
 						'description' => 'Alternate Name',
 					),
+           'hidden' => array(
+              'parent',
+             ),
 				),
 				'constituency' => array(
 					'taxonomy' => $this->taxonomies['constituency'],

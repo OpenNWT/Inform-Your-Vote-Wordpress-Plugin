@@ -62,11 +62,13 @@ class Election_Data_Settings_Definition {
 	static public function get_tabs() {
 
 		$tabs                = array();
+		$tabs['general_tab'] = __( 'General Settings', self::$plugin_name );
+		$tabs['news_scraping_tab'] = __( 'News Scraping', self::$plugin_name );
 		$tabs['front_page_tab'] = __( 'Front Page', self::$plugin_name );
 		$tabs['header_image_tab'] = __('Header Image', self::$plugin_name);
 		$tabs['footer_tab'] = __('Footer', self::$plugin_name );
-		$tabs['news_scraping_tab'] = __( 'News Scraping', self::$plugin_name );
-		$tabs['general_tab'] = __( 'General Settings', self::$plugin_name );
+		$tabs['version_one_theme_tab'] = __('V1 Theme', self::$plugin_name );
+		$tabs['meta_data_tab'] = __( 'MetaData', self::$plugin_name );
 		$tabs['questions_tab'] = __( 'Question Settings', self::$plugin_name );
 		$tabs['import_tab'] = __( 'Import', self::$plugin_name );
 		$tabs['export_tab'] = __( 'Export', self::$plugin_name );
@@ -413,7 +415,7 @@ class Election_Data_Settings_Definition {
 					'type' => 'rich_editor',
 				),
 			),
-			'front_page_tab' => array(
+			'version_one_theme_tab' => array(
 				'summary' => array(
 					'name' => __( 'Summary', self::$plugin_name ),
 					'desc' => __( 'A summary that will appear on the front page of the site. Can include links to important sites, election dates, etc.', self::$plugin_name ),
@@ -460,6 +462,8 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'An optional description for the party section.', self::$plugin_name ),
 					'type' => 'text',
 				),
+			),
+			'front_page_tab' => array(
 				'news-count-front' => array(
 					'name' => __( 'News Articles', self::$plugin_name ),
 					'desc' => __( 'The number of news articles to display on the front-page.', self::$plugin_name ),
@@ -467,7 +471,6 @@ class Election_Data_Settings_Definition {
 					'min' => 0,
 					'step' => 1,
 				),
-
 				'left_column_title' => array(
 				'name' => __( 'Left Column Title', self::$plugin_name ),
 				'desc' => __( 'The title for the left column.' ),
@@ -568,6 +571,23 @@ class Election_Data_Settings_Definition {
 					'type' => 'rich_editor',
 				),
 			),
+			'meta_data_tab' => array(
+				'site_title' => array(
+					'name' => __('Site Title', self::$plugin_name),
+					'desc' => __('This will be the title of your site.', self::$plugin_name),
+					'type' => 'text'
+				),
+				'site_description' => array(
+					'name' => __('Site Description', self::$plugin_name),
+					'desc' => __('A brief description of the site.', self::$plugin_name),
+					'type' => 'textarea'
+				),
+				'site_image' => array(
+					'name' => __('Site Image', self::$plugin_name),
+					'desc' => __('An image that represents your site.', self::$plugin_name),
+					'type' => 'image'
+				),
+			),
 			'general_tab' => array(
 				'election_date' => array(
 				'name' => __( 'Election Date', self::$plugin_name ),
@@ -583,21 +603,6 @@ class Election_Data_Settings_Definition {
 					'name' => __('Street Types', self::$plugin_name),
 					'desc' => __('Types of street for address lookup tool. Add Street Types seperated with comma.', self::$plugin_name),
 					'type' => 'textarea'
-				),
-				'site_title' => array(
-					'name' => __('Site Title', self::$plugin_name),
-					'desc' => __('The title you want to display as meta data.', self::$plugin_name),
-					'type' => 'text'
-				),
-				'site_description' => array(
-					'name' => __('Site Description', self::$plugin_name),
-					'desc' => __('A brief description of the site.', self::$plugin_name),
-					'type' => 'textarea'
-				),
-				'site_image' => array(
-					'name' => __('Site Image', self::$plugin_name),
-					'desc' => __('An image that represents your site.', self::$plugin_name),
-					'type' => 'image'
 				),
 				'missing_constituency' => array(
 					'name' => __( 'Missing Constituency Map Image', self::$plugin_name ),
@@ -644,7 +649,7 @@ class Election_Data_Settings_Definition {
 				),
 				'google-analytics' => array(
 					'name' => __( 'Google Analytics Script', self::$plugin_name ),
-					'desc' => __( 'To track visitor analytics sign up for a Google Analytics account and past their provided tracking script here.' ),
+					'desc' => __( 'To track visitor analytics, sign up for a Google Analytics account and paste their provided tracking script here.' ),
 					'type' => 'textarea',
 				),
 			),
