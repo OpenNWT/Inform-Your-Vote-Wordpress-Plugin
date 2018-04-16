@@ -220,6 +220,11 @@ class Election_Data_Settings_Definition {
 					'type' => 'text',
 					'std' => '2am'
 				),
+				'news-scraping-subheading' => array(
+					'name' => __( 'Sub Heading', self::$plugin_name ),
+					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
+					'type' => __( 'rich_editor' ), 
+				),
 				'source' => array(
 					'name' => __( 'Source', self::$plugin_name ),
 					'desc' => __( 'Choose between Google News Scraper and RSS Search. Google News produces lots of false positives.', self::$plugin_name ),
