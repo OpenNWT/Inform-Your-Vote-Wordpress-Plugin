@@ -20,7 +20,7 @@ get_header(); ?>
                 <div class="entry-content">
                     <p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links above or a search?', 'election_data_theme' ); ?></p>
 
-                    <?php get_search_form(); ?>
+                    <!--<?php get_search_form(); ?>-->
 
                  </div><!-- .entry-content -->
             </article><!-- #post-0 .post .error404 .not-found -->

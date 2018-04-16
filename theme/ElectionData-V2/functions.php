@@ -679,12 +679,14 @@ function display_front_page_news($candidate_ids, $count){
 						),
 					);
 			$mentions = array();
+      $all_candidates = array();
 			$query = new WP_Query( $args );
 			while ( $query->have_posts() ) :
 				$query->the_post();
 				$url = get_permalink( $query->post );
 				$name = esc_attr( get_the_title( $query->post ) );
 				$mentions[] = "<a href='$url'>$name</a>";
+        $all_candidates[] = $name;
 		    endwhile;
 		     $sources = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_source'] );
 		     $source = $sources[0];
@@ -696,11 +698,12 @@ function display_front_page_news($candidate_ids, $count){
 			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
 			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span>
 			        </div>
+
           <?php
           if($active_theme == 'Election Data - V2'):
-              $summary_candidate = get_term_by('name', $name, $ed_taxonomies['news_article_candidate'], "ARRAY_A");
+              $summary_candidate = get_term_by('name', $all_candidates[rand(0, (count($all_candidates)-1))], $ed_taxonomies['news_article_candidate'], "ARRAY_A");
           ?>
-              <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=substr($summary[$summary_candidate['term_id']], 0, 200) . '...'?></a></p>
+              <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] . '...'?></a></p>
           <?php endif;?>
 
 					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>

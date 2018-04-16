@@ -350,7 +350,7 @@ p.news-article-notice{
 		width: auto;
 		max-width: 93%; }
 	.parties .party div.icons {
-		margin-bottom: 1.6em; }
+		margin-bottom: 2.5em; }
 	.parties .party div.name {
 		font-weight: bold;
 		font-size: 1.2em;
@@ -1027,7 +1027,8 @@ input:-ms-input-placeholder {
     float: left;
     text-align:center;}
 .latest-news ul li{	
-	min-height: 350px;
+	min-height: 600px;
+	position: relative;
 }
 .page-list ul li:nth-child(3n+2),.latest-news ul li:nth-child(3n+2){
 	margin:0 3.5%;}
@@ -1041,15 +1042,15 @@ input:-ms-input-placeholder {
 		font-weight: 600;
 	}
 
-	.latest-news ul li{
+	/*.latest-news ul li{
 		height: 600px;
 		position: relative;
-	}
+	}*/
 .news-content .news-title,.news-content .news-date-time{
 	width:100%;
 	display: inline-block;}
 .news-content .post-news-title-time{
-    min-height: 150px;
+    min-height: 180px;
     overflow: hidden;
     border-bottom: 2px solid #B7B7B7;
 		margin-top: 30px;
@@ -1130,6 +1131,9 @@ input:-ms-input-placeholder {
 			font-size: 15px;
 	}
 
+	.latest-news ul li{	
+		min-height: 750px;}
+
 }
 
 
@@ -1139,7 +1143,7 @@ input:-ms-input-placeholder {
 	    max-height: 180px;}
 	
 	.latest-news ul li{	
-		min-height: 450px;}
+		min-height: 800px;}
 
 	.news-content .post-news-title-time{
 		min-height: 200px;}
@@ -1165,7 +1169,7 @@ input:-ms-input-placeholder {
 		font-weight: 600;}
 
 	.latest-news ul li{	
-	min-height: 500px;
+	min-height: 950px;
 }
 	.news-content .post-news-title-time{
 		min-height: 250px;}
@@ -1185,10 +1189,15 @@ input:-ms-input-placeholder {
 		margin-top: 10px;}
 
 	.latest-news ul li{	
-		min-height: 300px;}
+		min-height: 600px;}
 }
 
-@media all and (max-width: 375px) {
+@media all and (max-width: 569px){
+	.latest-news ul li{	
+		min-height: 500px;}
+
+}
+@media all and (max-width: 376px) {
 	header.site-header{
 		text-align:center;}
 
@@ -1196,6 +1205,9 @@ input:-ms-input-placeholder {
 		margin-left: 10%;
 
 	}
+
+	.latest-news ul li{	
+		min-height: 600px;}
 }
 
 /* who-page */
@@ -1607,3 +1619,8 @@ input:-ms-input-placeholder {
 }
 
 /* End of Address Lookup Tool */
+
+/* Margin between Candidate Image and name on the constituencies candidate*/
+.name{
+	margin-top: 10px;
+}
