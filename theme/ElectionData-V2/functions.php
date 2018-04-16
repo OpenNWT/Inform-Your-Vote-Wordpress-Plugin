@@ -649,76 +649,6 @@ class new_walker extends Walker_Nav_Menu
  * @param 	$candidate_ids			the Candidate to have news about. Default is null.
  * @param	$count	            	the amount of articles per page. Default is null.
  */
-
-function display_front_page_news($candidate_ids, $count){
-	global $ed_post_types, $ed_taxonomies;
-	$news = get_news( $candidate_ids, 1, $count );
-	$articles = $news['articles'];
-	$last_date = '';
-  $active_theme = wp_get_theme();
-	if($articles->have_posts()):
-		$date_format = get_option( 'date_format' );
-		while ( $articles->have_posts() ) :
-			$articles->the_post();
-			$article_id = $articles->post->ID;
-			$date = get_the_date( $date_format, $article_id );
-			$time = get_the_date(get_option('time_format'), $article_id);
-
-			$candidates = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_candidate'] );
-			$news_article_candidate_ids = array();
-			foreach ( $candidates as $candidate ) :
-				$news_article_candidate_ids[] = $candidate->term_id;
-			endforeach;
-      $summary = get_post_meta($article_id, 'summaries', true);
-			$args = array(
-				'post_type' => $ed_post_types['candidate'],
-				'meta_query' => array(
-					array(
-						'key' => 'news_article_candidate_id',
-						'value' => $news_article_candidate_ids,
-						'compare' => 'IN'
-							),
-						),
-					);
-			$mentions = array();
-      $all_candidates = array();
-			$query = new WP_Query( $args );
-			while ( $query->have_posts() ) :
-				$query->the_post();
-				$url = get_permalink( $query->post );
-				$name = esc_attr( get_the_title( $query->post ) );
-				$mentions[] = "<a href='$url'>$name</a>";
-        $all_candidates[] = $name;
-		    endwhile;
-		     $sources = wp_get_post_terms( $article_id, $ed_taxonomies['news_article_source'] );
-		     $source = $sources[0];
-		     $source_label = esc_html( $source->description ? $source->description : $source->name );
-         ?>
-			<li>
-				<div class="news-content">
-			    	<div class="post-news-title-time">
-			        	<a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
-			        	<span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span>
-			        </div>
-
-          <?php
-          if($active_theme == 'Election Data - V2'):
-              $summary_candidate = get_term_by('name', $all_candidates[rand(0, (count($all_candidates)-1))], $ed_taxonomies['news_article_candidate'], "ARRAY_A");
-          ?>
-              <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] . '...'?></a></p>
-          <?php endif;?>
-
-					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
-					<p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>">Read more...</a></p>
-				</div>
-			</li>
-		<?php endwhile; ?>
-		</ul>
-	<?php else : ?>
-		<em>No articles found yet.</em>
-	<?php endif;
-}
-
  function display_front_page_news($candidate_ids, $count){
  	global $ed_post_types, $ed_taxonomies;
  	$news = get_news( $candidate_ids, 1, $count );
@@ -787,4 +717,3 @@ function display_front_page_news($candidate_ids, $count){
  		<em>No articles found yet.</em>
  	<?php endif;
  }
-
