@@ -250,13 +250,15 @@ class Election_Data_Activator {
 				'menu-item-title' => __( 'Election Info' ),
 				'menu-item-status' => 'publish',
 			) );
-			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title' => __( 'Search' ),
-				'menu-item-status' => 'publish',
-				'menu-item-object' => 'page',
-				'menu-item-object-id' => $seach_page_id,
-				'menu-item-type' => 'post_type',
-			) );
+			if(wp_get_theme() == "ElectionData/ElectionData-V1"){
+				wp_update_nav_menu_item( $menu_id, 0, array(
+					'menu-item-title' => __( 'Search' ),
+					'menu-item-status' => 'publish',
+					'menu-item-object' => 'page',
+					'menu-item-object-id' => $seach_page_id,
+					'menu-item-type' => 'post_type',
+				) );
+			}		
 			wp_update_nav_menu_item( $menu_id, 0, array(
 				'menu-item-title' => __( 'About' ),
 				'menu-item-status' => 'publish',
