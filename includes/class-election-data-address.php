@@ -123,22 +123,6 @@ class Election_Data_Address {
             'std' => '',
             'imported' => true,
           ),
-          // 'neighbourhood' => array(
-          //  'label' => __( 'Neighbourhood' ),
-          //  'id' => 'neighbourhood',
-          //  'desc' => __( "Enter the neighbourhood in which the address is located." ),
-          //  'type' => 'text',
-          //  'std' => '',
-          //  'imported' => true,
-          // ),
-          // 'old_ward' => array(
-          //  'label' => __( 'old_ward' ),
-          //  'id' => 'old_ward',
-          //  'desc' => __( "Ward this address was in during the last election." ),
-          //  'type' => 'text',
-          //  'std' => '',
-          //  'imported' => true,
-          // ),
           'geometry' => array(
             'label' => __( 'Geometry' ),
             'id' => 'geometry',
@@ -181,6 +165,7 @@ class Election_Data_Address {
       add_action('wp_ajax_address_lookup' , array( $this, 'return_candidates' ) );
       add_action('wp_ajax_nopriv_address_lookup' , array( $this, 'return_candidates' ) );
       add_action('wp_ajax_delete' , array($this, 'delete') );
+      add_action('wp_ajax_show_candidates_suggestion', array($this, 'show_candidates_suggestion'));
       //add_action('wp_ajax_nopriv_delete' , array($this, 'delete'));
     }
   }
@@ -204,6 +189,7 @@ class Election_Data_Address {
   //  }
   //  echo $addresses->post_count;
   // }
+
   /**
   * Gets the address data from ajax post and returns the candidates.
   *
@@ -225,24 +211,23 @@ class Election_Data_Address {
   * @since 1.1
   */
   public function search_candidates( $data ){
-      global $ed_post_types;
-      global $ed_taxonomies;
+    global $ed_post_types;
+    global $ed_taxonomies;
 
-        print_r($constituency);
+    $street_addresses = array();
 
-      foreach($data as $key=>$value){
-        if($value['name'] != 'street_type' && $value['name'] != 'street_direction' && $value['name'] != 'page'){
-            $street_address .= $value['value'] . " ";
-        }
-      }
+    foreach($data as $key=>$value){
+      $street_address .= $value['value'] . " ";
+    }
 
-      $addresses = new WP_QUERY( array(
-        'post_type' => $ed_post_types['address'],
-        'name' => $street_address
-      ));
+    $addresses = new WP_QUERY( array(
+      'post_type' => $ed_post_types['address'],
+      's' => $street_address
+    ));
 
     if( $addresses->have_posts() ) {
-      while ( $addresses->have_posts() ) {
+      while ( $addresses->have_posts() )
+      {
         $addresses->the_post();
         $post_id = get_the_ID();
         $title = get_the_title();
@@ -261,70 +246,189 @@ class Election_Data_Address {
         $constituency = get_term_by( 'slug' , preg_replace($string, "-", $new_ward[0]), $ed_taxonomies['candidate_constituency'], 'ARRAY_A' );
         $school_ward = get_term_by( 'slug', preg_replace($string, "-", $school_division_name), $ed_taxonomies['candidate_constituency'], 'ARRAY_A' );
 
-        $constituency_id = $constituency["term_id"];
-        $school_ward_id = $school_ward["term_id"];
+        $street_type = get_post_meta($post_id, 'street_type');
+        $street_direction = get_post_meta($post_id, 'street_direction');
+
+        if($addresses->post_count > 1){
+
+          $street_addresses[]= array(
+            'title' => $title,
+            'id' => $post_id,
+            'constituency' => $constituency,
+            'school_ward' => $school_ward,
+            'street_type' => $street_type[0],
+            'street_direction' => $street_direction[0],
+            'new_ward'   => $new_ward[0],
+            'school_division_name' => $school_division_name
+          );
+        }
+      }
+
+      if($addresses->post_count > 1){
+        echo "<h3 class='address_suggestion_text'>We found {$addresses->post_count} similar addresses based on the serach. Please click on your address.<h3><br>";
+
+        foreach($street_addresses as $address){
+          $output = "<div class = 'address_suggestions {$address['id']}'>
+                      <h3 class='address_title'>{$address['title']} {$address['street_type']} {$address['street_direction']}</h3><br>
+                      <img class='address_image' src='https://maps.googleapis.com/maps/api/staticmap?markers=". $address['title'] ." ".
+                       $address['street_type'] . " " . $address['street_direction'] . ",%20winnipeg,%20manitoba,%20canada&zoom=14&size=300x300&sensor=false&key=AIzaSyC6Tp7oW8tqUgT1Pin_D5G0tpIiI59lMAk' />
+                    </div>
+                    ";
+
+          echo $output;
+
+          echo "<script>jQuery(document).ready( function($) {
+            $('.{$address['id']}').click(function(){
+              $('.address_suggestion_text').css('display', 'none');
+              $('.address_suggestions').css('display', 'none');
+              $('.loading').css('display', 'block');
+
+              var constituency_id = {$address['constituency']['term_id']};
+              var school_ward_id = {$address['school_ward']['term_id']};
+              var new_ward = '{$address['new_ward']}';
+              var school_division_name = '{$address['school_division_name']}';
+              var constituency_parent_id = {$address['constituency']['parent']};
+              var school_ward_parent_id = {$address['school_ward']['parent']};
+              var street_address = '{$address['title']} {$address['street_type']} {$address['street_direction']}';
+
+              var address_data = {
+                                   constituency_id: constituency_id, school_ward_id: school_ward_id,
+                                   new_ward : new_ward, school_division_name: school_division_name,
+                                   constituency_parent_id: constituency_parent_id, school_ward_parent_id: school_ward_parent_id,
+                                   street_address: street_address
+                                 };
+
+              $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {address_data : address_data, action: 'show_candidates_suggestion'},
+                success: function(data){
+                  $('#candidates').css('display', 'block');
+                  $('.loading').css('display', 'none');
+                  $('#candidates').html(data);
+                }
+              });
+           });
+          });
+          ;</script>";
+        }
+      }
+      else
+      {
+
+        echo "<h2>Results for \"{$street_address} {$street_type[0]} {$street_direction[0]}\" </h2>";
+        self::display_candidates($constituency, $school_ward, 'mayoral-candidates', $data, $new_ward[0], $school_division_name);
 
       }
 
-      if( (string)$data[3]['value'] == 'Address_Lookup' ) {
-        if( $constituency ) {
-          $ward_candidates = new WP_Query( array(
-            'tax_query' => array(
-              array (
-                'taxonomy' => $ed_taxonomies['candidate_constituency'],
-                'field' => 'term_id',
-                'terms' => $constituency_id,
-              )
-            )
-          ));
-          echo ("</div><div class = 'flow_it politicians result_head'><style>.candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward[0]}</h2>");
-          shuffle($ward_candidates->posts);
-          display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
-          wp_reset_query();
-        }
+    }
+    else{
+      echo ("Oops! Address Not Found.");
+    }
 
-        if( $school_ward ) {
-          $school_ward_candidates = new WP_Query( array(
-            'tax_query' => array(
-              array(
-                'taxonomy' => $ed_taxonomies['candidate_constituency'],
-                'field' => 'term_id',
-                'terms' => $school_ward_id,
-              )
-            )
-          ));
-          echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
-          shuffle($school_ward_candidates->posts);
-          display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
-          wp_reset_query();
-        }
+  }
 
-        $mayoral_candidates_query = new WP_QUERY( array(
+  /**
+  * Displays the candidates after recieving ajax call from the selected address,
+  * if more than one address is found by the search.
+  *
+  * @access public
+  * @since 1.1
+  *
+  */
+  public function show_candidates_suggestion(){
+    $constituency_id = $_POST['address_data']['constituency_id'];
+    $school_ward_id = $_POST['address_data']['school_ward_id'];
+    $new_ward = $_POST['address_data']['new_ward'];
+    $school_division_name = $_POST['address_data']['school_division_name'];
+    $constituency_parent_id = $_POST['address_data']['constituency_parent_id'];
+    $school_ward_parent_id = $_POST['address_data']['school_ward_parent_id'];
+    $street_address = $_POST['address_data']['street_address'];
+
+    $constituency = array('term_id' => $constituency_id, 'parent' => $constituency_parent_id);
+    $school_ward = array('term_id' => $school_ward_id, 'parent' => $school_ward_parent_id);
+
+    echo "<h2>Results for \"{$street_address}\" </h2>";
+    self::display_candidates($constituency, $school_ward, 'mayoral-candidates', $data, $new_ward, $school_division_name);
+
+    wp_die();
+  }
+
+  /**
+  * Display candidates within the searched address.
+  *
+  * @param array  $constituency                An array containing all the required data of the constituency.
+  * @param array  $shool_ward                  An array containing all the required data of the school ward in that area.
+  * @param string $mayoral_constitutency_slug  Slug of the mayoral constituency.
+  * @param array  data                         An array containing the data sent by the address lookup form.
+  * @param string $new_ward                    Name of the ward.
+  * @param string $school_division_name        Full Name of the school division.
+  * @access public
+  * @since 1.1
+  *
+  */
+  public function display_candidates($constituency, $school_ward, $mayoral_constitutency_slug, $data, $new_ward, $school_division_name){
+    global $ed_post_types;
+    global $ed_taxonomies;
+    $candidate_references = array();
+
+    $constituency_id = $constituency["term_id"];
+    $school_ward_id = $school_ward["term_id"];
+
+    if( strcmp( $data[3]['value'], "Address Lookup") ) {
+      if( $constituency ) {
+        $ward_candidates = new WP_Query( array(
+          'tax_query' => array(
+            array (
+              'taxonomy' => $ed_taxonomies['candidate_constituency'],
+              'field' => 'term_id',
+              'terms' => $constituency_id,
+            )
+          )
+        ));
+        $constituency_parent_id = $constituency['parent'];
+        $constituency_parent = get_term_by('id', $constituency_parent_id, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
+        echo ("</div><div class='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward}, {$constituency_parent['name']}</h2>");
+        shuffle($ward_candidates->posts);
+        display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
+      }
+
+      if( $school_ward ) {
+        $school_ward_candidates = new WP_Query( array(
           'tax_query' => array(
             array(
               'taxonomy' => $ed_taxonomies['candidate_constituency'],
               'field' => 'term_id',
-              'terms' => 781,
+              'terms' => $school_ward_id,
             )
           )
         ));
-        echo ("<div class = 'flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
-        shuffle($mayoral_candidates_query->posts);
-        display_constituency_candidates( $mayoral_candidates_query, 781, $candidate_references );
-        wp_reset_query();
-      }
-        //else is the results page
-        else {
-          // Need to establish a councilor_ward_id somehow
-          self::display_election_results( $constituency, $school_ward_id, $councilor_ward_id );
-        }
 
-      }
-      else{
-        echo ("Oops! Address Not Found.");
+        echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+        shuffle($school_ward_candidates->posts);
+        display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
       }
 
+      $mayoral_candidates_query = new WP_QUERY( array(
+        'tax_query' => array(
+          array(
+            'taxonomy' => $ed_taxonomies['candidate_constituency'],
+            'field' => 'slug',
+            'terms' => $mayoral_constitutency_slug,
+          )
+        )
+      ));
+      echo ("<div class ='flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
+      shuffle($mayoral_candidates_query->posts);
+      display_constituency_candidates( $mayoral_candidates_query, 781, $candidate_references );
+      wp_reset_query();
     }
+      //else is the results page
+      else {
+        // Need to establish a councilor_ward_id somehow
+        self::display_election_results( $constituency, $school_ward_id, $councilor_ward_id );
+      }
+  }
 
     /**
     * Output results of a given constituency (and/or school ward and councilor ward) once the votes have been added
