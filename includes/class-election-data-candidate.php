@@ -390,6 +390,7 @@ class Election_Data_Candidate {
 					),
 					'renamed' => array(
 						'description' => 'Alternate Name',
+            'description_of_description' => 'The full name of the party.'
 					),
            'hidden' => array(
               'parent',

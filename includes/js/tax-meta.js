@@ -19,6 +19,13 @@ jQuery(document).ready( function($) {
 		query = ' .term-' + field + '-wrap label, .column-' + field + ' a span';
 		var x = $( query );
 		$( query ).text(label);
+
+		if(field.substring(0,15) == "description_of_"){
+			var description = field.substring(15, field.length);
+			query = ' .term-' + description + '-wrap p';
+			var x = $( query );
+			$( query ).text(label);
+		}
 	}
 
 	$( document ).ajaxComplete(function( event, xhr, settings ) {

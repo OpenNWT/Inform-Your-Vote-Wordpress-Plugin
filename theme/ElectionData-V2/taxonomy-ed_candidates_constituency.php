@@ -37,7 +37,7 @@ get_header();?>
 		<?php endif;?>
 		<div class='one_column'>
             <h3>Find Your Constituency</h3>
-            <p><a href="http://www.electionsmanitoba.ca/en/Voting/VotingInfo" target="_blank" id="where_to_vote">Elections Manitoba Address Lookup</a></p>
+            <p><a href="/address-lookup/" id="where_to_vote">Elections Manitoba Address Lookup</a></p>
             <br>
 				<h3>Select a <?php echo $constituency['name']; ?> Constituency</h3>
 
