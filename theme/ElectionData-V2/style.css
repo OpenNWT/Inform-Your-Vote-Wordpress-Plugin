@@ -1026,7 +1026,7 @@ input:-ms-input-placeholder {
 	width: 31%;
     float: left;
     text-align:center;}
-.latest-news ul li{	
+.latest-news ul li{
 	min-height: 350px;
 }
 .page-list ul li:nth-child(3n+2),.latest-news ul li:nth-child(3n+2){
@@ -1137,8 +1137,8 @@ input:-ms-input-placeholder {
 
 	.news-content .news-title{
 	    max-height: 180px;}
-	
-	.latest-news ul li{	
+
+	.latest-news ul li{
 		min-height: 450px;}
 
 	.news-content .post-news-title-time{
@@ -1164,7 +1164,7 @@ input:-ms-input-placeholder {
 	    font-size: 36px;
 		font-weight: 600;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 	min-height: 500px;
 }
 	.news-content .post-news-title-time{
@@ -1184,7 +1184,7 @@ input:-ms-input-placeholder {
 		min-height: 120px;
 		margin-top: 10px;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 300px;}
 }
 
@@ -1326,8 +1326,7 @@ input:-ms-input-placeholder {
 	font-style: italic;
 }
 
-#address_lookup_form #street_number,#address_lookup_form #street_name,
-#address_lookup_form select, #address_lookup_form #street_direction{
+#address_lookup_form #street_number,#address_lookup_form #street_name{
 	border: none;
 	color: #FFFFFF;
 	font-size: 16px;
@@ -1341,21 +1340,16 @@ input:-ms-input-placeholder {
 
 #address_lookup_form #street_number {
 	height: 25px;
-	width: 67px;
+	width: 40%;
 	margin-right:2px;
 }
 
 #address_lookup_form #street_name{
-	height: 25px;	width: 250px; 	margin-right:2px;
+	height: 25px;	width: 45%; 	margin-right:2px;
 }
 
-#address_lookup_form #street_direction
-{
-	height: 25px;	width: 76px; 	margin-right:2px;
-}
-
-#address_lookup_form select{
-	height: 30px;	width: 76px; 	margin-right:2px;
+#address_lookup_form #submit{
+	margin-left:4px;
 }
 
 @media all and (max-width: 1200px) {
@@ -1367,21 +1361,16 @@ input:-ms-input-placeholder {
 
 	#address_lookup_form #street_number {
 		height: 25px;
-		width: 67px;
+		width: 40%;
 		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 137px; 	margin-right:2px;
+		height: 25px;	width: 45%; 	margin-right:2px;
 	}
 
-	#address_lookup_form #street_direction
-	{
-		height: 25px;	width: 76px; 	margin-right:2px;
-	}
-
-	#address_lookup_form select{
-		height: 30px;	width: 76px; 	margin-right:2px;
+	#address_lookup_form #submit{
+		margin-left:4px;
 	}
 }
 
@@ -1398,16 +1387,17 @@ input:-ms-input-placeholder {
 	}
 
 	#address_lookup_form #street_number {
-		height: 25px; width: 67px; margin:2px;
+		height: 25px;
+		width: 40%;
+		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 200px; 	margin:2px;
+		height: 25px;	width: 45%; 	margin-right:2px;
 	}
 
-	#address_lookup_form #street_direction
-	{
-		height: 25px;	width: 137px; 	margin:2px;
+	#address_lookup_form #submit{
+		margin-left:4px;
 	}
 }
 
@@ -1436,20 +1426,17 @@ input:-ms-input-placeholder {
 	}
 
 	#address_lookup_form #street_number {
-		height: 25px; width: 67px; margin:2px;
+		height: 25px;
+		width: 40%;
+		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 137px; 	margin:2px;
+		height: 25px;	width: 45%; 	margin-right:2px;
 	}
 
-	#address_lookup_form #street_direction
-	{
-		height: 25px;	width: 137px; 	margin:2px;
-	}
-
-	#address_lookup_form select{
-		height: 30px;	width: 73px; 	margin:2px;
+	#address_lookup_form #submit{
+		margin-left:4px;
 	}
 
 }
@@ -1472,12 +1459,18 @@ input:-ms-input-placeholder {
 		margin:25px auto;
 	}
 
-	#address_lookup_form #street_number{
-		height: 25px;	width: 100px; 	margin:2px;
+	#address_lookup_form #street_number {
+		height: 25px;
+		width: 40%;
+		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 200px; 	margin:2px;
+		height: 25px;	width: 45%; 	margin-right:2px;
+	}
+
+	#address_lookup_form #submit{
+		margin-left:4px;
 	}
 
 }
@@ -1500,25 +1493,19 @@ input:-ms-input-placeholder {
 	}
 
 	#address_lookup_form #street_number {
-		height: 25px; width: 30px; margin:2px;
+		height: 25px;
+		width: 35%;
+		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 120px; 	margin:2px;
-	}
-
-	#address_lookup_form #street_direction
-	{
-		height: 25px;	width: 67px; 	margin:2px;
-	}
-
-	#address_lookup_form select{
-		height: 30px;	width: 80px; 	margin:2px;
+		height: 25px;	width: 40%; 	margin-right:2px;
 	}
 
 	#address_lookup_form #submit{
-		margin-top: 0px;
+		margin-left:4px;
 	}
+
 }
 
 @media all and (max-width: 375px){
@@ -1539,24 +1526,17 @@ input:-ms-input-placeholder {
 	}
 
 	#address_lookup_form #street_number {
-		height: 25px; width: 30px; margin:2px;
+		height: 25px;
+		width: 35%;
+		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 90px; 	margin:2px;
-	}
-
-	#address_lookup_form #street_direction
-	{
-		height: 25px;	width: 50px; 	margin:2px;
-	}
-
-	#address_lookup_form select{
-		height: 30px;	width: 67px; 	margin:2px;
+		height: 25px;	width: 40%; 	margin-right:2px;
 	}
 
 	#address_lookup_form #submit{
-		margin-right:10px;
+		margin-left:4px;
 	}
 }
 
@@ -1579,24 +1559,17 @@ input:-ms-input-placeholder {
 	}
 
 	#address_lookup_form #street_number {
-		height: 25px; width: 30px; margin:2px;
+		height: 25px;
+		width: 35%;
+		margin-right:2px;
 	}
 
 	#address_lookup_form #street_name{
-		height: 25px;	width: 190px; 	margin:2px;
-	}
-
-	#address_lookup_form #street_direction
-	{
-		height: 25px;	width: 150px; 	margin:2px;
-	}
-
-	#address_lookup_form select{
-		height: 30px;	width: 75px; 	margin:2px;
+		height: 25px;	width: 40%; 	margin-right:2px;
 	}
 
 	#address_lookup_form #submit{
-		margin-right:10px;
+		margin-left:4px;
 	}
 }
 
@@ -1604,6 +1577,26 @@ input:-ms-input-placeholder {
 	letter-spacing: 2px;
 	text-align:center;
 	margin:25px auto;
+}
+
+.address_suggestions{
+	border: 1px black solid;
+	border-radius: 5px;
+	margin:30px;
+	padding:10px;
+	float: left;
+	cursor:pointer;
+}
+
+.loading{
+	margin:auto;
+	width:80%;
+	display:none;
+}
+
+.gif{
+	display:block;
+	margin:0 auto;
 }
 
 /* End of Address Lookup Tool */
