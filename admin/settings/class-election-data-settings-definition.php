@@ -599,11 +599,6 @@ class Election_Data_Settings_Definition {
 					'desc' => __('Check if the current election is based on political parties.', self::$plugin_name),
 					'type' => 'checkbox'
 				),
-				'street_types' => array(
-					'name' => __('Street Types', self::$plugin_name),
-					'desc' => __('Types of street for address lookup tool. Add Street Types seperated with comma.', self::$plugin_name),
-					'type' => 'textarea'
-				),
 				'missing_constituency' => array(
 					'name' => __( 'Missing Constituency Map Image', self::$plugin_name ),
 					'desc' => __( 'The image to display if a parent constitency does not have any child ones.', self::$plugin_name ),

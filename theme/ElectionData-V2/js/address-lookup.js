@@ -1,47 +1,48 @@
 jQuery(document).ready( function($) {
 
-  // var street_number = $("#street_number").val();
-  // var street_number_suffix = $('#street_number_suffix').val();
-  // var street_name = $('#street_name').val();
-  // var street_type = $('#street_type').val();
-  // var street_direction = $('#street_direction').val();
-  //
-  // $('#submit').click(function(){
-  //   alert("Street Num = " + street_number + " / " + "Street Num Suff = " + street_number_suffix + " / "+
-  //         "Street Name = " + street_name + " / " + "Street Type = " + street_type + " / " +
-  //         "Street Direction = " + street_direction);
-  // });
-
   $('#address_lookup_form').submit(function(){
-    $('#candidates').css('display', 'none');
-    var form_data = $(this).serializeArray();
 
-    $.ajax({
-      url: ajaxurl,
-      type: "POST",
-      data: {form_data: form_data, action : 'address_lookup'},
-      success: function(data){
-        $('.search_candidates_text').css('display', 'none');
-        $('#candidates').css('display', 'block');
-        $('#candidates').html(data);
-      }
-    });
+    var street_number = $('#street_number').val();
+    var street_name = $('#street_name').val();
+    var street_address = street_number + street_name;
 
+    if(street_address){
+      $('#candidates').css('display', 'none');
+      $('.search_candidates_text').css('display', 'none');
+
+      $('.loading').css('display', 'block');
+      var form_data = $(this).serializeArray();
+
+      $.ajax({
+        url: ajaxurl,
+        type: "POST",
+        data: {form_data: form_data, action : 'address_lookup'},
+        success: function(data){
+          $('#candidates').css('display', 'block');
+          $('.loading').css('display', 'none');
+          $('#candidates').html(data);
+        }
+      });
+    }
+    else{
+      alert("Please enter an address");
+    }
     return false;
   });
 
-  $('#delete').click(function(){
-    alert("Yes");
-    $.ajax({
-      url: ajaxurl,
-      type: "POST",
-      data: {action : 'delete'},
-      success: function(data){
-        $('#ajax_result').html(data);
-      }
-    });
 
-    return false;
-    });
+  // $('#delete').click(function(){
+  //   alert("Yes");
+  //   $.ajax({
+  //     url: ajaxurl,
+  //     type: "POST",
+  //     data: {action : 'delete'},
+  //     success: function(data){
+  //       $('#ajax_result').html(data);
+  //     }
+  //   });
+  //
+  //   return false;
+  //   });
 
 });
