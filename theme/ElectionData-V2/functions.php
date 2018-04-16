@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
     wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
     wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js' );
 
-    wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.2a');
+    wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.3a');
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
 		wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js' );
