@@ -69,23 +69,49 @@ class Election_Data_Activator {
 	}
 
 	/**
-	* Creates the pages required by the plugin.
-	*/
-	private static function create_required_pages(){
+ * Creates the pages required by the plugin.
+ */
+ private static function create_required_pages(){
 
-		// Creates the page for Address Lookup Tool
-		wp_insert_post(array(
-			'post_title' => __("Address Lookup"),
-			'post_type' => 'page',
-			'post_status' => 'publish'
-		));
+	//Get all the post titles
+	$post_args = array (
+		'post_type' => 'page',
+	);
+	
+	$post_query = new WP_Query( $post_args );
+	$pages = array();
 
+	while ( $post_query->have_posts() ) {
+		$post_query->the_post();
+		$pages[] = get_the_title();
+	}
+
+	// Creates the page for Address Lookup Tool
+	if ( !in_array( 'Address Lookup', $pages ) ) {
 		wp_insert_post(array(
-			'post_title' => __("Who Constituency"),
-			'post_type' => 'page',
-			'post_status' => 'publish'
+		'post_title' => __("Address Lookup"),
+		'post_type' => 'page',
+		'post_status' => 'publish'
 		));
 	}
+
+	if ( !in_array( 'Who Constituency', $pages ) ) {
+		wp_insert_post(array(
+		'post_title' => __("Who Constituency"),
+		'post_type' => 'page',
+		'post_status' => 'publish'
+		));
+	}
+
+	if ( !in_array( 'Results', $pages ) ) {
+		wp_insert_post(array(
+		'post_title' => __("Results"),
+		'post_type' => 'page',
+		'post_status' => 'publish'
+		));
+	}
+
+}
 
 	/**
 	 * Copies the files from source to destination
@@ -258,7 +284,7 @@ class Election_Data_Activator {
 					'menu-item-object-id' => $seach_page_id,
 					'menu-item-type' => 'post_type',
 				) );
-			}		
+			}
 			wp_update_nav_menu_item( $menu_id, 0, array(
 				'menu-item-title' => __( 'About' ),
 				'menu-item-status' => 'publish',
