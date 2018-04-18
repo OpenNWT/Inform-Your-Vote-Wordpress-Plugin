@@ -236,7 +236,6 @@ class Election_Data_Candidate {
 						'id' => 'candidate_votes',
 						'desc' => __( 'Once the Election is held, record the number of votes here.' ),
 						'type' => 'number',
-						//'std' => '-1',
 						'imported' => true,
 					),
 				),
