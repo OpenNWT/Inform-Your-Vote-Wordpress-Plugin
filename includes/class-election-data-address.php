@@ -355,7 +355,7 @@ class Election_Data_Address {
 
     $constituency = array('term_id' => $constituency_id, 'parent' => $constituency_parent_id);
     $school_ward = array('term_id' => $school_ward_id, 'parent' => $school_ward_parent_id);
-
+    (string)$data[2]['value'] = "Address_Lookup";
     echo "<h2>Results for \"{$street_address}\" </h2>";
     self::display_candidates($constituency, $school_ward, 'mayoral-candidates', $data, $new_ward, $school_division_name);
 
