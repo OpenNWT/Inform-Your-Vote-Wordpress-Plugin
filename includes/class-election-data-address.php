@@ -216,8 +216,10 @@ class Election_Data_Address {
 
     $street_addresses = array();
 
-    foreach($data as $key=>$value){
-      $street_address .= $value['value'] . " ";
+    foreach( $data as $key=>$value ) {
+      if( $value['name'] != 'page' ){
+        $street_address .= $value['value'] . " ";
+      }
     }
 
     $addresses = new WP_QUERY( array(
@@ -249,7 +251,7 @@ class Election_Data_Address {
         $street_type = get_post_meta($post_id, 'street_type');
         $street_direction = get_post_meta($post_id, 'street_direction');
 
-        if($addresses->post_count > 1){
+        if( $addresses->post_count > 1 ){
 
           $street_addresses[]= array(
             'title' => $title,
@@ -264,10 +266,10 @@ class Election_Data_Address {
         }
       }
 
-      if($addresses->post_count > 1){
+      if( $addresses->post_count > 1 ){
         echo "<h3 class='address_suggestion_text'>We found {$addresses->post_count} similar addresses based on the serach. Please click on your address.<h3><br>";
 
-        foreach($street_addresses as $address){
+        foreach( $street_addresses as $address ){
           $output = "<div class = 'address_suggestions {$address['id']}'>
                       <h3 class='address_title'>{$address['title']} {$address['street_type']} {$address['street_direction']}</h3><br>
                       <img class='address_image' src='https://maps.googleapis.com/maps/api/staticmap?markers=". $address['title'] ." ".
@@ -315,10 +317,8 @@ class Election_Data_Address {
       }
       else
       {
-
         echo "<h2>Results for \"{$street_address} {$street_type[0]} {$street_direction[0]}\" </h2>";
         self::display_candidates($constituency, $school_ward, 'mayoral-candidates', $data, $new_ward[0], $school_division_name);
-
       }
 
     }
@@ -375,7 +375,7 @@ class Election_Data_Address {
     $constituency_id = $constituency["term_id"];
     $school_ward_id = $school_ward["term_id"];
 
-    if( strcmp( $data[3]['value'], "Address Lookup") ) {
+    if( (string)$data[2]['value'] == 'Address_Lookup' ) {
       if( $constituency ) {
         $ward_candidates = new WP_Query( array(
           'tax_query' => array(
@@ -441,10 +441,10 @@ class Election_Data_Address {
       echo "Display results for {$constituency['name']}";
 
       //If these are empty, then ignore them
-      if (empty($school_id)) {
+      if ( empty( $school_id ) ) {
         $school_id = -1;
       }
-      if (empty($council_id)){
+      if ( empty($council_id ) ){
         $council_id = -1;
       }
 
