@@ -84,7 +84,7 @@ class Election_Data_Candidate {
 
 		$this->post_type = $ed_post_types['candidate'];
 		$this->taxonomies = array(
-			'party' => $ed_taxonomies['candidate_party'],
+			'party' => ($is_party_election ? $ed_taxonomies['candidate_party']:""),
 			'constituency' => $ed_taxonomies['candidate_constituency'],
 		);
 		$args = array(

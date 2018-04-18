@@ -97,7 +97,7 @@ class Election_Data_Answer {
 		$this->taxonomies = array(
 			'question' => $ed_taxonomies['answer_question'],
 			'candidate' => $ed_taxonomies['answer_candidate'],
-			'party' => $ed_taxonomies['answer_party'],
+			'party' => ($is_party_election ? $ed_taxonomies['answer_party']:""),
 		);
 
 		$args = array(
@@ -706,7 +706,7 @@ class Election_Data_Answer {
 		if ( !empty( Election_Data_Option::get_option( 'reply-to' ) ) ) {
 			$mail->AddReplyTo( Election_Data_Option::get_option( 'reply-to' ) );
 		}
-		
+
 		$mail->SetFrom(Election_Data_Option::get_option( 'from-email-address' ), Election_Data_Option::get_option( 'from-email-name' ) );
 		$mail->Subject = $message_contents['subject'];
 		$mail->Body = $message_contents['body'];

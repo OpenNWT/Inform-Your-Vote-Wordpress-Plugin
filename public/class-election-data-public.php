@@ -123,6 +123,7 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 
 		$child_terms = get_terms( $ed_taxonomies['candidate_constituency'], array( 'parent' =>$constituency_id, 'hide_empty' => false ) );
 		$results['children'] = array();
+		$results['grandchildren'] = array();
 		foreach ( $child_terms as $child )
 		{
 			$results['children'][$child->name] = array(
