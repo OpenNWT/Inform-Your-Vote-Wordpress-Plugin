@@ -440,6 +440,7 @@ class Election_Data_Callback_Helper {
 		$html = '<input type="' . $type . '" ';
 		$html .= $this->get_id_and_name_attrubutes( $args['id'] );
 		$html .= 'class="' . $args['size'] . '-text" ';
+		$html .= 'placeholder="' . $args['placeholder'] . '"';
 		$html .= 'value="' . esc_attr( stripslashes( $value ) ) . '"/>';
 
 		$html .= '<br />';
@@ -466,6 +467,7 @@ class Election_Data_Callback_Helper {
 		$html .= 'step="' . $args['step'] . '" ';
 		$html .= 'max="' . $args['max'] . '" ';
 		$html .= 'min="' . $args['min'] . '" ';
+		$html .= 'placeholder="' . $args['placeholder'] . '"';
 		$html .= 'value="' . $value . '"/>';
 
 		$html .= '<br />';

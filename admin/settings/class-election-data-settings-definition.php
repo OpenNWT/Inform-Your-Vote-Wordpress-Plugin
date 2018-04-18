@@ -475,21 +475,26 @@ class Election_Data_Settings_Definition {
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
+					'placeholder' => '3',
 				),
 				'left_column_title' => array(
 				'name' => __( 'Left Column Title', self::$plugin_name ),
 				'desc' => __( 'The title for the left column.' ),
 				'type' => 'text',
+				'placeholder' => 'Who Am I Voting For?',
+				'std' => 'Who Am I Voting For?',
 				),
 				'left_column_url' => array(
 				'name' => __( 'Left Column Url', self::$plugin_name ),
 				'desc' => __( 'The url that the left column links to.'),
 				'type' => 'text',
+				'placeholder' => 'sample-page or https://www.google.com',
 				),
 				'left_column_excerpt' => array(
 				'name' => __( 'Left Column Excerpt', self::$plugin_name ),
 				'desc' => __( 'The content for the left column.'),
 				'type' => 'textarea',
+				'std' => 'Find out more here about Mayoral, Council and Trustee candidate.',
 				),
 				'left_column_img' => array(
 				'name' => __( 'Left Column Image Logo', self::$plugin_name ),
@@ -500,16 +505,20 @@ class Election_Data_Settings_Definition {
 				'name' => __( 'Center Column Title', self::$plugin_name ),
 				'desc' => __( 'The title for the center column.' ),
 				'type' => 'text',
+				'placeholder' => 'Where Do I Vote?',
+				'std' => 'Where Do I Vote?',
 				),
 				'center_column_url' => array(
 				'name' => __( 'Center Column Url', self::$plugin_name ),
 				'desc' => __( 'The url that the center column links to.'),
 				'type' => 'text',
+				'placeholder' => 'sample-page or https://www.google.com',
 				),
 				'center_column_excerpt' => array(
 				'name' => __( 'Center Column Excerpt', self::$plugin_name ),
 				'desc' => __( 'The content for the center column.'),
 				'type' => 'textarea',
+				'std' => 'You can find out where to vote by using the City of Winnipeg address look-up tool here.',
 				),
 				'center_column_img' => array(
 				'name' => __( 'Center Column Image Logo', self::$plugin_name ),
@@ -520,16 +529,20 @@ class Election_Data_Settings_Definition {
 				'name' => __( 'Right Column Title', self::$plugin_name ),
 				'desc' => __( 'The title for the right column.' ),
 				'type' => 'text',
+				'placeholder' => 'What Am I Voting For?',
+				'std' => 'What Am I Voting For?',
 				),
 				'right_column_url' => array(
 				'name' => __( 'Right Column Url', self::$plugin_name ),
 				'desc' => __( 'The url that the right column links to.'),
 				'type' => 'text',
+				'placeholder' => 'sample-page or https://www.google.com',
 				),
 				'right_column_excerpt' => array(
 				'name' => __( 'Right Column Excerpt', self::$plugin_name ),
 				'desc' => __( 'The content for the right column.'),
 				'type' => 'textarea',
+				'std' => 'Not sure what you’re voting for, find out more here.',
 				),
 				'right_column_img' => array(
 				'name' => __( 'Right Column Image Logo', self::$plugin_name ),
@@ -598,6 +611,7 @@ class Election_Data_Settings_Definition {
 				'name' => __( 'Election Date', self::$plugin_name ),
 				'desc' => __( 'To display the election date, use this format YYYY-MM-DD.'),
 				'type' => 'text',
+				'placeholder' => '2018-10-24',
 				),
 				'party_election' => array(
 					'name' => __('Party Election', self::$plugin_name),
