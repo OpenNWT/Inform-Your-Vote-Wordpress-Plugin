@@ -120,6 +120,7 @@ class Election_Data_Settings {
 						'max'    => isset( $option['max'] ) ? $option['max'] : 999999,
 						'min'    => isset( $option['min'] ) ? $option['min'] : 0,
 						'step'   => isset( $option['step'] ) ? $option['step'] : 1,
+						'placeholder' => !empty( $option['placeholder'] ) ? $option['placeholder'] : '',
 						)
 					);
 			} // end foreach

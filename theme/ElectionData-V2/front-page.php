@@ -27,7 +27,7 @@ $right_column_excerpt = Election_Data_Option::get_option('right_column_excerpt')
 $right_column_img = wp_get_attachment_image(Election_Data_Option::get_option('right_column_img'));
 $right_column_url = Election_Data_Option::get_option('right_column_url') ?: "";
 
-$news_count = Election_Data_Option::get_option( 'news-count-front', 10 );
+$news_count = Election_Data_Option::get_option( 'news-count-front', 3 );
 
 get_header(); ?>
 
