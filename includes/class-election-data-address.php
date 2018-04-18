@@ -217,7 +217,15 @@ class Election_Data_Address {
     $street_addresses = array();
 
     foreach($data as $key=>$value){
-      $street_address .= $value['value'] . " ";
+      if($value['name'] != 'page'){
+        if($value['name'] == 'street_number'){
+          $street_address .= $value['value'] . " ";
+        }
+        else if($value['name'] == 'street_name'){
+          $name = explode(' ', $value['value']);
+          $street_address .= $name[0];
+        }
+      }
     }
 
     $addresses = new WP_QUERY( array(
@@ -375,7 +383,10 @@ class Election_Data_Address {
     $constituency_id = $constituency["term_id"];
     $school_ward_id = $school_ward["term_id"];
 
-    if( strcmp( $data[3]['value'], "Address Lookup") ) {
+    $council_ward = get_term_by( 'slug' , $mayoral_constitutency_slug, $ed_taxonomies['candidate_constituency'], 'ARRAY_A' );
+    $councilor_ward_id = $council['term_id'];
+
+    if(  (string)$data[2]['value'] == "Address_Lookup" ) {
       if( $constituency ) {
         $ward_candidates = new WP_Query( array(
           'tax_query' => array(
@@ -420,13 +431,16 @@ class Election_Data_Address {
       ));
       echo ("<div class ='flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
       shuffle($mayoral_candidates_query->posts);
-      display_constituency_candidates( $mayoral_candidates_query, 781, $candidate_references );
+
+      display_constituency_candidates( $mayoral_candidates_query, $councilor_ward_id, $candidate_references );
       wp_reset_query();
     }
       //else is the results page
       else {
-        // Need to establish a councilor_ward_id somehow
-        self::display_election_results( $constituency, $school_ward_id, $councilor_ward_id );
+        $council = get_term_by( 'slug' , $mayoral_constitutency_slug, $ed_taxonomies['candidate_constituency'], 'ARRAY_A' );
+
+         $councilor_ward_id = $council['term_id'];
+         self::display_election_results( $constituency, $school_ward_id, $councilor_ward_id );
       }
   }
 

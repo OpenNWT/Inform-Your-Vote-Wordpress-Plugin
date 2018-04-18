@@ -13,9 +13,11 @@
       <span class="enter_address_text">Enter Your Address To Reveal Your Candidates</span><br>
       <span class="random_order_text">All candidates are displayed in random order.</span><br>
     </div>
+    
     <form id="address_lookup_form" method="POST" action="">
       <input type="text" name="street_number"  id="street_number" placeholder='Street Number'>
       <input type="text" name="street_name"  id="street_name" placeholder="Street Name">
+      <input type="hidden" name="page" id="page" value="<?="Address_Lookup"?>" >
       <input type="submit" name="submit" id="submit" value="Find">
       <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
     </form>
