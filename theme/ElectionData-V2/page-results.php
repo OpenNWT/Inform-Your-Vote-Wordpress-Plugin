@@ -23,7 +23,13 @@ global $ed_post_types;
       <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
     </form>
 
-    <div id ="candidates">
+    <div class="loading">
+      <img class="gif" src="/wp-content/themes/ElectionData/ElectionData-V2/images/loading.gif" />
+    </div>
+
+    <div id ="candidates" class = "animated fadeIn">
+
+    </div>
       <br />
 
     </div>

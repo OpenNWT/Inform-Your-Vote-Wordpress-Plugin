@@ -425,7 +425,9 @@ class Election_Data_Address {
     }
       //else is the results page
       else {
-        // Need to establish a councilor_ward_id somehow
+
+        $council_term = get_term_by( 'slug' , $mayoral_constitutency_slug, $ed_taxonomies['candidate_constituency'], 'ARRAY_A' );
+        $councilor_ward_id = $council_term['term_id'];
         self::display_election_results( $constituency, $school_ward_id, $councilor_ward_id );
       }
   }
