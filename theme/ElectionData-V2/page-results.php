@@ -4,10 +4,8 @@ global $is_party_election;
 global $ed_post_types;
 
 //dunno if I need these guess I'll find out soon!
-$constituency = get_constituency( $party_id = get_queried_object()->term_id );
-$constituency_id = $constituency['id'];
-
-$street_types = explode(', ', Election_Data_Option::get_option('street_types'));
+//$constituency = get_constituency( $party_id = get_queried_object()->term_id );
+//$constituency_id = $constituency['id'];
 ?>
 <a name="top"></a>
 <?php get_header(); ?>
@@ -18,14 +16,20 @@ $street_types = explode(', ', Election_Data_Option::get_option('street_types'));
     </div>
 
     <form id="address_lookup_form" method="POST" action="">
-      <input type="text" name="street_number"  id="street_number" placeholder='#'>
-      <input type="text" name="street_name"  id="street_name" placeholder="Name">
+      <input type="text" name="street_number"  id="street_number" placeholder='Street Number'>
+      <input type="text" name="street_name"  id="street_name" placeholder="Street Name">
       <input type="hidden" name="page" id="page" value="<?=wp_title('',true);?>" >
       <input type="submit" name="submit" id="submit" value="Find">
       <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
     </form>
 
-    <div id ="candidates">
+    <div class="loading">
+      <img class="gif" src="/wp-content/themes/ElectionData/ElectionData-V2/images/loading.gif" />
+    </div>
+
+    <div id ="candidates" class = "animated fadeIn">
+
+    </div>
       <br />
 
     </div>
