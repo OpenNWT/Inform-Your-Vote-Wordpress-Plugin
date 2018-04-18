@@ -233,7 +233,7 @@ class Election_Data_Answer {
 							'id' => 'question',
 							'std' => '',
 							'label' => __( 'The Question' ),
-							'desc' => ($is_party_election) ? __("The question for the candidate or for the party.
+							'desc' => ( $is_party_election ) ? __("The question for the candidate or for the party.
 														The following substitutions will occur for both candidate and party questions:
 								            <br>
 														<list>
@@ -253,20 +253,27 @@ class Election_Data_Answer {
 							'imported' => true,
 						),
 					),
+					'hidden' => array( 'parent' ),
+					'renamed' => array (
+						 'description_of_name' => 'The name of the question in your records, not the actual question\'s content.' ,
+						 'description_of_slug' => 'Does not need to be filled in as wordpress will generate it upon adding a new question.',
+						 'description_of_description' => 'Use this to leave easy notes at a glance about a given question, e.g. if its a question meant for parties.',
+				 	),
 				),
 			),
 		);
 
-		if($is_party_election){
-			array_unshift($args['taxonomy_meta']['question']['fields'], array(
+		if( $is_party_election ){
+			array_unshift( $args['taxonomy_meta']['question']['fields'], array(
 				'type' => 'checkbox',
 				'id' => 'party',
 				'std' => false,
 				'label' => __( 'Party Question' ),
 				'desc' => __( 'Indicates that the question is targeted towards the party as opposed to a candidate.' ),
 				'imported' => true,
-			));
-		}
+			)
+		);
+	}
 
 		$this->custom_post = new ED_Custom_Post_Type( $this->post_type, $args, $define_hooks );
 
@@ -706,7 +713,7 @@ class Election_Data_Answer {
 		if ( !empty( Election_Data_Option::get_option( 'reply-to' ) ) ) {
 			$mail->AddReplyTo( Election_Data_Option::get_option( 'reply-to' ) );
 		}
-		
+
 		$mail->SetFrom(Election_Data_Option::get_option( 'from-email-address' ), Election_Data_Option::get_option( 'from-email-name' ) );
 		$mail->Subject = $message_contents['subject'];
 		$mail->Body = $message_contents['body'];
