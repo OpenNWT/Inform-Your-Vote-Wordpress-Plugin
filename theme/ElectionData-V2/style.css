@@ -1027,7 +1027,7 @@ input:-ms-input-placeholder {
     float: left;
     text-align:center;}
 
-.latest-news ul li{	
+.latest-news ul li{
 	min-height: 550px;
 }
 .page-list ul li:nth-child(3n+2),.latest-news ul li:nth-child(3n+2){
@@ -1118,7 +1118,7 @@ input:-ms-input-placeholder {
 	#main .page-list ul li a{
 		font-size:23px;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 580px;
 	}
 }
@@ -1131,7 +1131,7 @@ input:-ms-input-placeholder {
 	#container #main .page-list ul li a{
 		font-size:20px;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 720px;}
 
 	.news-content .post-news-title-time{
@@ -1140,8 +1140,8 @@ input:-ms-input-placeholder {
 }
 
 
-@media all and (max-width: 768px){	
-	.latest-news ul li{	
+@media all and (max-width: 768px){
+	.latest-news ul li{
 		min-height: 760px;}
 
 	.news-content .post-news-title-time{
@@ -1157,7 +1157,7 @@ input:-ms-input-placeholder {
 	.news-content .news-title{
 	    font-size: 18px;
 	    color: #18181A;
-	    margin: 10px 0 10px 0;   
+	    margin: 10px 0 10px 0;
 	}
 
 	.head-title{
@@ -1166,7 +1166,7 @@ input:-ms-input-placeholder {
 	    font-size: 36px;
 		font-weight: 600;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 780px;}
 
 	.news-content .post-news-title-time{
@@ -1192,7 +1192,7 @@ input:-ms-input-placeholder {
 	.news-content .post-news-title-time{
 		min-height: 200px;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 850px;}
 
 	.news-content p.post-news-mention{font-size:14px;}
@@ -1203,12 +1203,12 @@ input:-ms-input-placeholder {
 		min-height: 120px;
 		margin-top: 10px;}
 
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 600px;}
 }
 
 @media all and (max-width: 569px){
-	.latest-news ul li{	
+	.latest-news ul li{
 		min-height: 0;}
 
 	.news-content .post-news-title-time{
@@ -1609,6 +1609,8 @@ input:-ms-input-placeholder {
 	text-align:center;
 	margin:25px auto;
 }
+
+
 
 .address_suggestions{
 	border: 1px black solid;

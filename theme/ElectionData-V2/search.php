@@ -35,7 +35,7 @@ get_header(); ?>
 
 					<div class="entry-content">
 						<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'election_data_theme' ); ?></p>
-						<?php get_search_form(); ?>
+						<!-- <?php get_search_form(); ?> -->
 				   </div><!-- .entry-content -->
 				</article><!-- #post-0 .post .no-results .not-found -->
             <?php endif; ?>

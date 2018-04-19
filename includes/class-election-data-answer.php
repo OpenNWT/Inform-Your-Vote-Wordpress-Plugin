@@ -429,6 +429,8 @@ class Election_Data_Answer {
 	 *
 	 */
 	public function create_answers() {
+		global $is_party_election;
+
 		$args = array(
 			'fields' => 'id=>name',
 			'hide_empty' => false,
@@ -436,7 +438,11 @@ class Election_Data_Answer {
 		);
 		$questions = get_terms( $this->taxonomies['question'], $args );
 		$candidates = $this->get_candidate_taxonomy_terms();
-		$parties = $this->get_party_taxonomy_terms();
+		$parties = "";
+
+		if($is_party_election){
+			$parties = $this->get_party_taxonomy_terms();
+		}
 
 		foreach ( $questions as $question_id => $question_name ) {
 			$is_party = get_tax_meta( $question_id, 'party' );

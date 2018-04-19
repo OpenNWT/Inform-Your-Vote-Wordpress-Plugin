@@ -77,7 +77,7 @@ class Election_Data_Activator {
 	$post_args = array (
 		'post_type' => 'page',
 	);
-	
+
 	$post_query = new WP_Query( $post_args );
 	$pages = array();
 
@@ -158,6 +158,8 @@ class Election_Data_Activator {
 	 * @return string            Basename of the destination path
 	 */
 	public static function copy_theme( $dest_name ) {
+
+
 		if ( ! is_writable( get_theme_root() ) ) {
 			return false;
 		}
@@ -166,8 +168,9 @@ class Election_Data_Activator {
 
 		// if ( $dest_theme->exists() ) {
 		// 	if ( self::same_themes( $src_theme, $dest_theme ) ) {
-		// 		return '';
+		//
 		// 	}
+		// }
 		//
 		// 	$dest = tempnam( get_theme_root(), 'ElectionData' );
 		// 	unlink( $dest );
@@ -188,6 +191,7 @@ class Election_Data_Activator {
 	 * @return boolean Returns true, if the theme was successfully set up or false if it was not.
 	 */
 	public static function setup_theme() {
+		
 		// Retrieve the name of the current theme
 		$current_theme = get_stylesheet();
 		Election_Data_Option::update_option( 'previous_theme', $current_theme );

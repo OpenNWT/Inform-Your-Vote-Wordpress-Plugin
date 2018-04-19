@@ -338,7 +338,8 @@ class Election_Data_Address {
 
     }
     else{
-      echo ("Oops! Address Not Found.");
+      echo ("<div style='padding:10px;'><hr><h2 style='letter-spacing: 2px;text-align:center;margin:25px auto;'>Oops! Address Not Found.</h2><br><span>Please check the spelling of the address and
+              make sure the <strong>Street Number</strong> goes in the first textbox and <strong>Street Name</strong> goes in the second.</span><hr></div>");
     }
 
   }

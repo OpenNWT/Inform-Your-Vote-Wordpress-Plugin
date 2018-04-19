@@ -29,20 +29,4 @@ jQuery(document).ready( function($) {
     }
     return false;
   });
-
-
-  // $('#delete').click(function(){
-  //   alert("Yes");
-  //   $.ajax({
-  //     url: ajaxurl,
-  //     type: "POST",
-  //     data: {action : 'delete'},
-  //     success: function(data){
-  //       $('#ajax_result').html(data);
-  //     }
-  //   });
-  //
-  //   return false;
-  //   });
-
 });
