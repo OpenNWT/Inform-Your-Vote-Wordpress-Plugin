@@ -27,14 +27,12 @@
 }(jQuery));
 
 /* Cause link to 'where to vote' to pop-out. */
-
-(function($) {
-    $(function() {
-        $("a#where_to_vote").click(function(t){
-            t.preventDefault();
-            window.open("http://www.electionsmanitoba.ca/en/Voting/VotingInfo","myNewWin","width=500,height=500,toolbar=0,scrollbars=1")
-        });
-    });
-}(jQuery));
-
-
+// 
+// (function($) {
+//     $(function() {
+//         $("a#where_to_vote").click(function(t){
+//             t.preventDefault();
+//             window.open("http://www.electionsmanitoba.ca/en/Voting/VotingInfo","myNewWin","width=500,height=500,toolbar=0,scrollbars=1")
+//         });
+//     });
+// }(jQuery));

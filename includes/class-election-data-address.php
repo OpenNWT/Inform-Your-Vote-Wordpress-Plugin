@@ -285,19 +285,28 @@ class Election_Data_Address {
 
           echo $output;
 
+          $constituency_id = $address['constituency']['term_id'] ? $address['constituency']['term_id'] : 0;
+          $school_ward_id = $address['school_ward']['term_id'] ? $address['school_ward']['term_id'] : 0;
+          $new_ward = $address['new_ward'] ? $address['new_ward'] : 0;
+          $school_division_name = "{$address['school_division_name']}" ? "{$address['school_division_name']}" : " ";
+          $constituency_parent_id = $address['constituency']['parent'] ? $address['constituency']['parent'] : 0;
+          $school_ward_parent_id = $address['school_ward']['parent'] ? $address['school_ward']['parent'] : 0;
+          $street_address = "{$address['title']} {$address['street_type']} {$address['street_direction']}" ?
+                            "{$address['title']} {$address['street_type']} {$address['street_direction']}" : " ";
+
           echo "<script>jQuery(document).ready( function($) {
             $('.{$address['id']}').click(function(){
               $('.address_suggestion_text').css('display', 'none');
               $('.address_suggestions').css('display', 'none');
               $('.loading').css('display', 'block');
 
-              var constituency_id = {$address['constituency']['term_id']};
-              var school_ward_id = {$address['school_ward']['term_id']};
-              var new_ward = '{$address['new_ward']}';
-              var school_division_name = '{$address['school_division_name']}';
-              var constituency_parent_id = {$address['constituency']['parent']};
-              var school_ward_parent_id = {$address['school_ward']['parent']};
-              var street_address = '{$address['title']} {$address['street_type']} {$address['street_direction']}';
+              var constituency_id = {$constituency_id};
+              var school_ward_id = {$school_ward_id};
+              var new_ward = '{$new_ward}' ;
+              var school_division_name = '{$school_division_name}';
+              var constituency_parent_id = {$constituency_parent_id};
+              var school_ward_parent_id = {$school_ward_parent_id};
+              var street_address = '{$street_address}';
 
               var address_data = {
                                    constituency_id: constituency_id, school_ward_id: school_ward_id,
@@ -354,6 +363,7 @@ class Election_Data_Address {
     $constituency = array('term_id' => $constituency_id, 'parent' => $constituency_parent_id);
     $school_ward = array('term_id' => $school_ward_id, 'parent' => $school_ward_parent_id);
     (string)$data[2]['value'] = "Address_Lookup";
+
     echo "<h2>Results for \"{$street_address}\" </h2>";
     self::display_candidates($constituency, $school_ward, 'mayoral-candidates', $data, $new_ward, $school_division_name);
 
@@ -385,6 +395,23 @@ class Election_Data_Address {
     $councilor_ward_id = $council['term_id'];
 
     if(  (string)$data[2]['value'] == "Address_Lookup" ) {
+
+      $mayoral_candidates_query = new WP_QUERY( array(
+        'tax_query' => array(
+          array(
+            'taxonomy' => $ed_taxonomies['candidate_constituency'],
+            'field' => 'slug',
+            'terms' => $mayoral_constitutency_slug,
+          )
+        )
+      ));
+
+      if($mayoral_candidates_query->have_posts()){
+        echo ("<div class ='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Mayoral Candidates</h2></div>");
+        shuffle($mayoral_candidates_query->posts);
+        display_constituency_candidates( $mayoral_candidates_query, $councilor_ward_id, $candidate_references );
+      }
+
       if( $constituency ) {
         $ward_candidates = new WP_Query( array(
           'tax_query' => array(
@@ -395,11 +422,15 @@ class Election_Data_Address {
             )
           )
         ));
-        $constituency_parent_id = $constituency['parent'];
-        $constituency_parent = get_term_by('id', $constituency_parent_id, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
-        echo ("</div><div class='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward}, {$constituency_parent['name']}</h2>");
-        shuffle($ward_candidates->posts);
-        display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
+
+        if($ward_candidates->have_posts()){
+          $constituency_parent_id = $constituency['parent'];
+          $constituency_parent = get_term_by('id', $constituency_parent_id, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
+          echo ("</div><div class='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward}, {$constituency_parent['name']}</h2>");
+          shuffle($ward_candidates->posts);
+          display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
+        }
+
       }
 
       if( $school_ward ) {
@@ -413,24 +444,15 @@ class Election_Data_Address {
           )
         ));
 
-        echo ("<div class = 'flow_it politicians result_head'><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
-        shuffle($school_ward_candidates->posts);
-        display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
+        if($school_ward_candidates->have_posts()){
+          echo ("<div class = 'flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+          shuffle($school_ward_candidates->posts);
+          display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
+        }
+
       }
 
-      $mayoral_candidates_query = new WP_QUERY( array(
-        'tax_query' => array(
-          array(
-            'taxonomy' => $ed_taxonomies['candidate_constituency'],
-            'field' => 'slug',
-            'terms' => $mayoral_constitutency_slug,
-          )
-        )
-      ));
-      echo ("<div class ='flow_it politicians result_head'><h2>Mayoral Candidates</h2></div>");
-      shuffle($mayoral_candidates_query->posts);
 
-      display_constituency_candidates( $mayoral_candidates_query, $councilor_ward_id, $candidate_references );
       wp_reset_query();
     }
       //else is the results page
