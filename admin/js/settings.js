@@ -101,8 +101,11 @@ jQuery(document).ready( function($) {
 	}
 });
 
+/**
+*	Javascript for setting an explanation of what MetaData is when in the admin panel.
+*
+*/
 window.onload = function() {
-	//alert(document);
 		var metatext = document.getElementsByClassName('hndle')[0];
 		if (metatext.innerHTML == '<span>MetaData</span>') {
 		metatext.innerHTML += '<br />MetaData is data about your website picked up by search engines and what will appear if your website\'s metadata is fetched by a link.';
