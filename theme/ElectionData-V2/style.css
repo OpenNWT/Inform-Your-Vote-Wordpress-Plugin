@@ -1082,6 +1082,11 @@ input:-ms-input-placeholder {
 		bottom:40px;
 		left:0;
 	}
+
+.post-news-summary{
+	max-height: 260px;
+	overflow: hidden;
+}
 .view-all{
 	margin:25px 0;
 	overflow:hidden;}
@@ -1217,6 +1222,8 @@ input:-ms-input-placeholder {
 	.news-content span.news-date-time{
 		margin-bottom: 20px;
 	}
+
+	.post-news-summary{max-height: 999px;}
 
 }
 @media all and (max-width: 376px) {
