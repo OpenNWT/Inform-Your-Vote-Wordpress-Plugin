@@ -118,10 +118,28 @@ class Election_Data_Sanitization_Helper {
 		return $this->get_output( $tab, $input );
 	}
 
+	/**
+	 * Applies validation filters for validating settings.
+	 *
+	 * @since 	1.0.0
+	 * @access 	private
+	 * @param 	array 		$input 	              Input of the setting.
+	 * @param 	string 		$key 	                Name of the setting.
+	 * @param 	array 		$old_plugin_settings 	Old settings of the plugin, if need to be updated.
+	 */
 	private function apply_validation_filter( $input, $key, $old_plugin_settings ) {
 		return apply_filters( "election_data_settings_validate_$key", $input[$key], isset( $old_plugin_settings[$key] ) ? $old_plugin_settings[$key] : null, "{$this->plugin_name}-notices" );
 	}
 
+	/**
+	*	Applies filters for sanitizing settings according to the type of the field.
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	array 	$input  Input of the setting.
+	* @param 	array 	$tab	  The current tab.
+	* @param 	array 	$key 	  Name of the setting.
+	*/
 	private function apply_type_filter( $input, $tab, $key ) {
 
 		// Get the setting type (checkbox, select, etc)
@@ -134,12 +152,28 @@ class Election_Data_Sanitization_Helper {
 		return apply_filters( 'election_data_settings_sanitize_' . $type, $input[$key], $key );
 	}
 
+	/**
+	*	Applies filter for general sanitizing of all the field settings.
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	array 	$input  Input of the setting.
+	* @param 	string 	$key 	  Name of the setting.
+	*/
 	private function apply_general_filter( $input, $key ) {
 
 		return apply_filters( 'election_data_settings_sanitize', $input[$key], $key );
 	}
 
-	// Key specific on change hook
+	/**
+	*	Key specific on change hook
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	string 	$key          					Name of the setting.
+	* @param 	array 	$new_value	  					New value of the setting.
+	* @param 	array 	$old_plugin_settings 	  Old settings.
+	*/
 	private function do_settings_on_key_change_hook( $key, $new_value, $old_plugin_settings ) {
 
 		//checks if value is saved already in $old_plugin_settings
@@ -152,7 +186,15 @@ class Election_Data_Sanitization_Helper {
 		return false;
 	}
 
-	// Tab specific on change hook (only if a value has changed)
+	/**
+	*	Tab specific on change hook (only if a value has changed)
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	string 	$key          					Name of the setting.
+	* @param 	array 	$new_value	  					New value of the setting.
+	* @param 	array 	$old_plugin_settings 	  Old settings.
+	*/
 	private function do_settings_on_change_hook( $new_values, $tab ) {
 
 		$old_plugin_settings = get_option( 'election_data_settings' );
