@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
     wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
     wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-    wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.4a');
+    wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.5a');
 
 	if ( is_front_page() ) {
 		wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
@@ -702,9 +702,12 @@ class new_walker extends Walker_Nav_Menu
 
            <?php
            if($active_theme == 'Election Data - V2'):
+
                $summary_candidate = get_term_by('name', $all_candidates[rand(0, (count($all_candidates)-1))], $ed_taxonomies['news_article_candidate'], "ARRAY_A");
            ?>
+           <div class="post-news-summary">
                <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] . '...'?></a></p>
+              </div>
            <?php endif;?>
 
  					<p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
