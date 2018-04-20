@@ -197,6 +197,11 @@ class Election_Data {
     global $is_party_election;
     (Election_Data_Option::get_option('party_election')) ? $is_party_election = true : $is_party_election = false;
 
+    global $is_address_lookup_tool;
+    (Election_Data_Option::get_option('address_dataset_available')) ? $is_address_lookup_tool = true : $is_address_lookup_tool = false;
+
+
+
     /**
      * This class stores all the callback functions to output the html for all options in plugin settings.
      */
@@ -393,6 +398,7 @@ class Election_Data {
 
     wp_die();
   }
+
 
   /**
    * Imports the data provided by the csv file.

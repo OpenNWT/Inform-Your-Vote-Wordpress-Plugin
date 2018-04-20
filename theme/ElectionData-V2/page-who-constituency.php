@@ -9,6 +9,7 @@
 
 global $is_party_election;
 global $ed_post_types;
+global $is_address_lookup_tool;
 
 $constituencies = get_root_constituencies();
 ?>
@@ -18,8 +19,9 @@ $constituencies = get_root_constituencies();
 			<h2 style="text-align:center; line-height: 36px;"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
 			<h3><pre style="text-align:center; line-height: 36px;">
 Please select a consituency to view their candidates
+<?php if($is_address_lookup_tool):?>
 OR
-Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address</pre></h3>
+Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address<?php endif;?></pre></h3>
 			<?php foreach ( $constituencies as $constituency_id ) :
 				$constituency = get_constituency( $constituency_id ); ?>
 				<div class="mini_maps" style="text-align:center; line-height: 36px;">

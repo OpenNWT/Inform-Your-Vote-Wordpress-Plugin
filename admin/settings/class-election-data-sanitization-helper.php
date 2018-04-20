@@ -310,6 +310,13 @@ class Election_Data_Sanitization_Helper {
 
 	}
 
+	/**
+	 * Sanitize an import file before processing it.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param 	string 		$input
+	 */
 	public function sanitize_import( $input ) {
 		if ( isset( $_POST['ed_import_export'] ) && $_POST['ed_import_export'] == 'import' )
 		{
@@ -320,6 +327,13 @@ class Election_Data_Sanitization_Helper {
 		}
 	}
 
+	/**
+	 * Sanitize an import file before processing it.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param 	string 		$input
+	 */
 	public function sanitize_export( $input ) {
 		if ( isset( $_POST['ed_import_export'] ) && $_POST['ed_import_export'] == 'export' )
 		{

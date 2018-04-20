@@ -4,12 +4,21 @@ global $is_party_election;
 global $ed_post_types;
 
 //dunno if I need these guess I'll find out soon!
-//$constituency = get_constituency( $party_id = get_queried_object()->term_id );
-//$constituency_id = $constituency['id'];
+$constituency = get_constituency( $party_id = get_queried_object()->term_id );
+$constituency_id = $constituency['id'];
+
+global $is_address_lookup_tool;
+
+if(!$is_address_lookup_tool && !$_GET){
+  wp_redirect(site_url().'/results?results=all');
+  exit;
+}
+
 ?>
 <a name="top"></a>
 <?php get_header(); ?>
 
+<?php if($is_address_lookup_tool):?>
   <div class = "address_lookup_page">
     <div class="search_text">
       <span class="enter_address_text">Enter Your Address To Reveal The Results Of Your Area.</span><br />
@@ -34,8 +43,8 @@ global $ed_post_types;
 
     </div>
   </div>
-
-<a href="?results=all"> Reveal All Results</a>
+<?php endif;?>
+<?php if($is_address_lookup_tool):?><a href="?results=all"> Reveal All Results</a><?php endif;?>
   <div id = "all_results_html">
     <?php $all_res = filter_input(INPUT_GET, 'results', FILTER_SANITIZE_STRING);
     if ($all_res == 'all'):

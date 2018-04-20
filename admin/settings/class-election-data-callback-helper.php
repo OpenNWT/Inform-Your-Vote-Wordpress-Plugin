@@ -92,6 +92,15 @@ class Election_Data_Callback_Helper {
 		echo '<hr/>';
 	}
 
+	/**
+	 * Localize Image
+	 *
+	 * Localizes the image id, so that it can be usd in javascript.
+	 *
+	 * @since 	1.0.0
+	 * @param 	array $element_settings An array passed by the setting
+	 * @return 	array $translation_array An array containing the image ids in the javascript variable
+	 */
 	public static function localize_image( $element_settings ) {
 		$translation_array = array();
 		foreach ( $element_settings as $settings ) {
@@ -103,6 +112,15 @@ class Election_Data_Callback_Helper {
 		return array( 'ed_settings_image_data' => $translation_array );
 	}
 
+	/**
+	 * Localize Button
+	 *
+	 * Localizes the buttons's actions and the messages, so that they can be usd in javascript.
+	 *
+	 * @since 	1.0.0
+	 * @param 	array $element_settings An array passed by the setting
+	 * @return 	array $translation_array An array containing the buttons's actions and the messages in the javascript variable
+	 */
 	public static function localize_button( $element_settings ) {
 		$actions = array();
 		$messages = array();

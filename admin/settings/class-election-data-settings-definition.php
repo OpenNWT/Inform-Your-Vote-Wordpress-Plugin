@@ -45,8 +45,8 @@ class Election_Data_Settings_Definition {
 	}
 
 	/**
-	 * [get_default_tab_slug description]
-	 * @return [type] [description]
+	 * Get the deafult tab slugs.
+	 * @return string Key names of the item.
 	 */
 	static public function get_default_tab_slug() {
 
@@ -72,11 +72,17 @@ class Election_Data_Settings_Definition {
 		$tabs['questions_tab'] = __( 'Question Settings', self::$plugin_name );
 		$tabs['import_tab'] = __( 'Import', self::$plugin_name );
 		$tabs['export_tab'] = __( 'Export', self::$plugin_name );
+		$tabs['address_lookup'] = __( 'Address Lookup Tool', self::$plugin_name );
 		//$tabs['second_tab']  = __( 'Second Tab', self::$plugin_name );
 
 		return apply_filters( 'election_data_settings_tabs', $tabs );
 	}
 
+	/**
+	 * For javascript updates.
+	 *
+	 * @since    1.0.0
+	 */
 	static public function get_js_updates() {
 		$settings = self::get_settings();
 
@@ -117,6 +123,18 @@ class Election_Data_Settings_Definition {
 		$settings[] = array();
 
 		$settings = array(
+			'address_lookup' => array(
+				'address_dataset_available' => array(
+				'name' => __( 'Address Dataset', self::$plugin_name ),
+				'desc' => __( 'Check the option if you have the correct address dataset and if you want to use the Address Lookup Tool'),
+				'type' => 'checkbox',
+				),
+				'api_key' => array(
+					'name' => __('API Key', self::$plugin_name),
+					'desc' => __('You will need a google maps api key. Click <a href="https://developers.google.com/maps/documentation/static-maps/get-api-key">here</a> to get one now..', self::$plugin_name),
+					'type' => 'text'
+				),
+			),
 			'import_tab' => array(
 				'import' => array(
 					'name' => __( 'Import Data', self::$plugin_name ),
@@ -223,7 +241,7 @@ class Election_Data_Settings_Definition {
 				'news-scraping-subheading' => array(
 					'name' => __( 'Sub Heading', self::$plugin_name ),
 					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
-					'type' => __( 'rich_editor' ), 
+					'type' => __( 'rich_editor' ),
 				),
 				'source' => array(
 					'name' => __( 'Source', self::$plugin_name ),

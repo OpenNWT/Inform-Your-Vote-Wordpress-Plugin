@@ -6,8 +6,15 @@
 * @package Election_Data_Theme
 * @since Election_Data_Theme 1.1
 */
-  get_header();
-?>
+
+  global $is_address_lookup_tool;
+
+  if(!$is_address_lookup_tool){
+    wp_redirect(site_url());
+    exit;
+  }
+
+  get_header(); ?>
   <div class = "address_lookup_page">
     <div class="search_text">
       <span class="enter_address_text">Enter Your Address To Reveal Your Candidates</span><br />

@@ -12,9 +12,13 @@
 require_once plugin_dir_path( __FILE__ ) . 'class-custom-post.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
-global $is_party_election;
+global $is_address_lookup_tool;
 global $ed_post_types;
-$ed_post_types['address'] = 'ed_addresses';
+
+if($is_address_lookup_tool){
+  $ed_post_types['address'] = 'ed_addresses';
+}
+
 /**
 * Sets up and handles the address custom post type.
 *
@@ -166,29 +170,9 @@ class Election_Data_Address {
       add_action('wp_ajax_nopriv_address_lookup' , array( $this, 'return_candidates' ) );
       add_action('wp_ajax_delete' , array($this, 'delete') );
       add_action('wp_ajax_show_candidates_suggestion', array($this, 'show_candidates_suggestion'));
-      //add_action('wp_ajax_nopriv_delete' , array($this, 'delete'));
     }
   }
-  // public function delete(){
-  //  global $ed_post_types;
-  //
-  //  $addresses = new WP_QUERY(array(
-  //      'post_type' => $ed_post_types['address'],
-  //      'posts_per_page' => 5000,
-  //      'meta_query' => array(
-  //          array(
-  //              'key' => 'new_ward',
-  //              'value' => 'St. James'
-  //      ),
-  //      )));
-  //
-  //  while($addresses->have_posts()){
-  //      $addresses->the_post();
-  //
-  //      update_post_meta(get_the_ID(), 'school_division_name', 'St. James - Assiniboia', " ");
-  //  }
-  //  echo $addresses->post_count;
-  // }
+
 
   /**
   * Gets the address data from ajax post and returns the candidates.
@@ -213,7 +197,7 @@ class Election_Data_Address {
   public function search_candidates( $data ){
     global $ed_post_types;
     global $ed_taxonomies;
-
+    $street_address = "";
     $street_addresses = array();
 
     foreach($data as $key=>$value){
@@ -227,6 +211,8 @@ class Election_Data_Address {
         }
       }
     }
+
+    $street_address = sanitize_text_field($street_address);
 
     $addresses = new WP_QUERY( array(
       'post_type' => $ed_post_types['address'],
@@ -279,7 +265,7 @@ class Election_Data_Address {
           $output = "<div class = 'address_suggestions {$address['id']}'>
                       <h3 class='address_title'>{$address['title']} {$address['street_type']} {$address['street_direction']}</h3><br>
                       <img class='address_image' src='https://maps.googleapis.com/maps/api/staticmap?markers=". $address['title'] ." ".
-                       $address['street_type'] . " " . $address['street_direction'] . ",%20winnipeg,%20manitoba,%20canada&zoom=14&size=300x300&sensor=false&key=AIzaSyC6Tp7oW8tqUgT1Pin_D5G0tpIiI59lMAk' />
+                       $address['street_type'] . " " . $address['street_direction'] . ",%20winnipeg,%20manitoba,%20canada&zoom=14&size=300x300&sensor=false&key='" . Election_Data_Option::get_option('api_key') . " />
                     </div>
                     ";
 
@@ -408,9 +394,11 @@ class Election_Data_Address {
       ));
 
       if($mayoral_candidates_query->have_posts()){
-        echo ("<div class ='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Mayoral Candidates</h2></div>");
+        echo ("<div class ='flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
+        <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>Mayoral Candidates</h1>");
         shuffle($mayoral_candidates_query->posts);
         display_constituency_candidates( $mayoral_candidates_query, $councilor_ward_id, $candidate_references );
+        echo ("</div><div style='padding:10px;'></div>");
       }
 
       if( $constituency ) {
@@ -427,9 +415,11 @@ class Election_Data_Address {
         if($ward_candidates->have_posts()){
           $constituency_parent_id = $constituency['parent'];
           $constituency_parent = get_term_by('id', $constituency_parent_id, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
-          echo ("</div><div class='flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>Candidates in {$new_ward}, {$constituency_parent['name']}</h2>");
+          echo ("<div class='flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
+                <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>Candidates in {$new_ward}, {$constituency_parent['name']}</h1>");
           shuffle($ward_candidates->posts);
           display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
+          echo ("</div><div style='padding:10px;'></div>");
         }
 
       }
@@ -446,9 +436,11 @@ class Election_Data_Address {
         ));
 
         if($school_ward_candidates->have_posts()){
-          echo ("<div class = 'flow_it politicians result_head'><style>#candidates h2{text-align:center; line-height: 36px;}</style><h2>School Trustee Candidates in {$school_division_name}</h2></div>");
+          echo ("<div class = 'flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
+                <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>School Trustee Candidates in {$school_division_name}</h1>");
           shuffle($school_ward_candidates->posts);
           display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
+          echo ("</div><div style='padding:10px;'></div>");
         }
 
       }
