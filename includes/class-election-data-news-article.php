@@ -1,15 +1,15 @@
 <?php
 
 /**
- * The file that defines the news articles custom post type.
- *
- *
- * @link       http://opendemocracymanitoba.ca/
- * @since      1.0.0
- *
- * @package    Election_Data
- * @subpackage Election_Data/includes
- */
+* The file that defines the news articles custom post type.
+*
+*
+* @link       http://opendemocracymanitoba.ca/
+* @since      1.0.0
+*
+* @package    Election_Data
+* @subpackage Election_Data/includes
+*/
 
 require_once plugin_dir_path( __FILE__ ) . 'class-custom-post.php';
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
@@ -18,11 +18,11 @@ require_once plugin_dir_path( __FILE__ ) . 'class-post-export.php';
 function get_post_id_by_slug( $post_name, $post_type ) {
 	global $wpdb;
 	$sql = $wpdb->prepare( "
-							SELECT ID
-							FROM $wpdb->posts
-							WHERE post_name = %s
-							AND post_type = %s
-					", $post_name, $post_type );
+		SELECT ID
+		FROM $wpdb->posts
+		WHERE post_name = %s
+		AND post_type = %s
+	", $post_name, $post_type );
 
 	return $wpdb->get_var( $sql );
 }
@@ -30,11 +30,11 @@ function get_post_id_by_slug( $post_name, $post_type ) {
 function get_post_ids_by_title( $post_title, $post_type ) {
 	global $wpdb;
 	$sql = $wpdb->prepare( "
-							SELECT ID
-							FROM $wpdb->posts
-							WHERE post_title = %s
-							AND post_type = %s
-	                ", $post_title, $post_type );
+	SELECT ID
+	FROM $wpdb->posts
+	WHERE post_title = %s
+	AND post_type = %s
+	", $post_title, $post_type );
 	return $wpdb->get_col( $sql );
 }
 
@@ -47,54 +47,54 @@ $ed_taxonomies['news_article_source'] = "{$ed_post_types['news_article']}_source
 
 
 /**
- * Sets up and handles the news articles custom post type.
- *
- *
- * @since      1.0.0
- * @package    Election_Data
- * @subpackage Election_Data/includes
- * @author     Robert Burton <RobertBurton@gmail.com>
- */
+* Sets up and handles the news articles custom post type.
+*
+*
+* @since      1.0.0
+* @package    Election_Data
+* @subpackage Election_Data/includes
+* @author     Robert Burton <RobertBurton@gmail.com>
+*/
 class Election_Data_News_Article {
 	/**
-	 * The ED_Custom_Post_Type object representing the news article custom post type,
-	 * and the news article and news source taxonomies.
-	 *
-	 * @var object
-	 * @access protected
-	 * @since 1.0
-	 *
-	 */
+	* The ED_Custom_Post_Type object representing the news article custom post type,
+	* and the news article and news source taxonomies.
+	*
+	* @var object
+	* @access protected
+	* @since 1.0
+	*
+	*/
 	protected $custom_post;
 
 	/**
-	 * The definition of the taxonomy names.
-	 *
-	 * @var array
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* The definition of the taxonomy names.
+	*
+	* @var array
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public $taxonomies;
 
 	/**
-	 * Stores the name of the custom post type.
-	 *
-	 * @var string
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Stores the name of the custom post type.
+	*
+	* @var string
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public $post_type;
 
 	/**
-	 * Constructor
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param boolean $define_hooks
-	 *
-	 */
+	* Constructor
+	*
+	* @access public
+	* @since 1.0
+	* @param boolean $define_hooks
+	*
+	*/
 	public function __construct( $define_hooks = true ) {
 		global $ed_post_types;
 		global $ed_taxonomies;
@@ -202,9 +202,9 @@ class Election_Data_News_Article {
 					'public' => false,
 					'show_tagcloud' => false,
 					'show_admin_column' => true,
-                    'show_ui' => true,
+					'show_ui' => true,
 					'show_in_quick_edit' => true,
-                    'show_in_menu' => false,
+					'show_in_menu' => false,
 					'hierarchical' => true,
 					'query_var' => 'news_candidate',
 					'rewrite' => false,
@@ -228,7 +228,7 @@ class Election_Data_News_Article {
 					'show_admin_column' => true,
 					'show_ui' => true,
 					'show_in_quick_edit' => true,
-                    'show_in_menu' => true,
+					'show_in_menu' => true,
 					'hierarchical' => true,
 					'query_var' => 'news_source',
 					'rewrite' => false,
@@ -243,23 +243,23 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Initializes the custom_post and taxonomies (Used during activation)
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Initializes the custom_post and taxonomies (Used during activation)
+	*
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function initialize() {
 		$this->custom_post->initialize();
 	}
 
 	/**
-	 * Sets up the main query for displaying news_articles to only show published articles'
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Sets up the main query for displaying news_articles to only show published articles'
+	*
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function set_main_query_parameters( $query ) {
 		if( is_admin() || !$query->is_main_query() ) {
 			return;
@@ -277,13 +277,13 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Updates and returns the candidate terms. If a term doesn't exists, it is created.
-	 * Terms for candidates that no longer exist are removed.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 *
-	 */
+	* Updates and returns the candidate terms. If a term doesn't exists, it is created.
+	* Terms for candidates that no longer exist are removed.
+	*
+	* @access protected
+	* @since 1.0
+	*
+	*/
 	protected function get_updated_candidate_terms() {
 		global $ed_post_types;
 		$args = array(
@@ -329,12 +329,12 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Gets the root sources and their children. If the root children do not exist, they are created.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 *
-	 */
+	* Gets the root sources and their children. If the root children do not exist, they are created.
+	*
+	* @access protected
+	* @since 1.0
+	*
+	*/
 	protected function get_sources() {
 		$parent_terms = $this->custom_post->get_or_create_root_taxonomy_terms( $this->taxonomies['source'], array( 'Automatically Approve', 'Automatically Reject', 'Manually Approve', 'New' ) );
 		$parent_ids = array();
@@ -361,12 +361,12 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Gets all articles using the URL as the key to the array.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 *
-	 */
+	* Gets all articles using the URL as the key to the array.
+	*
+	* @access protected
+	* @since 1.0
+	*
+	*/
 	protected function get_articles_by_url( $url ) {
 		$args = array(
 			'post_type' => $this->post_type,
@@ -391,31 +391,31 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Updates the news articles (AJAX version)
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Updates the news articles (AJAX version)
+	*
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function ajax_update_news_articles()
 	{
 		$this->update_news_articles();
 		wp_die();
 	}
 
-    public function ajax_scrub_news_articles()
-    {
-        $this->remove_bad_news_articles();
-        wp_die();
-    }
+	public function ajax_scrub_news_articles()
+	{
+		$this->remove_bad_news_articles();
+		wp_die();
+	}
 
 	/**
-	 * Updates the news articles
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Updates the news articles
+	*
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function update_news_articles() {
 		set_time_limit( 0 );
 		$candidates = $this->get_updated_candidate_terms();
@@ -454,47 +454,47 @@ class Election_Data_News_Article {
 		}
 	}
 
-    public function remove_bad_news_articles( ) {
-        global $ed_post_types;
-        global $ed_taxonomies;
+	public function remove_bad_news_articles( ) {
+		global $ed_post_types;
+		global $ed_taxonomies;
 
-        set_time_limit( 0 );
+		set_time_limit( 0 );
 		$args = array(
 			'post_type' => $ed_post_types['news_article'],
 			'nopaging' => true,
-        );
-        $query = new WP_Query( $args );
-        while ( $query->have_posts() ) {
-            $query->the_post();
-            $summaries = get_post_meta( $query->post->ID, 'summaries', true );
-            foreach ( $summaries as $candidate_id => $summary ) {
-                $term = get_term( $candidate_id, $ed_taxonomies['news_article_candidate'] );
-                $tmp_name = str_replace( ' ', '|', $term->name );
-                $pattern = "/$tmp_name/i";
-                if ( preg_match($pattern, $summary ) == 0 ) {
-                    error_log( "{$term->name} not found in '$summary'" );
-                    unset ( $summaries[$candidate_id] );
-                }
-            }
-            if ( count( $summaries ) > 0 ) {
-                update_post_meta( $query->post->ID, 'summaries', $summaries );
-            } else {
-                error_log( "deleting article {$query->post->post_title}" );
-                wp_delete_post( $query->post->ID, true );
-            }
-        }
-    }
+		);
+		$query = new WP_Query( $args );
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$summaries = get_post_meta( $query->post->ID, 'summaries', true );
+			foreach ( $summaries as $candidate_id => $summary ) {
+				$term = get_term( $candidate_id, $ed_taxonomies['news_article_candidate'] );
+				$tmp_name = str_replace( ' ', '|', $term->name );
+				$pattern = "/$tmp_name/i";
+				if ( preg_match($pattern, $summary ) == 0 ) {
+					error_log( "{$term->name} not found in '$summary'" );
+					unset ( $summaries[$candidate_id] );
+				}
+			}
+			if ( count( $summaries ) > 0 ) {
+				update_post_meta( $query->post->ID, 'summaries', $summaries );
+			} else {
+				error_log( "deleting article {$query->post->post_title}" );
+				wp_delete_post( $query->post->ID, true );
+			}
+		}
+	}
 
 	protected function process_news_articles( $candidate_name, $candidate_id, &$sources, $source_parents ) {
 		$mentions = $this->get_individual_news_articles( $candidate_name, Election_Data_Option::get_option( 'location' ), Election_Data_Option::get_option( 'source' ), Election_Data_Option::get_option( 'source-api') );
 		//$current_time_zone = new DateTimeZone( get_option( 'timezone_string', 'UTC' ) );
 		$current_time_zone = new DateTimeZone( 'UTC' );
 		foreach ( $mentions as $mention ) {
-            $tmp_name = str_replace( ' ', '|', $candidate_name );
-            $pattern = "/$tmp_name/i";
-            if ( preg_match($pattern, $mention['summary'] ) == 0 ) {
-                continue;
-            }
+			$tmp_name = str_replace( ' ', '|', $candidate_name );
+			$pattern = "/$tmp_name/i";
+			if ( preg_match($pattern, $mention['summary'] ) == 0 ) {
+				continue;
+			}
 			if ( ! isset( $sources[$mention['base_url']] ) ) {
 				$term = wp_insert_term( $mention['base_url'], $this->taxonomies['source'], array( 'parent' => $source_parents['New'], 'description' => $mention['source'] ) );
 				$sources[$mention['base_url']] = array(
@@ -519,15 +519,15 @@ class Election_Data_News_Article {
 				switch ( $sources[$mention['base_url']]['parent'] )
 				{
 					case 'Automatically Approve':
-						$mention['moderation'] = 'approved';
-						break;
+					$mention['moderation'] = 'approved';
+					break;
 					case 'Automatically Reject':
-						$mention['moderation'] = 'rejected';
-						break;
+					$mention['moderation'] = 'rejected';
+					break;
 					case 'Manually Approve':
 					case 'New':
-						$mention['moderation'] = 'new';
-						break;
+					$mention['moderation'] = 'new';
+					break;
 				}
 				$post = array(
 					'post_title' => $mention['title'],
@@ -553,16 +553,16 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Get the articles from Google News.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param string $candidate
-	 * @param string $location
-	 *
-	 */
+	* Get the articles from Google News.
+	*
+	* @access protected
+	* @since 1.0
+	* @param string $candidate
+	* @param string $location
+	*
+	*/
 	protected function get_individual_news_articles( $candidate, $location='', $source='', $source_api='' ) {
-	        $url_candidate = urlencode($candidate);
+		$url_candidate = urlencode($candidate);
 		$articles = array();
 		if ($source && ($source === 'api') && ($source_api)) {
 			$api_url = $source_api . '&q=' . $url_candidate;
@@ -620,12 +620,12 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Sets up the wordpress cron to scan for articles.
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Sets up the wordpress cron to scan for articles.
+	*
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function setup_cron() {
 		$timestamp = wp_next_scheduled( 'ed_update_news_articles' );
 		if ( $timestamp == false ) {
@@ -634,25 +634,25 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Stops the wordpress cron from scanning for articles.
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Stops the wordpress cron from scanning for articles.
+	*
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function stop_cron() {
 		wp_clear_scheduled_hook( 'ed_update_news_articles' );
 	}
 
 	/**
-	 * Schedules the next and recurring runs of the news article scanning.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param string $time_string
-	 * @param int $frequency
-	 *
-	 */
+	* Schedules the next and recurring runs of the news article scanning.
+	*
+	* @access protected
+	* @since 1.0
+	* @param string $time_string
+	* @param int $frequency
+	*
+	*/
 	protected function schedule_cron( $time_string, $frequency )
 	{
 		$time = strtotime( $time_string );
@@ -668,41 +668,41 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Changes the frequency at which the news article scanning cron job runs.
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param int $frequency
-	 *
-	 */
+	* Changes the frequency at which the news article scanning cron job runs.
+	*
+	* @access public
+	* @since 1.0
+	* @param int $frequency
+	*
+	*/
 	public function change_cron_frequency( $frequency ) {
 		$this->stop_cron();
 		$this->schedule_cron( Election_Data_Option::get_option( 'time' ), $frequency );
 	}
 
 	/**
-	 * Changes the time at whcih the news article scanning cron job runs.
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param string $time
-	 *
-	 */
+	* Changes the time at whcih the news article scanning cron job runs.
+	*
+	* @access public
+	* @since 1.0
+	* @param string $time
+	*
+	*/
 	public function change_cron_time( $time ) {
 		$this->stop_cron();
 		$this->schedule_cron( $time, Election_Data_Option::get_option( 'frequency' ) );
 	}
 
 	/**
-	 * Validates the time
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param string $new_value
-	 * @param string $old_value
-	 * @param string $settings_slug
-	 *
-	 */
+	* Validates the time
+	*
+	* @access public
+	* @since 1.0
+	* @param string $new_value
+	* @param string $old_value
+	* @param string $settings_slug
+	*
+	*/
 	function validate_time( $new_value, $old_value, $settings_slug )
 	{
 		if ( !strtotime( $new_value ) && !strtotime( "$new_value tomorrow" ) ) {
@@ -714,12 +714,12 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Defines the action and filter hooks used by the class.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 *
-	 */
+	* Defines the action and filter hooks used by the class.
+	*
+	* @access protected
+	* @since 1.0
+	*
+	*/
 	protected function define_hooks()
 	{
 		add_action( 'ed_update_news_articles', array( $this, 'update_news_articles' ) );
@@ -728,28 +728,28 @@ class Election_Data_News_Article {
 		add_filter( 'election_data_settings_validate_time', array( $this, 'validate_time' ), 10, 3 );
 		add_action( 'wp_ajax_election_data_scrape_news', array( $this, 'ajax_update_news_articles' ) );
 		add_filter( 'pre_get_posts', array( $this, 'set_main_query_parameters' ) );
-        add_action( 'wp_ajax_election_data_scrub_news', array( $this, 'ajax_scrub_news_articles' ) );
+		add_action( 'wp_ajax_election_data_scrub_news', array( $this, 'ajax_scrub_news_articles' ) );
 	}
 
 	/**
-	 * Exports the news_articles and sources to a single xml file.
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param string $xml
-	 *
-	 */
+	* Exports the news_articles and sources to a single xml file.
+	*
+	* @access public
+	* @since 1.0
+	* @param string $xml
+	*
+	*/
 	public function export_xml( $xml ) {
 	}
 
 	/**
-	 * Exports the news articles to a csv file.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param file_handle $csv
-	 *
-	 */
+	* Exports the news articles to a csv file.
+	*
+	* @access protected
+	* @since 1.0
+	* @param file_handle $csv
+	*
+	*/
 	protected function export_news_article_csv( $csv ) {
 		$post_fields = array(
 			'post_title' => 'title',
@@ -763,26 +763,26 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Exports the news sources to a csv file.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param file_handle $csv
-	 *
-	 */
+	* Exports the news sources to a csv file.
+	*
+	* @access protected
+	* @since 1.0
+	* @param file_handle $csv
+	*
+	*/
 	protected function export_news_source_csv( $csv ) {
 		$source_fields = array( 'name', 'slug', 'description' );
 		Post_Export::export_taxonomy_csv( $csv, 'source', $this->taxonomies['source'], $source_fields, null, 0 );
 	}
 
 	/**
-	 * Exports the news mentions to a csv file.
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param file_handle $csv
-	 *
-	 */
+	* Exports the news mentions to a csv file.
+	*
+	* @access protected
+	* @since 1.0
+	* @param file_handle $csv
+	*
+	*/
 	protected function export_news_mention_csv ( $csv ) {
 		$headings = array( 'news_article', 'mention', 'summary' );
 		$headings_data = array_combine( $headings, $headings );
@@ -818,14 +818,14 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Imports the news articles from a csv file
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param file_handle $csv
-	 * @param string $mode
-	 *
-	 */
+	* Imports the news articles from a csv file
+	*
+	* @access protected
+	* @since 1.0
+	* @param file_handle $csv
+	* @param string $mode
+	*
+	*/
 	protected function import_news_article_csv( $csv, $mode ) {
 		$post_fields = array(
 			'post_title' => 'title',
@@ -841,14 +841,14 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Imports the news sources from a csv file
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param file_handle $csv
-	 * @param string $mode
-	 *
-	 */
+	* Imports the news sources from a csv file
+	*
+	* @access protected
+	* @since 1.0
+	* @param file_handle $csv
+	* @param string $mode
+	*
+	*/
 	protected function import_news_source_csv( $csv, $mode ) {
 		$source_fields = array( 'name', 'slug', 'description' );
 		$parent_field = 'parent';
@@ -864,14 +864,14 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Imports the news mentions from a csv file
-	 *
-	 * @access protected
-	 * @since 1.0
-	 * @param file_handle $csv
-	 * @param string $mode
-	 *
-	 */
+	* Imports the news mentions from a csv file
+	*
+	* @access protected
+	* @since 1.0
+	* @param file_handle $csv
+	* @param string $mode
+	*
+	*/
 	protected function import_news_mention_csv ($csv, $mode ) {
 		global $ed_post_types;
 
@@ -902,13 +902,13 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Exports the news articles, news sources or news mentions to a csv file
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param string $type
-	 *
-	 */
+	* Exports the news articles, news sources or news mentions to a csv file
+	*
+	* @access public
+	* @since 1.0
+	* @param string $type
+	*
+	*/
 	public function export_csv ( $type ) {
 		$file_name = tempnam( 'tmp', 'csv' );
 		$file = fopen( $file_name, 'w' );
@@ -919,25 +919,25 @@ class Election_Data_News_Article {
 	}
 
 	/**
-	 * Imports the news_articles, news sources or news mentions from a CSV file.
-	 *
-	 * @access public
-	 * @since 1.0
-	 * @param string $type
-	 * @param file_handle $csv
-	 * @param string $mode
-	 *
-	 */
+	* Imports the news_articles, news sources or news mentions from a CSV file.
+	*
+	* @access public
+	* @since 1.0
+	* @param string $type
+	* @param file_handle $csv
+	* @param string $mode
+	*
+	*/
 	public function import_csv( $type, $csv, $mode ) {
 		return call_user_func( array( $this, "import_{$type}_csv" ), $csv, $mode );
 	}
 
 	/**
-	 * Erases all news articles, news sources and candidate terms from the database.
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
+	* Erases all news articles, news sources and candidate terms from the database.
+	* @access public
+	* @since 1.0
+	*
+	*/
 	public function erase_data()
 	{
 		$this->custom_post->erase_data();

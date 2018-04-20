@@ -1,54 +1,54 @@
 <?php
 
 /**
- * Post Meta Data handler.
- *
- * @package		Election_Data
- * @since		1.0
- * @author 		Robert Burton <RobertBurton@gmail.com>
- *
- */
+* Post Meta Data handler.
+*
+* @package		Election_Data
+* @since		1.0
+* @author 		Robert Burton <RobertBurton@gmail.com>
+*
+*/
 
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
 
 class Tax_Meta {
 
 	/*
-	 * The name of the taxonomy.
-	 *
-	 * @var string
-	 * @access protected
-	 *
-	 */
+	* The name of the taxonomy.
+	*
+	* @var string
+	* @access protected
+	*
+	*/
 	protected $taxonomy;
 
 	/**
-	 * The prefix used for the id and name of the custom fields.
-	 *
-	 * @var string
-	 * @access protected
-	 *
-	 */
+	* The prefix used for the id and name of the custom fields.
+	*
+	* @var string
+	* @access protected
+	*
+	*/
 	protected $prefix;
 
 	/**
-	 * Holds the definition of the meta data fields.
-	 *
-	 * @var array
-	 * @access protected
-	 *
-	 */
+	* Holds the definition of the meta data fields.
+	*
+	* @var array
+	* @access protected
+	*
+	*/
 	protected $fields;
 
 	/**
-	 * Constructor
-	 *
-	 * @since 1.0
-	 * @access protected
-	 * @param string $taxonomy
-	 * @param array $fields
-	 *
-	 */
+	* Constructor
+	*
+	* @since 1.0
+	* @access protected
+	* @param string $taxonomy
+	* @param array $fields
+	*
+	*/
 	public function __construct( $args, $define_hooks = true ) {
 		$this->fields = $args['fields'];
 		$taxonomy = $args['taxonomy'];
@@ -151,9 +151,9 @@ class Tax_Meta {
 		echo "$header<label for='$id'>$label</label>$footer";
 	}
 
-  protected function show_number ( $field, $mode, $value ) {
-    $this->show_text( $field, $mode, $value, 'number' );
-  }
+	protected function show_number ( $field, $mode, $value ) {
+		$this->show_text( $field, $mode, $value, 'number' );
+	}
 
 	protected function show_wysiwyg( $field, $mode, $value ) {
 		if ( $mode == 'edit' ) {
@@ -318,19 +318,19 @@ class Tax_Meta {
 			case 'wysiwyg':
 			case 'text_with_load_value_button':
 			case 'hidden_input':
-      case 'number':
-				if ( isset( $_POST[$field_id] ) ) {
-					return stripslashes( $_POST[$field_id] );
-				} else {
-					return $current_value;
-				}
-				break;
+			case 'number':
+			if ( isset( $_POST[$field_id] ) ) {
+				return stripslashes( $_POST[$field_id] );
+			} else {
+				return $current_value;
+			}
+			break;
 			case 'checkbox':
-				return isset( $_POST[$field_id] );
-				break;
+			return isset( $_POST[$field_id] );
+			break;
 			case 'hidden':
-				return $current_Value;
-				break;
+			return $current_Value;
+			break;
 		}
 	}
 
@@ -430,14 +430,14 @@ class Tax_Meta {
 }
 
 /**
- * Helper function to update the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- * @param mixed $value
- *
- */
+* Helper function to update the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+* @param mixed $value
+*
+*/
 function update_tax_meta( $term_id, $key, $value )
 {
 	$meta = get_option( "tax_meta_$term_id" );
@@ -446,14 +446,14 @@ function update_tax_meta( $term_id, $key, $value )
 }
 
 /**
- * Helper function to replace all of the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- * @param array $value
- *
- */
+* Helper function to replace all of the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+* @param array $value
+*
+*/
 function update_tax_meta_all( $term_id, $value )
 {
 	if ( is_array( $value ) ) {
@@ -462,13 +462,13 @@ function update_tax_meta_all( $term_id, $value )
 }
 
 /**
- * Helper function to retrieve the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- *
- */
+* Helper function to retrieve the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+*
+*/
 function get_tax_meta( $term_id, $key )
 {
 	$meta = get_option( "tax_meta_$term_id" );
@@ -476,25 +476,25 @@ function get_tax_meta( $term_id, $key )
 }
 
 /**
- * Helper function to retrieve all of the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- *
- */
+* Helper function to retrieve all of the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+*
+*/
 function get_tax_meta_all( $term_id )
 {
 	return get_option( "tax_meta_$term_id");
 }
 
 /**
- * Helper function to delete the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- *
- */
+* Helper function to delete the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+*
+*/
 function delete_tax_meta( $term_id, $key )
 {
 	$meta = get_option( "tax_meta_$term_id" );
@@ -505,12 +505,12 @@ function delete_tax_meta( $term_id, $key )
 }
 
 /**
- * Helper function to delete all of the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- *
- */
+* Helper function to delete all of the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+*
+*/
 function delete_tax_meta_all( $term_id )
 {
 	delete_option( "tax_meta_$term_id" );
