@@ -1,65 +1,45 @@
 <?php
-
-/**
-* A page to display results in.
-* @since Election_Data_Theme 1.1
-* @author Joel Hurtig
-*/
-
 global $is_party_election;
 global $ed_post_types;
-
-//dunno if I need these guess I'll find out soon!
 $constituency = get_constituency( $party_id = get_queried_object()->term_id );
 $constituency_id = $constituency['id'];
-
 global $is_address_lookup_tool;
-
-if(!$is_address_lookup_tool && !$_GET){
-  wp_redirect(site_url().'/results?results=all');
-  exit;
-}
-
 ?>
-<a name="top"></a>
 <?php get_header(); ?>
-
+<?php if($is_address_lookup_tool):?>
   <div class = "address_lookup_page">
     <div class="search_text">
       <span class="enter_address_text">Enter Your Address To Reveal The Results Of Your Area.</span><br />
     </div>
-
-  <form id="address_lookup_form" method="POST" action="">
-    <input type="text" name="street_number"  id="street_number" placeholder='Street Number'>
-    <input type="text" name="street_name"  id="street_name" placeholder="Street Name">
-    <input type="hidden" name="page" id="page" value="<?=wp_title('',true);?>" >
-    <input type="submit" name="submit" id="submit" value="Find">
-    <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
-  </form>
-
-  <div class="loading">
-    <img class="gif" src="/wp-content/themes/ElectionData/ElectionData-V2/images/loading.gif" />
+    <form id="address_lookup_form" method="POST" action="">
+      <input type="text" name="street_number"  id="street_number" placeholder='Street Number'>
+      <input type="text" name="street_name"  id="street_name" placeholder="Street Name">
+      <input type="hidden" name="page" id="page" value="<?=wp_title('',true);?>" >
+      <input type="submit" name="submit" id="submit" value="Find">
+      <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
+    </form>
+    <div class="loading">
+      <img class="gif" src="/wp-content/themes/ElectionData/ElectionData-V2/images/loading.gif" />
+    </div>
+    <div id ="candidates" class = "animated fadeIn">
+    </div>
+    <br />
   </div>
-
-  <div id ="candidates" class = "animated fadeIn">
-
-  </div>
+</div>
 <?php endif;?>
-<?php if($is_address_lookup_tool):?><a href="?results=all"> Reveal All Results</a><?php endif;?>
-  <div id = "all_results_html">
-    <?php $all_res = filter_input(INPUT_GET, 'results', FILTER_SANITIZE_STRING);
-    if ($all_res == 'all'):
-      ?>
-<a name="top"></a>
-<section id="primary" class="content-area">
-  <div id="content" class="site-content" role="main">
-    <?php
-    $c_constituencies = array(); //child constituencies
-
+<a href="?results=all"> Reveal All Results</a>
+<div id = "all_results_html">
+  <?php $all_res = filter_input(INPUT_GET, 'results', FILTER_SANITIZE_STRING);
+  if ($all_res == 'all'):
+    ?>
+    <a name="top"></a>
+    <section id="primary" class="content-area">
+      <div id="content" class="site-content" role="main">
+        <?php
+        $c_constituencies = array(); //child constituencies
         foreach ( $constituency['children'] as $name => $child ) :
           $child_constituency = get_constituency( $child['id'] );
           if ( $child_constituency['children'] == array() ) : //empty array means no children
-
             $can_array = array();
             $sort_vote = array();
             $winner = 0;
@@ -70,12 +50,10 @@ if(!$is_address_lookup_tool && !$_GET){
             );
             $candidates = array();
             $query = new WP_Query( $query_args );
-
             while ( $query->have_posts() ) {
               $query->the_post();
               $candidates[$query->post->ID] = get_candidate( $query->post->ID, true );
             }
-
             // for each candidate, grab their votes, name and id
             foreach( $candidates as $can ){
               $can_array[] = array( 'candidate_votes' => $can['candidate_votes'], 'name' => $can['name'], 'id' => $can['id'] );
@@ -87,7 +65,6 @@ if(!$is_address_lookup_tool && !$_GET){
             }
             // sort the candidates by votes
             array_multisort( $sort_vote, SORT_DESC, $can_array );
-
             // for each candidate, print out results
             if ( !empty( $can_array ) ):
               $winner = 0; ?>
@@ -110,7 +87,7 @@ if(!$is_address_lookup_tool && !$_GET){
                           <td class="election_td"><?php echo $result['candidate_votes']?></td>
                           <td class="election_td"><?php if ($result['candidate_votes']>0) {
                             echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                          }	?>			</td>
+                          } ?>           </td>
                         </tr>
                         <?php $winner++;
                         else : ?>
@@ -120,7 +97,7 @@ if(!$is_address_lookup_tool && !$_GET){
                           <td class = "election_td"><?php echo $result['candidate_votes']?></td>
                           <td class="election_td"><?php if ($result['candidate_votes']>0) {
                             echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                          }	?>			</td>
+                          } ?>           </td>
                         </tr>
                         <?php
                       endif; //for winners
@@ -138,9 +115,7 @@ if(!$is_address_lookup_tool && !$_GET){
               else : //else it has children, so add it to the children array
                 $c_constituencies[$name] = $constituency['children'][$name];
               endif;
-
             endforeach;
-
             foreach ( $c_constituencies as $name => $child ) :
               $child_constituency = get_constituency( $child['id'] ); ?>
               <a name = "<?php echo $name ?>"></a>
@@ -155,7 +130,6 @@ if(!$is_address_lookup_tool && !$_GET){
                   $can_array = array();
                   $sort_vote = array();
                   $num_votes = 0;
-
                   $query_args = array(
                     'post_type' => $ed_post_types['candidate'],
                     'order' => 'ASC',
@@ -168,7 +142,6 @@ if(!$is_address_lookup_tool && !$_GET){
                     $query->the_post();
                     $candidates[$query->post->ID] = get_candidate( $query->post->ID, true );
                   }
-
                   foreach( $candidates as $can ){
                     $can_array[] = array( 'candidate_votes' => $can['candidate_votes'], 'name' => $can['name'], 'id' => $can['id'] );
                     $num_votes += $can['candidate_votes'];
@@ -177,7 +150,6 @@ if(!$is_address_lookup_tool && !$_GET){
                     $sort_vote[] = $key['candidate_votes'];
                   }
                   array_multisort( $sort_vote, SORT_DESC, $can_array );
-
                   if ( !empty( $can_array ) && $can_array[0]['candidate_votes'] != 0 ) :
                     $winner = 0;
                     ?>
@@ -202,7 +174,7 @@ if(!$is_address_lookup_tool && !$_GET){
                             <td class="election_td"><?php echo $result['candidate_votes']?></td>
                             <td class="election_td"><?php if ($result['candidate_votes']>0) {
                               echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                            }	?>			</td>
+                            }   ?>           </td>
                           </tr>
                           <?php $winner++;
                           else : ?>
@@ -214,7 +186,7 @@ if(!$is_address_lookup_tool && !$_GET){
                             <td class="election_td"><?php echo $result['candidate_votes']?></td>
                             <td class="election_td"><?php if ($result['candidate_votes']>0) {
                               echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                            }	?>			</td>
+                            }   ?>           </td>
                           </tr>
                           <?php
                         endif; //for winners
@@ -226,9 +198,7 @@ if(!$is_address_lookup_tool && !$_GET){
                   <?php else : ?>
                     <p style="text-align:center">No results for this constituency.</p>
                   <?php endif;
-
                   if ( !empty( $g_constituencies['children'] ) ) :
-
                     foreach ($g_constituencies['children'] as $g_child) :
                       $new_constituency = get_constituency( $g_child['id'] );
                       ?>
@@ -244,12 +214,10 @@ if(!$is_address_lookup_tool && !$_GET){
                       );
                       $candidates = array();
                       $query = new WP_Query( $query_args );
-
                       while ( $query->have_posts() ) {
                         $query->the_post();
                         $candidates[$query->post->ID] = get_candidate( $query->post->ID, true );
                       }
-
                       foreach( $candidates as $can ){
                         $can_array[] = array('candidate_votes' => $can['candidate_votes'], 'name' => $can['name'], 'id' => $can['id']);
                         $num_votes += $can['candidate_votes'];
@@ -258,9 +226,7 @@ if(!$is_address_lookup_tool && !$_GET){
                         $sort_vote[] = $key['candidate_votes'];
                       }
                       array_multisort( $sort_vote, SORT_DESC, $can_array );
-
                       if ( !empty( $can_array ) ) :
-
                         $winner = 0; ?>
                         <div id="<?php echo $new_constituency['name']?>">
                           <?php if ( $winners_total > 1 ): ?>
@@ -285,7 +251,7 @@ if(!$is_address_lookup_tool && !$_GET){
                                           <td class="election_td"><?php echo $result['candidate_votes']?></td>
                                           <td class="election_td"><?php if ($result['candidate_votes']>0) {
                                             echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                                          }	?>			</td>
+                                          } ?>           </td>
                                         </tr>
                                         <?php $winner++;
                                         else : ?>
@@ -297,7 +263,7 @@ if(!$is_address_lookup_tool && !$_GET){
                                           <td class="election_td"><?php echo $result['candidate_votes']?></td>
                                           <td class="election_td"><?php if ($result['candidate_votes']>0) {
                                             echo round( ( $result['candidate_votes'] / $num_votes ), 3 ) * 100 . '%';
-                                          }	?>			</td>
+                                          } ?>           </td>
                                         </tr>
                                         <?php
                                       endif; //for winners
@@ -307,10 +273,9 @@ if(!$is_address_lookup_tool && !$_GET){
                                   </table>
                                   <br />
                                 <?php else: ?>
-                                  <p style="text-align:center">No results for this constituency.</p>	<?php
+                                  <p style="text-align:center">No results for this constituency.</p>  <?php
                                 endif; //endif for empty candidate array
                               endforeach; //end grandchildren foreach
-
                             endif; // end grandchildren if
                           endforeach; //end children foreach  ?>
                         </div>
@@ -318,10 +283,6 @@ if(!$is_address_lookup_tool && !$_GET){
                       endforeach; //end c_constituencies foreach ?>
                     </div>
                   </section>
-
                 <?php endif; ?>
-
-
               </div>
-
               <?php get_footer(); ?>

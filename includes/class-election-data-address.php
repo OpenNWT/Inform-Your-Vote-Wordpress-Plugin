@@ -318,7 +318,7 @@ class Election_Data_Address {
       }
       else
       {
-        echo "<h2>Results for \"{$street_address} {$street_type[0]} {$street_direction[0]}\" </h2>";
+        echo "<h2 style='text-align:center;'>Results for \"{$street_address} {$street_type[0]} {$street_direction[0]}\" </h2>";
         self::display_candidates($constituency, $school_ward, 'mayoral-candidates', $data, $new_ward[0], $school_division_name);
       }
 
@@ -465,7 +465,6 @@ class Election_Data_Address {
   *
   */
   public function display_election_results( $constituency, $school_id = -1, $council_id = -1 ) {
-    echo "Display results for {$constituency['name']}";
 
     //If these are empty, then ignore them
     if ( empty( $school_id ) ) {
@@ -566,7 +565,7 @@ class Election_Data_Address {
             endif; //for winners
           endforeach; //end result foreach ?>
           <tr><td>Number of votes: <?php echo $num_votes ?> </td></tr>
-          <tr><td><a href="#top">Back to top</a></td></tr>
+          <!-- <tr><td><a href="#top">Back to top</a></td></tr> -->
         </table>
         <br />
       </div>
@@ -577,7 +576,7 @@ class Election_Data_Address {
     endif; //endif for candidate array
 
   }
-  
+
   /**
   * Initializes the custom_post and taxonomies (Used during activation)
   *
