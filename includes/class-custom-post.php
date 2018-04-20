@@ -348,10 +348,10 @@ class ED_Custom_Post_Type {
 			foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
 				if ( "taxonomy-$taxonomy_name" == $wp_query->query_vars['orderby'] ) {
 					$clauses['join'] .= <<<SQL
-					LEFT OUTER JOIN {$wpdb->term_relationships} tr2 ON {$wpdb->posts}.ID=tr2.object_id
-					LEFT OUTER JOIN {$wpdb->term_taxonomy} tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id AND (tt2.taxonomy = '$taxonomy_name' OR tt2.taxonomy IS NULL)
-					LEFT OUTER JOIN {$wpdb->terms} t2 on tt2.term_id = t2.term_id
-					SQL;
+LEFT OUTER JOIN {$wpdb->term_relationships} tr2 ON {$wpdb->posts}.ID=tr2.object_id
+LEFT OUTER JOIN {$wpdb->term_taxonomy} tt2 ON tr2.term_taxonomy_id = tt2.term_taxonomy_id AND (tt2.taxonomy = '$taxonomy_name' OR tt2.taxonomy IS NULL)
+LEFT OUTER JOIN {$wpdb->terms} t2 on tt2.term_id = t2.term_id
+SQL;
 
 					$clauses['groupby'] = "tr2.object_id";
 					$clauses['orderby']  = "GROUP_CONCAT(t2.name ORDER BY name ASC) ";
