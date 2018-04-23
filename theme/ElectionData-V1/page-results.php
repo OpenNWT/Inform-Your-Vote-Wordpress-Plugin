@@ -1,9 +1,4 @@
 <?php
-
-/**
- * Page meant to display election results.
- * Note that results must be filled in on each individual candidate page.
- */
 global $is_party_election;
 global $ed_post_types;
 $constituency = get_constituency( $party_id = get_queried_object()->term_id );
@@ -11,28 +6,8 @@ $constituency_id = $constituency['id'];
 global $is_address_lookup_tool;
 ?>
 <?php get_header(); ?>
-<?php if( $is_address_lookup_tool ): ?>
-  <div class = "address_lookup_page">
-    <div class="search_text">
-      <span class="enter_address_text">Enter Your Address To Reveal The Results Of Your Area.</span><br />
-    </div>
-    <form id="address_lookup_form" method="POST" action="">
-      <input type="text" name="street_number"  id="street_number" placeholder='Street Number'>
-      <input type="text" name="street_name"  id="street_name" placeholder="Street Name">
-      <input type="hidden" name="page" id="page" value="<?=wp_title('',true);?>" >
-      <input type="submit" name="submit" id="submit" value="Find">
-      <!-- <input type="button" name = "delete" id = "delete" value = "Delete" > -->
-    </form>
-    <div class="loading">
-      <img class="gif" src="/wp-content/themes/ElectionData/ElectionData-V2/images/loading.gif" />
-    </div>
-    <div id ="candidates" class = "animated fadeIn">
-    </div>
-    <br />
-  </div>
-</div>
-<?php endif;?>
-<a href="?results=all"> Reveal All Results</a>
+
+<a href="?results=all" style="text-align:center;"> Reveal All Results</a>
 <div id = "all_results_html">
   <?php $all_res = filter_input(INPUT_GET, 'results', FILTER_SANITIZE_STRING);
   if ($all_res == 'all'):

@@ -1,3 +1,36 @@
+/**
+*	Javascript for setting an explanation of what MetaData is when in the admin panel.
+*
+*/
+window.onload = function() {
+	changeAnswer();
+	var currentURL = window.location;
+	currentURL = currentURL.toString();
+	var trueLocation = currentURL.substring(63, 76);
+	if (trueLocation == "meta_data_tab") {
+		var metatext = document.querySelector('.hndle > span:nth-child(1)');
+		if (metatext != null) {
+			if (metatext.innerHTML == 'MetaData') {
+				metatext.innerHTML += '<br />MetaData is data about your website picked up by search engines and what will appear if your website\'s metadata is fetched by a link.';
+			}
+		}
+	}
+
+	//var metatext = document.getElementsByClassName('hndle')[0];
+	//if (metatext.innerHTML == '<span>MetaData</span>') {
+	//metatext.innerHTML += '<br />MetaData is data about your website picked up by search engines and what will appear if your website\'s metadata is fetched by a link.';
+	//}
+};
+
+// Change the Answer item to something more descriptive via javascript
+function changeAnswer() {
+	var answers = document.querySelector("#menu-posts-ed_answers > a > div.wp-menu-name");
+	if (answers != null) {
+	answers.innerHTML = "Questionnaire";
+ }
+}
+
+
 jQuery(document).ready( function($) {
 	$.fn.exists = function () {
 		return this.length !== 0;
@@ -100,14 +133,3 @@ jQuery(document).ready( function($) {
 		} )( label ) );
 	}
 });
-
-/**
-*	Javascript for setting an explanation of what MetaData is when in the admin panel.
-*
-*/
-window.onload = function() {
-		var metatext = document.getElementsByClassName('hndle')[0];
-		if (metatext.innerHTML == '<span>MetaData</span>') {
-		metatext.innerHTML += '<br />MetaData is data about your website picked up by search engines and what will appear if your website\'s metadata is fetched by a link.';
-	}
-};
