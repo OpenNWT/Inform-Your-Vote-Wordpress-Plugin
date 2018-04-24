@@ -264,8 +264,7 @@ class Election_Data_Address {
         foreach( $street_addresses as $address ){
           $output = "<div class = 'address_suggestions {$address['id']}'>
                       <h3 class='address_title'>{$address['title']} {$address['street_type']} {$address['street_direction']}</h3><br>
-                      <img class='address_image' src='https://maps.googleapis.com/maps/api/staticmap?markers=". $address['title'] ." ".
-                       $address['street_type'] . " " . $address['street_direction'] . ",%20winnipeg,%20manitoba,%20canada&zoom=14&size=300x300&sensor=false&key='" .Election_Data_Option::get_option('api_key') . "' />
+                      <img class='address_image' src='https://maps.googleapis.com/maps/api/staticmap?markers={$address['title']} {$address['street_type']} {$address['street_direction']},%20winnipeg,%20manitoba,%20canada&zoom=14&size=300x300&sensor=false&key=" . Election_Data_Option::get_option('api_key'). "' />
                     </div>
                     ";
 
@@ -436,7 +435,7 @@ class Election_Data_Address {
         ));
 
         if($school_ward_candidates->have_posts()){
-          echo ("<div class = 'flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
+          echo ("<div class = 'flow_it politicians result_head' style='padding:10px;'>
                 <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>School Trustee Candidates in {$school_division_name}</h1>");
           shuffle( $school_ward_candidates->posts );
           display_constituency_candidates( $school_ward_candidates, $school_ward_id, $candidate_references );
@@ -495,7 +494,7 @@ class Election_Data_Address {
 
     }
 
-    
+
     public function output_election_results ( $result_input ) {
       //echo 'testing the input:<br />';
       //print_r($result_input);
