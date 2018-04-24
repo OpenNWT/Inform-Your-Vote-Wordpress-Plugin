@@ -229,7 +229,7 @@ class Election_Data_Answer {
 					'taxonomy' => $this->taxonomies['question'],
 					'fields' => array(
 						array(
-							'type' => 'wysiwyg',
+							'type' => 'text',
 							'id' => 'question',
 							'std' => '',
 							'label' => __( 'The Question' ),

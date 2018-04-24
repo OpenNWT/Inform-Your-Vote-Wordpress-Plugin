@@ -75,6 +75,8 @@ class Election_Data_Admin {
 
 			wp_enqueue_script( $script_name );
 		}
+		//add in the rename script
+		wp_enqueue_script('questionaire_override', plugin_dir_url(__FILE__) . 'js/rename.js');
 	}
 
 	/**

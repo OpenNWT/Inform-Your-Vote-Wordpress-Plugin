@@ -1,4 +1,5 @@
 <?php
+//Warning: Do not auto indent the order_by_taxonomy function. It will break it.
 
 /**
 * The file that defines the ED_Custom_Post class.
@@ -335,6 +336,7 @@ class ED_Custom_Post_Type {
 	/**
 	* If the orderby has been set to taxonomy-{taxonomy_name},
 	* update the sql query clauses so that the results are sorted using the name field of the taxonomy.
+	* Note well that the SQL query below, in its current state, must retain its indentation. Auto-indenting it WILL break it.
 	*
 	* @since 1.0
 	* @access public
