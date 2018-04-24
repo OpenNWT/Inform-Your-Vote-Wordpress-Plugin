@@ -1,54 +1,54 @@
 <?php
 
 /**
- * Post Meta Data handler.
- *
- * @package		Election_Data
- * @since		1.0
- * @author 		Robert Burton <RobertBurton@gmail.com>
- *
- */
+* Post Meta Data handler.
+*
+* @package		Election_Data
+* @since		1.0
+* @author 		Robert Burton <RobertBurton@gmail.com>
+*
+*/
 
 require_once plugin_dir_path( __FILE__ ) . 'class-post-import.php';
- 
+
 class Tax_Meta {
-	
+
 	/*
-	 * The name of the taxonomy.
-	 *
-	 * @var string
-	 * @access protected
-	 *
-	 */
+	* The name of the taxonomy.
+	*
+	* @var string
+	* @access protected
+	*
+	*/
 	protected $taxonomy;
-	
+
 	/**
-	 * The prefix used for the id and name of the custom fields.
-	 *
-	 * @var string
-	 * @access protected
-	 *
-	 */
+	* The prefix used for the id and name of the custom fields.
+	*
+	* @var string
+	* @access protected
+	*
+	*/
 	protected $prefix;
-	
+
 	/**
-	 * Holds the definition of the meta data fields.
-	 *
-	 * @var array
-	 * @access protected
-	 *
-	 */
+	* Holds the definition of the meta data fields.
+	*
+	* @var array
+	* @access protected
+	*
+	*/
 	protected $fields;
-	
+
 	/**
-	 * Constructor
-	 *
-	 * @since 1.0
-	 * @access protected
-	 * @param string $taxonomy
-	 * @param array $fields
-	 *
-	 */
+	* Constructor
+	*
+	* @since 1.0
+	* @access protected
+	* @param string $taxonomy
+	* @param array $fields
+	*
+	*/
 	public function __construct( $args, $define_hooks = true ) {
 		$this->fields = $args['fields'];
 		$taxonomy = $args['taxonomy'];
@@ -56,7 +56,7 @@ class Tax_Meta {
 		$this->prefix = "tm_{$taxonomy}_";
 		$this->hidden = isset( $args['hidden'] ) ? $args['hidden'] : array();
 		$this->renamed = isset( $args['renamed'] ) ? $args['renamed'] : array();
-		
+
 		if ( $define_hooks ) {
 			add_action( 'delete_term', array( $this, 'delete_meta'), 10, 3 );
 			add_action( "{$taxonomy}_add_form_fields", array( $this, 'add_form_fields' ) );
@@ -66,7 +66,10 @@ class Tax_Meta {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 	}
-	
+
+	/**
+	* Enqueues the scripts to be added.
+	*/
 	public function enqueue_scripts()
 	{
 		$taxonomy = isset( $_REQUEST['taxonomy'] ) ? $_REQUEST['taxonomy'] : '';
@@ -97,7 +100,7 @@ class Tax_Meta {
 						$translation_array[$field['id']] = $this->prefix . $field['id'];
 					}
 				}
-				
+
 				wp_localize_script( $script_id, 'tm_image_data', $translation_array );
 				wp_enqueue_script( $script_id );
 				wp_enqueue_media();
@@ -116,7 +119,10 @@ class Tax_Meta {
 			}
 		}
 	}
-	
+
+	/**
+	*	Checks of the field has a "type" attribute.
+	*/
 	protected function has_type( $type )
 	{
 		foreach ( $this->fields as $field ) {
@@ -124,20 +130,29 @@ class Tax_Meta {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
+	/**
+	* Adds the fields of a form
+	*/
 	public function add_form_fields( $term_name )
 	{
 		$this->form_fields( '', 'add' );
 	}
-	
+
+	/**
+	* Edits the fields of a form
+	*/
 	public function edit_form_fields( $term )
 	{
 		$this->form_fields( $term->term_id, 'edit' );
 	}
-	
+
+	/**
+	* Displayes the field labels.
+	*/
 	protected function display_field_label( $field, $mode ) {
 		if ( $mode == 'edit' ) {
 			$header = '<th scope="row">';
@@ -150,7 +165,17 @@ class Tax_Meta {
 		$label = $field['label'];
 		echo "$header<label for='$id'>$label</label>$footer";
 	}
-	
+
+	/**
+	* Callback to output number field.
+	*/
+	protected function show_number ( $field, $mode, $value ) {
+		$this->show_text( $field, $mode, $value, 'number' );
+	}
+
+	/**
+	* Callback to output wysiwyg editor.
+	*/
 	protected function show_wysiwyg( $field, $mode, $value ) {
 		if ( $mode == 'edit' ) {
 			$header = '<td>';
@@ -168,7 +193,10 @@ class Tax_Meta {
 		$desc = $field['desc'];
 		echo "<p>$desc</p>$footer";
 	}
-	
+
+	/**
+	* Callback to output image upload form.
+	*/
 	protected function show_image( $field, $mode, $value )
 	{
 		if ($mode == 'edit' )
@@ -199,13 +227,15 @@ class Tax_Meta {
 		$id = esc_attr( "{$this->prefix}{$field['id']}" );
 		$desc = $field['desc'];
 		echo "$header<img id='{$id}_img' src='$image_url' style='max-width:100%'/>";
-		echo "<input type='text' name='$id' id='$id' value='$image_id' />";
+		echo "<input type='hidden' name='$id' id='$id' value='$image_id' />";
 		echo "<br><input type='button' id='{$id}_add' name='{$id}_add' value='Select Image' $add_class/>";
 		echo "<br><input type='button' id='{$id}_del' name='{$id}_del' value='Remove Image' $del_class/>";
 		echo "<p>$desc</p>$footer";
 	}
 
-	
+	/**
+	* Callback to output a text field with a button.
+	*/
 	protected function show_text_with_load_value_button( $field, $mode, $value ) {
 		if ( $mode == 'edit' ) {
 			$header = '<td>';
@@ -223,7 +253,11 @@ class Tax_Meta {
 		echo "$header<input type='text' id='$id' name='$id' value='$value'/>";
 		echo "<button id='{$id}_button' type='button'>{$field['button_label']}</button>";
 		echo "<p>$desc</p>$footer";
-	}	
+	}
+
+	/**
+	* Callback to output a checkbox.
+	*/
 	protected function show_checkbox( $field, $mode, $value ) {
 		if ( $mode == 'edit' ) {
 			$header = '<td>';
@@ -238,9 +272,12 @@ class Tax_Meta {
 		$this->display_field_label( $field, $mode );
 		$id = esc_attr( "{$this->prefix}{$field['id']}" );
 		$desc = $field['desc'];
-		echo "$header<input type='checkbox' id='$id' name='$id'$checked /><p>$desc</p>$footer";			
+		echo "$header<input type='checkbox' id='$id' name='$id'$checked /><p>$desc</p>$footer";
 	}
-	
+
+	/**
+	* Callback to output text field.
+	*/
 	protected function show_text( $field, $mode, $value, $type='text' ) {
 		if ( $mode == 'edit' ) {
 			$header = '<td>';
@@ -257,7 +294,10 @@ class Tax_Meta {
 		$desc = $field['desc'];
 		echo "$header<input type='$type' id='$id' name='$id' value='$value'/><p>$desc</p>$footer";
 	}
-	
+
+	/**
+	* Callback to output hidden field.
+	*/
 	protected function show_hidden_input( $field, $mode, $value ) {
 		if (! $value ) {
 			if ( $mode == 'edit' ) {
@@ -273,22 +313,34 @@ class Tax_Meta {
 			echo "$header<input type='hidden' id='$id' name='$id' value='$value'/>$footer";
 		}
 	}
-	
+
 	protected function show_hidden( $field, $mode, $value ) {
 	}
-	
+
+	/**
+	* Callback to output url field.
+	*/
 	protected function show_url( $field, $mode, $value ) {
 		$this->show_text( $field, $mode, $value, 'url' );
 	}
-	
+
+	/**
+	* Callback to output email field.
+	*/
 	protected function show_email( $field, $mode, $value ) {
 		$this->show_text( $field, $mode, $value, 'email' );
 	}
-	
+
+	/**
+	* Callback to output a color picker field.
+	*/
 	protected function show_color( $field, $mode, $value ) {
 		$this->show_text( $field, $mode, $value, 'color' );
 	}
-	
+
+	/**
+	* Callback to output  form fields.
+	*/
 	protected function form_fields( $term_id, $mode ) {
 		if ( $mode == 'edit' ) {
 			$values = get_tax_meta_all( $term_id );
@@ -302,7 +354,10 @@ class Tax_Meta {
 			call_user_func( array( $this, "show_{$field['type']}" ), $field, $mode, isset( $values[$field['id']] ) ? $values[$field['id']] : $field['std'] );
 		}
 	}
-	
+
+	/**
+	* Returns the data being input in the fieds.
+	*/
 	private function get_posted_data( $field_type, $field_id, $current_value ) {
 		switch ( $field_type ) {
 			case 'text':
@@ -314,21 +369,25 @@ class Tax_Meta {
 			case 'wysiwyg':
 			case 'text_with_load_value_button':
 			case 'hidden_input':
-				if ( isset( $_POST[$field_id] ) ) {
-					return stripslashes( $_POST[$field_id] );
-				} else {
-					return $current_value;
-				}
-				break;
+			case 'number':
+			if ( isset( $_POST[$field_id] ) ) {
+				return stripslashes( $_POST[$field_id] );
+			} else {
+				return $current_value;
+			}
+			break;
 			case 'checkbox':
-				return isset( $_POST[$field_id] );
-				break;
+			return isset( $_POST[$field_id] );
+			break;
 			case 'hidden':
-				return $current_Value;
-				break;
+			return $current_Value;
+			break;
 		}
 	}
-	
+
+	/**
+	*	Saves all the meta data.
+	*/
 	public function save_meta( $term_id ) {
 		if ( isset($_POST['action'] ) && ( 'editedtag' == $_POST['action'] || 'add-tag' == $_POST['action'] ) ) {
 			$term_meta = get_tax_meta_all( $term_id );
@@ -340,21 +399,27 @@ class Tax_Meta {
 			update_tax_meta_all( $term_id, $term_meta );
 		}
 	}
-	
+
+	/**
+	*	Deletes all the meta data.
+	*/
 	public function delete_meta( $term_id, $tt_id, $taxonomy ) {
 		if ( $taxonomy == $this->taxonomy ) {
 			delete_tax_meta_all( $term_id );
 		}
 	}
-	
+
+	/**
+	*	Updates the field's names.
+	*/
 	public function get_field_names($mode = 'all') {
 		$names = array();
 		foreach ( $this->fields as $field ) {
 			if ( $field['imported'] ) {
 				if ( 'image' == $field['type'] && 'non_image' != $mode ) {
-					$names[] = array( 
+					$names[] = array(
 						'url' => "{$field['id']}_url",
-						'base64' => "{$field['id']}_base64", 
+						'base64' => "{$field['id']}_base64",
 						'filename' => "{$field['id']}_filename",
 						'' => $field['id'],
 					);
@@ -363,10 +428,13 @@ class Tax_Meta {
 				}
 			}
 		}
-		
+
 		return $names;
 	}
-	
+
+	/**
+	*	Returns the field's values.
+	*/
 	public function get_field_values( $term_id ) {
 		$values = array();
 		$meta_values = get_tax_meta_all( $term_id );
@@ -399,10 +467,13 @@ class Tax_Meta {
 				}
 			}
 		}
-		
+
 		return $values;
 	}
-	
+
+	/**
+	*	Updates the field's values.
+	*/
 	public function update_field_values( $term_id, $data, $mode ) {
 		$meta_values = get_tax_meta_all( $term_id );
 		foreach ( $this->fields as $field ) {
@@ -419,20 +490,20 @@ class Tax_Meta {
 				}
 			}
 		}
-		
+
 		update_tax_meta_all( $term_id, $meta_values );
 	}
 }
 
 /**
- * Helper function to update the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- * @param mixed $value
- *
- */
+* Helper function to update the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+* @param mixed $value
+*
+*/
 function update_tax_meta( $term_id, $key, $value )
 {
 	$meta = get_option( "tax_meta_$term_id" );
@@ -441,14 +512,14 @@ function update_tax_meta( $term_id, $key, $value )
 }
 
 /**
- * Helper function to replace all of the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- * @param array $value
- *
- */
+* Helper function to replace all of the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+* @param array $value
+*
+*/
 function update_tax_meta_all( $term_id, $value )
 {
 	if ( is_array( $value ) ) {
@@ -457,13 +528,13 @@ function update_tax_meta_all( $term_id, $value )
 }
 
 /**
- * Helper function to retrieve the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- *
- */
+* Helper function to retrieve the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+*
+*/
 function get_tax_meta( $term_id, $key )
 {
 	$meta = get_option( "tax_meta_$term_id" );
@@ -471,25 +542,25 @@ function get_tax_meta( $term_id, $key )
 }
 
 /**
- * Helper function to retrieve all of the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- *
- */
+* Helper function to retrieve all of the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+*
+*/
 function get_tax_meta_all( $term_id )
 {
 	return get_option( "tax_meta_$term_id");
 }
 
 /**
- * Helper function to delete the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- * @param string $key
- *
- */
+* Helper function to delete the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+* @param string $key
+*
+*/
 function delete_tax_meta( $term_id, $key )
 {
 	$meta = get_option( "tax_meta_$term_id" );
@@ -500,12 +571,12 @@ function delete_tax_meta( $term_id, $key )
 }
 
 /**
- * Helper function to delete all of the taxonomy meta data.
- *
- * @since 1.0
- * @param int $term_id
- *
- */
+* Helper function to delete all of the taxonomy meta data.
+*
+* @since 1.0
+* @param int $term_id
+*
+*/
 function delete_tax_meta_all( $term_id )
 {
 	delete_option( "tax_meta_$term_id" );

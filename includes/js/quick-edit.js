@@ -27,7 +27,7 @@ jQuery(document).ready( function($) {
 				break;
 		}
 	}
-	
+
 	for (var $field in ed_rename_columns) {
 		if (!ed_rename_columns.hasOwnProperty($field)) {
 			continue;

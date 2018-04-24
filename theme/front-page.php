@@ -1,79 +1,28 @@
-<?php
+<?php wp_head(); ?>
+<script type="text/javascript">
+addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
+var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>';
+</script>
+<body>
+	<h1>Please select a theme</h1>
+	<div class="versions">
+		<p>There are two themes in the ElectionData plugin.
+				<br>
+				<span>Election Data - V1</span></li>
+				<br>
+				<span>Election Data - V2</span></li>
+				<br>
+			Click on the theme you want to choose.</p>
+		<div class="column" id="column-1">
+			<p class="title">Electon Data - V1</p>
+			<img src="/wp-content/themes/ElectionData/images/theme-v1.jpg" alt="theme-v1" />
+		</div>
+		<div class="column" id="column-2">
+			<p class="title">Electon Data - V2</p>
+			<img src="/wp-content/themes/ElectionData/images/theme-v2.jpg" alt="theme-v2" />
+		</div>
+	</div>
 
-$constituencies = get_root_constituencies();
-$parties = get_parties_random();
+</body>
 
-get_header(); ?>
-
-<div class="flow_it">
-	<?php $summary = Election_Data_Option::get_option( 'summary' );
-	if ( $summary ) : ?>
-		<div class="one_column medium_row">
-			<?php echo $summary; ?>
-		</div>
-	<?php endif;
-	if ( $constituencies ) : ?>
-		<div class="one_column medium_row">
-			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
-			<p class="small grey"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
-			<?php foreach ( $constituencies as $constituency_id ) :
-				$constituency = get_constituency( $constituency_id ); ?>
-				<div class="mini_maps">
-					<p class="small"><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
-					<a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
-						<?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
-					</a>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	<?php endif;
-	$facebook = esc_attr( Election_Data_Option::get_option( 'facebook-page' ) );
-	$twitter = esc_attr( Election_Data_Option::get_option( 'twitter' ) );
-	$google_plus_one = Election_Data_Option::get_option( 'google-plus-one' );
-	if ( $facebook || $twitter || $google_plus_one ) : ?>
-		<div class="one_column medium_row social">
-            <h2>ManitobaElection.ca</h2>
-            <p>Research the parties and candidates of the 2016 Manitoba Election.</p>
-            <p>A voter resource maintained by<br><a href="/about-us">Open Democracy Manitoba</a>.</p>
-            <h2>Join the Conversation</h2>
-            <p>Join the conversation at <a href="https://twitter.com/search?q=%23mbelxn&src=typd" target="_blank">#mbelxn</a>.</p> 
-            <?php if ( $twitter ) : ?>
-				<p><a href="http://twitter.com/<?php echo $twitter; ?>" class="twitter-follow-button">Follow @<?php echo $twitter; ?></a></p>
-            <?php endif ?>
-			<?php if ( $facebook ) : ?>
-                <iframe src="//www.facebook.com/plugins/like.php?href=<?= $facebook ?>&amp;width=270&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=61535010545" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:270px; height:80px;" allowTransparency="true"></iframe>
-            <?php endif ?>
-            <?php if ( $google_plus_one ) : ?>
-				<p><g:plusone></g:plusone></p>
-			<?php endif; ?>
-		</div>
-	<?php endif;
-	$news_count = Election_Data_Option::get_option( 'news-count-front', 10 );
-	if ( $news_count ) : ?>
-		<div class="one_column latest_news_small">
-			<h2>Latest Election News</h2>
-			<?php display_news_titles( null, true, $news_count ); ?>
-		</div>
-	<?php endif;
-	if ( $parties ) : ?>
-		<div class="two_columns">
-			<h2><?php echo Election_Data_Option::get_option( 'party-label', 'The Political Parties' ); ?></h2>
-			<div class="parties_thumb" >
-				<?php foreach ( $parties as $party_id ) :
-					$party = get_party( $party_id ); ?>
-					<div class="party_thumb" >
-						<p><a href="<?php echo $party['url']; ?>"><?php echo $party['name']; ?></a></p>
-						<div>
-						<a href="<?php echo $party['url']; ?>">
-							<?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
-						</a>
-						</div>
-					</div>
-				<?php endforeach; ?>
-            </div>
-            <br>
-			<p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
-		</div>
-	<?php endif; ?>
-</div>
-<?php get_footer(); ?>
+</html>

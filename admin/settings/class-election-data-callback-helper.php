@@ -7,7 +7,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/admin/settings
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Callback_Helper {
 
@@ -27,22 +27,36 @@ class Election_Data_Callback_Helper {
 	 * @var      string    $plugin_name       The name of this plugin.
 	 */
 	public function __construct( $plugin_name ) {
-
 		$this->plugin_name = $plugin_name;
-
 	}
-	
+
+	/**
+	 * Return a given attribute value.
+	 *
+	 * @since 1.0.0
+	 */
 	private function get_attribute_value( $value ) {
 		return "election_data_settings[$value]";
 	}
 
+	/**
+	 * Return a given id value.
+	 *
+	 * @since 1.0.0
+	 */
 	private function get_id_attribute( $id ) {
 		return ' id="election_data_settings[' . $id . ']" ';
 	}
 
+	/**
+	 * Return a given name value.
+	 *
+	 * @since 1.0.0
+	 */
 	private function get_name_attribute( $name ) {
 		return ' name="election_data_settings[' . $name . ']" ';
 	}
+
 
 	private function get_id_and_name_attrubutes( $field_key ) {
 		return  $this->get_id_attribute( $field_key ) . $this->get_name_attribute( $field_key );
@@ -77,7 +91,16 @@ class Election_Data_Callback_Helper {
 	public function header_callback( $args ) {
 		echo '<hr/>';
 	}
-	
+
+	/**
+	 * Localize Image
+	 *
+	 * Localizes the image id, so that it can be usd in javascript.
+	 *
+	 * @since 	1.0.0
+	 * @param 	array $element_settings An array passed by the setting
+	 * @return 	array $translation_array An array containing the image ids in the javascript variable
+	 */
 	public static function localize_image( $element_settings ) {
 		$translation_array = array();
 		foreach ( $element_settings as $settings ) {
@@ -85,10 +108,19 @@ class Election_Data_Callback_Helper {
 			$options = $settings[1];
 			$translation_array[$id] = "election_data_settings[$id]";
 		}
-		
+
 		return array( 'ed_settings_image_data' => $translation_array );
 	}
-	
+
+	/**
+	 * Localize Button
+	 *
+	 * Localizes the buttons's actions and the messages, so that they can be usd in javascript.
+	 *
+	 * @since 	1.0.0
+	 * @param 	array $element_settings An array passed by the setting
+	 * @return 	array $translation_array An array containing the buttons's actions and the messages in the javascript variable
+	 */
 	public static function localize_button( $element_settings ) {
 		$actions = array();
 		$messages = array();
@@ -100,19 +132,32 @@ class Election_Data_Callback_Helper {
 				$messages[$id] = $options['message'];
 			}
 		}
-		
+
 		return array(
 			'ed_settings_button_actions' => $actions,
 			'ed_settings_button_messages' => $messages,
 		);
 	}
-	
+
+	/**
+	 * Calls wp_enqueue_media.
+	 *
+	 * @since 	1.0.0
+	 * @return 	array contains three elements - jquery, media-upload, thickbox
+	 */
 	public static function js_dependancies_image() {
 		wp_enqueue_media();
-		
+
 		return array( 'jquery', 'media-upload', 'thickbox' );
 	}
-	
+
+/**
+ * Callback for images.
+ *
+ * @since 1.0.0.
+ * @param array $args Arguments passed by the setting
+ * @return void
+ */
 	public function image_callback( $args ) {
 		$value = Election_Data_Option::get_option( $args['id'], '' );
 		$url = $value ? esc_url( wp_get_attachment_url( $value ) ) : '';
@@ -127,6 +172,13 @@ class Election_Data_Callback_Helper {
 		<?php endif;
 	}
 
+	/**
+	 * Callback for buttons.
+	 *
+	 * @since 1.0.0.
+	 * @param array $args Arguments passed by the setting
+	 * @return void
+	 */
 	public function button_callback( $args ) {
 		$options = $args['options']
 		?>
@@ -135,7 +187,15 @@ class Election_Data_Callback_Helper {
 			<br><label><?php echo $args['desc']; ?></label>
 		<?php endif;
 	}
-	
+
+	/**
+	 * Displays import/export settings.
+	 *
+	 * @since 1.0.0.
+	 * @param $mode whether the mode is import or export
+	 * @param array $args Arguments passed by the setting
+	 * @return void
+	 */
 	protected function display_import_export( $mode, $args ) {
 		$options = $args['options'];
 		$form_id = "{$options['id']}_form";
@@ -155,7 +215,7 @@ class Election_Data_Callback_Helper {
 		<fieldset class="radiogroup">
 		<legend><?php echo $legend; ?></legend>
 			<ul class="radio">
-				<?php foreach ( $options['formats'] as $type => $label ) : 
+				<?php foreach ( $options['formats'] as $type => $label ) :
 					if ( isset( $options['required_modules'][$type] ) ) :
 						$loaded = true;
 						foreach ( $options['required_modules'][$type] as $module ) :
@@ -164,7 +224,7 @@ class Election_Data_Callback_Helper {
 								$loaded = false;
 							endif;
 						endforeach;
-						
+
 						$disabled = $loaded ? '' : ' disabled';
 					else :
 						$disabled = '';
@@ -200,15 +260,29 @@ class Election_Data_Callback_Helper {
 			</ul>
 		<?php endif;
 	}
-	
+
+	/**
+	 * Calls the display function, specified to import.
+	 *
+	 * @since 1.0.0.
+	 * @param $args	arguments for the import
+	 * @return void
+	 */
 	public function import_callback( $args ) {
 		$this->display_import_export( 'import', $args );
 	}
-	
+
+	/**
+	 * Calls the display function, specified to export.
+	 *
+	 * @since 1.0.0.
+	 * @param $args	arguments for the export
+	 * @return void
+	 */
 	public function export_callback( $args ) {
 		$this->display_import_export( 'export', $args );
 	}
-	
+
 	/**
 	 * Checkbox Callback
 	 *
@@ -250,7 +324,6 @@ class Election_Data_Callback_Helper {
 		}
 
 		$old_values = Election_Data_Option::get_option( $args['id'], array() );
-
 		$html ='';
 
 		foreach ( $args['options'] as $field_key => $option ) {
@@ -293,7 +366,6 @@ class Election_Data_Callback_Helper {
 		}
 
 		$old_value = Election_Data_Option::get_option( $args['id'] );
-
 		$html = '';
 
 		foreach ( $args['options'] as $field_key => $option ) {
@@ -311,7 +383,6 @@ class Election_Data_Callback_Helper {
 
 			$html .= $this->get_label_for( $args['id'] . '][' . $field_key, $option );
 			$html .= '<br/>';
-
 		}
 
 		$html .= '<p class="description">' . $args['desc'] . '</p>';
@@ -328,9 +399,7 @@ class Election_Data_Callback_Helper {
 	 * @return 	void
 	 */
 	public function text_callback( $args ) {
-
 		$this->input_type_callback( 'text', $args );
-
 	}
 
 	/**
@@ -343,9 +412,7 @@ class Election_Data_Callback_Helper {
 	 * @return 	void
 	 */
 	public function email_callback( $args ) {
-
 		$this->input_type_callback( 'email', $args );
-
 	}
 
 	/**
@@ -358,9 +425,7 @@ class Election_Data_Callback_Helper {
 	 * @return 	void
 	 */
 	public function url_callback( $args ) {
-
 		$this->input_type_callback( 'url', $args );
-
 	}
 
 	/**
@@ -373,9 +438,7 @@ class Election_Data_Callback_Helper {
 	 * @return 	void
 	 */
 	public function password_callback( $args ) {
-
 		$this->input_type_callback( 'password', $args );
-
 	}
 
 	/**
@@ -395,6 +458,7 @@ class Election_Data_Callback_Helper {
 		$html = '<input type="' . $type . '" ';
 		$html .= $this->get_id_and_name_attrubutes( $args['id'] );
 		$html .= 'class="' . $args['size'] . '-text" ';
+		$html .= 'placeholder="' . $args['placeholder'] . '"';
 		$html .= 'value="' . esc_attr( stripslashes( $value ) ) . '"/>';
 
 		$html .= '<br />';
@@ -415,13 +479,13 @@ class Election_Data_Callback_Helper {
 
 		$value = Election_Data_Option::get_option( $args['id'] );
 
-
 		$html = '<input type="number" ';
 		$html .= $this->get_id_and_name_attrubutes( $args['id'] );
 		$html .= 'class="' . $args['size'] . '-text" ';
 		$html .= 'step="' . $args['step'] . '" ';
 		$html .= 'max="' . $args['max'] . '" ';
 		$html .= 'min="' . $args['min'] . '" ';
+		$html .= 'placeholder="' . $args['placeholder'] . '"';
 		$html .= 'value="' . $value . '"/>';
 
 		$html .= '<br />';
@@ -442,7 +506,6 @@ class Election_Data_Callback_Helper {
 	public function textarea_callback( $args ) {
 
 		$value = Election_Data_Option::get_option( $args['id'], $args['std']  );
-
 
 		$html = '<textarea ';
 		$html .= 'class="' . $args['size'] . '-text" ';
@@ -523,7 +586,6 @@ class Election_Data_Callback_Helper {
 	 * @return 	void
 	 */
 	public function upload_callback( $args ) {
-
 
 		$html = '<input type="text" ';
 		$html .= $this->get_id_and_name_attrubutes( $args['id'] );

@@ -7,7 +7,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/admin/settings
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Sanitization_Helper {
 
@@ -39,7 +39,6 @@ class Election_Data_Sanitization_Helper {
 	public function __construct( $plugin_name ) {
 
 		$this->plugin_name = $plugin_name;
-
 		$this->registered_settings = Election_Data_Settings_Definition::get_settings();
 
 		add_filter( 'election_data_settings_sanitize_text', array( $this, 'sanitize_text_field' ) );
@@ -75,12 +74,12 @@ class Election_Data_Sanitization_Helper {
 		if ( empty( $_POST['_wp_http_referer'] ) ) {
 			return $input;
 		}
-		
+
 		if ( is_null( $input ) ) {
 			$input = array ();
 		}
-		
-		
+
+
 		parse_str( $_POST['_wp_http_referer'], $referrer );
 		$tab = isset( $referrer['tab'] ) ? $referrer['tab'] : Election_Data_Settings_Definition::get_default_tab_slug();
 
@@ -101,7 +100,7 @@ class Election_Data_Sanitization_Helper {
 			if ( $new_value == $input[$key] ) {
 				$settings_updated |= $this->do_settings_on_key_change_hook( $key, $new_value, $old_values );
 			} else {
-				$error_occurred = true; 
+				$error_occurred = true;
 				$input[$key] = $old_values[$key];
 			}
 		}
@@ -115,14 +114,32 @@ class Election_Data_Sanitization_Helper {
 				add_settings_error( $this->plugin_name . '-notices', $this->plugin_name, __( 'Settings updated.', $this->plugin_name ), 'updated' );
 			}
 		}
-		
+
 		return $this->get_output( $tab, $input );
 	}
-	
+
+	/**
+	 * Applies validation filters for validating settings.
+	 *
+	 * @since 	1.0.0
+	 * @access 	private
+	 * @param 	array 		$input 	              Input of the setting.
+	 * @param 	string 		$key 	                Name of the setting.
+	 * @param 	array 		$old_plugin_settings 	Old settings of the plugin, if need to be updated.
+	 */
 	private function apply_validation_filter( $input, $key, $old_plugin_settings ) {
 		return apply_filters( "election_data_settings_validate_$key", $input[$key], isset( $old_plugin_settings[$key] ) ? $old_plugin_settings[$key] : null, "{$this->plugin_name}-notices" );
 	}
 
+	/**
+	*	Applies filters for sanitizing settings according to the type of the field.
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	array 	$input  Input of the setting.
+	* @param 	array 	$tab	  The current tab.
+	* @param 	array 	$key 	  Name of the setting.
+	*/
 	private function apply_type_filter( $input, $tab, $key ) {
 
 		// Get the setting type (checkbox, select, etc)
@@ -135,12 +152,28 @@ class Election_Data_Sanitization_Helper {
 		return apply_filters( 'election_data_settings_sanitize_' . $type, $input[$key], $key );
 	}
 
+	/**
+	*	Applies filter for general sanitizing of all the field settings.
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	array 	$input  Input of the setting.
+	* @param 	string 	$key 	  Name of the setting.
+	*/
 	private function apply_general_filter( $input, $key ) {
 
 		return apply_filters( 'election_data_settings_sanitize', $input[$key], $key );
 	}
 
-	// Key specific on change hook
+	/**
+	*	Key specific on change hook
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	string 	$key          					Name of the setting.
+	* @param 	array 	$new_value	  					New value of the setting.
+	* @param 	array 	$old_plugin_settings 	  Old settings.
+	*/
 	private function do_settings_on_key_change_hook( $key, $new_value, $old_plugin_settings ) {
 
 		//checks if value is saved already in $old_plugin_settings
@@ -149,11 +182,18 @@ class Election_Data_Sanitization_Helper {
 			do_action( 'election_data_settings_on_change_' . $key, $new_value, isset( $old_plugin_settings[$key] ) ? $old_plugin_settings[$key] : null );
 			return true;
 		}
-		
+
 		return false;
 	}
 
-	// Tab specific on change hook (only if a value has changed)
+	/**
+	*	Tab specific on change hook (only if a value has changed)
+	*
+	* @since 	1.0.0
+	* @access private
+	* @param 	array 	$new_value  New value of the setting.
+	* @param 	array 	$tab 	      Current tab
+	*/
 	private function do_settings_on_change_hook( $new_values, $tab ) {
 
 		$old_plugin_settings = get_option( 'election_data_settings' );
@@ -162,14 +202,14 @@ class Election_Data_Sanitization_Helper {
 			$old_plugin_settings = array();
 		}
 		$changed = false;
-		
+
 		foreach ( $new_values as $key => $new_value ) {
 
 			if ( !isset( $old_plugin_settings[$key] ) || $old_plugin_settings[$key] !== $new_value ) {
 				$changed = true;
 			}
 		}
-		
+
 		foreach( $old_plugin_settings as $key => $old_value ) {
 			if ( !isset( $new_values[$key] ) ) {
 				$changed = true;
@@ -182,6 +222,7 @@ class Election_Data_Sanitization_Helper {
 
 		}
 	}
+
 
 	private function not_empty_or_zero( $var ){
   		return ( !empty( $var ) || '0' == $var );
@@ -310,7 +351,14 @@ class Election_Data_Sanitization_Helper {
 		return esc_url_raw( sanitize_text_field( rawurldecode( $input ) ), $allowed_protocols );
 
 	}
-	
+
+	/**
+	 * Sanitize an import file before processing it.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param 	string 		$input
+	 */
 	public function sanitize_import( $input ) {
 		if ( isset( $_POST['ed_import_export'] ) && $_POST['ed_import_export'] == 'import' )
 		{
@@ -320,7 +368,14 @@ class Election_Data_Sanitization_Helper {
 			}
 		}
 	}
-	
+
+	/**
+	 * Sanitize an import file before processing it.
+	 *
+	 * @since 	1.0.0
+	 *
+	 * @param 	string 		$input
+	 */
 	public function sanitize_export( $input ) {
 		if ( isset( $_POST['ed_import_export'] ) && $_POST['ed_import_export'] == 'export' )
 		{

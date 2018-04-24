@@ -1,3 +1,21 @@
+//Javascript to be run in the Election Data Settings area
+
+/**
+*	Javascript for setting an explanation of what MetaData is when in the admin panel.
+* @since 1.1
+*/
+window.onload = function() {
+	changeAnswer();
+	var metatext = document.querySelector('.hndle > span:nth-child(1)');
+	if (metatext != null) {
+		if (metatext.innerHTML == 'MetaData') {
+			metatext.innerHTML += '<br />MetaData is data about your website picked up by search engines and what will appear if your website\'s metadata is fetched by a link.';
+		}
+	}
+
+};
+
+
 jQuery(document).ready( function($) {
 	$.fn.exists = function () {
 		return this.length !== 0;
@@ -8,7 +26,7 @@ jQuery(document).ready( function($) {
 		}
 		var action = ed_settings_button_actions[id];
 		var confirm_message = id in ed_settings_button_messages ? ed_settings_button_messages[id] : '';
-		
+
 		$( '#' + id ).click( ( function( action, confirm_message ) {
 			return function( event ) {
 				if ( !confirm_message || confirm( confirm_message ) ) {
@@ -25,7 +43,7 @@ jQuery(document).ready( function($) {
 			};
 		} )( action, confirm_message ) );
 	}
-	
+
 	/*$( '#button_scrape_news' ).click( function( event ) {
 		// Perform AJAX call to run the news scraping.
 		$.ajax( {
@@ -38,7 +56,7 @@ jQuery(document).ready( function($) {
 			}
 		} );
 	} );
-	
+
 	$( '#button_erase_site' ).click( function( event ) {
 		if ( confirm( 'Are you sure? This will remove all election related data from the site.' ) ) {
 			$.ajax( {
@@ -52,7 +70,7 @@ jQuery(document).ready( function($) {
 			} );
 		}
 	} ); */
-	
+
 	var media_frames = {};
 	for ( var image in ed_settings_image_data ) {
 		var label = ed_settings_image_data[image]
@@ -61,14 +79,14 @@ jQuery(document).ready( function($) {
 		}
 
 		var tmp = $( '#' + label + '_add' );
-		
+
 		$( document.getElementById( label + '_add' ) ).click( ( function( label, media_frames, image ) {
 			return function( event ) {
 				if ( image in media_frames ) {
 					media_frames[image].open();
 					return;
 				}
-				
+
 				media_frames[image] = wp.media({
 					title: '',
 					button: {
@@ -76,7 +94,7 @@ jQuery(document).ready( function($) {
 					},
 					multiple: false  // Set to true to allow multiple files to be selected
 				} );
-				
+
 				media_frames[image].on( 'select', function() {
 					// Get media attachment details from the frame state
 					var attachment = media_frames[image].state().get( 'selection' ).first().toJSON();
@@ -85,7 +103,7 @@ jQuery(document).ready( function($) {
 					$( document.getElementById( label + '_add' ) ).addClass( 'hidden' );
 					$( document.getElementById( label + '_del' ) ).removeClass( 'hidden' );
 				} );
-				
+
 				media_frames[image].open();
 			};
 		} )( label, media_frames, image ) );

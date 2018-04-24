@@ -15,7 +15,7 @@
  *
  * @package    Election_Data
  * @subpackage Election_Data/includes
- * @author     Your Name <email@example.com>
+ * @author     Robert Burton
  */
 class Election_Data_Settings_Definition {
 
@@ -45,8 +45,8 @@ class Election_Data_Settings_Definition {
 	}
 
 	/**
-	 * [get_default_tab_slug description]
-	 * @return [type] [description]
+	 * Get the deafult tab slugs.
+	 * @return string Key names of the item.
 	 */
 	static public function get_default_tab_slug() {
 
@@ -62,17 +62,27 @@ class Election_Data_Settings_Definition {
 	static public function get_tabs() {
 
 		$tabs                = array();
-		$tabs['front_page_tab'] = __( 'Front Page', self::$plugin_name );
-		$tabs['news_scraping_tab'] = __( 'News Scraping', self::$plugin_name );
 		$tabs['general_tab'] = __( 'General Settings', self::$plugin_name );
+		$tabs['news_scraping_tab'] = __( 'News Scraping', self::$plugin_name );
+		$tabs['front_page_tab'] = __( 'Front Page', self::$plugin_name );
+		$tabs['header_image_tab'] = __('Header Image', self::$plugin_name);
+		$tabs['footer_tab'] = __('Footer', self::$plugin_name );
+		$tabs['version_one_theme_tab'] = __('V1 Theme', self::$plugin_name );
+		$tabs['meta_data_tab'] = __( 'MetaData', self::$plugin_name );
 		$tabs['questions_tab'] = __( 'Question Settings', self::$plugin_name );
 		$tabs['import_tab'] = __( 'Import', self::$plugin_name );
 		$tabs['export_tab'] = __( 'Export', self::$plugin_name );
+		$tabs['address_lookup'] = __( 'Address Lookup Tool', self::$plugin_name );
 		//$tabs['second_tab']  = __( 'Second Tab', self::$plugin_name );
 
 		return apply_filters( 'election_data_settings_tabs', $tabs );
 	}
 
+	/**
+	 * For javascript updates.
+	 *
+	 * @since    1.0.0
+	 */
 	static public function get_js_updates() {
 		$settings = self::get_settings();
 
@@ -113,6 +123,47 @@ class Election_Data_Settings_Definition {
 		$settings[] = array();
 
 		$settings = array(
+			'address_lookup' => array(
+				'address_dataset_available' => array(
+				'name' => __( 'Address Dataset', self::$plugin_name ),
+				'desc' => __( 'Check the option if you have the correct address dataset and if you want to use the Address Lookup Tool'),
+				'type' => 'checkbox',
+				),
+				'api_key' => array(
+					'name' => __('API Key', self::$plugin_name),
+					'desc' => __('You will need a google maps api key. Click <a href="https://developers.google.com/maps/documentation/static-maps/get-api-key">here</a> to get one now..', self::$plugin_name),
+					'type' => 'text'
+				),
+				'import' => array(
+					'name' => __( 'Import Data', self::$plugin_name ),
+					'desc' => __( 'Import the addresses using a CSV file.', self::$plugin_name ),
+					'type' => 'import',
+					'options' => array(
+						'id' => 'ed_import',
+						'formats' => array(
+							//'xml' => __( 'XML file', self::$plugin_name ),
+							'csv_address' => __( 'CSV file containing addresses.', self::$plugin_name ),
+						),
+						'required_modules' => array(
+							'xml' => array( 'xmlreader' ),
+							'csv_zip' => array( 'zip' ),
+						),
+						'skip_if_modules_loaded' => array(),
+						'default' => 'csv_zip',
+					),
+					'no_value' => true,
+				),
+				'clear' => array(
+					'desc' => __( 'Deletes all the addresses. Warning: This <strong>cannot</strong> be undone.<br>After clicking the button, the process will continue to run in the backend, so please <strong>donot</strong> restart the server until its done.<br>' ),
+					'type' => 'button',
+					'options' => array(
+						'id' => 'button_delete_address_data',
+						'label' => __( 'Delete Addresses', self::$plugin_name ),
+						'action' => 'delete_address_data',
+						'message' => __( 'Are you sure? This will remove all the address.', self::$plugin_name ),
+					),
+				),
+			),
 			'import_tab' => array(
 				'import' => array(
 					'name' => __( 'Import Data', self::$plugin_name ),
@@ -126,6 +177,7 @@ class Election_Data_Settings_Definition {
 							'csv_party' => __( 'CSV file containing parties', self::$plugin_name ),
 							'csv_constituency' => __( 'CSV file containing constituencies', self::$plugin_name ),
 							'csv_candidate' => __( 'CSV file containing candidates', self::$plugin_name ),
+							'csv_address' => __( 'CSV file containing addresses.', self::$plugin_name ),
 							'csv_news_source' => __( 'CSV file containing news sources', self::$plugin_name ),
 							'csv_news_article' => __( 'CSV file containing news articles', self::$plugin_name ),
 							'csv_news_mention' => __( 'CSV file containing news_mentions', self::$plugin_name ),
@@ -150,7 +202,7 @@ class Election_Data_Settings_Definition {
 					'no_value' => true,
 				),
 				'clear' => array(
-					'desc' => __( 'Removes all Election Data content from the site. Warning: This <strong>cannot</strong> be undone.' ),
+					'desc' => __( 'Removes all Election Data content from the site. Warning: This <strong>cannot</strong> be undone.<br> After clicking the button, the process will continue to run in the backend, so please <strong>donot</strong> restart the server until its done.<br>' ),
 					'type' => 'button',
 					'options' => array(
 						'id' => 'button_erase_site',
@@ -174,6 +226,7 @@ class Election_Data_Settings_Definition {
 							'csv_party' => __( 'CSV file containing parties', self::$plugin_name ),
 							'csv_constituency' => __( 'CSV file containing constituencies', self::$plugin_name ),
 							'csv_candidate' => __( 'CSV file containing candidates', self::$plugin_name ),
+							'csv_address' => __( 'CSV file containing addresses.', self::$plugin_name ),
 							'csv_news_source' => __( 'CSV file containing news sources', self::$plugin_name ),
 							'csv_news_article' => __( 'CSV file containing news articles', self::$plugin_name ),
 							'csv_news_mention' => __( 'CSV file containing news mentions', self::$plugin_name ),
@@ -213,6 +266,27 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'The time of the initial scrape. ie. 2am CDT', self::$plugin_name ),
 					'type' => 'text',
 					'std' => '2am'
+				),
+				'news-scraping-subheading' => array(
+					'name' => __( 'Sub Heading', self::$plugin_name ),
+					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
+					'type' => __( 'rich_editor' ),
+				),
+				'source' => array(
+					'name' => __( 'Source', self::$plugin_name ),
+					'desc' => __( 'Choose between Google News Scraper and RSS Search. Google News produces lots of false positives.', self::$plugin_name ),
+					'type' => 'select',
+					'std' => 'api',
+					'options' => array (
+						'api' => __( 'RSS Search', self::$plugin_name ),
+						'google' => __( 'Google News Scraper', self::$plugin_name ),
+					),
+				),
+				'source-api' => array(
+					'name' => __( 'Source API URL', self::$plugin_name ),
+					'desc' => __( 'API URL for searching RSS feeds', self::$plugin_name ),
+					'type' => 'text',
+					'std' => '',
 				),
 				'frequency' => array(
 					'name' => __( 'Frequency', self::$plugin_name ),
@@ -393,10 +467,15 @@ class Election_Data_Settings_Definition {
 					'type' => 'rich_editor',
 				),
 			),
-			'front_page_tab' => array(
+			'version_one_theme_tab' => array(
 				'summary' => array(
 					'name' => __( 'Summary', self::$plugin_name ),
 					'desc' => __( 'A summary that will appear on the front page of the site. Can include links to important sites, election dates, etc.', self::$plugin_name ),
+					'type' => 'rich_editor',
+				),
+				'about-us' => array(
+					'name' => __( 'About Us', self::$plugin_name ),
+					'desc' => __( 'This will populate the contents of the top-right slide of the front page.'),
 					'type' => 'rich_editor',
 				),
 				'facebook-page' => array(
@@ -406,7 +485,7 @@ class Election_Data_Settings_Definition {
 				),
 				'twitter' => array(
 					'name' => __( 'Twitter Account', self::$plugin_name ),
-					'desc' => __( 'A twitter account you would like featured on the front page'. self::$plugin_name ),
+					'desc' => __( 'A twitter account you would like featured on the front page.', self::$plugin_name ),
 					'type' => 'text',
 				),
 				'google-plus-one' => array(
@@ -416,7 +495,7 @@ class Election_Data_Settings_Definition {
 					'std' => true,
 				),
 				'constituency-label' => array(
-					'name' => __( 'Constiuency Label', self::$plugin_name ),
+					'name' => __( 'Constituency Label', self::$plugin_name ),
 					'desc' => __( 'The label you would like to use for the constituency section.', self::$plugin_name ),
 					'type' => 'text',
 				),
@@ -435,23 +514,137 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'An optional description for the party section.', self::$plugin_name ),
 					'type' => 'text',
 				),
+			),
+			'front_page_tab' => array(
 				'news-count-front' => array(
 					'name' => __( 'News Articles', self::$plugin_name ),
 					'desc' => __( 'The number of news articles to display on the front-page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
+					'placeholder' => '3',
+				),
+				'left_column_title' => array(
+				'name' => __( 'Left Column Title', self::$plugin_name ),
+				'desc' => __( 'The title for the left column.' ),
+				'type' => 'text',
+				'placeholder' => 'Who Am I Voting For?',
+				'std' => 'Who Am I Voting For?',
+				),
+				'left_column_url' => array(
+				'name' => __( 'Left Column Url', self::$plugin_name ),
+				'desc' => __( 'The url that the left column links to.'),
+				'type' => 'text',
+				'placeholder' => 'sample-page or https://www.google.com',
+				),
+				'left_column_excerpt' => array(
+				'name' => __( 'Left Column Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content for the left column.'),
+				'type' => 'textarea',
+				'std' => 'Find out more here about Mayoral, Council and Trustee candidate.',
+				),
+				'left_column_img' => array(
+				'name' => __( 'Left Column Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display on the left column.'),
+				'type' => 'image',
+				),
+				'center_column_title' => array(
+				'name' => __( 'Center Column Title', self::$plugin_name ),
+				'desc' => __( 'The title for the center column.' ),
+				'type' => 'text',
+				'placeholder' => 'Where Do I Vote?',
+				'std' => 'Where Do I Vote?',
+				),
+				'center_column_url' => array(
+				'name' => __( 'Center Column Url', self::$plugin_name ),
+				'desc' => __( 'The url that the center column links to.'),
+				'type' => 'text',
+				'placeholder' => 'sample-page or https://www.google.com',
+				),
+				'center_column_excerpt' => array(
+				'name' => __( 'Center Column Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content for the center column.'),
+				'type' => 'textarea',
+				'std' => 'You can find out where to vote by using the City of Winnipeg address look-up tool here.',
+				),
+				'center_column_img' => array(
+				'name' => __( 'Center Column Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display on the center column.'),
+				'type' => 'image',
+				),
+				'right_column_title' => array(
+				'name' => __( 'Right Column Title', self::$plugin_name ),
+				'desc' => __( 'The title for the right column.' ),
+				'type' => 'text',
+				'placeholder' => 'What Am I Voting For?',
+				'std' => 'What Am I Voting For?',
+				),
+				'right_column_url' => array(
+				'name' => __( 'Right Column Url', self::$plugin_name ),
+				'desc' => __( 'The url that the right column links to.'),
+				'type' => 'text',
+				'placeholder' => 'sample-page or https://www.google.com',
+				),
+				'right_column_excerpt' => array(
+				'name' => __( 'Right Column Excerpt', self::$plugin_name ),
+				'desc' => __( 'The content for the right column.'),
+				'type' => 'textarea',
+				'std' => 'Not sure what you’re voting for, find out more here.',
+				),
+				'right_column_img' => array(
+				'name' => __( 'Right Column Image Logo', self::$plugin_name ),
+				'desc' => __( 'The image to display on the right column.'),
+				'type' => 'image',
 				),
 			),
-			'general_tab' => array(
+			'header_image_tab' => array(
+				'candidates_party_header_img' => array(
+				'name' => __( 'Party Header Image', self::$plugin_name ),
+				'desc' => __( 'The header image to display on the party page. If it is not selected, it will display the same image as the front page.'),
+				'type' => 'image',
+				),
+				'candidates_constituency_header_img' => array(
+				'name' => __( 'Constituency Header Image', self::$plugin_name ),
+				'desc' => __( 'The header image to display on the constituency page. If it is not selected, it will display the same image as the front page.'),
+				'type' => 'image',
+				),
+				'candidates_header_img' => array(
+				'name' => __( 'Candidates Header Image', self::$plugin_name ),
+				'desc' => __( 'The header image to display on the candidates page. If it is not selected, it will display the same image as the front page.'),
+				'type' => 'image',
+				),
+			),
+			'footer_tab' => array(
+				'footer' => array(
+					'name' => __('Footer', self::$plugin_name),
+					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
+					'type' => 'textarea',
+				),
+				'footer-left' => array(
+					'name' => __('Footer Left', self::$plugin_name),
+					'desc' => __('Text which will be displayed in the left of the footer of each page.', self::$plugin_name),
+					'type' => 'rich_editor',
+				),
+				'footer-center' => array(
+					'name' => __('Footer Center', self::$plugin_name),
+					'desc' => __('Text which will be displayed in the center of the footer of each page.', self::$plugin_name),
+					'type' => 'rich_editor',
+				),
+				'footer-right' => array(
+					'name' => __('Footer Right', self::$plugin_name),
+					'desc' => __('Text which will be displayed in the right of the footer of each page.', self::$plugin_name),
+					'type' => 'rich_editor',
+				),
+			),
+			'meta_data_tab' => array(
 				'site_title' => array(
 					'name' => __('Site Title', self::$plugin_name),
-					'desc' => __('The title you want to display as meta data.', self::$plugin_name),
+					'desc' => __('This will be the title of your site.', self::$plugin_name),
 					'type' => 'text'
 				),
 				'site_description' => array(
 					'name' => __('Site Description', self::$plugin_name),
-					'desc' => __('A brief description of the site', self::$plugin_name),
+					'desc' => __('A brief description of the site.', self::$plugin_name),
 					'type' => 'textarea'
 				),
 				'site_image' => array(
@@ -459,10 +652,23 @@ class Election_Data_Settings_Definition {
 					'desc' => __('An image that represents your site.', self::$plugin_name),
 					'type' => 'image'
 				),
-				'footer' => array(
-					'name' => __('Footer', self::$plugin_name),
-					'desc' => __('Text which will be displayed on the footer of each page.', self::$plugin_name),
-					'type' => 'textarea'
+			),
+			'general_tab' => array(
+				'election_date' => array(
+				'name' => __( 'Election Date', self::$plugin_name ),
+				'desc' => __( 'To display the election date, use this format YYYY-MM-DD.'),
+				'type' => 'text',
+				'placeholder' => '2018-10-24',
+				),
+				'party_election' => array(
+					'name' => __('Party Election', self::$plugin_name),
+					'desc' => __('Check if the current election is based on political parties.', self::$plugin_name),
+					'type' => 'checkbox'
+				),
+				'missing_constituency' => array(
+					'name' => __( 'Missing Constituency Map Image', self::$plugin_name ),
+					'desc' => __( 'The image to display if a parent constitency does not have any child ones.', self::$plugin_name ),
+					'type' => 'image',
 				),
 				'missing_candidate' => array(
 					'name' => __( 'Missing Candidate Image', self::$plugin_name ),
@@ -476,31 +682,36 @@ class Election_Data_Settings_Definition {
 				),
 				'news-count-party' => array(
 					'name' => __( 'Party News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display on the party page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display on the party page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-party-leader' => array(
 					'name' => __( 'Party Leader News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles about the party leader to display on the party page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles about the party leader to display on the party page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-candidate' => array(
 					'name' => __( 'Candidate News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display at a time on the candidate page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display at a time on the candidate page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
 				),
 				'news-count-constituency' => array(
 					'name' => __( 'Constituency News Articles', self::$plugin_name ),
-					'desc' => __( 'The number of news articles to display at a time on the constituency page', self::$plugin_name ),
+					'desc' => __( 'The number of news articles to display at a time on the constituency page.', self::$plugin_name ),
 					'type' => 'number',
 					'min' => 0,
 					'step' => 1,
+				),
+				'google-analytics' => array(
+					'name' => __( 'Google Analytics Script', self::$plugin_name ),
+					'desc' => __( 'To track visitor analytics, sign up for a Google Analytics account and paste their provided tracking script here.' ),
+					'type' => 'textarea',
 				),
 			),
 		);
