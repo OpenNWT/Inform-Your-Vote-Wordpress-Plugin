@@ -454,6 +454,12 @@ class Election_Data_News_Article {
 		}
 	}
 
+	/**
+	* Removes the news articles not suitable for the site.
+	*
+	* @access public
+	* @since 1.0
+	*/
 	public function remove_bad_news_articles( ) {
 		global $ed_post_types;
 		global $ed_taxonomies;

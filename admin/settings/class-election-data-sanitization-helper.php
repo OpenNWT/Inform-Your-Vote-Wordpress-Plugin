@@ -191,9 +191,8 @@ class Election_Data_Sanitization_Helper {
 	*
 	* @since 	1.0.0
 	* @access private
-	* @param 	string 	$key          					Name of the setting.
-	* @param 	array 	$new_value	  					New value of the setting.
-	* @param 	array 	$old_plugin_settings 	  Old settings.
+	* @param 	array 	$new_value  New value of the setting.
+	* @param 	array 	$tab 	      Current tab
 	*/
 	private function do_settings_on_change_hook( $new_values, $tab ) {
 
@@ -223,6 +222,7 @@ class Election_Data_Sanitization_Helper {
 
 		}
 	}
+
 
 	private function not_empty_or_zero( $var ){
   		return ( !empty( $var ) || '0' == $var );

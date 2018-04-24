@@ -628,25 +628,30 @@ SQL;
 		*
 		*/
 		function erase_data() {
+			global $ed_post_types;
 			$args = array(
+				'fields' => 'ids',
 				'post_type' => $this->post_type,
-				'nopaging' => true,
+				'nopaging' => true
 			);
 			$query = new WP_Query( $args );
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				wp_delete_post( $query->post->ID, true );
+				$post_id = get_the_ID();
+				wp_delete_post($post_id, true);
 			}
 
-			foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
-				$args = array(
-					'hide_empty' => false,
-					'fields' => 'ids',
-					'get' => 'all',
-				);
-				$term_ids = get_terms( $taxonomy_name, $args );
-				foreach ( $term_ids as $term_id ) {
-					wp_delete_term( $term_id, $taxonomy_name );
+			if($this->post_type != $ed_post_types['address']){
+				foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
+					$args = array(
+						'hide_empty' => false,
+						'fields' => 'ids',
+						'get' => 'all',
+					);
+					$term_ids = get_terms( $taxonomy_name, $args );
+					foreach ( $term_ids as $term_id ) {
+						wp_delete_term( $term_id, $taxonomy_name );
+					}
 				}
 			}
 		}

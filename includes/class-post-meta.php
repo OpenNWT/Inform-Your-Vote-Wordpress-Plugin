@@ -678,6 +678,9 @@ class Post_Meta {
 		return $names;
 	}
 
+	/**
+	*	Gets the custom field's values.
+	*/
 	public function get_field_values( $post_id ) {
 		$values = array();
 		$meta_values = get_post_meta( $post_id );
@@ -697,6 +700,9 @@ class Post_Meta {
 		return $values;
 	}
 
+	/**
+	*	Updates the custom field's values.
+	*/
 	public function update_field_values( $post_id, $data, $mode )
 	{
 		$meta_values = get_post_meta( $post_id );

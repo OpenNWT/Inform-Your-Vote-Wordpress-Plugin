@@ -134,6 +134,35 @@ class Election_Data_Settings_Definition {
 					'desc' => __('You will need a google maps api key. Click <a href="https://developers.google.com/maps/documentation/static-maps/get-api-key">here</a> to get one now..', self::$plugin_name),
 					'type' => 'text'
 				),
+				'import' => array(
+					'name' => __( 'Import Data', self::$plugin_name ),
+					'desc' => __( 'Import the addresses using a CSV file.', self::$plugin_name ),
+					'type' => 'import',
+					'options' => array(
+						'id' => 'ed_import',
+						'formats' => array(
+							//'xml' => __( 'XML file', self::$plugin_name ),
+							'csv_address' => __( 'CSV file containing addresses.', self::$plugin_name ),
+						),
+						'required_modules' => array(
+							'xml' => array( 'xmlreader' ),
+							'csv_zip' => array( 'zip' ),
+						),
+						'skip_if_modules_loaded' => array(),
+						'default' => 'csv_zip',
+					),
+					'no_value' => true,
+				),
+				'clear' => array(
+					'desc' => __( 'Deletes all the addresses. Warning: This <strong>cannot</strong> be undone.<br>After clicking the button, the process will continue to run in the backend, so please <strong>donot</strong> restart the server until its done.<br>' ),
+					'type' => 'button',
+					'options' => array(
+						'id' => 'button_delete_address_data',
+						'label' => __( 'Delete Addresses', self::$plugin_name ),
+						'action' => 'delete_address_data',
+						'message' => __( 'Are you sure? This will remove all the address.', self::$plugin_name ),
+					),
+				),
 			),
 			'import_tab' => array(
 				'import' => array(
@@ -173,7 +202,7 @@ class Election_Data_Settings_Definition {
 					'no_value' => true,
 				),
 				'clear' => array(
-					'desc' => __( 'Removes all Election Data content from the site. Warning: This <strong>cannot</strong> be undone.' ),
+					'desc' => __( 'Removes all Election Data content from the site. Warning: This <strong>cannot</strong> be undone.<br> After clicking the button, the process will continue to run in the backend, so please <strong>donot</strong> restart the server until its done.<br>' ),
 					'type' => 'button',
 					'options' => array(
 						'id' => 'button_erase_site',

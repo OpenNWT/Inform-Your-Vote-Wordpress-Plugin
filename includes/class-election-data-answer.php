@@ -698,6 +698,14 @@ class Election_Data_Answer {
 			return call_user_func( array( $this, "import_{$type}_csv" ), $csv, $mode );
 		}
 
+		/**
+		* Sends the email based on all the settings.
+		*
+		* @access public
+		* @since 1.0
+		* @param string $message_contents Contents of the message
+		*
+		*/
 		public function send_email( $message_contents ){
 			require_once 'Html2Text.php';
 			require_once ABSPATH . WPINC . '/class-phpmailer.php';
@@ -731,6 +739,14 @@ class Election_Data_Answer {
 			$this->emails_sent++;
 		}
 
+		/**
+		* Replace the pattern with the requested term.
+		*
+		* @access public
+		* @since 1.0
+		* @param string  $type Type of questionnare, 'party' or 'candidate'
+		* @param WP_TERM $term
+		*/
 		public function get_pattern_replacements( $type, $term ) {
 			global $ed_taxonomies;
 
@@ -774,6 +790,12 @@ class Election_Data_Answer {
 			return array( 'pattern' => $pattern, 'replacement' => $replace );
 		}
 
+		/**
+		* Emails party questionnare
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function email_party_questions() {
 			global $ed_taxonomies;
 			$email_limit = intval( Election_Data_Option::get_option( 'email-limit' ) );
@@ -810,6 +832,12 @@ class Election_Data_Answer {
 			}
 		}
 
+		/**
+		* Emails candidate questionnare.
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function email_candidate_questions() {
 			$email_limit = intval( Election_Data_Option::get_option( 'email-limit' ) );
 			$email_delay = intval( Election_Data_Option::get_option( 'email-delay' ) ) * 1000;
@@ -854,22 +882,48 @@ class Election_Data_Answer {
 			}
 		}
 
+		/**
+		* Sends all the emails
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function ajax_send_all_email() {
 			$this->email_candidate_questions();
 			$this->email_party_questions();
 			wp_die();
 		}
 
+		/**
+		* Sends the candidate emails
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function ajax_send_candidate_email() {
 			$this->email_candidate_questions();
 			wp_die();
 		}
 
+		/**
+		* Sends the party emails
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function ajax_send_party_email() {
 			$this->email_party_questions();
 			wp_die();
 		}
 
+		/**
+		* Resets the checkbox indicating if the party has been sent the questionnare.
+		* Defaults to not sent.
+		*
+		* @access public
+		* @since 1.0
+		* @param boolean $only_unanswered If to target the parties that have not answered at all.
+		*/
 		public function reset_party_questionnaire( $only_unanswered = false ) {
 			global $ed_taxonomies;
 			global $ed_post_types;
@@ -892,6 +946,14 @@ class Election_Data_Answer {
 			}
 		}
 
+		/**
+		* Resets the checkbox indicating if the candidate has been sent the questionnare.
+		* Defaults to not sent.
+		*
+		* @access public
+		* @since 1.0
+		* @param boolean $only_unanswered If to target the candidates that have not answered at all.
+		*/
 		public function reset_candidate_questionnaire( $only_unanswered = false ) {
 			global $ed_taxonomies;
 			global $ed_post_types;
@@ -916,17 +978,37 @@ class Election_Data_Answer {
 			}
 		}
 
-
+		/**
+		* Resets the checkbox indicating if the party has been sent the questionnare.
+		* Defaults to not sent.
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function ajax_reset_party_questionnaire() {
 			$this->reset_party_questionnaire();
 			wp_die();
 		}
 
+		/**
+		* Resets the checkbox indicating if the candidate has been sent the questionnare.
+		* Defaults to not sent.
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function ajax_reset_candidate_questionnaire() {
 			$this->reset_candidate_questionnaire();
 			wp_die();
 		}
 
+		/**
+		* Resets all the unanswered questionnares.
+		* Defaults to not sent.
+		*
+		* @access public
+		* @since 1.0
+		*/
 		public function ajax_reset_questionnaire_unanswered() {
 			$this->reset_party_questionnaire( true );
 			$this->reset_candidate_questionnaire( true );

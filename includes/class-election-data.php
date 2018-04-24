@@ -314,6 +314,7 @@ class Election_Data {
 		$this->loader->add_action( 'wp_ajax_election_data_erase_site', $this, 'erase_data' );
 		$this->loader->add_action( 'admin_notices', 'Election_Data_Activator', 'display_activation_warnings' );
 		$this->loader->add_action( 'admin_menu', $this, 'remove_menus', 110 );
+    $this->loader->add_action( 'wp_ajax_delete_address_data', $this, 'erase_address_data' );
 	}
 
 	/**
@@ -769,6 +770,14 @@ class Election_Data {
     $this->address->erase_data();
 		wp_die();
 	}
+
+  /**
+   * Erases all addresses.
+   */
+  function erase_address_data(){
+    $this->address->erase_data();
+    wp_die();
+  }
 
   /**
    * Sets all the main query parameters.

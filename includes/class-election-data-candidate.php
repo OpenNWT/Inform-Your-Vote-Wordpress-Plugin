@@ -451,6 +451,7 @@ class Election_Data_Candidate {
           add_action( "edited_{$this->taxonomies['constituency']}", array( $this, 'edited_constituency' ), 10, 2 );
           add_action('wp_head', array($this, 'toggle_party_menu'));
         }
+
         add_image_size( 'candidate', 9999, 100, false );
 
         add_image_size( 'map_thumb', 100, 9999, false );
@@ -604,11 +605,28 @@ class Election_Data_Candidate {
         }
       }
 
+
+      /**
+      * Creates the party menu item.
+      *
+      * @access public
+      * @since 1.0
+      * @param int $term_id Id of the term created.
+      * @param int $tt_id   Term Taxonomy Id.
+      */
       public function create_party( $term_id, $tt_id) {
         $term = get_term( $term_id, $this->taxonomies['party'], 'ARRAY_A' );
         $this->create_menu_item( __( 'Party' ), $this->taxonomies['party'], $term );
       }
 
+      /**
+      * Creates the candidate menu item.
+      *
+      * @access public
+      * @since 1.0
+      * @param int $term_id Id of the term created.
+      * @param int $tt_id   Term Taxonomy Id.
+      */
       public function create_constituency( $term_id, $tt_id ) {
         $term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );
         if ( $term['parent'] == 0 ) {
@@ -616,7 +634,14 @@ class Election_Data_Candidate {
         }
       }
 
-
+      /**
+      * Updates the constituency being edited.
+      *
+      * @access public
+      * @since 1.0
+      * @param int $term_id Id of the term created.
+      * @param int $tt_id   Term Taxonomy Id.
+      */
       public function edited_constituency( $term_id, $tt_id ) {
         $term = get_term( $term_id, $this->taxonomies['constituency'], 'ARRAY_A' );
         $menu_item_id = $this->get_menu_item( $this->taxonomies['constituency'], $term );
@@ -627,6 +652,14 @@ class Election_Data_Candidate {
         }
       }
 
+      /**
+      * Returns the menu item.
+      *
+      * @access public
+      * @since 1.0
+      * @param WP_Object $taxonomy
+      * @param WP_Object $term
+      */
       public function get_menu_item( $taxonomy, $term ) {
         $menu_name = __( 'Election Data Navigation Menu' );
         $menu = wp_get_nav_menu_object( $menu_name );
@@ -644,6 +677,12 @@ class Election_Data_Candidate {
         return 0;
       }
 
+      /**
+      * Creates the menu item.
+      *
+      * @access public
+      * @since 1.0
+      */
       public function create_menu_item( $parent_menu_item_name, $taxonomy, $term ) {
         $menu_name = __( 'Election Data Navigation Menu' );
         $menu = wp_get_nav_menu_object( $menu_name );

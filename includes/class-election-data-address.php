@@ -393,8 +393,8 @@ class Election_Data_Address {
         )
       ));
 
-      if( $mayoral_candidates_query->have_posts() ){
-        echo ("<div class ='flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
+      if($mayoral_candidates_query->have_posts()){
+        echo ("<div class ='flow_it politicians result_head' style='padding:10px;'>
         <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>Mayoral Candidates</h1>");
         shuffle( $mayoral_candidates_query->posts );
         display_constituency_candidates( $mayoral_candidates_query, $councilor_ward_id, $candidate_references );
@@ -415,7 +415,7 @@ class Election_Data_Address {
         if( $ward_candidates->have_posts() ){
           $constituency_parent_id = $constituency['parent'];
           $constituency_parent = get_term_by('id', $constituency_parent_id, $ed_taxonomies['candidate_constituency'], 'ARRAY_A');
-          echo ("<div class='flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
+          echo ("<div class='flow_it politicians result_head' style='padding:10px;'>
                 <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>Candidates in {$new_ward}, {$constituency_parent['name']}</h1>");
           shuffle( $ward_candidates->posts );
           display_constituency_candidates( $ward_candidates, $constituency_id, $candidate_references );
@@ -435,7 +435,7 @@ class Election_Data_Address {
           )
         ));
 
-        if( $school_ward_candidates->have_posts() ){
+        if($school_ward_candidates->have_posts()){
           echo ("<div class = 'flow_it politicians result_head' style='border:0.5px solid #cccccc; border-radius:5px; padding:10px;'>
                 <style>#candidates h1{text-align:center; line-height: 36px;}</style><h1>School Trustee Candidates in {$school_division_name}</h1>");
           shuffle( $school_ward_candidates->posts );
@@ -495,6 +495,7 @@ class Election_Data_Address {
 
     }
 
+    
     public function output_election_results ( $result_input ) {
       //echo 'testing the input:<br />';
       //print_r($result_input);
