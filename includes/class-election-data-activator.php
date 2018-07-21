@@ -166,20 +166,7 @@ class Election_Data_Activator {
 		$src_theme = wp_get_theme( 'theme', plugin_dir_path( __FILE__ ) . '..' );
 		$dest_theme = wp_get_theme( $dest_name );
 
-		// if ( $dest_theme->exists() ) {
-		// 	if ( self::same_themes( $src_theme, $dest_theme ) ) {
-		//
-		// 	}
-		// }
-		//
-		// 	$dest = tempnam( get_theme_root(), 'ElectionData' );
-		// 	unlink( $dest );
-		// 	if ( dirname( $dest ) != get_theme_root() ) {
-		// 		return false;
-		// 	}
-		// } else {
 		$dest = get_theme_root() . '/ElectionData';
-		// }
 
 		self::recurse_copy( plugin_dir_path( __FILE__ ) . '../theme', $dest );
 
