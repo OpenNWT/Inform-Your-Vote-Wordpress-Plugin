@@ -483,7 +483,7 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
     $candidate = get_candidate( $candidate_id );
     $party = get_party_from_candidate( $candidate_id );
     $candidates[] = $candidate['news_article_candidate_id'];
-    display_candidate_new( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
+    display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
   }
 }
 
