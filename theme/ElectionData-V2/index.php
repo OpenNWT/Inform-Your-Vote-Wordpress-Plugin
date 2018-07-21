@@ -6,7 +6,6 @@
  * @since Election_Data_Theme 1.0
  * @author Robert Burton
  */
-
 get_header(); ?>
 
     <div id="primary" class="content-area">
@@ -18,9 +17,7 @@ get_header(); ?>
                 </header><!-- .entry-header -->
 
                 <div class="entry-content">
-                    <p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links above or a search?', 'election_data_theme' ); ?></p>
-
-                    <!--<?php get_search_form(); ?>-->
+                    <p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links above.', 'election_data_theme' ); ?></p>
 
                  </div><!-- .entry-content -->
             </article><!-- #post-0 .post .error404 .not-found -->

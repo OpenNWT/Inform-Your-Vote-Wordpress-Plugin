@@ -290,32 +290,8 @@ function get_party( $party, $get_extra_data = true ) {
 		$results['email'] = get_tax_meta( $party_id, 'email' );
 		$results['qanda'] = empty( $results['answers'] ) ? '' : "{$results['url']}#qanda";
 		$results['qanda_token'] = get_tax_meta( $party_id, 'qanda_token' );
-		foreach ( array('email', 'facebook', 'youtube', 'twitter', 'qanda' ) as $icon_type ) {
-			$value = $results[$icon_type];
-			if ( $value ) {
-				switch ( $icon_type ) {
-					case 'email':
-					$url = "mailto:$value";
-					break;
-					case 'facebook':
-					case 'youtube':
-					case 'twitter':
-					case 'qanda':
-					$url = $value;
-					break;
-					default:
-					$url = '';
-				}
-
-				$alt = "{$icon_type}_active";
-			} else {
-				$url = '';
-				$alt = "{$icon_type}_inactive";
-			}
-
-			$results['icon_data'][$icon_type] = array( 'url' => $url, 'type' => $alt, 'alt' => ucfirst( $alt ) );
-		}
-	}
+    $results['icon_data'] = set_icon_data($results);
+  }
 
 	return $results;
 }
@@ -538,6 +514,55 @@ function get_qanda_answers( $type, $id, $count = null ) {
 }
 
 /**
+* Builds the font-awesome icon hash for use in party / candidate cards.
+*
+* @param 	$results        The candidate or party hash.
+* @return	$icon_data			A hash containing all the correct font-awesome icon details.
+*/
+
+function set_icon_data($results) {
+  $icon_data = array();
+  foreach ( array('email', 'facebook', 'youtube', 'twitter', 'qanda' ) as $icon_type ) {
+    $value = $results[$icon_type];
+    $url = '';
+    $alt = ucfirst($icon_type);
+    switch ( $icon_type ) {
+        case 'email':
+          $fa_icon = 'far fa-envelope';
+          break;
+        case 'facebook':
+          $fa_icon = 'fab fa-facebook';
+          break;
+        case 'youtube':
+          $fa_icon = 'fab fa-youtube';
+          break;
+        case 'twitter':
+          $fa_icon = 'fab fa-twitter';
+          break;
+        case 'qanda':
+          $fa_icon = 'fas fa-question-circle';
+          $alt = 'Questionnaire';
+          break;
+    }
+
+    if ( $value ) {
+      $fa_icon .= ' active';
+      if ($icon_type == 'email') {
+        $url = "mailto:$value";
+      } else {
+        $url = $value;
+      }
+    } else {
+      $alt = "No $alt";
+    }
+
+    $icon_data[$icon_type] = array( 'url' => $url, 'type' => $alt, 'alt' => $alt, 'fa_icon' => $fa_icon );
+  }
+
+  return $icon_data;
+}
+
+/**
 * Retrieves the information about a Candidate.
 *
 * @param 	$candidate_id		the id of the Candidate
@@ -575,34 +600,7 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 	$news = get_news( $results['news_article_candidate_id'], 1, 1 );
 	$results['news_count'] = $news['count'];
 	$results['qanda'] = $has_qanda ? "{$results['url']}#qanda" : '';
-	$icon_data = array();
-	foreach ( array('email', 'facebook', 'youtube', 'twitter', 'qanda' ) as $icon_type ) {
-		$value = $results[$icon_type];
-		if ( $value ) {
-			switch ( $icon_type ) {
-				case 'email':
-				$url = 'mailto:' . $value;
-				break;
-				case 'facebook':
-				case 'youtube':
-				case 'twitter':
-				case 'qanda':
-				$url = $value;
-				break;
-				default:
-				$url = '';
-			}
-
-			$alt = "{$icon_type}_active";
-		} else {
-			$url = '';
-			$alt = "{$icon_type}_inactive";
-		}
-
-		$icon_data[$icon_type] = array( 'url' => $url, 'type' => $alt, 'alt' => ucfirst( $alt ) );
-	}
-
-	$results['icon_data'] = $icon_data;
+	$results['icon_data'] = set_icon_data($results);
 
 	return $results;
 }

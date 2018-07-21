@@ -48,10 +48,14 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
   wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-    wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.5a');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '4.4.5a');
+  wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
+  wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
+  wp_enqueue_style( 'font-awesome-regular', 'https://use.fontawesome.com/releases/v5.1.1/css/all.css');
 
   if ( is_front_page() ) {
     wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
+    // TODO: Remove if not using Twitter or Google Plus according to settings.
     wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js' );
     wp_enqueue_script( 'google', 'https://apis.google.com/js/platform.js' );
   }
@@ -320,15 +324,17 @@ function display_party( $party ) {
       <a href="<?php echo esc_attr( $party['website'] ); ?>">Party Website</a>
     </div>
     <div class="icons">
-      <?php foreach ( $party['icon_data'] as $icon ) : ?>
-        <?php if ( $icon['url'] ) : ?>
+      <?php foreach ( $party['icon_data'] as $icon ) :
+        if ( $icon['url'] ) : ?>
           <a href="<?php echo esc_attr( $icon['url'] ); ?>">
-          <?php endif; ?>
-          <img alt="<?php echo esc_attr( $icon['alt'] ); ?>" src="<?php echo esc_attr( get_template_directory_uri() . "/images/{$icon['type']}.jpg" ); ?>" />
-          <?php if ( $icon['url'] ): ?>
-          </a>
         <?php endif; ?>
-      <?php endforeach; ?>
+        <?php if ($icon['fa_icon']): ?>
+          <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
+        <?php endif ?>
+        <?php if ( $icon['url'] ): ?>
+          </a>
+        <?php endif;
+      endforeach; ?>
     </div>
     <div class="phone <?php echo $party['phone'] ? '' : 'hidden'; ?>">
       <?php echo esc_html( $party['phone'] ); ?>
@@ -385,11 +391,13 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
     <div class="icons">
       <?php foreach ( $candidate['icon_data'] as $icon ) :
         if ( $icon['url'] ) : ?>
-        <a href="<?php echo esc_attr( $icon['url'] ); ?>">
+          <a href="<?php echo esc_attr( $icon['url'] ); ?>">
         <?php endif; ?>
-        <img alt="<?php echo esc_attr( $icon['alt'] ); ?>" src="<?php echo esc_attr( get_template_directory_uri() . "/images/{$icon['type']}.jpg" ); ?>" />
+        <?php if ($icon['fa_icon']): ?>
+          <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
+        <?php endif ?>
         <?php if ( $icon['url'] ): ?>
-        </a>
+          </a>
       <?php endif;
     endforeach; ?>
   </div>

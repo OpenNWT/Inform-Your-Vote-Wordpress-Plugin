@@ -333,17 +333,29 @@ p.news-article-notice{
     margin-top: 10px;
 	margin-bottom: 10px; }
 
-.politician .icons a {
+.politician .icons a, .party .icons a {
     text-decoration: none;
 }
+.politician .icons i, .party .icons i {
+  font-size: 1.5em;
+}
 
-.politician .icons > img, .party .icons > img {
+.politician .icons > i, .party .icons > i {
     -webkit-filter: opacity(.5);
     filter: opacity(.5);
 }
 
-.politician .icons a img, .party .icons a img {
-	border-bottom: 2px solid #3b59bb; }
+.icons a i.fa-youtube {
+  color: #ff0000;
+}
+
+.icons a i.fa-facebook {
+  color: #4267b2;
+}
+
+.icons a i.fa-twitter {
+  color: #1da1f2;
+}
 
 .parties .party {
 	min-height: 208px; }

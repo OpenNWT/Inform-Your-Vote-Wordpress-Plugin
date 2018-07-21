@@ -17,6 +17,7 @@ if($constituency['grandchildren']){
 }
 
 get_header();?>
+
 <?php if ( $constituency['children'] ) : ?>
 	<h2>Select Your <?php echo $constituency['name']; ?> Constituency</h2>
 	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
