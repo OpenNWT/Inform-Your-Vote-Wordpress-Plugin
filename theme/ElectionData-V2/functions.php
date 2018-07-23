@@ -365,11 +365,15 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   if($is_party_election){$display_party = in_array('party', $show_fields );}
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_news = in_array( 'news', $show_fields );
+  $questionnaire_available = isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'Questionnaire');
+
 
   $special_status = [];  
+
   if ($candidate['party_leader']) {
     $special_status[] = 'Party Leader';
   }
+
   if ($candidate['incumbent_year']) {
     $special_status[] = 'Incumbent since ' . esc_html( $candidate['incumbent_year'] );
   }
@@ -378,10 +382,12 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
     $special_status[] = '&nbsp;';
   }
 
-  ?><div class="politician show_constituency <?= $party['color'] ? 'yes_banner_color' : 'no_banner_color' ?>">
+  ?>
+  <div class="politician show_constituency <?= $party['color'] ? 'yes_banner_color' : 'no_banner_color' ?>">
     <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 48%, transparent 0);" >
-    <!-- style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>; -->
+
       <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
+
       <div class="name">
         <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
 
@@ -400,21 +406,55 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         </div>
       </div>
     </div>
-    <div class="constituency <?php echo $display_constituency ? '' : 'hidden'; ?>">
-      <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
-    </div>
+
     <div class="status"><?= implode($special_status, ' - ')  ?></div>
-    <div class="election-website <?php echo $candidate['website'] ? '': 'hidden'; ?>">
-      <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
+
+    <?php if ($display_consituency): ?>
+      <div class="constituency">
+        <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
+      </div>
+    <?php endif ?>
+
+    <?php if ($party['name'] && $display_party): ?>
+      <div class="candidate-party">Political Party:
+        <a href="<?php echo $party['url'] ? $party['url'] : '#' ; ?>">
+          <?= esc_html( $party['name'] );  ?>
+        </a>
+      </div> 
+    <?php endif ?>
+
+    <div class="election-website">
+      <?php if ($candidate['website']): ?>
+        <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
+      <?php else: ?>
+        No Election Website
+      <?php endif ?>
     </div>
-      <div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
-  <div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party:
-    <a href="<?php echo $party['url'] ? $party['url'] : '#' ; ?>">
-      <?php if ($party['name']) { echo esc_html( $party['name'] ); } else { echo 'N/A'; } ?>
-    </a></div> <?php if ($display_party == '') {echo '<br />';} ?>
-    <div class="phone <?php echo $candidate['phone'] ? '' : 'hidden' ?>">Phone: <?php echo esc_html( $candidate['phone'] ); ?></div>
-    <?php if (isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'qanda_active')): ?>
-      <div class="qanda"><strong>Questionnaire: <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">Read <?= explode(' ', $candidate['name'])[0] ?>'s Response</a></strong></div>
+
+    <?php if ($display_news): ?>
+      <div class="news">
+        News: 
+        <a href="<?php echo "{$candidate['url']}#news"; ?>">
+          <?php echo esc_html( $candidate['news_count'] ); ?> Related Articles
+        </a>
+      </div>
+    <?php endif ?>
+
+    <?php if ($candidate['phone']): ?>
+      <div class="phone">
+        Phone: <?php echo esc_html( $candidate['phone'] ); ?>
+      </div>
+    <?php endif ?>
+
+    <?php if ($questionnaire_available): ?>
+      <div class="qanda">
+        <strong>
+          Questionnaire: 
+          <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">
+            Read <?= explode(' ', $candidate['name'])[0] ?>'s Response
+          </a>
+        </strong>
+      </div>
     <?php endif ?>
   </div>
 <?php }
