@@ -314,7 +314,7 @@ function display_news_article( $article, $candidates = false ){
 function display_party( $party ) {
   ?>
   <div class="party">
-    <div class="image" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>">
+    <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 48%, transparent 0);" >
       <?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
     </div>
     <div class="name" >
@@ -366,42 +366,48 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_news = in_array( 'news', $show_fields );
 
-  ?><div class="politician show_constituency">
-    <div class="image <?= $candidate['party_leader'] ? 'leader' : '' ?>" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>;">
+  $special_status = [];  
+  if ($candidate['party_leader']) {
+    $special_status[] = 'Party Leader';
+  }
+  if ($candidate['incumbent_year']) {
+    $special_status[] = 'Incumbent since ' . esc_html( $candidate['incumbent_year'] );
+  }
+
+  if (count($special_status) == 0) {
+    $special_status[] = '&nbsp;';
+  }
+
+  ?><div class="politician show_constituency <?= $party['color'] ? 'yes_banner_color' : 'no_banner_color' ?>">
+    <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 48%, transparent 0);" >
+    <!-- style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>; -->
       <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
-      <?php if ( $candidate['party_leader'] ) :?>
-        <div class="leader">party leader</div>
-      <?php endif; ?>
+      <div class="name">
+        <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
+
+        <div class="icons">
+          <?php foreach ( $candidate['icon_data'] as $icon ) :
+            if ( $icon['url'] ) : ?>
+              <a href="<?php echo esc_attr( $icon['url'] ); ?>">
+            <?php endif; ?>
+            <?php if ($icon['fa_icon']): ?>
+              <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
+            <?php endif ?>
+            <?php if ( $icon['url'] ): ?>
+              </a>
+            <?php endif;
+          endforeach; ?>
+        </div>
+      </div>
     </div>
     <div class="constituency <?php echo $display_constituency ? '' : 'hidden'; ?>">
       <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
-      <?php if ( $candidate['incumbent_year'] && $incumbent_location == 'constituency') : ?>
-        <div class="since">Incumbent since <?php echo esc_html( $candidate['incumbent_year'] ); ?></div>
-      <?php endif; ?>
     </div>
-    <div class="name <?php echo $display_name ? '' : 'hidden'; ?>">
-      <strong><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></strong>
-      <?php if ( $candidate['incumbent_year'] && $incumbent_location == 'name' ) : ?>
-        <div class="since">Incumbent since <?php echo esc_html( $candidate['incumbent_year'] ); ?></div>
-      <?php endif; ?>
-    </div>
+    <div class="status"><?= implode($special_status, ' - ')  ?></div>
     <div class="election-website <?php echo $candidate['website'] ? '': 'hidden'; ?>">
       <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
     </div>
-    <div class="icons">
-      <?php foreach ( $candidate['icon_data'] as $icon ) :
-        if ( $icon['url'] ) : ?>
-          <a href="<?php echo esc_attr( $icon['url'] ); ?>">
-        <?php endif; ?>
-        <?php if ($icon['fa_icon']): ?>
-          <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
-        <?php endif ?>
-        <?php if ( $icon['url'] ): ?>
-          </a>
-      <?php endif;
-    endforeach; ?>
-  </div>
-  <div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
+      <div class="news <?php echo $display_news ? '' : 'hidden'; ?>">News: <a href="<?php echo "{$candidate['url']}#news"; ?>"><?php echo esc_html( $candidate['news_count'] ); ?> Related Articles</a></div>
   <div class="candidate-party <?php echo $display_party ? '' : 'hidden' ?>">Political Party:
     <a href="<?php echo $party['url'] ? $party['url'] : '#' ; ?>">
       <?php if ($party['name']) { echo esc_html( $party['name'] ); } else { echo 'N/A'; } ?>

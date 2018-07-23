@@ -242,107 +242,80 @@ p.news-article-notice{
 
 
 .politician, .party {
-	position: relative;
-	-o-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-	-icab-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-	-khtml-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-	-webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 	margin: 10px;
-	width: 288px;
+	width: 298px;
+  height: 350px;
 	border: 1px solid #e4e4e4;
-	min-height: 190px;
-	padding-left: 10px;
-	background-color: #eeeeee;
+  border-radius: 10px;
+	background-color: #eee;
+  font-size: 1.05em;
 	float: left; }
-	.politician div, .party div {
-		margin-left: 0;
-		color: #333333; }
 
-.constituency {
-	margin-top: 10px; }
+.politician .head img {
+  border-radius: 50%; }
 
+.politician .head img, .party .head img {
+  border: 4px solid white;
+  margin: 10px 0 0 10px; }
 
-.politician .name {
-	margin: 1em 0;
-	font-size: 11.5px; }
-
-.party .name {
-	margin: 1em 0;
-    font-weight: bold;
-    font-size: 1.2em; }
-
-.election-website, .website {
-	color: #999999;
-	font-size: 0.8em;
-	margin: 1em 0; }
-
-.phone, .candidate-party, .news, .address, .qanda {
-	font-size: 0.75em;
-	margin-bottom: 0.7em; }
-
-.qanda {
-    margin-top: 15px;
+.politician .head {
+  border-radius: 10px; 
+  overflow: auto;
+  zoom: 1;
+  margin-bottom: 10px;
 }
 
-.qanda strong {
-    color: #14510f;
+.politician.no_banner_color .head {
+    background: linear-gradient(to bottom, #888 48%, transparent 0); }
+
+.politician .head img, .politician .head .name {
+  float: left;
 }
 
-.since {
-	font-size: 0.75em;
-	margin-top: 0;
-	margin-bottom: 0;}
+.politician .head .name {
+  margin-top: 0;
+  margin-left: 15px; }
 
-.politician .image, .party .image {
-	-o-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-	-icab-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-	-khtml-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-	box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-	position: absolute;
-	top: 0;
-	right: 0;
-	text-align: center;
-	width: 100px;
-    height: 100px;
-    overflow: hidden;
-	background-color: #dbdbda;}
-    .politician .leader {
-        padding-bottom: 1em;
-    }
-	.politician .image .leader {
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        bottom: -10px;
-		margin: 0;
-		font-size: 0.8em;
-		font-weight: bold; }
-	.politician .image img, .party .image img {
-        position: absolute;
-        left: 50%;
-        -webkit-transform: translate(-50%, 0);
-        -ms-transform: translate(-50%, 0);
-        transform: translate(-50%, 0);
-		width: auto}
+.politician .head .name p {
+  display: table;
+  font-size: 1.27em;
+  margin: 0;
+  height: 60px;
+  max-width: 150px; }
 
-.politician .icons, .party .icons {
-    margin-top: 10px;
-	margin-bottom: 10px; }
+.politician .head .name p a {
+  color: #f9f9f9;
+  display: table-cell;
+  vertical-align: middle; }
+
+.politician .constituency, .politician .election-website,
+.politician .news, .politician .candidate-party,
+.politician .status, .politician .qanda,
+.politician .phone {
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+.politician .status {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 2em;
+}
+
+.politician .icons {
+  margin-top: 10px;
+}
 
 .politician .icons a, .party .icons a {
     text-decoration: none;
 }
 .politician .icons i, .party .icons i {
-  font-size: 1.5em;
+  font-size: 1.55em;
+  padding-right: 3px;
 }
 
 .politician .icons > i, .party .icons > i {
-    -webkit-filter: opacity(.5);
-    filter: opacity(.5);
+  color: #aaa;
 }
 
 .icons a i.fa-youtube {
@@ -356,7 +329,7 @@ p.news-article-notice{
 .icons a i.fa-twitter {
   color: #1da1f2;
 }
-
+/*
 .parties .party {
 	min-height: 208px; }
 	.parties .party .image {
@@ -375,6 +348,7 @@ p.news-article-notice{
 	.parties .party div.name a {
 		font-weight: bold;
 		font-size: 100%; }
+    */
 
 
 .visible_block_when_mobile {
