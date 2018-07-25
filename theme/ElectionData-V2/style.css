@@ -244,12 +244,14 @@ p.news-article-notice{
 .politician, .party {
 	margin: 10px;
 	width: 298px;
-  height: 350px;
+  height: 335px;
 	border: 1px solid #e4e4e4;
   border-radius: 10px;
 	background-color: #eee;
   font-size: 1.05em;
-	float: left; }
+	float: left;
+  overflow: auto;
+  zoom: 1; }
 
 .politician .head img {
   border-radius: 50%; }
@@ -288,30 +290,27 @@ p.news-article-notice{
   display: table-cell;
   vertical-align: middle; }
 
-.politician .constituency, .politician .election-website,
-.politician .news, .politician .candidate-party,
-.politician .status, .politician .qanda,
-.politician .phone {
-  margin-left: 15px;
-  margin-bottom: 10px;
+.politician .head .name.move_up {
+  margin-top: -20px;
 }
 
 .politician .status {
   font-size: 0.9em;
   color: #555;
-  margin-bottom: 2em;
+  margin-left: 15px;
+  margin-bottom: 20px;
 }
 
 .politician .icons {
-  margin-top: 10px;
+  margin-top: 9px;
 }
 
 .politician .icons a, .party .icons a {
     text-decoration: none;
 }
 .politician .icons i, .party .icons i {
-  font-size: 1.55em;
-  padding-right: 3px;
+  font-size: 1.6em;
+  padding-right: 4px;
 }
 
 .politician .icons > i, .party .icons > i {
@@ -329,27 +328,31 @@ p.news-article-notice{
 .icons a i.fa-twitter {
   color: #1da1f2;
 }
-/*
-.parties .party {
-	min-height: 208px; }
-	.parties .party .image {
-		width: 150px;
-		height: 95px; }
-	.parties .party .image img {
-		height: 90px;
-		width: auto;
-		max-width: 93%; }
-	.parties .party div.icons {
-		margin-bottom: 2.5em; }
-	.parties .party div.name {
-		font-weight: bold;
-		font-size: 1.2em;
-		width: 130px; }
-	.parties .party div.name a {
-		font-weight: bold;
-		font-size: 100%; }
-    */
 
+.politician .qanda, .politician .candidate-party {
+  margin-bottom: 1em;
+  margin-left: 14px;
+}
+
+.politician .qanda {
+  color: #2F7C24;
+}
+
+.politician .constituency {
+  margin: 5px 0 0 0;
+  font-size: 0.85em;
+}
+
+.politician .minitile, .party .minitile {
+  width: 54px;
+  height: 65px;
+  float: left;
+  background: white;
+  border-radius: 5px;
+  margin-left: 12px;
+  margin-bottom: 30px;
+  padding: 1em;
+}
 
 .visible_block_when_mobile {
 	display: none; }

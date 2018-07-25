@@ -357,16 +357,19 @@ function display_party( $party ) {
 * @param $party                the candidate's party
 * @param $show_fields          Default is empty array.
 * @param $incumbent_location   Default is 'name'.
+* 
+*
+* TODO: Show fields needs fixing. Some no longer apply.
 */
+
 function display_candidate( $candidate, $constituency, $party, $show_fields=array(), $incumbent_location='name' ) {
   global $is_party_election;
+  if($is_party_election){$display_party = in_array('party', $show_fields );}
 
   $display_name = in_array( 'name', $show_fields );
-  if($is_party_election){$display_party = in_array('party', $show_fields );}
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_news = in_array( 'news', $show_fields );
-  $questionnaire_available = isset($candidate['icon_data']) && isset($candidate['icon_data']['qanda']) && ($candidate['icon_data']['qanda']['type'] == 'Questionnaire');
-
+  $questionnaire_available = ! empty($candidate['answers']);
 
   $special_status = [];  
 
@@ -386,7 +389,10 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   <div class="politician show_constituency <?= $party['color'] ? 'yes_banner_color' : 'no_banner_color' ?>">
     <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 48%, transparent 0);" >
 
-      <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
+
+      <a href="<?php echo $candidate['url'] ?>">
+        <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
+      </a>
 
       <div class="name">
         <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
@@ -404,26 +410,18 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
             <?php endif;
           endforeach; ?>
         </div>
+
+        <?php if ($display_constituency): ?>
+          <div class="constituency">
+            <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
+          </div>
+        <?php endif ?>
       </div>
     </div>
 
     <div class="status"><?= implode($special_status, ' - ')  ?></div>
 
-    <?php if ($display_consituency): ?>
-      <div class="constituency">
-        <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
-      </div>
-    <?php endif ?>
-
-    <?php if ($party['name'] && $display_party): ?>
-      <div class="candidate-party">Political Party:
-        <a href="<?php echo $party['url'] ? $party['url'] : '#' ; ?>">
-          <?= esc_html( $party['name'] );  ?>
-        </a>
-      </div> 
-    <?php endif ?>
-
-    <div class="election-website">
+    <div class="election-website minitile">
       <?php if ($candidate['website']): ?>
         <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
       <?php else: ?>
@@ -431,29 +429,25 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       <?php endif ?>
     </div>
 
-    <?php if ($display_news): ?>
-      <div class="news">
-        News: 
-        <a href="<?php echo "{$candidate['url']}#news"; ?>">
-          <?php echo esc_html( $candidate['news_count'] ); ?> Related Articles
-        </a>
-      </div>
-    <?php endif ?>
+    <div class="news minitile">
+      News: 
+      <a href="<?php echo "{$candidate['url']}#news"; ?>">
+        <?php echo esc_html( $candidate['news_count'] ); ?> Related Articles
+      </a>
+    </div>
 
-    <?php if ($candidate['phone']): ?>
-      <div class="phone">
-        Phone: <?php echo esc_html( $candidate['phone'] ); ?>
-      </div>
-    <?php endif ?>
+    <div class="phone minitile">
+      <?php if ($candidate['phone']): ?>
+          Phone: <?php echo esc_html( $candidate['phone'] ); ?>
+      <?php endif ?>
+    </div>
 
     <?php if ($questionnaire_available): ?>
       <div class="qanda">
-        <strong>
-          Questionnaire: 
-          <a href="<?= $candidate['icon_data']['qanda']['url'] ?>">
-            Read <?= explode(' ', $candidate['name'])[0] ?>'s Response
-          </a>
-        </strong>
+        Questionnaire: 
+        <a href="<?= $candidate['qanda'] ?>">
+          Read <?= explode(' ', $candidate['name'])[0] ?>'s Response
+        </a>
       </div>
     <?php endif ?>
   </div>
@@ -539,35 +533,6 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
     $candidates[] = $candidate['news_article_candidate_id'];
     display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
   }
-}
-
-/**
-* An alternative to the display_candidate function, that only displays their picture and party affilitation.
-* @since Election_Data_Theme 1.1
-*
-* @param array  $candidate        all the information about the candidate
-* @param array  $constituency     the constituency of the candidate
-* @param array  $party            all the information about the candidate's party
-* @param array  $show_fields      default is empty array
-* @param string $name             redundent variable kept from transitioning from the old display_candidate function
-*/
-function display_candidate_new ( $candidate, $constituency, $party, $show_fields=array(), $name ) {
-  $display_name = in_array( 'name', $show_fields );
-  if( Election_Data_Option::get_option( 'party_election' ) == 1 ){ $display_party = in_array('party', $show_fields ); }
-  $display_constituency = in_array( 'constituency', $show_fields );
-  $display_news = in_array( 'news', $show_fields );
-
-  ?><div class ="float_left">
-    <div class="new_politician image <?= $candidate['party_leader'] ? 'leader' : '' ?>" style="border-bottom: 8px solid <?php echo esc_attr( $party['colour'] ); ?>;">
-      <a href="<?php echo $candidate['url'] ?>">
-        <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
-      </a>
-    </div>
-    <div class="name <?php echo $display_name ? '' : 'hidden'; ?>">
-      <strong><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></strong>
-    </div>
-  </div>
-  <?php
 }
 
 /**

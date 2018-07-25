@@ -116,10 +116,18 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 		'number_of_winners' => get_tax_meta( $constituency_id, 'number_of_winners'),
 		'url' => get_term_link( $constituency, $ed_taxonomies['candidate_constituency'] ),
 	);
+
+  if ($constiuency->parent) {
+    $parent = get_term( $constituency->parent, $ed_taxonomies['candidate_constituency'] );
+    $results['parent_name'] = $parent->name;
+    $results['parent_url'] = get_term_link( $parent, $ed_taxonomies['candidate_constituency'] );
+  }
+
 	if ( $get_extra_data ) {
 		$results['details'] = get_tax_meta( $constituency_id, 'details' );
 		$map_image = get_tax_meta( $constituency_id, 'map' );
 		$results['map_id'] = $map_image ? $map_image : '';
+
 
 		$child_terms = get_terms( $ed_taxonomies['candidate_constituency'], array( 'parent' =>$constituency_id, 'hide_empty' => false ) );
 		$results['children'] = array();

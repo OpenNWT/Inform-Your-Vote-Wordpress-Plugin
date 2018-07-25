@@ -14,13 +14,23 @@ $has_qanda = count( $candidate['answers'] ) > 0;
 
 get_header(); ?>
 <h2 class="title"><?php echo $candidate['name']; ?></h2>
+<p>
+  <?php if ($party['name']): ?>
+    <a href="<?= $party['url'] ?>"><?= $party['name'] ?></a> candidate in
+  <?php endif ?>
+
+  <?php if(isset($constituency['parent_name'])): ?>
+    <a href="<?= $constituency['parent_url'] ?>"><?= $constituency['parent_name'] ?></a>
+  <?php endif ?>
+
+  <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a></p>
 <?php if ( $has_qanda ) : ?>
 <div class="one_column_flow" >
 <?php else : ?>
 <div class="flow_it">
 <?php endif; ?>
 	<div class="politicians">
-		<?php display_candidate( $candidate, $constituency, $party, array( 'constituency', 'party' ), 'constituency' ); ?>
+		<?php display_candidate( $candidate, $constituency, $party, [], 'constituency' ); ?>
 	</div>
 	<?php  if ( $has_qanda ) :  ?>
 	<div class="one_column">
