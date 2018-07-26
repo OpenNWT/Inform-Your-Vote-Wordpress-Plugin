@@ -370,31 +370,16 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_news = in_array( 'news', $show_fields );
   $questionnaire_available = ! empty($candidate['answers']);
-
-  $special_status = [];  
-
-  if ($candidate['party_leader']) {
-    $special_status[] = 'Party Leader';
-  }
-
-  if ($candidate['incumbent_year']) {
-    $special_status[] = 'Incumbent since ' . esc_html( $candidate['incumbent_year'] );
-  }
-
-  if (count($special_status) == 0) {
-    $special_status[] = '&nbsp;';
-  }
-
   ?>
   <div class="politician show_constituency <?= $party['color'] ? 'yes_banner_color' : 'no_banner_color' ?>">
-    <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 48%, transparent 0);" >
+    <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 45%, transparent 0);" >
 
 
       <a href="<?php echo $candidate['url'] ?>">
         <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
       </a>
 
-      <div class="name">
+      <div class="info">
         <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
 
         <div class="icons">
@@ -411,36 +396,48 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
           endforeach; ?>
         </div>
 
-        <?php if ($display_constituency): ?>
-          <div class="constituency">
-            <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
-          </div>
-        <?php endif ?>
+        <div class="status">
+          <?php if ($display_constituency): ?>
+              <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
+          <?php endif ?>
+          <?php if ($candidate['incumbent_year']): ?>
+            Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
+          <?php endif ?>
+        </div>
       </div>
     </div>
 
-    <div class="status"><?= implode($special_status, ' - ')  ?></div>
 
     <div class="election-website minitile">
+      website
+      <br><br>
       <?php if ($candidate['website']): ?>
         <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
       <?php else: ?>
-        No Election Website
+        None
       <?php endif ?>
     </div>
 
     <div class="news minitile">
-      News: 
+      news
+      <br><br>
       <a href="<?php echo "{$candidate['url']}#news"; ?>">
         <?php echo esc_html( $candidate['news_count'] ); ?> Related Articles
       </a>
     </div>
 
     <div class="phone minitile">
+      phone
+      <br><br>
       <?php if ($candidate['phone']): ?>
-          Phone: <?php echo esc_html( $candidate['phone'] ); ?>
+         <?php echo esc_html( $candidate['phone'] ); ?>
       <?php endif ?>
     </div>
+    <!-- TODO: Add back for provincial election. 
+    <?php if ($candidate['party_leader']): ?>
+      <p>Party Leader</p>
+    <?php endif ?>
+    -->
 
     <?php if ($questionnaire_available): ?>
       <div class="qanda">

@@ -13,47 +13,77 @@ $candidate_news = get_news( $candidate['news_article_candidate_id'] );
 $has_qanda = count( $candidate['answers'] ) > 0;
 
 get_header(); ?>
-<h2 class="title"><?php echo $candidate['name']; ?></h2>
 <p>
-  <?php if ($party['name']): ?>
-    <a href="<?= $party['url'] ?>"><?= $party['name'] ?></a> candidate in
-  <?php endif ?>
-
+  Candidates / 
   <?php if(isset($constituency['parent_name'])): ?>
-    <a href="<?= $constituency['parent_url'] ?>"><?= $constituency['parent_name'] ?></a>
+    <a href="<?= $constituency['parent_url'] ?>"><?= $constituency['parent_name'] ?></a> /
   <?php endif ?>
-
-  <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a></p>
-<?php if ( $has_qanda ) : ?>
-<div class="one_column_flow" >
-<?php else : ?>
+  <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> 
+</p>
 <div class="flow_it">
-<?php endif; ?>
 	<div class="politicians">
 		<?php display_candidate( $candidate, $constituency, $party, [], 'constituency' ); ?>
 	</div>
-	<?php  if ( $has_qanda ) :  ?>
-	<div class="one_column">
-	<?php else : ?>
+  <div class="two_columns_early_shrink">
+    <h2 class="title"><?php echo $candidate['name']; ?></h2>
+    <p>
+      <?php if ($is_party_election && $party['name']): ?>
+        <?php if ($candidate['party_leader']): ?>
+          Party leader and
+        <?php endif ?>
+        <a href="<?= $party['url'] ?>"><?= $party['name'] ?></a> 
+        candidate
+      <?php else: ?>
+        Candidate
+      <?php endif ?>
+
+      <?php if(isset($constituency['parent_name'])): ?>
+        in the <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?> <?= $constituency['parent_name'] ?></a> race.
+      <?php else: ?>
+        in the <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> race.
+      <?php endif ?>
+    </p>
+    <?php if ($candidate['email'] || $candidate['phone']): ?>
+      <p>
+        <?= explode(' ', $candidate['name'])[0] ?>
+        can be reached 
+        <?php if ($candidate['email']): ?>
+          at 
+          <a href="mailto:<?= $candidate['email'] ?>"><?= $candidate['email'] ?></a> 
+        <?php endif ?>
+        <?php if ($candidate['email'] && $candidate['phone']): ?>
+           or
+        <?php endif ?>
+        <?php if ($candidate['phone']): ?>
+          by calling <?= $candidate['phone'] ?>
+        <?php endif ?>
+        .
+      </p>
+    <?php endif ?>
+    <?php if (!$has_qanda): ?>
+      <p>
+        Their response to our candidate questionnaire can be read below.
+      </p>
+    <?php endif ?>
+  </div>
 	<div class="three_columns">
-	<?php endif; ?>
 		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
 		<p class="news-article-notice"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
 		<?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
 		display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
 	</div>
+  <?php if ($has_qanda): ?>
+    <div class="three_columns">
+      <h2 id="qanda">Questionnaire Response</h2>
+      <div class="questionnaire">
+        <p class="visible_block_when_mobile" ><?php echo "{$candidate['name']} - {$constituency['name']}"; ?></p>
+        <?php foreach ( $candidate['answers'] as $question => $answer ) :?>
+          <p><strong><?php echo $question; ?></strong></p>
+          <p><?php echo $answer; ?></p>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  <?php endif ?>
 </div>
-<?php if ( $has_qanda ) : ?>
-<div class="two_columns_early_shrink">
-	<h2 id="qanda">Questionnaire Response</h2>
-	<div class="questionnaire">
-		<p class="visible_block_when_mobile" ><?php echo "{$candidate['name']} - {$constituency['name']}"; ?></p>
-		<?php foreach ( $candidate['answers'] as $question => $answer ) :?>
-			<p><strong><?php echo $question; ?></strong></p>
-			<p><?php echo $answer; ?></p>
-		<?php endforeach; ?>
-	</div>
-</div>
-<?php endif; ?>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

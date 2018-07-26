@@ -117,7 +117,7 @@ function get_constituency( $constituency, $get_extra_data = true ) {
 		'url' => get_term_link( $constituency, $ed_taxonomies['candidate_constituency'] ),
 	);
 
-  if ($constiuency->parent) {
+  if ($constituency->parent) {
     $parent = get_term( $constituency->parent, $ed_taxonomies['candidate_constituency'] );
     $results['parent_name'] = $parent->name;
     $results['parent_url'] = get_term_link( $parent, $ed_taxonomies['candidate_constituency'] );
