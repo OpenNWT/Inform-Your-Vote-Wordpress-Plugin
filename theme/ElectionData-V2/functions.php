@@ -356,24 +356,20 @@ function display_party( $party ) {
 * @param $constituency         the candidate's constituency
 * @param $party                the candidate's party
 * @param $show_fields          Default is empty array.
-* @param $incumbent_location   Default is 'name'.
 * 
 *
 * TODO: Show fields needs fixing. Some no longer apply.
 */
 
-function display_candidate( $candidate, $constituency, $party, $show_fields=array(), $incumbent_location='name' ) {
+function display_candidate( $candidate, $constituency, $party, $show_fields=array() ) {
   global $is_party_election;
-  if($is_party_election){$display_party = in_array('party', $show_fields );}
 
-  $display_name = in_array( 'name', $show_fields );
   $display_constituency = in_array( 'constituency', $show_fields );
-  $display_news = in_array( 'news', $show_fields );
+  $display_questionnaire = in_array( 'questionnaire', $show_fields );
   $questionnaire_available = ! empty($candidate['answers']);
   ?>
-  <div class="politician show_constituency <?= $party['color'] ? 'yes_banner_color' : 'no_banner_color' ?>">
-    <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 45%, transparent 0);" >
-
+    <div class="politician show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
+    <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 45%, transparent 0);" >
 
       <a href="<?php echo $candidate['url'] ?>">
         <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
@@ -407,39 +403,31 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     </div>
 
-
     <div class="election-website minitile">
-      website
+      <i class="far fa-address-card"></i>
       <br><br>
       <?php if ($candidate['website']): ?>
         <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
       <?php else: ?>
-        None
+        No Election Site
       <?php endif ?>
     </div>
 
     <div class="news minitile">
-      news
+      <i class="far fa-newspaper"></i>
       <br><br>
       <a href="<?php echo "{$candidate['url']}#news"; ?>">
-        <?php echo esc_html( $candidate['news_count'] ); ?> Related Articles
+        <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
       </a>
     </div>
 
-    <div class="phone minitile">
-      phone
-      <br><br>
-      <?php if ($candidate['phone']): ?>
-         <?php echo esc_html( $candidate['phone'] ); ?>
+      <!-- TODO: Add back for provincial election. 
+      <?php if ($candidate['party_leader']): ?>
+        <p>Party Leader</p>
       <?php endif ?>
-    </div>
-    <!-- TODO: Add back for provincial election. 
-    <?php if ($candidate['party_leader']): ?>
-      <p>Party Leader</p>
-    <?php endif ?>
-    -->
+      -->
 
-    <?php if ($questionnaire_available): ?>
+    <?php if ($display_questionnaire && $questionnaire_available): ?>
       <div class="qanda">
         Questionnaire: 
         <a href="<?= $candidate['qanda'] ?>">
@@ -467,7 +455,7 @@ function display_search_results( $search_query ) {
       $candidate = get_candidate( $candidate_id );
       $constituency = get_constituency_from_candidate( $candidate_id );
       $party  = get_party_from_candidate( $candidate_id );
-      display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'constituency', 'news' ), 'name' );
+      display_candidate( $candidate, $constituency, $party, array( 'party', 'constituency', 'questionnaire' ) );
       break;
       case $ed_post_types['news_article']:
       //$news_article = get_news_article( $search_query->post );
@@ -490,7 +478,7 @@ function display_all_candidates( $candidate_query ) {
     $candidate = get_candidate( $candidate_id );
     $constituency = get_constituency_from_candidate( $candidate_id );
     $party  = get_party_from_candidate( $candidate_id );
-    display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'constituency', 'news' ), 'name' );
+    display_candidate( $candidate, $constituency, $party, array( 'party', 'constituency', 'questionnaire' ) );
   }
 }
 
@@ -509,7 +497,7 @@ function display_party_candidates( $candidate_query, $party, &$candidates ) {
     $candidate = get_candidate( $candidate_id );
     $constituency = get_constituency_from_candidate( $candidate_id );
     $candidates[] = $candidate['news_article_candidate_id'];
-    display_candidate( $candidate, $constituency, $party, array( 'name', 'constituency', 'news' ), 'constituency' );
+    display_candidate( $candidate, $constituency, $party, array( 'constituency', 'questionnaire'  ) );
   }
 }
 
@@ -528,7 +516,7 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
     $candidate = get_candidate( $candidate_id );
     $party = get_party_from_candidate( $candidate_id );
     $candidates[] = $candidate['news_article_candidate_id'];
-    display_candidate( $candidate, $constituency, $party, array( 'name', 'party', 'news' ), 'name' );
+    display_candidate( $candidate, $constituency, $party, array( 'party', 'questionnaire' ) );
   }
 }
 

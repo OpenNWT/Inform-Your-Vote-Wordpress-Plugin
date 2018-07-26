@@ -11,6 +11,21 @@ $party = get_party_from_candidate( $candidate_id );
 $constituency = get_constituency_from_candidate( $candidate_id );
 $candidate_news = get_news( $candidate['news_article_candidate_id'] );
 $has_qanda = count( $candidate['answers'] ) > 0;
+$contact = [];
+if ($candidate['facebook'] || $candidate['youtube'] || $candidate['twitter'] || $candidate['instagram']) {
+  $contact[] = 'on social media';
+}
+if ($candidate['email']) {
+  $contact[] = 'at <a href="mailto:' . $candidate['email'] .'">' . $candidate['email'] . '</a>';
+}
+if ($candidate['phone']) {
+  $contact[] = 'by calling ' . $candidate['phone'];
+}
+if (count($contact) == 2) {
+  $contact[1] = 'or ' . $contact[1];
+} elseif (count($contact) == 3) {
+  $contact[2] = 'or ' . $contact[2];
+}
 
 get_header(); ?>
 <p>
@@ -43,21 +58,11 @@ get_header(); ?>
         in the <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> race.
       <?php endif ?>
     </p>
-    <?php if ($candidate['email'] || $candidate['phone']): ?>
+    <?php if (count($contact) > 0): ?>
       <p>
         <?= explode(' ', $candidate['name'])[0] ?>
         can be reached 
-        <?php if ($candidate['email']): ?>
-          at 
-          <a href="mailto:<?= $candidate['email'] ?>"><?= $candidate['email'] ?></a> 
-        <?php endif ?>
-        <?php if ($candidate['email'] && $candidate['phone']): ?>
-           or
-        <?php endif ?>
-        <?php if ($candidate['phone']): ?>
-          by calling <?= $candidate['phone'] ?>
-        <?php endif ?>
-        .
+        <?= implode($contact, ', ') . '.' ?>
       </p>
     <?php endif ?>
     <?php if (!$has_qanda): ?>

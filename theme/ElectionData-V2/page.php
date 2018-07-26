@@ -20,8 +20,11 @@ get_header(); ?>
             <div id="content" class="site-content" role="main">
 				<?php if ( have_posts()) :
                     while ( have_posts() ) :
-                        the_post();
-                        the_content();
+                      echo '<h1 id="page_title">';
+                      the_title();
+                      echo '</h1>';
+                      the_post();
+                      the_content();
                     endwhile;
                 endif; ?>
 

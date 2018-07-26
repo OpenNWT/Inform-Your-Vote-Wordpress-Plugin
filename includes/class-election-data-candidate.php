@@ -185,6 +185,14 @@ class Election_Data_Candidate {
               'std' => '',
               'imported' => true,
             ),
+            'instagram' => array(
+              'label' => __( 'Instagram Account' ),
+              'id' => 'instagram',
+              'desc' => __( "Enter the URL to the candidate's instagram page." ),
+              'type' => 'url',
+              'std' => '',
+              'imported' => true,
+            ),
             'incumbent_year' => array(
               'label' => __( 'Year Previously Elected' ),
               'id' => 'incumbent_year',
@@ -358,6 +366,15 @@ class Election_Data_Candidate {
                 'id' => 'twitter',
                 'desc' => __( "Enter the URL to the party's twitter feed." ),
                 'label' => __( 'Twitter Feed' ),
+                'std' => '',
+                'imported' => true,
+              ),
+
+              array(
+                'type' => 'url',
+                'id' => 'instagram',
+                'desc' => __( "Enter the URL to the party's instagram page." ),
+                'label' => __( 'Instagram Page' ),
                 'std' => '',
                 'imported' => true,
               ),

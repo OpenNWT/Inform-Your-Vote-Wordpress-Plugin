@@ -275,11 +275,12 @@ function get_party( $party, $get_extra_data = true ) {
 	global $ed_taxonomies;
 	$party = get_term( $party, $ed_taxonomies['candidate_party'] );
 	$party_id = $party->term_id;
+  $colour = get_tax_meta( $party_id, 'colour' );
 
 	$results = array(
 		'id' => $party_id,
 		'name' => $party->name,
-		'colour' => get_tax_meta( $party_id, 'colour' ),
+		'colour' => $colour,
 		'url' => get_term_link( $party, $ed_taxonomies['candidate_party'] ),
 		'long_title' => $party->description,
 	);
@@ -295,6 +296,7 @@ function get_party( $party, $get_extra_data = true ) {
 		$results['facebook'] = get_tax_meta( $party_id, 'facebook' );
 		$results['youtube'] = get_tax_meta( $party_id, 'youtube' );
 		$results['twitter'] = get_tax_meta( $party_id, 'twitter' );
+		$results['instagram'] = get_tax_meta( $party_id, 'instagram' );
 		$results['email'] = get_tax_meta( $party_id, 'email' );
 		$results['qanda'] = empty( $results['answers'] ) ? '' : "{$results['url']}#qanda";
 		$results['qanda_token'] = get_tax_meta( $party_id, 'qanda_token' );
@@ -319,7 +321,7 @@ function get_party_from_candidate( $candidate_id ) {
 		return array(
 			'id' => 0,
 			'name' => '',
-			'colour' => '0x000000',
+			'colour' => '#888',
 			'url' => '',
 			'long_title' => '',
 		);
@@ -530,7 +532,7 @@ function get_qanda_answers( $type, $id, $count = null ) {
 
 function set_icon_data($results) {
   $icon_data = array();
-  foreach ( array('email', 'facebook', 'youtube', 'twitter', 'qanda' ) as $icon_type ) {
+  foreach ( array('email', 'facebook', 'youtube', 'twitter', 'instagram' ) as $icon_type ) {
     $value = $results[$icon_type];
     $url = '';
     $alt = ucfirst($icon_type);
@@ -547,9 +549,8 @@ function set_icon_data($results) {
         case 'twitter':
           $fa_icon = 'fab fa-twitter';
           break;
-        case 'qanda':
-          $fa_icon = 'fas fa-question-circle';
-          $alt = 'Questionnaire';
+        case 'instagram':
+          $fa_icon = 'fab fa-instagram';
           break;
     }
 
@@ -591,6 +592,7 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 		'facebook' => get_post_meta( $candidate_id, 'facebook', true ),
 		'youtube' => get_post_meta( $candidate_id, 'youtube', true ),
 		'twitter' => get_post_meta( $candidate_id, 'twitter', true ),
+		'instagram' => get_post_meta( $candidate_id, 'instagram', true ),
 		'incumbent_year' => get_post_meta( $candidate_id, 'incumbent_year', true ),
 		'party_leader' => get_post_meta( $candidate_id, 'party_leader', true ),
 		'url' => get_permalink( $candidate_id ),
@@ -607,7 +609,7 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 	}
 	$news = get_news( $results['news_article_candidate_id'], 1, 1 );
 	$results['news_count'] = $news['count'];
-	$results['qanda'] = $has_qanda ? "{$results['url']}#qanda" : '';
+	$results['qanda'] = "{$results['url']}#qanda";
 	$results['icon_data'] = set_icon_data($results);
 
 	return $results;

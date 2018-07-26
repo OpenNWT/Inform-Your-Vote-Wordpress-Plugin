@@ -65,7 +65,7 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 	<div class="one_column_flow">
 		<div class="flow_it" >
 			<div class="politicians">
-				<?php display_candidate( $candidate, $constituency, $party, array( 'constituency', 'party' ), 'constituency' ); ?>
+				<?php display_candidate( $candidate, $constituency, $party, array( 'constituency', 'party' ) ?>
 			</div>
 		</div>
 	</div>
