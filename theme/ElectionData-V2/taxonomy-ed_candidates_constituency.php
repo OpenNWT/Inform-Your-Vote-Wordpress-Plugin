@@ -36,10 +36,7 @@ get_header();?>
 				</map>
 			</div>
 		<?php endif;?>
-		<div class='one_column'>
-            <h3>Find Your Constituency</h3>
-            <p><a href="/address-lookup/" id="where_to_vote">Elections Manitoba Address Lookup</a></p>
-            <br>
+		<div class='one_column map_nav'>
 				<h3>Select a <?php echo $constituency['name']; ?> Constituency</h3>
 
 					<?php foreach ( $constituency['children'] as $name => $child ) :?>
@@ -63,6 +60,14 @@ get_header();?>
 <?php else :
 	$candidate_references = array();
 	?>
+
+  <p class="breadcrumbs">
+    <a href="/who-constituency">Candidates</a> / 
+    <?php if(isset($constituency['parent_name'])): ?>
+      <a href="<?= $constituency['parent_url'] ?>"><?= $constituency['parent_name'] ?></a> /
+    <?php endif ?>
+    <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> 
+  </p>
 	<h2><?php echo $constituency['name']; ?></h2>
 	<p>
 		<?php if ($constituency['number_of_winners'] < 2) : ?>

@@ -120,7 +120,7 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 	</div>
 	<div id="container">
         <?php if (!is_front_page()): ?>
-        <p class="visible_block_when_mobile"><br><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
+        <p class="visible_block_when_mobile mobile_home"><a href="<?php echo home_url( '/' ); ?>">↩ Return Home</a></p>
         <?php endif ?>
 		<div id="main" role="main">
 			<?PHP $themes = array('Election Data - V1', 'Election Data - V2');

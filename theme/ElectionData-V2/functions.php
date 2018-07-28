@@ -368,7 +368,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   $display_questionnaire = in_array( 'questionnaire', $show_fields );
   $questionnaire_available = ! empty($candidate['answers']);
   ?>
-    <div class="politician show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
+    <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
     <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 45%, transparent 0);" >
 
       <a href="<?php echo $candidate['url'] ?>">
@@ -407,9 +407,9 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       <i class="far fa-address-card"></i>
       <br><br>
       <?php if ($candidate['website']): ?>
-        <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Website</a>
+        <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
       <?php else: ?>
-        No Election Site
+        <span class="no-site">No Election Site</span>
       <?php endif ?>
     </div>
 

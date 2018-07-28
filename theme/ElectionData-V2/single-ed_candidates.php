@@ -28,18 +28,19 @@ if (count($contact) == 2) {
 }
 
 get_header(); ?>
-<p>
-  Candidates / 
+<p class="breadcrumbs">
+  <a href="/who-constituency">Candidates</a> / 
   <?php if(isset($constituency['parent_name'])): ?>
     <a href="<?= $constituency['parent_url'] ?>"><?= $constituency['parent_name'] ?></a> /
   <?php endif ?>
   <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> 
+  / <a href="<?= $candidate['url'] ?>"><?= $candidate['name'] ?></a>
 </p>
 <div class="flow_it">
 	<div class="politicians">
 		<?php display_candidate( $candidate, $constituency, $party, [], 'constituency' ); ?>
 	</div>
-  <div class="two_columns_early_shrink">
+  <div class="two_columns_early_shrink short">
     <h2 class="title"><?php echo $candidate['name']; ?></h2>
     <p>
       <?php if ($is_party_election && $party['name']): ?>
