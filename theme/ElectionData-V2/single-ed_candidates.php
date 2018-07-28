@@ -66,11 +66,13 @@ get_header(); ?>
         <?= implode($contact, ', ') . '.' ?>
       </p>
     <?php endif ?>
-    <?php if (!$has_qanda): ?>
+    <?php if ($has_qanda): ?>
       <p>
         Their response to our candidate questionnaire can be read below.
       </p>
     <?php endif ?>
+    <br>
+    <p class="grey">Our candidate data retrieval process is available in our FAQ.</p>
   </div>
 	<div class="three_columns">
 		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>

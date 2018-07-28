@@ -42,7 +42,9 @@ get_header(); ?>
 					<a href="<?php echo $left_column_url;?>"><?php echo $left_column_title;?></a>
 				</h1>
 				<p class="excerpt">
-					<?php echo $left_column_excerpt; ?>
+          <a href="<?php echo $left_column_url;?>">
+            <?php echo $left_column_excerpt; ?>
+          </a>
 				</p>
 				<p class="pimg">
 					<a href="<?php echo $left_column_url;?>">
@@ -62,7 +64,9 @@ get_header(); ?>
 					<a href="<?php echo $center_column_url;?>"><?php echo $center_column_title;?></a>
 				</h1>
 				<p class="excerpt">
-					<?php echo $center_column_excerpt; ?>
+          <a href="<?php echo $center_column_url;?>">
+            <?php echo $center_column_excerpt; ?>
+          </a>
 				</p>
 				<p class="pimg">
 					<a href="<?php echo $center_column_url;?>">
@@ -82,7 +86,9 @@ get_header(); ?>
 					<a href="<?php echo $right_column_url;?>"><?php echo $right_column_title;?></a>
 				</h1>
 				<p class="excerpt">
-					<?php echo $right_column_excerpt; ?>
+					<a href="<?php echo $right_column_url;?>">
+            <?php echo $right_column_excerpt; ?>
+          </a>
 				 </p>
 				<p class="pimg">
 					<a href="<?php echo $right_column_url;?>">

@@ -80,6 +80,9 @@ get_header();?>
 	<div class="flow_it politicians">
 		<?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
 	</div>
+  <p>
+		<em class="small grey">Our candidate data retrieval process is available in our FAQ.</em>
+  </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
 			<div class="two_columns constit_description">

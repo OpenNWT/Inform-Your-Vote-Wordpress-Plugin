@@ -16,27 +16,25 @@ $constituencies = get_root_constituencies();
 <?php get_header(); ?>
 <?php if ( $constituencies ) : ?>
 		<div class="flow_it who_constituencies_lists">
-			<h2 style="text-align:center; line-height: 36px;"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
-			<h3><pre style="text-align:center; line-height: 36px;">
-Please select a consituency to view their candidates
-<?php if($is_address_lookup_tool):?>
-OR
-Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address<?php endif;?></pre></h3>
+			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Electoral Races' ); ?></h2>
+			<h3>
+        Please select an electoral race to view the candidates.
+        <?php if($is_address_lookup_tool):?>
+          OR
+          Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address
+        <?php endif;?>
+      </h3>
 			<?php foreach ( $constituencies as $constituency_id ) :
 				$constituency = get_constituency( $constituency_id ); ?>
-				<div class="mini_maps" style="text-align:center; line-height: 36px;">
-					<div class="mini_maps_con">
-						<p class="small"><strong><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></strong></p>
-						<a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
-							<div class="mini_map_image float-left" style="margin-left:150px;">
-								<?php if($constituency['map_id']):?>
-										<?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
-								<?php else:?>
-										<?php echo wp_get_attachment_image( Election_data_option::get_option('missing_constituency')); ?>
-								<?php endif;?>
-							</div>
-						</a>
-					</div>
+				<div class="mini_maps one_column">
+            <h4><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></h4>
+            <a class="map" href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
+              <?php if($constituency['map_id']):?>
+                  <?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', false, array( 'alt' => $constituency['name'] ) ); ?>
+              <?php else:?>
+                  <?php echo wp_get_attachment_image( Election_data_option::get_option('missing_constituency')); ?>
+              <?php endif;?>
+            </a>
 				</div>
 			<?php endforeach; ?>
 		</div>

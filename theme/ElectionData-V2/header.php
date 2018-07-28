@@ -104,7 +104,6 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 
 			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 class="site-description"><?php echo $site_description; ?></h2>
-			<?php get_search_form(); ?>
 			<input id="menu-toggle" type="checkbox">
 			<div id="menu-trigger">
 			<label for="menu-toggle">

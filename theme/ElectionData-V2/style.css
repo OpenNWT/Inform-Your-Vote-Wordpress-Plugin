@@ -133,6 +133,7 @@ header {
     font-family: "Libre Franklin";
     font-size: 36px;
     font-weight: bold;
+    padding-right: 45px;
     }
   header h1 a {
     color: #181719;
@@ -141,6 +142,7 @@ header {
     font-size: 15px;
     color: #181719;
     margin: 0.5em 0 0 0;
+    padding-right: 45px;
     font-family: "Libre Franklin";
     font-style: italic; }
   header img {
@@ -377,13 +379,6 @@ p.news-article-notice{
 .tiny {
 	font-size: 0.5em; }
 
-.mini_maps {
-	float: left;
-	margin-left: 12px;
-	height: 150px;
-	width: 125px; }
-	.mini_maps p {
-		margin-bottom: 3px; }
 
 .parties_thumb {
 	overflow: auto;
@@ -480,8 +475,6 @@ p.news-article-notice{
 	.hidden_block_when_mobile {
 		display: none;  }
 
-	body .head-top header.site-header{
-		width:320px;}
 	.head-top .header-time{
 		width:100%;
 		padding: 20px 0;
@@ -489,7 +482,7 @@ p.news-article-notice{
 
 	.head-top #menu-trigger{
 		bottom: 7px;
-		top: inherit;}
+		}
 
 	#searchform .letterinput{
 		width:calc(100% - 50px);}
@@ -513,10 +506,21 @@ p.news-article-notice{
 
 	.home #container #main .page-list ul li, .home #container #main .page-image-icon ul li, .home #container #main .latest-news ul li{
 		width:100%;
-		margin-bottom: 25px;}
+		margin-bottom: 70px;}
 
 	.home #container #main .page-list ul li:nth-child(3n+2),.home #container #main .latest-news ul li:nth-child(3n+2){
-		margin:0 0 25px;}
+		margin: 0 0 70px 0;}
+
+  .home #container #main .page-list ul li .page-article p.pimg {
+    padding-top: 5px;
+  }
+
+
+  .home #container #main .page-list ul li .page-article p.excerpt {
+    height: auto;
+    margin-bottom: 1em;
+    padding-top: 0;
+  }
 
 	body.home #container #main .page-list ul li a {
     	font-size: 24px;}
@@ -524,7 +528,7 @@ p.news-article-notice{
 		font-size: 16px;}
 
 	#container .latest-news{
-		margin-top:55px;}
+		margin-top:15px;}
 
 
 
@@ -695,7 +699,7 @@ font-size: 11px;
 	.search-form{margin-right: 40px;}
 	body .head-top{height:353px;}
 	.head-top .header-time{bottom:0}
-	body .head-top header{width:640px;background:none;padding:10px 0;}
+	body .head-top header{background:none;padding:10px 0;}
 
 	.head-top header h1{font-size:24px;}
 	.head-top header h2{font-size:16px;}
@@ -851,9 +855,6 @@ font-size: 11px;
 		display:block;
 	}
 
-	#container .who_constituencies_lists .mini_maps{
-		width:100%;
-	}
 	#container #main .page-list ul li a{
 		font-size:23px;
 	}
@@ -898,7 +899,7 @@ ul.voter li {
     font-weight: 300;
 }
 .head-top header{
-	width:960px;
+  width:92%;
 	margin:0 auto;
 	height:auto;
 	padding-left: 0;
@@ -909,7 +910,7 @@ ul.voter li {
 #menu-trigger {
     position: absolute;
     right: 0;
-    top: 23px;
+    top: 15px;
     color: #fff;
     display: none;
     z-index: 2;
@@ -1043,6 +1044,10 @@ input:-ms-input-placeholder {
 	color:#18181A;
 	font-size: 30px;
 	font-weight: bold;}
+.page-list ul li p.excerpt a {
+  font-size: 16px !important;
+  font-weight: normal;
+}
 .page-image-icon,.latest-news,.news-list{
 	overflow:hidden;}
 .latest-news{
@@ -1050,8 +1055,9 @@ input:-ms-input-placeholder {
 .page-list ul li,.page-image-icon ul li,.latest-news ul li{
 	list-style:none;
 	width: 31%;
-    float: left;
-    text-align:center;}
+  float: left;
+  text-align:center;
+  }
 
 .latest-news ul li{
 	min-height: 550px;
@@ -1136,9 +1142,6 @@ input:-ms-input-placeholder {
 	.home footer{
 		padding-left:4%;
 		padding-right:4%;}
-	body.home .head-top header{
-		width:92%;
-		margin:0 4%;}
 
 }
 @media all and (max-width: 1024px) {
@@ -1257,9 +1260,6 @@ input:-ms-input-placeholder {
 
 }
 @media all and (max-width: 376px) {
-	header.site-header{
-		text-align:center;}
-
 	#footer_right {
 		margin-left: 10%;
 
@@ -1267,22 +1267,20 @@ input:-ms-input-placeholder {
 }
 
 /* who-page */
-.who_constituencies_lists h2{
-	font-size: 32px;
-	margin-bottom: 20px;}
-.who_constituencies_lists .mini_maps{
-	width:50%;
-	margin-left:0;
-	height:auto;}
-.who_constituencies_lists .mini_maps p{
-	margin-bottom:10px;
-	font-size:1.3em;}
-.who_constituencies_lists .mini_maps .mini_maps_con{
-	padding:15px 10px;}
-.who_constituencies_lists .mini_maps .mini_maps_con img{
-	width:100%;}
 
+.mini_maps {
+  margin-top: 30px;
+}
 
+.mini_maps h4 {
+  text-align: center;
+}
+
+.mini_maps a.map {
+  display: block;
+  width: 102px;
+  margin: 0 auto;
+}
 
 
 
