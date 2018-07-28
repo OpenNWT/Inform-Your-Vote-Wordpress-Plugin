@@ -399,8 +399,7 @@ p.news-article-notice{
 .map_nav {
   border: 3px solid #999;
   border-radius: 10px;
-  padding: 20px;
-  margin-left: -10px;
+  padding: 18px;
   margin-top: 50px;
 }
 
@@ -430,7 +429,6 @@ p.news-article-notice{
 
   .map_nav {
     border: none;
-    margin-left: 10px;
     margin-top: 10px;
   }
 
