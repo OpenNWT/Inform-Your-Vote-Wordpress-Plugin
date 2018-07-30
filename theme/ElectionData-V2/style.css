@@ -121,32 +121,28 @@ footer p{
 .footer-menu{ max-height: 999px; 
 overflow: hidden;}
 
-header {
-  background: none;
-  background-size: 530px 87px;
-  position: relative;
-  padding: 25px 10px 0 10px;
-  height: 80px;
-  margin-right: 14px; }
   header h1 {
-    margin: -10px 0 0 0;
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 0.25em;
     font-family: "Libre Franklin";
     font-size: 36px;
     font-weight: bold;
     padding-right: 45px;
     }
+
   header h1 a {
     color: #181719;
   	}
+
   header h2 {
-    font-size: 15px;
-    color: #181719;
-    margin: 0.5em 0 0 0;
+    font-weight: normal;
+    font-size: 16px;
+    color: #777;
+    margin: 0 0 0.5em 0;
     padding-right: 45px;
     font-family: "Libre Franklin";
     font-style: italic; }
-  header img {
-  position: absolute; right: 0px; bottom: 0px; }
 
 .breadcrumbs {
   margin-bottom: 40px;
@@ -412,8 +408,9 @@ p.news-article-notice{
 		padding-top: 1em;
 		height: 100px; }
 	header h1 {
-		margin-top: 0.1em;
 		font-size: 36px;}
+	header h2 {
+		font-size: 14px; }
 
 	#container {
 		width: 640px; }
@@ -424,7 +421,7 @@ p.news-article-notice{
 	.two_columns_early_shrink {
 		width: 278px; }
 
-	.head-top header .menu > ul > li:last-child > a{
+	header .menu > ul > li:last-child > a{
 		padding:0 23px 0 15px;}
 
   .map_nav {
@@ -440,10 +437,7 @@ p.news-article-notice{
 		padding-top: 0.5em;
 		height: auto; }
 	header h1 {
-		margin-top: 0;
 		font-size: 2.7em; }
-	header h2 {
-		font-size: 1.03em; }
 
     /* Party thumbnails on separate lines when in mobile mode. */
     .party_thumb {
@@ -478,14 +472,14 @@ p.news-article-notice{
 		padding: 20px 0;
     	text-align: center;}
 
-	.head-top #menu-trigger{
+	header #menu-trigger{
 		bottom: 7px;
 		}
 
 	#searchform .letterinput{
 		width:calc(100% - 50px);}
 
-	.head-top .menu-tog{
+	header .menu-tog{
 		display:block;}
 	.head-top .search-form{
 	    position: static;
@@ -657,7 +651,7 @@ box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
 	padding:0 23px 0 15px;
 	font-family: "Libre Franklin";
 }
-.menu > ul > li > a {float:left; color:#2B4270; font-weight:bold;}
+.menu > ul > li > a {float:left; color:#2B4270; }
 .menu ul ul li a {line-height:20px;}
 
 .menu ul li:hover > ul {left:0; top:25px;}
@@ -697,12 +691,11 @@ font-size: 11px;
 	.search-form{margin-right: 40px;}
 	body .head-top{height:353px;}
 	.head-top .header-time{bottom:0}
-	body .head-top header{background:none;padding:10px 0;}
+	body header{background:none;padding:10px 0;}
 
-	.head-top header h1{font-size:24px;}
-	.head-top header h2{font-size:16px;}
-	.head-top #menu-trigger{display:block;}
-	.head-top header .mobile-menu{
+	header h1{font-size:24px; margin-top: 5px;}
+	header #menu-trigger{display:block;}
+	header .mobile-menu{
 		display: block;
 		position: fixed;
 		right: -320px;
@@ -712,7 +705,7 @@ font-size: 11px;
 	    height: auto;
 	    margin-top: 0px;
 	    overflow-x: hidden;
-	    background: rgba(255,255,255,0.95);
+	    background: rgba(255,255,255,0.95) !important;
 	    z-index: 1;
 	    -webkit-transition: left 0.5s 0s;
 	    -o-transition: left 0.5s 0s;
@@ -721,11 +714,11 @@ font-size: 11px;
 		margin:0;
 		padding:0;
 	}
-	.head-top .mobile-menu ul {
+	header .mobile-menu ul {
 	    width: 320px;
 	    float: none;
 	}
-	.head-top .mobile-menu > ul{
+	header .mobile-menu > ul{
 		width: 320px;
 	    text-align: center;
 	    position: relative;
@@ -751,14 +744,14 @@ font-size: 11px;
 	    -moz-transition: left 0.5s 0s;
 	    transition: left 0.5s 0s;
     }
-	.head-top .mobile-menu ul li{
+	header .mobile-menu ul li{
 		display: block;
 	    position: static;
 	    width: 320px;
 	    height: 50px;
 	    border-bottom: 1px solid #ddd;
 	}
-	.head-top .mobile-menu ul li a{
+	header .mobile-menu ul li a{
 		font-size: 18px;
 	    font-weight: normal;
 	    font-family: Verdana, Geneva, "DejaVu Sans", sans-serif;
@@ -768,20 +761,20 @@ font-size: 11px;
 	    padding-left: 20px;
 	    line-height: 50px;
 	}
-	.head-top .mobile-menu li.menu-item-has-children > label, .head-top .mobile-menu li.back > label {
+	header .mobile-menu li.menu-item-has-children > label, header .mobile-menu li.back > label {
 	    display: block;
 	    height: 100%;
 	    cursor: pointer;
 	}
-	.head-top .mobile-menu li.menu-item-has-children > label::after {
+	header .mobile-menu li.menu-item-has-children > label::after {
 	    float: right;
 	    background-image: url('images/arrow-right.png');
 	}
-	.head-top .mobile-menu li.back > label::after{
+	header .mobile-menu li.back > label::after{
 		float: none;
 	    background-image: url('images/arrow-left.png');
 	}
-	.head-top .mobile-menu ul li.menu-item-has-children > label::after, .head-top .mobile-menu li.back > label::after {
+	header .mobile-menu ul li.menu-item-has-children > label::after, header .mobile-menu li.back > label::after {
 	    content: "";
 	    display: block;
 	    padding-top: 5px;
@@ -791,7 +784,7 @@ font-size: 11px;
 	    background-repeat: no-repeat;
 	    background-position: center;
 	}
-	.head-top .mobile-menu ul li ul.sub-menu {
+	header .mobile-menu ul li ul.sub-menu {
 	    display: block;
 	    left: 320px;
 	    top: 0px;
@@ -806,31 +799,31 @@ font-size: 11px;
 	    padding: 0px;
 	    margin: 0px;
 	}
-	.head-top .mobile-menu ul li ul li:hover a {
+	header .mobile-menu ul li ul li:hover a {
 	    background: transparent;
 	}
-	.head-top .mobile-menu ul li.back>a {
+	header .mobile-menu ul li.back>a {
 	    font-weight: bold;
 	    text-transform: uppercase;
 	    padding-left: 40px;
 	    line-height: 46px;
 	}
-	.head-top .mobile-menu ul > li > a, .head-top .mobile-menu  ul li.back>a {
+	header .mobile-menu ul > li > a, header .mobile-menu  ul li.back>a {
 	    float: left;
 	    position: relative;
 	}
-	.head-top .mobile-menu  ul li.back>a {
+	header .mobile-menu  ul li.back>a {
 		z-index: -1;
 	}
-	.head-top .mobile-menu  ul  li ul.sub-menu {
+	header .mobile-menu  ul  li ul.sub-menu {
 		background: #fff;
 	    height: auto;
 		min-height:500px;
 	}
-	.head-top .mobile-menu  ul  li ul.sub-menu li .sub-menu{
+	header .mobile-menu  ul  li ul.sub-menu li .sub-menu{
 		z-index:99;
 	}
-	.head-top .mobile-menu ul li.menu-item-has-children > a{
+	header .mobile-menu ul li.menu-item-has-children > a{
 		z-index: -1;
 	}
 
@@ -846,10 +839,10 @@ font-size: 11px;
 	#menu-toggle:checked ~ #menu-trigger label {
 		background: none;
 	}
-	.head-top .mobile-menu ul li  input[type='checkbox']:checked ~ .sub-menu{
+	header .mobile-menu ul li  input[type='checkbox']:checked ~ .sub-menu{
 		left: 0;
 	}
-	.head-top .menu-tog{
+	header .menu-tog{
 		display:block;
 	}
 
@@ -874,6 +867,7 @@ ul.voter li {
 
 /* Header and responsive menu */
 .head-top{
+  margin-top: 5px;
     height: 500px;
 	position: relative;
 }
@@ -896,7 +890,7 @@ ul.voter li {
     font-family: "Libre Franklin";
     font-weight: 300;
 }
-.head-top header{
+header{
   width:92%;
 	margin:0 auto;
 	height:auto;
@@ -918,13 +912,13 @@ ul.voter li {
     background-size: 100%;
 }
 
-.head-top .menu{
+header .menu{
 	background:none;margin:0;
 }
-.head-top .menu > ul{
+header .menu > ul{
 	float:right;
 }
-.head-top .menu > ul > li > a{
+header .menu > ul > li > a{
 	color:#181719;
 }
 .search-form{
@@ -1131,7 +1125,7 @@ input:-ms-input-placeholder {
 	float: left;
 	font-size: 14px;
     padding: 0 23px;}
-.head-top .menu > ul > li:last-child > a{
+header .menu > ul > li:last-child > a{
 	padding:0 0 0 15px;}
 
 @media all and (max-width: 1200px) {
@@ -1257,7 +1251,14 @@ input:-ms-input-placeholder {
 	}
 
 }
+
 @media all and (max-width: 376px) {
+  header h1 {
+    font-size: 20px;
+  }
+  header h2 {
+    font-size: 12px;
+  }
 	#footer_right {
 		margin-left: 10%;
 
@@ -1272,6 +1273,8 @@ input:-ms-input-placeholder {
 
 .mini_maps h4 {
   text-align: center;
+  font-weight: normal;
+  font-size: 1.5em;
 }
 
 .mini_maps a.map {

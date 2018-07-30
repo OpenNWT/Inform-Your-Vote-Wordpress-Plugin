@@ -77,7 +77,6 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 </head>
 
 <body <?php body_class(); ?>>
-	<div class="head-top">
 		<header id="masthead" class="site-header" role="banner">
 			<!-- Different page using different image -->
 			<?php
@@ -99,19 +98,27 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 				else
 					$header_image = $default_header_image;
 
-				echo '<style type="text/css">.head-top{background:linear-gradient(to bottom, rgb(225,225,225) 20%, rgba(225,225,225,0) 80%),url("'.$header_image.'") no-repeat;background-size: 100% 100%;}@media (max-width: 1024px){body .head-top{background:url("'.$header_image.'") no-repeat;background-size: auto 100%;}}</style>';
+        echo '<style type="text/css">
+                .head-top {
+                  background:url("'.$header_image.'") no-repeat;
+                  background-size: 100% 100%;}
+                @media (max-width: 1024px){
+                  body .head-top{
+                    background-size: auto 100%;}}
+              </style>';
 			;?>
 
-			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<h2 class="site-description"><?php echo $site_description; ?></h2>
-			<input id="menu-toggle" type="checkbox">
-			<div id="menu-trigger">
-			<label for="menu-toggle">
-			</label>
-			</div>
+        <h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+        <h2 class="site-description"><?php echo $site_description; ?></h2>
+        <input id="menu-toggle" type="checkbox">
+        <div id="menu-trigger">
+          <label for="menu-toggle"></label>
+        </div>
+        <?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
 
-			<?php wp_nav_menu( array( 'walker' => new new_walker(),'theme_location' => 'header-menu', 'container_class' => 'menu hidden_block_when_mobile mobile-menu', 'menu_class' => '' ) ); ?>
 		</header><!-- #masthead .site-header -->
+
+	<div class="head-top">
 		<div class="header-time">
 			<p>Election Day is</p>
 			<h2><?php echo date('F d, Y',strtotime(Election_Data_Option::get_option( 'election_date' )));?></h2>
