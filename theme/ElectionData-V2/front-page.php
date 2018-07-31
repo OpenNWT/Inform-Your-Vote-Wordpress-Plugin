@@ -105,7 +105,7 @@ get_header(); ?>
 	</ul>
 </div>
 
-<!--News part -->
+<!-- 
 <div class="latest-news">
 	<div class="head-title">Latest News</div>
 		<ul class="news-list">
@@ -119,5 +119,6 @@ get_header(); ?>
 		<div class="view-all-rt"></div>
 	</div>
 </div>
+-->
 
 <?php get_footer(); ?>
