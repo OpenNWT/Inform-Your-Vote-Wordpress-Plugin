@@ -27,7 +27,7 @@
 <meta name="viewport" content="width=device-width" />
 
 <?php if(Election_data_option::get_option('site_image')):?>
-	<meta property="og:image" content=<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'))[0];?>>
+	<meta property="og:image" content=<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'full')[0];?>>
 <?php endif;?>
 
 <?php if(Election_Data_Option::get_option('site_title')):?>
