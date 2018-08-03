@@ -404,8 +404,10 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
     </div>
 
     <div class="election-website minitile">
-      <i class="far fa-address-card"></i>
+      <i class="far fa-address-card"></i>&nbsp;&nbsp;
+      <!--
       <br><br>
+      -->
       <?php if ($candidate['website']): ?>
         <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
       <?php else: ?>
@@ -413,6 +415,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       <?php endif ?>
     </div>
 
+    <!--
     <div class="news minitile">
       <i class="far fa-newspaper"></i>
       <br><br>
@@ -420,6 +423,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
       </a>
     </div>
+    -->
 
       <!-- TODO: Add back for provincial election. 
       <?php if ($candidate['party_leader']): ?>
