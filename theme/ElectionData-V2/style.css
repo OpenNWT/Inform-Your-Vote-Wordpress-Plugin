@@ -72,6 +72,7 @@ footer {
   border-top: 60px solid rgba(161, 136, 163, 0.81);
   margin-top: 3em;
   padding-top: 20px;
+  padding-left: 4%;
   padding-bottom: 2px;
   clear: both;
 }
@@ -99,20 +100,22 @@ footer .site-info{
   color: #777;
 	font-size: 13px;
 	text-align: left;
-	margin-left: 3%;
   margin-top: 4em;
 	padding-bottom: 8px;
 	letter-spacing: 0.5px;
 }
 
 footer h3{
-		padding-top: 20px;
+    margin-left: 0;
+    margin-top: 1em;
     font-size: 16px;
     color: #222;
 }
 
 footer p{
+    margin-left: 0;
 		font-size: 16px;
+    padding-right: 1em;
 }
 
 .footer-menu{ max-height: 999px; 
@@ -1108,9 +1111,6 @@ header .menu > ul > li:last-child > a{
 @media all and (max-width: 1200px) {
 	.home #main{
 		padding:0 4%;}
-	.home footer{
-		padding-left:4%;
-		padding-right:4%;}
 
 }
 @media all and (max-width: 1024px) {
@@ -1178,9 +1178,6 @@ header .menu > ul > li:last-child > a{
 }
 @media all and (max-width: 668px) {
 
-	footer p{
-			font-size: 13px;
-	}
 
 	#container #main .page-list ul li a{
 		font-size:18px;}
@@ -1208,6 +1205,10 @@ header .menu > ul > li:last-child > a{
 
 	.latest-news ul li{
 		min-height: 600px;}
+
+	footer p{
+			font-size: 16px;
+	}
 }
 
 @media all and (max-width: 569px){
