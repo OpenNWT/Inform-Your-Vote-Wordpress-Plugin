@@ -81,21 +81,18 @@ footer {
 		float: left;
 		width: 33%;
 		text-align: left;
-		margin-left: 2%;
 }
 
 #footer_center{
 	float: left;
 	width: 32%;
 	text-align: left;
-	margin-left: 0%;
 
 }
 
 #footer_right{
 	width: 33%;
 	float: left;
-	/*margin-right: 2%;*/
 }
 
 footer .site-info{
@@ -518,31 +515,17 @@ p.news-article-notice{
 	#container .latest-news{
 		margin-top:15px;}
 
-
-
-/* Footer in the mobile just 2 column in one row*/
+  /* Footer in the mobile just 2 column in one row*/
 	#footer_left {
-		width: 45%;
-		padding-left: 1%;
-		padding-right: 2%;
+		width: 100%;
 	}
 
 	#footer_center {
-		width: 45%;
-		padding-left: 1%;
+		width: 100%;
 	}
 
 	#footer_right {
-		margin-left: 15%;
-	}
-
-
-	#footer_right h3{
-		margin-top: 90px;
-	}
-
-	footer .site-info{
-		text-align: center;
+    width: 100%;
 	}
 }
 
@@ -1238,10 +1221,6 @@ header .menu > ul > li:last-child > a{
 
 	.post-news-summary{max-height: 999px;}
 
-	#footer_right{
-	width: 100%;
-	}
-
 }
 
 @media all and (max-width: 376px) {
@@ -1251,10 +1230,6 @@ header .menu > ul > li:last-child > a{
   header h2 {
     font-size: 12px;
   }
-	#footer_right {
-		margin-left: 10%;
-
-	}
 }
 
 /* who-page */
