@@ -72,7 +72,7 @@ footer {
   border-top: 60px solid rgba(161, 136, 163, 0.81);
   margin-top: 3em;
   padding-top: 20px;
-  padding-left: 4%;
+  padding-left: 10%;
   padding-bottom: 2px;
   clear: both;
 }
@@ -1111,6 +1111,9 @@ header .menu > ul > li:last-child > a{
 @media all and (max-width: 1200px) {
 	.home #main{
 		padding:0 4%;}
+  .home footer {
+    padding-left: 5%;
+  }
 
 }
 @media all and (max-width: 1024px) {
