@@ -244,14 +244,14 @@ p.news-article-notice{
   overflow: hidden;
   zoom: 1; }
 
-.tall {
+.politician.tall {
   /*height: 320px;*/
-  height: 240px;
+  height: 260px;
 }
 
-.short {
+.politician.short {
   /*height: 280px;*/
-  height: 240px;
+  height: 260px;
 }
 
 
@@ -292,9 +292,15 @@ p.news-article-notice{
 
 
 .politician .status {
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: #555;
   margin-top: 13px;
+}
+
+.politician .incumbent {
+  font-size: 0.8em;
+  color: #555;
+  margin-left: 15px;
 }
 
 .politician .icons {
@@ -345,7 +351,7 @@ p.news-article-notice{
   background: white;
   border-radius: 5px;
   margin-left: 13px;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
   padding: 0.9em 1em 1.1em 1em;
 }
 

@@ -396,8 +396,8 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
           <?php if ($display_constituency): ?>
               <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
           <?php endif ?>
-          <?php if ($candidate['incumbent_year']): ?>
-            Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
+          <?php if ($candidate['phone']): ?>
+            Phone: <?= esc_html( $candidate['phone'] ) ?>
           <?php endif ?>
         </div>
       </div>
@@ -415,15 +415,21 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       <?php endif ?>
     </div>
 
-    <!--
-    <div class="news minitile">
-      <i class="far fa-newspaper"></i>
-      <br><br>
-      <a href="<?php echo "{$candidate['url']}#news"; ?>">
-        <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
-      </a>
-    </div>
-    -->
+      <!--
+      <div class="news minitile">
+        <i class="far fa-newspaper"></i>
+        <br><br>
+        <a href="<?php echo "{$candidate['url']}#news"; ?>">
+          <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
+        </a>
+      </div>
+      -->
+
+    <?php if ($candidate['incumbent_year']): ?>
+      <div class="incumbent">
+        Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
+      </div>
+    <?php endif ?>
 
       <!-- TODO: Add back for provincial election. 
       <?php if ($candidate['party_leader']): ?>
