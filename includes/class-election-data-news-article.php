@@ -419,11 +419,13 @@ class Election_Data_News_Article {
 	public function update_news_articles() {
 		set_time_limit( 0 );
 		$candidates = $this->get_updated_candidate_terms();
+
 		$source_data = $this->get_sources();
 		$sources = $source_data['sources'];
 		$source_parents = $source_data['parents'];
 
 		foreach ( $candidates as $candidate_name => $candidate_id ) {
+      error_log("SEARCHING FOR $candidate_name:");
 			$this->process_news_articles( $candidate_name, $candidate_id, $sources, $source_parents );
 		}
 
@@ -495,6 +497,7 @@ class Election_Data_News_Article {
 		$mentions = $this->get_individual_news_articles( $candidate_name, Election_Data_Option::get_option( 'location' ), Election_Data_Option::get_option( 'source' ), Election_Data_Option::get_option( 'source-api') );
 		//$current_time_zone = new DateTimeZone( get_option( 'timezone_string', 'UTC' ) );
 		$current_time_zone = new DateTimeZone( 'UTC' );
+    error_log("Found " . count($mentions) . " Mentions");
 		foreach ( $mentions as $mention ) {
 			$tmp_name = str_replace( ' ', '|', $candidate_name );
 			$pattern = "/$tmp_name/i";
@@ -572,7 +575,7 @@ class Election_Data_News_Article {
 		$articles = array();
 		if ($source && ($source === 'api') && ($source_api)) {
 			$api_url = $source_api . '&q=' . $url_candidate;
-			$request = wp_remote_get( $api_url );
+			$request = wp_remote_get( $api_url, ['timeout' => 60] );
 			if ( !is_wp_error( $request ) ) {
 				$body = wp_remote_retrieve_body( $request );
 				$data = json_decode( $body );
@@ -587,7 +590,10 @@ class Election_Data_News_Article {
 					$item['moderation'] = 'new';
 					$articles[] = $item;
 				}
-			}
+      } else {
+        error_log("REMOTE GET ERROR FOR $candidate");
+        error_log($request->get_error_message());
+      }
 		} else {
 			$gnews_url = "http://news.google.ca/news?ned=ca&hl=en&as_drrb=q&as_qdr=a&scoring=r&output=rss&num=75&q=\"$url_candidate\"";
 
