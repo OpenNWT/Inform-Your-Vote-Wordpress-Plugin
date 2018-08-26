@@ -129,6 +129,14 @@ class Election_Data_Candidate {
             'priority' => 'high',
           ),
           'fields' => array(
+            'also_known_as' => array(
+              'label' => __( 'Also Known As' ),
+              'id' => 'also_known_as',
+              'desc' => __( "List of alternative candidate names separated by commas. These names will be added to candidates news searches." ),
+              'type' => 'text',
+              'std' => '',
+              'imported' => true,
+            ),
             'phone' => array(
               'label' => __( 'Phone Number' ),
               'id' => 'phone',
