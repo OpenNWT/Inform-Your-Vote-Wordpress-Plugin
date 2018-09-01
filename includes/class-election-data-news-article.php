@@ -284,7 +284,7 @@ class Election_Data_News_Article {
 	* @since 1.0
 	*
 	*/
-	protected function get_updated_candidate_terms() {
+	protected function get_updated_candidate_terms($with_alternative_names = false) {
 		global $ed_post_types;
 		$args = array(
 			'fields' => 'id=>name',
@@ -318,8 +318,22 @@ class Election_Data_News_Article {
 			}
 
 			$candidates[$name] = $news_article_candidate_id;
-		}
 
+      // Should alternative names be included?
+      if ($with_alternative_names) {
+        $also_known_as = get_post_meta( $candidate_id, 'also_known_as', true );
+        if ($also_known_as) {
+          // Names are provided as comma-delimited list.
+          $alternative_names = explode(',', $also_known_as);
+          foreach($alternative_names as $alternative_name) {
+            $aka = trim($alternative_name);
+            $candidates[$aka] = $news_article_candidate_id;
+          }
+        }
+      }
+    }
+
+    // Remove terms for candidates who no longer exist.
 		foreach ( $existing_terms as $id => $name )
 		{
 			wp_delete_term( $id, $this->taxonomies['candidate'] );
@@ -418,7 +432,7 @@ class Election_Data_News_Article {
 	*/
 	public function update_news_articles() {
 		set_time_limit( 0 );
-		$candidates = $this->get_updated_candidate_terms();
+		$candidates = $this->get_updated_candidate_terms(true);
 
 		$source_data = $this->get_sources();
 		$sources = $source_data['sources'];
@@ -429,6 +443,11 @@ class Election_Data_News_Article {
 			$this->process_news_articles( $candidate_name, $candidate_id, $sources, $source_parents );
 		}
 
+    // Find all news articles marked as 'new' for their 'moderation' property.
+    // If any of these articles mentions more than one candidate term, mark them
+    // for auto-approval.
+
+    // Build the search parameter to find all new news.
 		$args = array(
 			'post_type' => $this->post_type,
 			'nopaging' => true,
@@ -441,16 +460,18 @@ class Election_Data_News_Article {
 			),
 		);
 
+    // Run the search and loop through the articles.
 		$query = new WP_Query( $args );
 		$to_be_updated = array();
 		while ( $query->have_posts() ) {
 			$query->the_post();
 			$article_id = $query->post->ID;
+      // Mark articles that mention more than one candidate term.
 			if ( count( wp_get_object_terms( $article_id, $this->taxonomies['candidate'] ) ) > 1 ) {
 				$to_be_updated[] = $article_id;
 			}
 		}
-
+    // Approve marked articles.
 		foreach ( $to_be_updated as $article_id ) {
 			update_post_meta( $article_id, 'moderation', 'approved' );
 		}
@@ -494,16 +515,28 @@ class Election_Data_News_Article {
 	}
 
 	protected function process_news_articles( $candidate_name, $candidate_id, &$sources, $source_parents ) {
-		$mentions = $this->get_individual_news_articles( $candidate_name, Election_Data_Option::get_option( 'location' ), Election_Data_Option::get_option( 'source' ), Election_Data_Option::get_option( 'source-api') );
-		//$current_time_zone = new DateTimeZone( get_option( 'timezone_string', 'UTC' ) );
 		$current_time_zone = new DateTimeZone( 'UTC' );
+    $source_type = Election_Data_Option::get_option( 'source' );
+    $max_results = Election_Data_Option::get_option( 'number_of_results' );
+
+    $mentions = $this->get_individual_news_articles( $candidate_name, Election_Data_Option::get_option( 'location' ), $source_type, Election_Data_Option::get_option( 'source-api'), $max_results );
     error_log("Found " . count($mentions) . " Mentions");
+
+    // Loop through all found mentions.
 		foreach ( $mentions as $mention ) {
-			$tmp_name = str_replace( ' ', '|', $candidate_name );
-			$pattern = "/$tmp_name/i";
-			if ( preg_match($pattern, $mention['summary'] ) == 0 ) {
-				continue;
-			}
+      // Google gives false positives. Check if the candidates name actually appears in the article summary.
+      if ($source_type == 'google') {
+        $tmp_name = str_replace( ' ', '|', $candidate_name );
+        $pattern = "/$tmp_name/i";
+
+        // Is this candidate's name mentioned int the summary?
+        // If not, skip this mention.
+        if ( preg_match($pattern, $mention['summary'] ) == 0 ) {
+          continue;
+        }
+      }
+
+      // If this is a source we haven't seen before, add it to the source taxonomies by base_url.
 			if ( ! isset( $sources[$mention['base_url']] ) ) {
 				$term = wp_insert_term( $mention['base_url'], $this->taxonomies['source'], array( 'parent' => $source_parents['New'], 'description' => $mention['source'] ) );
 				$sources[$mention['base_url']] = array(
@@ -570,11 +603,16 @@ class Election_Data_News_Article {
 	* @param string $location
 	*
 	*/
-	protected function get_individual_news_articles( $candidate, $location='', $source='', $source_api='' ) {
+	protected function get_individual_news_articles( $candidate, $location='', $source='', $source_api='', $max_results=20 ) {
 		$url_candidate = urlencode($candidate);
 		$articles = array();
+
 		if ($source && ($source === 'api') && ($source_api)) {
-			$api_url = $source_api . '&q=' . $url_candidate;
+      if (strlen($max_results) != 0) {
+        $api_url = $source_api . '&q=' . $url_candidate . '&limit=' . (int)$max_results;
+      } else {
+        $api_url = $source_api . '&q=' . $url_candidate;
+      }
 			$request = wp_remote_get( $api_url, ['timeout' => 60] );
 			if ( !is_wp_error( $request ) ) {
 				$body = wp_remote_retrieve_body( $request );

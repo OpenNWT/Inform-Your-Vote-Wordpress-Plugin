@@ -267,6 +267,12 @@ class Election_Data_Settings_Definition {
 					'type' => 'text',
 					'std' => '2am'
 				),
+				'number_of_results' => array(
+					'name' => __( 'Results per Candidate', self::$plugin_name ),
+					'desc' => __( 'Max number of articles to retrieve per candidate.', self::$plugin_name ),
+					'type' => 'text',
+					'std' => '20'
+				),
 				'news-scraping-subheading' => array(
 					'name' => __( 'Sub Heading', self::$plugin_name ),
 					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
