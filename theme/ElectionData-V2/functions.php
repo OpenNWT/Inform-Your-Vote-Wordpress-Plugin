@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
   wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.0.6');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.0.7');
   wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
   wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
   wp_enqueue_style( 'font-awesome-regular', 'https://use.fontawesome.com/releases/v5.1.1/css/all.css');
@@ -198,6 +198,7 @@ else : ?>
 */
 function display_news_pagination( $args ) {
   $default_args = array(
+    'base' => @add_query_arg('page','%#%'),
     'mid_size' => 1,
   );
   $args = wp_parse_args( $args, $default_args );
@@ -227,6 +228,7 @@ function display_news_summaries ( $candidate_ids, $type, $articles_per_page ) {
   if ( $articles->have_posts() ) {
     if ( $news['count'] > $articles_per_page ) {
       display_news_pagination( $args );
+      echo '<br><br>';
     } ?>
     <?php while ( $articles->have_posts() ) :
       $articles->the_post();
@@ -403,33 +405,27 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     </div>
 
-    <div class="election-website minitile">
-      <i class="far fa-address-card"></i>&nbsp;&nbsp;
-      <!--
-      <br><br>
-      -->
+    <div class="election-website minitile long"> <!-- remove long / temp css-->
+      <i class="far fa-address-card"></i>
       <?php if ($candidate['website']): ?>
-        <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
+        <span>
+          <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
+        </span>
       <?php else: ?>
         <span class="no-site">No Election Site</span>
       <?php endif ?>
     </div>
 
-      <!--
-      <div class="news minitile">
-        <i class="far fa-newspaper"></i>
-        <br><br>
+<!--
+    <div class="news minitile">
+      <i class="far fa-newspaper"></i>
+      <span>
         <a href="<?php echo "{$candidate['url']}#news"; ?>">
           <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
         </a>
-      </div>
-      -->
-
-    <?php if ($candidate['incumbent_year']): ?>
-      <div class="incumbent">
-        Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
-      </div>
-    <?php endif ?>
+      </span>
+    </div>
+-->
 
       <!-- TODO: Add back for provincial election. 
       <?php if ($candidate['party_leader']): ?>
@@ -443,6 +439,12 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         <a href="<?= $candidate['qanda'] ?>">
           Read <?= explode(' ', $candidate['name'])[0] ?>'s Response
         </a>
+      </div>
+    <?php endif ?>
+
+    <?php if ($candidate['incumbent_year']): ?>
+      <div class="incumbent">
+        Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
       </div>
     <?php endif ?>
   </div>

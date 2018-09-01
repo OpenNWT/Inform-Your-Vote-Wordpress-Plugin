@@ -74,14 +74,6 @@ get_header(); ?>
     <br>
     <p class="grey">Our candidate data retrieval process is available in our FAQ.</p>
   </div>
-  <!--
-	<div class="three_columns">
-		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
-		<p class="news-article-notice"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
-		<?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
-		display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
-	</div>
-  -->
   <?php if ($has_qanda): ?>
     <div class="three_columns">
       <h2 id="qanda">Questionnaire Response</h2>
@@ -94,6 +86,14 @@ get_header(); ?>
       </div>
     </div>
   <?php endif ?>
+  <!--
+	<div class="three_columns">
+		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
+		<p class="news-article-notice"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
+		<?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
+		display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
+	</div>
+  -->
 </div>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

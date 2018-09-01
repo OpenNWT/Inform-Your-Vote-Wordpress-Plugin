@@ -96,25 +96,21 @@ get_header();?>
   <?php endif ?>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
-			<!-- <div class="two_columns constit_description"> -->
 			<div class="three_columns constit_description">
 				<b><?php echo $constituency['name']; ?></b>
 				<p><?php echo $constituency['details']; ?></p>
 			</div>
-      <!--	
-      <div class="one_column latest_news_small"> -->
-		<?php else : ?>
-      <!--
-      <div class="three_columns latest_news_small"> -->
 		<?php endif; ?>
-        <!--
-        <h2 id="news">Latest Candidate News</h2>
-        <p class="grey small">Articles that mention candidates from this race.</p>
-        <?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
-        display_news_titles( $candidate_references, false, $article_count ); ?>
-        <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
-      </div> -->
-    <?php endif; ?>
+  <!--
+    <div class="three_columns latest_news_small">
+      <h2 id="news">Latest Candidate News</h2>
+      <p class="grey small">Articles that mention candidates from this race.</p>
+      <?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
+      display_news_titles( $candidate_references, false, $article_count ); ?>
+      <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
+    </div>
+-->
   </div>
+<?php endif; ?>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
