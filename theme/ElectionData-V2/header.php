@@ -101,8 +101,10 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
         echo '<style type="text/css">
                 .head-top {
                   background:url("'.$header_image.'") no-repeat;
-                  background-size: 100% 100%;}
-                @media (max-width: 1024px){
+                  background-size: cover;
+                  background-position: 100% 100%;
+                  }
+                @media (max-width: 768px){
                   body .head-top{
                     background-size: auto 100%;}}
               </style>';
