@@ -675,7 +675,6 @@ font-size: 11px;
 	.menu ul li:hover ~ li.close {display:block;}
 
 	.search-form{margin-right: 40px;}
-	body .head-top{height:353px;}
 	.head-top .header-time{bottom:0}
 	body header{background:none;padding:10px 0;}
 
@@ -854,7 +853,7 @@ ul.voter li {
 /* Header and responsive menu */
 .head-top{
   margin-top: 5px;
-    height: 500px;
+    height: 353px;
 	position: relative;
 }
 .header-time{
@@ -1123,8 +1122,6 @@ header .menu > ul > li:last-child > a{
 
 }
 @media all and (max-width: 1024px) {
-	.head-top{
-		height:471px;}
 	.head-top .header-time{
 		bottom:0;}
 	#main .page-list ul li a{
