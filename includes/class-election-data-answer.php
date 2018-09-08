@@ -779,7 +779,7 @@ class Election_Data_Answer {
 			$replacements['question_url'] = "<a href='$url?token=$token'>$url?token=$token</a>";
 			$replacements['party'] = $party->name;
 			$replacements['party_alt'] = $party->description;
-			$replacements['question'] = implode( get_qanda_questions( $type, $term ) );
+			$replacements['question'] = '<p>' . implode( get_qanda_questions( $type, $term ), '</p><p>' ) . '</p>';
 			$pattern = array();
 			$replace = array();
 			foreach ( $replacements as $old => $new ) {
