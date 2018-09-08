@@ -7,13 +7,14 @@
 get_header();
 
 ?>
-<div id="flow_it">
-    <div class="three_columns latest_news_large">
-		<h3>Latest News Articles</h3>
-		<div class="grey small">
-			<p><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
-		</div>
-		<?php news_titles( $wp_query, 'News Article' ); ?>
+
+<div class="latest-news">
+	<h1>Latest Election News</h1>
+  <br><br>
+    <div class="flow_it">
+			<?php display_front_page_news(null, 90);?>
+    </div>
 	</div>
 </div>
+
 <?php get_footer(); ?>

@@ -101,7 +101,6 @@ get_header();?>
 				<p><?php echo $constituency['details']; ?></p>
 			</div>
 		<?php endif; ?>
-  <!--
     <div class="three_columns latest_news_small">
       <h2 id="news">Latest Candidate News</h2>
       <p class="grey small">Articles that mention candidates from this race.</p>
@@ -109,7 +108,6 @@ get_header();?>
       display_news_titles( $candidate_references, false, $article_count ); ?>
       <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
     </div>
--->
   </div>
 <?php endif; ?>
 <?php get_sidebar(); ?>

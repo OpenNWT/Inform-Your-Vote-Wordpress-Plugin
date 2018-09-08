@@ -180,7 +180,6 @@ function news_titles( $article_query, $paging_type, $candidate_ids = null, $pagi
 </ul>
 <?php if ( $paging_type == 'more' ) : ?>
   <p class="more"><a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>">More News...</a></p>
-  <p class="small"><a href="http://www.manitobaelection.ca/frequently-asked-questions/#news">Details on our News Gathering Process.</a></p>
 <?php elseif ( $paging_type ) :
   $page = get_current_page( $paging_type );
   display_news_pagination( get_paging_args( $paging_type, $page ) );
@@ -405,7 +404,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     </div>
 
-    <div class="election-website minitile long"> <!-- remove long / temp css-->
+    <div class="election-website minitile"> 
       <i class="far fa-address-card"></i>
       <?php if ($candidate['website']): ?>
         <span>
@@ -416,7 +415,6 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       <?php endif ?>
     </div>
 
-<!--
     <div class="news minitile">
       <i class="far fa-newspaper"></i>
       <span>
@@ -425,7 +423,6 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         </a>
       </span>
     </div>
--->
 
       <!-- TODO: Add back for provincial election. 
       <?php if ($candidate['party_leader']): ?>
@@ -714,11 +711,10 @@ function display_front_page_news($candidate_ids, $count){
       $source = $sources[0];
       $source_label = esc_html( $source->description ? $source->description : $source->name );
       ?>
-      <li>
-        <div class="news-content">
-          <div class="post-news-title-time">
+        <div class="one_column fancy-news">
+          <div class="news-title-time">
             <a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
-            <span class="news-date-time"><?= $source_label ?> - <?php echo $date;?> <?php echo $time; ?></span>
+            <span class="news-date-time"><?= $source_label ?> - <?php echo $date;?></span>
           </div>
 
            <?php
@@ -726,17 +722,14 @@ function display_front_page_news($candidate_ids, $count){
 
                $summary_candidate = get_term_by('name', $all_candidates[rand(0, (count($all_candidates)-1))], $ed_taxonomies['news_article_candidate'], "ARRAY_A");
            ?>
-           <div class="post-news-summary">
-               <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] . '...'?></a></p>
+           <div class="news-summary">
+               <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] ?></a></p>
               </div>
            <?php endif;?>
 
-          <p class="post-news-mention">Mentions:<?php echo implode (', ', $mentions); ?></p>
-          <p style="padding:0;"><a class="post-news-more" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>">Read more...</a></p>
+          <p class="news-mention">Mentions: <?php echo implode (', ', $mentions); ?></p>
         </div>
-      </li>
     <?php endwhile; ?>
-  </ul>
 <?php else : ?>
   <em>No articles found yet.</em>
 <?php endif;

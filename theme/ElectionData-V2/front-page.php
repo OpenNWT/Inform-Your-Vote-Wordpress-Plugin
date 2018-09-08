@@ -105,20 +105,4 @@ get_header(); ?>
 	</ul>
 </div>
 
-<!-- 
-<div class="latest-news">
-	<div class="head-title">Latest News</div>
-		<ul class="news-list">
-			<?php display_front_page_news(null, $news_count);?>
-		</ul>
-	<div class="view-all">
-		<div class="view-all-lt"></div>
-		<div class="view-all-con">
-			<a href="<?php echo get_post_type_archive_link( $ed_post_types['news_article'] ); ?>">View All</a>
-		</div>
-		<div class="view-all-rt"></div>
-	</div>
-</div>
--->
-
 <?php get_footer(); ?>

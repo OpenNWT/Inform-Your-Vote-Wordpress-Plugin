@@ -363,11 +363,8 @@ p.news-article-notice{
 }
 
 .minitile i {
-  /*temp*/
- /* display: block;
-  margin-bottom: 8px; */
-  display: inline-block;
-  margin-right: 15px;
+  display: block;
+  margin-bottom: 8px; 
   font-size: 2em;
   color: #555;
 }
@@ -1042,12 +1039,18 @@ input:-ms-input-placeholder {
 	overflow:hidden;}
 .latest-news{
 	margin-top:80px;}
-.page-list ul li,.page-image-icon ul li,.latest-news ul li{
+.page-list ul li,.page-image-icon ul li{
 	list-style:none;
 	width: 31%;
   float: left;
   text-align:center;
   }
+  
+.latest-news ul li{
+	list-style:none;
+	width: 31%;
+  float: left;
+}
 
 .latest-news ul li{
 	min-height: 550px;
@@ -1067,7 +1070,6 @@ input:-ms-input-placeholder {
 	width:100%;
 	display: inline-block;}
 .news-content .post-news-title-time{
-    min-height: 130px;
     overflow: hidden;
     border-bottom: 2px solid #B7B7B7;
 		margin-top: 30px;
@@ -1076,8 +1078,15 @@ input:-ms-input-placeholder {
     font-size: 20px;
     color: #18181A;
     margin: 10px 0 10px 0;
-    max-height: 130px;
 	font-weight: bold;
+}
+
+.news-content {
+  max-height: 130px;
+}
+
+.news-title {
+  height: 70px;
 }
 .news-content .news-date-time{
 	padding-top: 5px;
@@ -1106,7 +1115,7 @@ input:-ms-input-placeholder {
 	}
 
 .post-news-summary{
-	max-height: 260px;
+	height: 260px;
 	overflow: hidden;
 }
 .view-all{
@@ -1692,4 +1701,39 @@ input:-ms-input-placeholder {
 #static_page ul {
   margin: 0 0 1em 2em;
   line-height: 1.8;
+}
+
+.fancy-news {
+  min-height: 370px;
+}
+
+.fancy-news a.news-title {
+  display: block;
+  font-size: 1.3em;
+  height: 4.7em;
+  line-height: 1.2;
+  color: #333;
+}
+
+.fancy-news .news-title-time {
+  border-bottom: 1px solid grey;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+}
+
+.fancy-news .news-date-time, .fancy-news .news-mention {
+  font-size: 0.9em;
+  color: #777;
+}
+
+.fancy-news .news-summary {
+  height: 180px;
+}
+
+.fancy-news .news-title-time, .fancy-news .news-summary, .fancy-news .news-mention {
+  margin-right: 10px;
+}
+
+.fancy_news .news-mention {
+  margin-bottom: 20px;
 }
