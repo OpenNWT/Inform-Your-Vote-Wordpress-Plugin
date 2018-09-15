@@ -1698,9 +1698,17 @@ input:-ms-input-placeholder {
   line-height: 1.8;
 }
 
-#static_page ul {
+#static_page ul, #static_page ol {
   margin: 0 0 1em 2em;
   line-height: 1.8;
+}
+
+#static_page ol {
+  margin-left: 3em;
+}
+
+#static_page .calendar {
+  width: 100%;
 }
 
 .fancy-news {

@@ -21,11 +21,6 @@ get_header();?>
 <?php if ( $constituency['children'] ) : ?>
 	<h2>Select Your <?php echo $constituency['name']; ?> Constituency</h2>
 	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
-  <?php if ($constituency['name'] == 'Trustee Candidates'): ?>
-    <br>
-    <h3>School trustee candidates will not be displayed until the September 12th to September 18th nomination period.</h3>
-    <br><br>
-  <?php endif ?>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
@@ -74,26 +69,20 @@ get_header();?>
     <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> 
   </p>
 	<h2><?php echo $constituency['name']; ?></h2>
-  <?php if ($constituency['parent_name'] == 'Trustee Candidates'): ?>
-    <br>
-    <h3>School trustee candidates will not be displayed until the September 12th to September 18th nomination period.</h3>
-    <br><br>
-  <?php else: ?>
-    <p>
-      <?php if ($constituency['number_of_winners'] < 2) : ?>
-      There are <?php echo $wp_query->post_count; ?> candidates in this electoral division.
-    <?php else : ?>
-      There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
-    <?php endif ?>
-      <span class="small grey">Candidates are displayed in random order.</span>
-    </p>
-    <div class="flow_it politicians">
-      <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
-    </div>
-    <p>
-      <span class="small grey">Our candidate data retrieval process is available in our FAQ.</span>
-    </p>
+  <p>
+    <?php if ($constituency['number_of_winners'] < 2) : ?>
+    There are <?php echo $wp_query->post_count; ?> candidates in this electoral division.
+  <?php else : ?>
+    There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
   <?php endif ?>
+    <span class="small grey">Candidates are displayed in random order.</span>
+  </p>
+  <div class="flow_it politicians">
+    <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
+  </div>
+  <p>
+    <span class="small grey">Our candidate data retrieval process is available in our FAQ.</span>
+  </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
 			<div class="three_columns constit_description">
