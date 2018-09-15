@@ -465,6 +465,7 @@ function get_qanda_questions( $type, $term ) {
 function get_qanda_answers( $type, $id, $count = null ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
+  global $is_party_election;
 	$query_args = array(
 		'post_type' => $ed_post_types['answer'],
 		'post_status' => 'publish',
@@ -496,10 +497,15 @@ function get_qanda_answers( $type, $id, $count = null ) {
 				'terms' => get_post_meta( $candidate->ID, 'qanda_candidate_id', true ),
 			),
 		);
-		$pattern = array( '/\*candidate\*/', '/\*party\*/', '/\*party_long\*/' );
-		$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
-		$party = $parties[0];
-		$replacement = array( get_the_title( $candidate ), $party->name, $party->description );
+    if ($is_party_election) {
+      $parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
+      $party = $parties[0];
+      $pattern = array( '/\*candidate\*/', '/\*party\*/', '/\*party_long\*/' );
+      $replacement = array( get_the_title( $candidate ), $party->name, $party->description );
+    } else {
+      $pattern = array( '/\*candidate\*/' );
+      $replacement = array( get_the_title( $candidate ) );
+    }    
 		break;
 	}
 	$answers = array();

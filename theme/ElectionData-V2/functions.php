@@ -519,11 +519,16 @@ function display_party_candidates( $candidate_query, $party, &$candidates ) {
 * @param $candidates       an array that will have the candidate's news article id in it
 */
 function display_constituency_candidates( $candidate_query, $constituency, &$candidates ) {
+  global $is_party_election;
   while ( $candidate_query->have_posts() ) {
     $candidate_query->the_post();
     $candidate_id = $candidate_query->post->ID;
     $candidate = get_candidate( $candidate_id );
-    $party = get_party_from_candidate( $candidate_id );
+    if ($is_party_election) {
+      $party = get_party_from_candidate( $candidate_id );
+    } else {
+      $party = null;
+    }
     $candidates[] = $candidate['news_article_candidate_id'];
     display_candidate( $candidate, $constituency, $party, array( 'party', 'questionnaire' ) );
   }

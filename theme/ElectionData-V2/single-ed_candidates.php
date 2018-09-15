@@ -7,7 +7,10 @@
 //get_header();
 $candidate_id = get_the_ID();
 $candidate = get_candidate( $candidate_id, true );
-$party = get_party_from_candidate( $candidate_id );
+$party = null;
+if ($is_party_election) {
+  $party = get_party_from_candidate( $candidate_id );
+}
 $constituency = get_constituency_from_candidate( $candidate_id );
 $candidate_news = get_news( $candidate['news_article_candidate_id'] );
 $has_qanda = count( $candidate['answers'] ) > 0;
