@@ -85,13 +85,13 @@ get_header();?>
     <?php else : ?>
       There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
     <?php endif ?>
-      <em class="small grey">Candidates are displayed in random order.</em>
+      <span class="small grey">Candidates are displayed in random order.</span>
     </p>
     <div class="flow_it politicians">
       <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
     </div>
     <p>
-      <em class="small grey">Our candidate data retrieval process is available in our FAQ.</em>
+      <span class="small grey">Our candidate data retrieval process is available in our FAQ.</span>
     </p>
   <?php endif ?>
 	<div class="flow_it" >
@@ -104,6 +104,11 @@ get_header();?>
     <div class="three_columns latest_news_small">
       <h2 id="news">Latest Candidate News</h2>
       <p class="grey small">Articles that mention candidates from this race.</p>
+      <!-- 
+      <div class="flow_it">
+        <?php display_front_page_news($candidate_references, 18);?>
+      </div>
+      -->
       <?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
       display_news_titles( $candidate_references, false, $article_count ); ?>
       <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
