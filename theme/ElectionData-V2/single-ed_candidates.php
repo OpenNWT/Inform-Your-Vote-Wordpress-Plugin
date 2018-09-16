@@ -75,7 +75,8 @@ get_header(); ?>
       </p>
     <?php endif ?>
     <br>
-    <p class="grey">Our candidate data retrieval process is available in our FAQ.</p>
+
+    <p class="grey">Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</p>
   </div>
   <?php if ($has_qanda): ?>
     <div class="three_columns">
