@@ -19,7 +19,7 @@ if($constituency['grandchildren']){
 get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
-	<h2>Select Your <?php echo $constituency['name']; ?> Constituency</h2>
+	<h2>Select Your <?php echo $constituency['name']; ?> Ward</h2>
 	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
@@ -37,7 +37,7 @@ get_header();?>
 			</div>
 		<?php endif;?>
 		<div class='one_column map_nav'>
-				<h3>Select a <?php echo $constituency['name']; ?> Constituency</h3>
+				<h3>Select a <?php echo $constituency['name']; ?> Ward</h3>
 
 					<?php foreach ( $constituency['children'] as $name => $child ) :?>
 						<?php $child_constituency = get_constituency($child['id']);?>
@@ -69,9 +69,13 @@ get_header();?>
     <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> 
   </p>
 	<h2><?php echo $constituency['name']; ?></h2>
+  <br>
+  <p>
+    <a class="hover_underline" href="#news">Read news articles that mentions these candidates</a>.
+  </p>
   <p>
     <?php if ($constituency['number_of_winners'] < 2) : ?>
-    There are <?php echo $wp_query->post_count; ?> candidates in this electoral division.
+    There are <?php echo $wp_query->post_count; ?> candidates in this election race.
   <?php else : ?>
     There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
   <?php endif ?>

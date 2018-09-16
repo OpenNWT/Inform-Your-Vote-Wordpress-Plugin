@@ -58,6 +58,10 @@ a {
 	a img {
 		border: none; }
 
+footer a:hover, .map_nav a:hover, .minitile a:hover, a.hover_underline:hover, .breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
 p {
 	margin-bottom: 1em;
 	margin-left: 10px; }

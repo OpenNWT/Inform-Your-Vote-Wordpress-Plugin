@@ -16,9 +16,9 @@ $constituencies = get_root_constituencies();
 <?php get_header(); ?>
 <?php if ( $constituencies ) : ?>
 		<div class="flow_it who_constituencies_lists">
-			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Electoral Races' ); ?></h2>
+			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Your Election Candidates' ); ?></h2>
 			<p>
-        Please select an electoral race to view the candidates.
+        What type of candidate would you like to research?
         <?php if($is_address_lookup_tool):?>
           OR
           Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address

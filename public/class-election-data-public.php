@@ -538,7 +538,7 @@ function get_qanda_answers( $type, $id, $count = null ) {
 
 function set_icon_data($results) {
   $icon_data = array();
-  foreach ( array('email', 'facebook', 'youtube', 'twitter', 'instagram' ) as $icon_type ) {
+  foreach ( array('email', 'facebook', 'twitter', 'instagram', 'youtube') as $icon_type ) {
     $value = $results[$icon_type];
     $url = '';
     $alt = ucfirst($icon_type);
