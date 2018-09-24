@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
   wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.1.0');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.1.3');
   wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
   wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
   wp_enqueue_style( 'font-awesome-regular', 'https://use.fontawesome.com/releases/v5.1.1/css/all.css');
@@ -357,7 +357,7 @@ function display_party( $party ) {
 * @param $constituency         the candidate's constituency
 * @param $party                the candidate's party
 * @param $show_fields          Default is empty array.
-* 
+*
 *
 * TODO: Show fields needs fixing. Some no longer apply.
 */
@@ -368,6 +368,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_questionnaire = in_array( 'questionnaire', $show_fields );
   $questionnaire_available = ! empty($candidate['answers']);
+
   ?>
     <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
     <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 45%, transparent 0);" >
@@ -404,7 +405,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     </div>
 
-    <div class="election-website minitile"> 
+    <div class="election-website minitile">
       <i class="far fa-address-card"></i>
       <?php if ($candidate['website']): ?>
         <span>
@@ -424,7 +425,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </span>
     </div>
 
-      <!-- TODO: Add back for provincial election. 
+      <!-- TODO: Add back for provincial election.
       <?php if ($candidate['party_leader']): ?>
         <p>Party Leader</p>
       <?php endif ?>
@@ -432,9 +433,9 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 
     <?php if ($display_questionnaire && $questionnaire_available): ?>
       <div class="qanda">
-        Questionnaire: 
         <a href="<?= $candidate['qanda'] ?>">
-          Read <?= explode(' ', $candidate['name'])[0] ?>'s Response
+          <span>Questionnaire:</span>
+          Read Candidate Response
         </a>
       </div>
     <?php endif ?>
@@ -523,7 +524,7 @@ function display_constituency_candidates( $candidate_query, $constituency, &$can
   while ( $candidate_query->have_posts() ) {
     $candidate_query->the_post();
     $candidate_id = $candidate_query->post->ID;
-    $candidate = get_candidate( $candidate_id );
+    $candidate = get_candidate( $candidate_id, true );
     if ($is_party_election) {
       $party = get_party_from_candidate( $candidate_id );
     } else {

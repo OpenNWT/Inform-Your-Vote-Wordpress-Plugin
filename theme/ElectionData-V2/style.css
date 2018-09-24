@@ -245,7 +245,7 @@ p.news-article-notice{
   zoom: 1; }
 
 .politician.tall {
-  height: 260px;
+  height: 285px;
 }
 
 .politician.short {
@@ -336,9 +336,10 @@ p.news-article-notice{
 .politician .qanda, .politician .candidate-party {
   margin-bottom: 1em;
   margin-left: 14px;
+  font-size: 14px;
 }
 
-.politician .qanda {
+.politician .qanda a span {
   color: #2F7C24;
 }
 
