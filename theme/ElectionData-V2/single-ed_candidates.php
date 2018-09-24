@@ -71,7 +71,12 @@ get_header(); ?>
     <?php endif ?>
     <?php if ($has_qanda): ?>
       <p>
-        Their response to our candidate questionnaire can be read below.
+        Their response to our candidate questionnaire <a href="#qanda">can be read below</a>.
+      </p>
+    <?php endif ?>
+    <?php if ($candidate['news_count'] > 0): ?>
+      <p>
+        News that mentions this candidate is listed <a href="#news">at the bottom of the page</a>.
       </p>
     <?php endif ?>
     <br>
@@ -90,12 +95,14 @@ get_header(); ?>
       </div>
     </div>
   <?php endif ?>
-	<div class="three_columns">
-		<h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
-		<p class="news-article-notice"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
-		<?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
-		display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
-	</div>
+  <?php if ($candidate['news_count'] > 0): ?>
+    <div class="three_columns">
+      <h2 id="news">News that mentions <?php echo $candidate['name']; ?></h2>
+      <p class="news-article-notice"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
+      <?php $article_count = Election_Data_Option::get_option('news-count-candidate', 10);
+      display_news_summaries( $candidate['news_article_candidate_id'], 'Candidate', $article_count ); ?>
+    </div>
+  <?php endif ?>
 </div>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

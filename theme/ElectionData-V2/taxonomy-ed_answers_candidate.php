@@ -72,12 +72,15 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 	<?php if ( $can_edit && ! empty( $questions ) ) : ?>
 		<div class="three_columns q">
 			<h2>Questionnaire</h2>
-			<p>Please enter your responses for the questions listed below. Questions that do not have a response will not be displayed on the site.<p>
+      <p>Please enter your responses for the questions listed below.</p>
+      <p>All responses have a 200 word maximum length.</p>
+      <p>Questions that do not have a response will not be displayed on the site.</p>
 			<form id="candidate" class="post-edit front-end-form" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="candidate_id" value="<?php echo $answer_candidate->term_id; ?>" />
 				<?php wp_nonce_field( "update_candidate_qanda_{$answer_candidate->term_id}", 'update_candidate_qanda_nonce' ); ?>
 
 				<?php foreach ( $questions as $answer_id => $question ) : ?>
+          <br><br>
 					<p><strong><?php echo $question; ?></strong></p>
 					<p class="word-count" id="question_<?php echo $answer_id; ?>_count">Word Count: <span class="total">0</span>
 					<p><?php wp_editor( isset( $candidate['answers'][$question] ) ? $candidate['answers'][$question] : '', "question_$answer_id", $wp_editor_args ); ?></p>
