@@ -1750,3 +1750,18 @@ input:-ms-input-placeholder {
 .fancy_news .news-mention {
   margin-bottom: 20px;
 }
+
+#submit_answers {
+  border-radius: 4px;
+  background: #0085ba;
+  border-color: #006799;
+  color: #fff;
+  font-size: 17px;
+}
+
+#submit_answers:hover {
+  background: #008ec2;
+  border-color: #0073aa;
+  cursor: pointer;
+}
+
