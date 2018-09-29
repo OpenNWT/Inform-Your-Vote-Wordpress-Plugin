@@ -485,7 +485,7 @@ function display_all_candidates( $candidate_query ) {
   while ( $candidate_query->have_posts() ) {
     $candidate_query->the_post();
     $candidate_id = $candidate_query->post->ID;
-    $candidate = get_candidate( $candidate_id );
+    $candidate = get_candidate( $candidate_id , true);
     $constituency = get_constituency_from_candidate( $candidate_id );
     $party  = get_party_from_candidate( $candidate_id );
     display_candidate( $candidate, $constituency, $party, array( 'party', 'constituency', 'questionnaire' ) );
