@@ -85,7 +85,7 @@ get_header();?>
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
   <p>
-    <span class="small grey">Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
+    <span class="small grey">Our questionnaires were sent to candidates by email on September 24, 2018. Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
   </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>

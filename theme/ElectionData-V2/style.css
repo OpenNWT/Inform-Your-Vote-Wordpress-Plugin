@@ -271,14 +271,18 @@ p.news-article-notice{
   margin-bottom: 30px;
 }
 
-.politician .head img, .politician .head .info {
+.politician .head img {
   float: left;
 }
 
 .politician .head .info {
-  max-width: 155px; 
+  float: right;
+}
+
+.politician .head .info {
+  width: 160px; 
   margin-top: 0;
-  margin-left: 15px; }
+}
 
 .politician .head .info p {
   display: table;
@@ -307,6 +311,8 @@ p.news-article-notice{
 
 .politician .icons {
   margin-top: 9px;
+  overflow: hidden;
+  zoom: 1;
 }
 
 .politician .icons a, .party .icons a {
@@ -314,11 +320,15 @@ p.news-article-notice{
 }
 .politician .icons i, .party .icons i {
   font-size: 1.6em;
-  padding-right: 4px;
 }
 
 .politician .icons > i, .party .icons > i {
   color: #aaa;
+}
+
+.politician .icons a, .party .icons a, .politician .icons > i, .party .icons > i {
+  float: left;
+  margin-right: 8px;
 }
 
 .icons a i.fa-youtube {
