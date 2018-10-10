@@ -373,40 +373,26 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
     <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
     <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 45%, transparent 0);" >
 
-      <?php if ($candidate['name'] == 'Portage and Main'): ?>
-        <a href="#">
-          <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
-        </a>
-      <?php else: ?>
-        <a href="<?php echo $candidate['url'] ?>">
-          <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
-        </a>
-      <?php endif ?>
+      <a href="<?php echo $candidate['url'] ?>">
+        <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
+      </a>
 
       <div class="info">
-        <?php if ($candidate['name'] == 'Portage and Main'): ?>
-          <p><a href="#">Portage & Main</a></p>
+        <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
 
-          <div class="icons">
-            &nbsp;
-          </div>
-        <?php else: ?>
-          <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
-
-          <div class="icons">
-            <?php foreach ( $candidate['icon_data'] as $icon ) :
-              if ( $icon['url'] ) : ?>
-                <a href="<?php echo esc_attr( $icon['url'] ); ?>">
-              <?php endif; ?>
-              <?php if ($icon['fa_icon']): ?>
-                <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
-              <?php endif ?>
-              <?php if ( $icon['url'] ): ?>
-                </a>
-              <?php endif;
-            endforeach; ?>
-          </div>
-        <?php endif ?>
+        <div class="icons">
+          <?php foreach ( $candidate['icon_data'] as $icon ) :
+            if ( $icon['url'] ) : ?>
+              <a href="<?php echo esc_attr( $icon['url'] ); ?>">
+            <?php endif; ?>
+            <?php if ($icon['fa_icon']): ?>
+              <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
+            <?php endif ?>
+            <?php if ( $icon['url'] ): ?>
+              </a>
+            <?php endif;
+          endforeach; ?>
+        </div>
 
         <div class="status">
           <?php if ($display_constituency): ?>
@@ -419,36 +405,25 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     </div>
 
-    <?php if ($candidate['name'] == 'Portage and Main'): ?>
-      <div class="news minitile long">
-        <i class="far fa-newspaper"></i>
+    <div class="election-website minitile">
+      <i class="far fa-address-card"></i>
+      <?php if ($candidate['website']): ?>
         <span>
-          <a href="#news">
-            <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
-          </a>
+          <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
         </span>
-      </div>
-    <?php else: ?>
-      <div class="election-website minitile">
-        <i class="far fa-address-card"></i>
-        <?php if ($candidate['website']): ?>
-          <span>
-            <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
-          </span>
-        <?php else: ?>
-          <span class="no-site">No Election Site</span>
-        <?php endif ?>
-      </div>
+      <?php else: ?>
+        <span class="no-site">No Election Site</span>
+      <?php endif ?>
+    </div>
 
-      <div class="news minitile">
-        <i class="far fa-newspaper"></i>
-        <span>
-          <a href="<?php echo "{$candidate['url']}#news"; ?>">
-            <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
-          </a>
-        </span>
-      </div>
-    <?php endif ?>
+    <div class="news minitile">
+      <i class="far fa-newspaper"></i>
+      <span>
+        <a href="<?php echo "{$candidate['url']}#news"; ?>">
+          <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
+        </a>
+      </span>
+    </div>
 
       <!-- TODO: Add back for provincial election.
       <?php if ($candidate['party_leader']): ?>

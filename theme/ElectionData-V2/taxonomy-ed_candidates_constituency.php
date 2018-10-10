@@ -70,27 +70,23 @@ get_header();?>
   </p>
 	<h2><?php echo $constituency['name']; ?></h2>
   <br>
-  <?php if ($constituency['name'] != 'Ballot Question'): ?>
-    <p>
-      <a class="hover_underline" href="#news">Read news articles that mentions these candidates</a>.
-    </p>
-    <p>
-      <?php if ($constituency['number_of_winners'] < 2) : ?>
-      There are <?php echo $wp_query->post_count; ?> candidates in this election race.
-    <?php else : ?>
-      There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
-    <?php endif ?>
-      <span class="small grey">Candidates are displayed in random order.</span>
-    </p>
+  <p>
+    <a class="hover_underline" href="#news">Read news articles that mentions these candidates</a>.
+  </p>
+  <p>
+    <?php if ($constituency['number_of_winners'] < 2) : ?>
+    There are <?php echo $wp_query->post_count; ?> candidates in this election race.
+  <?php else : ?>
+    There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
   <?php endif ?>
+    <span class="small grey">Candidates are displayed in random order.</span>
+  </p>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
-    <?php if ($constituency['name'] != 'Ballot Question'): ?>
-    <p>
-      <span class="small grey">Our questionnaires were sent to candidates by email on September 24, 2018. Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
-    </p>
-  <?php endif ?>
+  <p>
+    <span class="small grey">Our questionnaires were sent to candidates by email on September 24, 2018. Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
+  </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
 			<div class="three_columns constit_description">
@@ -99,12 +95,8 @@ get_header();?>
 			</div>
 		<?php endif; ?>
     <div class="three_columns latest_news_small">
-      <?php if ($constituency['name'] == 'Ballot Question'): ?>
-        <h2 id="news">Latest Portage and Main News</h2>
-      <?php else: ?>
-        <h2 id="news">Latest Candidate News</h2>
-        <p class="grey small">Articles that mention candidates from this race.</p>
-      <?php endif ?>
+      <h2 id="news">Latest Candidate News</h2>
+      <p class="grey small">Articles that mention candidates from this race.</p>
       <!-- 
       <div class="flow_it">
         <?php display_front_page_news($candidate_references, 18);?>
@@ -112,11 +104,7 @@ get_header();?>
       -->
       <?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
       display_news_titles( $candidate_references, false, $article_count ); ?>
-      <?php if ($constituency['name'] == 'Ballot Question'): ?>
-        <p class="grey small">Our news gathering process is explained in <a href="/frequently-asked-questions/">our FAQ</a>.</p>
-      <?php else: ?>
-        <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
-      <?php endif ?>
+      <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
     </div>
   </div>
 <?php endif; ?>

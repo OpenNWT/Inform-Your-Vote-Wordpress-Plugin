@@ -375,7 +375,6 @@ p.news-article-notice{
   width: 262px;
   height: 40px;
   font-size: 14px;
-  text-align: center;
 }
 
 .minitile i {
@@ -383,11 +382,6 @@ p.news-article-notice{
   margin-bottom: 8px; 
   font-size: 2em;
   color: #555;
-}
-
-.minitile.long i {
-  display: inline;
-  margin-right: 10px;
 }
 
 
