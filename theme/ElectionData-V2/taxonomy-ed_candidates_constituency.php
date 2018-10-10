@@ -105,16 +105,15 @@ get_header();?>
         <h2 id="news">Latest Candidate News</h2>
         <p class="grey small">Articles that mention candidates from this race.</p>
       <?php endif ?>
-      <!-- 
-      <div class="flow_it">
-        <?php display_front_page_news($candidate_references, 18);?>
-      </div>
-      -->
-      <?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
-      display_news_titles( $candidate_references, false, $article_count ); ?>
+
       <?php if ($constituency['name'] == 'Ballot Question'): ?>
+        <?php display_news_summaries( $candidate_references[0], 'Candidate', 15 ); ?>
+        <br>
+        <br>
         <p class="grey small">Our news gathering process is explained in <a href="/frequently-asked-questions/">our FAQ</a>.</p>
       <?php else: ?>
+        <?php $article_count = Election_Data_Option::get_option('news-count-constituency', 10);
+        display_news_titles( $candidate_references, false, $article_count ); ?>
         <p class="grey small"><?php echo Election_Data_Option::get_option( 'news-scraping-subheading' ) ?></p>
       <?php endif ?>
     </div>
