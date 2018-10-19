@@ -613,7 +613,7 @@ class Election_Data_News_Article {
       } else {
         $api_url = $source_api . '&q=' . $url_candidate;
       }
-			$request = wp_remote_get( $api_url, ['timeout' => 60] );
+			$request = wp_remote_get( $api_url, ['timeout' => 120] );
 			if ( !is_wp_error( $request ) ) {
 				$body = wp_remote_retrieve_body( $request );
 				$data = json_decode( $body );
