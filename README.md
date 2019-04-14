@@ -8,7 +8,9 @@ The first version of this plugin was built by [Robert Burton](https://github.com
 
 ## Funding Recognition
 
-The development of this plugin was funded by a Community Investment grant from [the Canadian Internet Registration Authority](https://cira.ca) (CIRA). CIRA manages the .CA top-level domain, Canada’s online identifier, on behalf of all Canadians. A Member-driven organization, CIRA also facilitates the development of a better Internet for all Canadians, and represents the .CA registry internationally.
+The development of the first version of this plugin was funded by a Community Investment grant from [the Canadian Internet Registration Authority](https://cira.ca) (CIRA). CIRA manages the .CA top-level domain, Canada’s online identifier, on behalf of all Canadians. A Member-driven organization, CIRA also facilitates the development of a better Internet for all Canadians, and represents the .CA registry internationally.
+
+Later additions to the plugin were done pro bono by members of ODM and by a team of Red River College students (see attribution above).
 
 ## License
 
