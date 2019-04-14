@@ -19,6 +19,7 @@ $ballot = null;
 		<div class="flow_it who_constituencies_lists">
 			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Your Winnipeg Election Candidates' ); ?></h2>
       <p>Find your election candidates by search or follow the maps below.</p>
+      <p>If you need to find your voting location <a target="_blank" href="https://www.winnipeg.ca/clerks/election/election2018/registration/WhereDoIVote.stm#where-do-i-vote">use the city's Where Do I Vote tool</a>.</p>
       <br>
       <iframe style="width: 100%; height: 220px;" id="address_frame" src="/we2018address/index.html"></iframe>
 			<p>

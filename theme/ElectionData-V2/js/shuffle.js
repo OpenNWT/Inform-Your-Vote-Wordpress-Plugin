@@ -22,7 +22,8 @@
 
 (function($) {
     $(function() {
-        $('ul.issues').shuffle();
+        $('div.issues').shuffle();
+        $('div.politicians').shuffle();
     });
 }(jQuery));
 

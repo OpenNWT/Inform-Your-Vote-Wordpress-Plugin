@@ -45,10 +45,10 @@ add_action( 'after_setup_theme', 'election_data_theme_setup' );
 function election_data_theme_scripts() {
   global $ed_taxonomies;
 
-  wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
+  wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.2');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.1.6');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.4');
 //  wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
   wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
   wp_enqueue_style( 'font-awesome-regular', 'https://use.fontawesome.com/releases/v5.1.1/css/all.css');
