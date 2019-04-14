@@ -1775,3 +1775,47 @@ input:-ms-input-placeholder {
   cursor: pointer;
 }
 
+div.issues {
+  margin-top: 3em;
+}
+
+div.issues div {
+  margin-bottom: 2.5em;
+}
+
+div.issues div p {
+  margin-bottom: 0.1em;
+}
+
+table.results {
+	margin:20px;
+	border:#ccc 1px solid;
+	border-radius:3px;
+	box-shadow: 0 1px 2px #d1d1d1;
+}
+
+table.results tr th { background: #F1F1F1; }
+
+table.results td {
+  padding: 20px 20px 0 20px;
+}
+
+table.results tr:last-child td {
+  padding-bottom: 20px;
+}
+
+table.results th {
+  padding: 20px
+}
+
+table.results tr.bold { font-weight: bold; color: #222; }
+
+@media (max-width: 639px) {
+  table.results th {
+    padding: 15px 3px 15px 3px;
+  }
+
+  table.results td {
+    padding: 20px 8px 0 8px;
+  }
+}

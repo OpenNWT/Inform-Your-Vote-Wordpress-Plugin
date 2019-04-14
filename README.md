@@ -4,11 +4,13 @@ A WordPress plugin that simplifies hosting information about elections.
 
 ## Attribution
 
-This plugin was built by [Robert Burton](https://github.com/rmburton) for [Open Democracy Manitoba](http://opendemocracymanitoba.ca) as part of their [Online Toolkit for Increasing Voter Engagement](https://cira.ca/online-toolkit-increasing-voter-engagement-canada) project.
+The first version of this plugin was built by [Robert Burton](https://github.com/rmburton) for [Open Democracy Manitoba](http://opendemocracymanitoba.ca) as part of their [Online Toolkit for Increasing Voter Engagement](https://cira.ca/online-toolkit-increasing-voter-engagement-canada) project. Since then additions have been made by [Kyle Geske](https://github.com/stungeye) of ODM. Simranjeet Hunjan, Joel Hurtig and Heng Yu worked full-time as web programmers on this site from January to April of 2018 as part of their RRC Business Information Technology project term. Dan Axelsson worked during this time as scrum master and technical analyst as part of his RRC Business Technology Management project term. Much of the site design was created by Ashley Jaworenko and Ashley Rebillard as part of an assignment in the RRC Graphic Design program.
 
 ## Funding Recognition
 
-The development of this plugin was funded by a Community Investment grant from [the Canadian Internet Registration Authority](https://cira.ca) (CIRA). CIRA manages the .CA top-level domain, Canada’s online identifier, on behalf of all Canadians. A Member-driven organization, CIRA also facilitates the development of a better Internet for all Canadians, and represents the .CA registry internationally.
+The development of the first version of this plugin was funded by a Community Investment grant from [the Canadian Internet Registration Authority](https://cira.ca) (CIRA). CIRA manages the .CA top-level domain, Canada’s online identifier, on behalf of all Canadians. A Member-driven organization, CIRA also facilitates the development of a better Internet for all Canadians, and represents the .CA registry internationally.
+
+Later additions to the plugin were done pro bono by members of ODM and by a team of Red River College students (see attribution above).
 
 ## License
 

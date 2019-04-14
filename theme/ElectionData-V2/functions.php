@@ -45,19 +45,19 @@ add_action( 'after_setup_theme', 'election_data_theme_setup' );
 function election_data_theme_scripts() {
   global $ed_taxonomies;
 
-  wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js' );
-  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
+  wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.2');
+//  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.1.5');
-  wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.4');
+//  wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
   wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
   wp_enqueue_style( 'font-awesome-regular', 'https://use.fontawesome.com/releases/v5.1.1/css/all.css');
 
   if ( is_front_page() ) {
-    wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
+    // wp_enqueue_script( 'countdown', get_template_directory_uri() . '/js/countdown.js' );
     // TODO: Remove if not using Twitter or Google Plus according to settings.
-    wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js' );
-    wp_enqueue_script( 'google', 'https://apis.google.com/js/platform.js' );
+    // wp_enqueue_script( 'twitter', 'http://platform.twitter.com/widgets.js' );
+    // wp_enqueue_script( 'google', 'https://apis.google.com/js/platform.js' );
   }
 
   if ( is_tax( $ed_taxonomies['candidate_constituency'] ) ) {
