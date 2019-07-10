@@ -619,6 +619,12 @@ class Election_Data_Settings_Definition {
 				'desc' => __( 'The header image to display on the candidates page. If it is not selected, it will display the same image as the front page.'),
 				'type' => 'image',
 				),
+				'zoom_to_top' => array(
+					'name' => __('Zoom to Top', self::$plugin_name),
+					'desc' => __('For different screen sizes should the header image zoom to the top of the image. (Default bottom)', self::$plugin_name),
+					'type' => 'checkbox'
+				),
+
 			),
 			'footer_tab' => array(
 				'footer' => array(

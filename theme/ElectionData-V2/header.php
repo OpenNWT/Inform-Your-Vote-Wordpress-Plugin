@@ -27,7 +27,7 @@
 <meta name="viewport" content="width=device-width" />
 
 <?php if(Election_data_option::get_option('site_image')):?>
-	<meta property="og:image" content=<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'full')[0];?>>
+	<meta property="og:image" content="<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'full')[0];?>">
 <?php endif;?>
 
 <?php if(Election_Data_Option::get_option('site_title')):?>
@@ -80,7 +80,7 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 		<header id="masthead" class="site-header" role="banner">
 			<!-- Different page using different image -->
 			<?php
-				$default_header_image = get_header_image() ?: $siteurl.'/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
+				$default_header_image = wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'full')[0] ?: $siteurl.'/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
 
 				if(is_tax( $taxonomy = 'ed_candidates_party' ) ){
 					$header_image =($candidates_party_header_img!='') ? $candidates_party_header_img : $default_header_image;
@@ -98,12 +98,17 @@ $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_o
 				else
 					$header_image = $default_header_image;
 
+
+        $zoom_style = Election_data_option::get_option('zoom_to_top') ? '' : 'background-position: 100% 100%;';
+
         echo '<style type="text/css">
                 .head-top {
                   background:url("'.$header_image.'") no-repeat;
                   background-size: cover;
-                  background-position: 100% 100%;
-                  }
+                  '
+                  . $zoom_style .
+                  '
+                }
                 @media (max-width: 768px){
                   body .head-top{
                     background-size: auto 100%;}}
