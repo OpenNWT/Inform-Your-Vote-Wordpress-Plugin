@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.2');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.4');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.5');
 //  wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
   wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
   wp_enqueue_style( 'font-awesome-regular', 'https://use.fontawesome.com/releases/v5.1.1/css/all.css');
@@ -371,14 +371,14 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 
   ?>
     <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
-    <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 45%, transparent 0);" >
+    <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 41%, transparent 0);" >
 
       <a href="<?php echo $candidate['url'] ?>">
         <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
       </a>
 
       <div class="info">
-        <p><a href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
+        <p><a class="perma" href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
 
         <div class="icons">
           <?php foreach ( $candidate['icon_data'] as $icon ) :
@@ -396,11 +396,17 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 
         <div class="status">
           <?php if ($display_constituency): ?>
+            <div>
               <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a>
+            </div>
           <?php endif ?>
+          <span class='phone'>
           <?php if ($candidate['phone']): ?>
             Phone: <?= esc_html( $candidate['phone'] ) ?>
+          <?php else: // Hack to push the coloured banner down when no phone. ?>
+            &nbsp;
           <?php endif ?>
+          </span>
         </div>
       </div>
     </div>
@@ -425,11 +431,6 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </span>
     </div>
 
-      <!-- TODO: Add back for provincial election.
-      <?php if ($candidate['party_leader']): ?>
-        <p>Party Leader</p>
-      <?php endif ?>
-      -->
 
     <?php if ($display_questionnaire && $questionnaire_available): ?>
       <div class="qanda">
@@ -440,11 +441,17 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     <?php endif ?>
 
-    <?php if ($candidate['incumbent_year']): ?>
-      <div class="incumbent">
-        Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
-      </div>
-    <?php endif ?>
+    <div class="incumbent">
+      <?php if ($candidate['party_leader']): ?>
+        Party Leader
+      <?php endif ?>
+      <?php if ($candidate['party_leader'] && $candidate['incumbent_year']): ?>
+       and 
+      <?php endif ?>
+      <?php if ($candidate['incumbent_year']): ?>
+          Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
+      <?php endif ?>
+    </div>
   </div>
 <?php }
 

@@ -268,7 +268,7 @@ p.news-article-notice{
   border-radius: 10px; 
   overflow: hidden;
   zoom: 1;
-  margin-bottom: 30px;
+  margin-bottom: 1em;
 }
 
 .politician .head img {
@@ -291,21 +291,26 @@ p.news-article-notice{
   height: 60px;
   max-width: 150px; }
 
-.politician .head .info p a {
+.politician .head .info p a.perma {
   color: #f9f9f9;
   display: table-cell;
   vertical-align: middle; }
 
 
 .politician .status {
-  font-size: 0.8em;
-  color: #555;
+  color: #666;
   margin-top: 13px;
+  font-size: 0.8em;
+}
+
+.politician .status div {
+  margin-bottom: .95em;
+  font-size: 1.1em;
 }
 
 .politician .incumbent {
   font-size: 0.8em;
-  color: #555;
+  color: #444;
   margin-left: 15px;
 }
 
