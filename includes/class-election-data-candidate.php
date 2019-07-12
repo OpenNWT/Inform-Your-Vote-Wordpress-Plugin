@@ -481,7 +481,7 @@ class Election_Data_Candidate {
 
         add_image_size( 'map_thumb', 100, 9999, false );
         add_image_size( 'map', 598, 9999, false );
-        add_image_size( 'party', 175, 175, false );
+        add_image_size( 'party', 97, 97, false );
       }
 
       /**
