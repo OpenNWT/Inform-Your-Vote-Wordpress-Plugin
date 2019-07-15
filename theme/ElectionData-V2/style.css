@@ -256,7 +256,6 @@ p.news-article-notice{
   height: 260px;
 }
 
-
 .politician .head img {
   border-radius: 50%; }
 
@@ -264,52 +263,61 @@ p.news-article-notice{
   border: 4px solid white;
   margin: 10px 0 0 10px; }
 
-.politician .head {
+.politician .head, .party .head {
   border-radius: 10px; 
   overflow: hidden;
   zoom: 1;
-  margin-bottom: 30px;
+  margin-bottom: 1em;
 }
 
-.politician .head img {
+.party .head {
+  margin-bottom: 0;
+}
+
+.politician .head img, .party .head .info {
   float: left;
 }
 
-.politician .head .info {
+.politician .head .info, .party .head .info {
   float: right;
 }
 
-.politician .head .info {
+.politician .head .info, .party .head .info {
   width: 160px; 
   margin-top: 0;
 }
 
-.politician .head .info p {
+.politician .head .info p, .party .head .info p {
   display: table;
   font-size: 1.27em;
   margin: 0;
   height: 60px;
   max-width: 150px; }
 
-.politician .head .info p a {
+.politician .head .info p a.perma, .party .head .info p a.perma {
   color: #f9f9f9;
   display: table-cell;
   vertical-align: middle; }
 
 
-.politician .status {
-  font-size: 0.8em;
-  color: #555;
+.politician .status, .party .status {
+  color: #666;
   margin-top: 13px;
+  font-size: 0.8em;
+}
+
+.politician .status div {
+  margin-bottom: .95em;
+  font-size: 1.1em;
 }
 
 .politician .incumbent {
   font-size: 0.8em;
-  color: #555;
+  color: #444;
   margin-left: 15px;
 }
 
-.politician .icons {
+.politician .icons, .party .icons {
   margin-top: 9px;
   overflow: hidden;
   zoom: 1;
@@ -345,6 +353,15 @@ p.news-article-notice{
 
 .icons a i.fa-instagram {
   color: #cd486b;
+}
+
+.party .extra {
+  margin-left: 15px;
+  font-size: 0.9em;
+}
+
+.party .extra > div {
+  margin-bottom: 1em;
 }
 
 .politician .qanda, .politician .candidate-party {
