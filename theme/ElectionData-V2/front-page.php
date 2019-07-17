@@ -27,7 +27,13 @@ $right_column_excerpt = Election_Data_Option::get_option('right_column_excerpt')
 $right_column_img = wp_get_attachment_image(Election_Data_Option::get_option('right_column_img'));
 $right_column_url = Election_Data_Option::get_option('right_column_url') ?: "";
 
-$news_count = Election_Data_Option::get_option( 'news-count-front', 3 );
+
+$party_election = Election_Data_Option::get_option('party_election');
+
+if ($party_election) {
+  $constituencies = get_root_constituencies();
+  $parties = get_parties_random();
+}
 
 get_header(); ?>
 
@@ -104,5 +110,37 @@ get_header(); ?>
 		</li>
 	</ul>
 </div>
+
+<?php if ($party_election): ?>
+    <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
+    <p class="small grey"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
+    <div class="front-constituency-maps">
+      <?php foreach ( $constituencies as $constituency_id ) :
+        $constituency = get_constituency( $constituency_id ); ?>
+        <div>
+          <p><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
+          <a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
+            <?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', true, array( 'alt' => $constituency['name'] ) ); ?>
+          </a>
+        </div>
+      <?php endforeach; ?>
+    </div>
+
+    <h2 class="front-party-logos-header"><?php echo Election_Data_Option::get_option( 'party-label', 'The Political Parties' ); ?></h2>
+    <div class="front-party-logos" >
+      <?php foreach ( $parties as $party_id ) :
+        $party = get_party( $party_id ); ?>
+        <div>
+          <p><a href="<?php echo $party['url']; ?>"><?php echo $party['name']; ?></a></p>
+          <div>
+          <a href="<?php echo $party['url']; ?>">
+            <?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
+          </a>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
+<?php endif ?>
 
 <?php get_footer(); ?>

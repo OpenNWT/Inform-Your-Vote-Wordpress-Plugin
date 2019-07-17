@@ -1836,3 +1836,55 @@ table.results tr.bold { font-weight: bold; color: #222; }
     padding: 20px 8px 0 8px;
   }
 }
+
+/* Front Page Party Logos and Constituency Maps */
+h2.front-constituency-header, h2.front-party-logos-header {
+  margin-left: 0;
+  margin-bottom: 2em;
+  margin-top: 3em;
+  font-size: 1.8em;
+}
+
+@media (max-width: 639px) {
+  h2.front-constituency-header {
+    margin-top: 0;
+  }
+}
+
+/* Hack to add top margin when following a #fragment link to this header. */
+h2.front-constituency-header::before {
+  display: block;
+  content: " ";
+  height: 20px;
+}
+
+.front-constituency-maps > div, .front-party-logos > div {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.front-party-logos {
+  margin-bottom: 2em;
+}
+
+@supports (display: grid) {
+  .front-constituency-maps > div, .front-party-logos > div {
+    margin: 0;
+  }
+
+  .front-constituency-maps, .front-party-logos {
+    display: grid;
+    grid-gap: 20px;
+  }
+
+  .front-constituency-maps {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .front-party-logos {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+}
+
