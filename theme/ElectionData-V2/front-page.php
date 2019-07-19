@@ -113,15 +113,15 @@ get_header(); ?>
 
 <?php if ($party_election): ?>
     <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
-    <p class="small grey"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
+    <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
         <div>
-          <p><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
           <a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
             <?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', true, array( 'alt' => $constituency['name'] ) ); ?>
           </a>
+          <p><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
         </div>
       <?php endforeach; ?>
     </div>
@@ -131,16 +131,14 @@ get_header(); ?>
       <?php foreach ( $parties as $party_id ) :
         $party = get_party( $party_id ); ?>
         <div>
-          <p><a href="<?php echo $party['url']; ?>"><?php echo $party['name']; ?></a></p>
-          <div>
-          <a href="<?php echo $party['url']; ?>">
+          <a class="party-logo" href="<?php echo $party['url']; ?>">
             <?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
           </a>
-          </div>
+          <p><a href="<?php echo $party['url']; ?>"><?php echo $party['name']; ?></a></p>
         </div>
       <?php endforeach; ?>
     </div>
-    <p class="small grey"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
+    <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'party-subtext' ); ?></p>
 <?php endif ?>
 
 <?php get_footer(); ?>

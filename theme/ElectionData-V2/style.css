@@ -414,16 +414,20 @@ p.news-article-notice{
 	display: none; }
 
 .grey {
-	color: #777777; }
+	color: #666; }
 
 .grey a {
     color: #8F9CC3; }
 
 .small {
-	font-size: 0.8em; }
+	font-size: 0.85em; }
 
 .tiny {
 	font-size: 0.5em; }
+
+.no-left-margin {
+  margin-left: 0;
+}
 
 
 .parties_thumb {
@@ -1840,9 +1844,13 @@ table.results tr.bold { font-weight: bold; color: #222; }
 /* Front Page Party Logos and Constituency Maps */
 h2.front-constituency-header, h2.front-party-logos-header {
   margin-left: 0;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   margin-top: 3em;
   font-size: 1.8em;
+}
+
+.front-constituency-maps, .front-party-logos {
+  margin-top: 2em;
 }
 
 @media (max-width: 639px) {
@@ -1859,15 +1867,51 @@ h2.front-constituency-header::before {
 }
 
 .front-constituency-maps > div, .front-party-logos > div {
+  /* Inline and margin for now grid browsers. */
   display: inline-block;
   margin-right: 20px;
   margin-bottom: 20px;
+  border: 6px solid rgba(161, 136, 163, 0.95);
+  border-radius: 20px;
+  padding: 10px 20px 15px 20px;
+  /* horizontally align the name of the party or constituency. */
+  text-align: center;
 }
 
-.front-party-logos {
-  margin-bottom: 2em;
+
+.front-constituency-maps > div > p, .front-party-logos > div > p {
+  margin: 0;
+  font-size: 16px;
 }
 
+/* Switch to a relative block to vert/horz allign the child image. */
+.front-constituency-maps > div > a, .front-party-logos > div > a {
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+
+}
+
+.front-constituency-maps > div > a {
+  height: 220px;
+}
+
+.front-party-logos > div > a {
+  height: 110px;
+}
+
+/* Vertically and horizontally allign the images. */
+.front-constituency-maps > div > a > img, .front-party-logos > div > a > img {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
+/* Grid things up. Assumes a map width of 150px and a logo with of 100px. */
 @supports (display: grid) {
   .front-constituency-maps > div, .front-party-logos > div {
     margin: 0;
@@ -1878,13 +1922,17 @@ h2.front-constituency-header::before {
     grid-gap: 20px;
   }
 
-  .front-constituency-maps {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  .front-constituency-maps { /* width plus 2x padding. */
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   }
 
-  .front-party-logos {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  .front-party-logos { /* widdth plus 2x padding. */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
 }
 
+/* Space above the explanatory text. */
+.front-party-logos {
+  margin-bottom: 2em;
+}
