@@ -453,11 +453,16 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
     <?php endif ?>
 
     <div class="incumbent">
-      <?php if ($candidate['party_leader']): ?>
-        Party Leader
-      <?php endif ?>
-      <?php if ($candidate['party_leader'] && $candidate['incumbent_year']): ?>
-       and 
+      <?php if ($is_party_election): ?>
+        <?= $party['name'] ?>
+        <?php if ($candidate['party_leader']): ?>
+          Party Leader
+        <?php else: ?>
+          Candidate
+        <?php endif ?>
+        <?php if ($candidate['incumbent_year']): ?>
+         and 
+        <?php endif ?>
       <?php endif ?>
       <?php if ($candidate['incumbent_year']): ?>
           Incumbent Since <?= esc_html( $candidate['incumbent_year'] ) ?>
