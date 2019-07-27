@@ -48,9 +48,9 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.2');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.9');
-  //$updated_at = filemtime('wp-content/plugins/ElectionData/theme/ElectionData-V2/style.css');
-  //wp_enqueue_style( 'style', get_stylesheet_uri(), array(), $updated_at);
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.10');
+  // $updated_at = filemtime('wp-content/plugins/ElectionData/theme/ElectionData-V2/style.css');
+  // wp_enqueue_style( 'style', get_stylesheet_uri(), array(), $updated_at);
 
   //  wp_enqueue_style( 'animate-cnd', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
   wp_enqueue_style( 'franklin-gfont', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,700');
