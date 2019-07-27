@@ -725,6 +725,12 @@ class Election_Data_Settings_Definition {
 					'desc' => __( 'To track visitor analytics, sign up for a Google Analytics account and paste their provided tracking script here.' ),
 					'type' => 'textarea',
 				),
+				'candidate-link' => array(
+				'name' => __( 'Candidates Link for Breadcrumbs', self::$plugin_name ),
+				'desc' => __( 'For breadcrumbs shown on candidate and constituency pages.'),
+				'type' => 'text',
+				'placeholder' => '/',
+				),
 			),
 		);
 

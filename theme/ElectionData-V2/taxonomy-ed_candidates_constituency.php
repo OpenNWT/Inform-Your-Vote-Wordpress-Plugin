@@ -62,7 +62,7 @@ get_header();?>
 	?>
 
   <p class="breadcrumbs">
-    <a href="/who-constituency">Candidates</a> / 
+    <a href="<?= Election_Data_Option::get_option( 'candidate-link', '/' ) ?>">Candidates</a> / 
     <?php if(isset($constituency['parent_name'])): ?>
       <a href="<?= $constituency['parent_url'] ?>"><?= $constituency['parent_name'] ?></a> /
     <?php endif ?>
