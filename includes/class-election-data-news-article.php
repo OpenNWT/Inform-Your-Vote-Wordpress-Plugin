@@ -518,8 +518,9 @@ class Election_Data_News_Article {
 		$current_time_zone = new DateTimeZone( 'UTC' );
     $source_type = Election_Data_Option::get_option( 'source' );
     $max_results = Election_Data_Option::get_option( 'number_of_results' );
+    $cutoff_date = Election_Data_Option::get_option( 'cutoff_date' );
 
-    $mentions = $this->get_individual_news_articles( $candidate_name, Election_Data_Option::get_option( 'location' ), $source_type, Election_Data_Option::get_option( 'source-api'), $max_results );
+    $mentions = $this->get_individual_news_articles( $candidate_name, Election_Data_Option::get_option( 'location' ), $source_type, Election_Data_Option::get_option( 'source-api'), $cutoff_date, $max_results );
     error_log("Found " . count($mentions) . " Mentions");
 
     // Loop through all found mentions.
@@ -603,16 +604,23 @@ class Election_Data_News_Article {
 	* @param string $location
 	*
 	*/
-	protected function get_individual_news_articles( $candidate, $location='', $source='', $source_api='', $max_results=20 ) {
+	protected function get_individual_news_articles( $candidate, $location='', $source='', $source_api='', $cutoff_date, $max_results=20 ) {
 		$url_candidate = urlencode($candidate);
 		$articles = array();
 
 		if ($source && ($source === 'api') && ($source_api)) {
-      if (strlen($max_results) != 0) {
+      if (strlen(trim($max_results)) != 0) {
         $api_url = $source_api . '&q=' . $url_candidate . '&limit=' . (int)$max_results;
       } else {
         $api_url = $source_api . '&q=' . $url_candidate;
       }
+
+      if (strlen(trim($cutoff_date)) != 0) {
+        $api_url .= '&date=' . $cutoff_date;
+      }
+
+      error_log($api_url);
+
 			$request = wp_remote_get( $api_url, ['timeout' => 120] );
 			if ( !is_wp_error( $request ) ) {
 				$body = wp_remote_retrieve_body( $request );

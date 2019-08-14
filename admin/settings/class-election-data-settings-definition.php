@@ -273,6 +273,11 @@ class Election_Data_Settings_Definition {
 					'type' => 'text',
 					'std' => '20'
 				),
+				'cutoff_date' => array(
+					'name' => __( 'Cutoff Date', self::$plugin_name ),
+					'desc' => __( 'Scraper will not retrieve results beyond this date. (yyyy-mm-dd) Default is blank (no cutoff).', self::$plugin_name ),
+					'type' => 'text'
+				),
 				'news-scraping-subheading' => array(
 					'name' => __( 'Sub Heading', self::$plugin_name ),
 					'desc' => __( 'Display text that you want to appear above the news feed on candidate pages.', self::$plugin_name ),
