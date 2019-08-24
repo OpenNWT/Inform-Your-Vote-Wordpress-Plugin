@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.2');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.10');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.13');
   // $updated_at = filemtime('wp-content/plugins/ElectionData/theme/ElectionData-V2/style.css');
   // wp_enqueue_style( 'style', get_stylesheet_uri(), array(), $updated_at);
 
@@ -309,6 +309,20 @@ function display_news_article( $article, $candidates = false ){
   </div>
 <?php }
 
+function dark_or_light_text($background_colour){
+	$r = hexdec(substr($background_colour,1,2));
+	$g = hexdec(substr($background_colour,3,2));
+	$b = hexdec(substr($background_colour,5,2));      
+
+	$squared_contrast = ($r * $r * .299 +  $g * $g * .587 + $b * $b * .114);
+
+	if($squared_contrast > pow(130, 2)) {
+		return 'dark-text';
+	} else { 
+    return 'light-text';
+  }
+}
+
 /**
 * Outputs out the designated party.
 * @since Election_Data_Theme 1.0
@@ -323,7 +337,11 @@ function display_party( $party ) {
     <div class="head" style="background: linear-gradient(to bottom, <?php echo esc_attr( $party['colour'] ); ?> 49%, transparent 0);" >
       <?php echo wp_get_attachment_image($party['logo_id'], 'party', false, array( 'alt' => "{$party['name']} Logo" ) ); ?>
       <div class="info">
-        <p><a class="perma" href="<?php echo $party['url'] ?>"><?php echo esc_html( $party['name'] ); ?> Party</a></p>
+        <p>
+          <a class="perma <?= dark_or_light_text($party['colour']) ?>" href="<?php echo $party['url'] ?>">
+            <?= esc_html( $party['name'] ) ?> <?= $party['name'] == 'Independent' ? '' : Party ?>
+          </a>
+        </p>
         <div class="icons">
           <?php foreach ( $party['icon_data'] as $icon ) :
             if ( $icon['url'] ) : ?>
@@ -379,17 +397,18 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_questionnaire = in_array( 'questionnaire', $show_fields );
   $questionnaire_available = ! empty($candidate['answers']);
+  $party_colour = $is_party_election ? esc_attr($party['colour']) : '#888888'; 
 
   ?>
     <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
-    <div class="head" style="background: linear-gradient(to bottom, <?= $is_party_election ? esc_attr($party['colour']) : '#888' ?> 41%, transparent 0);" >
+    <div class="head" style="background: linear-gradient(to bottom, <?= $party_colour ?> 41%, transparent 0);" >
 
       <a href="<?php echo $candidate['url'] ?>">
         <?php echo wp_get_attachment_image($candidate['image_id'], 'candidate', false, array( 'alt' => $candidate['name'] ) ); ?>
       </a>
 
       <div class="info">
-        <p><a class="perma" href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
+        <p><a class="perma <?= dark_or_light_text($party_colour) ?>" href="<?php echo $candidate['url'] ?>"><?php echo esc_html( $candidate['name'] ); ?></a></p>
 
         <div class="icons">
           <?php foreach ( $candidate['icon_data'] as $icon ) :

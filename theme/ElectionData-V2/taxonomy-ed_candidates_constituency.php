@@ -19,7 +19,7 @@ if($constituency['grandchildren']){
 get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
-	<h2>Select Your <?php echo $constituency['name']; ?> Ward</h2>
+	<h2>Select Your <?php echo $constituency['name']; ?> Electoral Division</h2>
 	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
@@ -37,7 +37,7 @@ get_header();?>
 			</div>
 		<?php endif;?>
 		<div class='one_column map_nav'>
-				<h3>Select a <?php echo $constituency['name']; ?> Ward</h3>
+				<h3>Select a <?php echo $constituency['name']; ?> Electoral Division</h3>
 
 					<?php foreach ( $constituency['children'] as $name => $child ) :?>
 						<?php $child_constituency = get_constituency($child['id']);?>
