@@ -77,26 +77,38 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 			<!-- Different page using different image -->
 			<?php
         $siteurl = home_url();
-        $candidates_party_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_party_header_img'),'full')[0];
-        $candidates_constituency_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_constituency_header_img'),'full')[0];
-        $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_header_img'),'full')[0];
         $default_header_image = wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'full')[0] ?: $siteurl.'/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
+        $default_header_small = wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'small_header')[0] ?: $siteurl.'/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/background.png';
+
+        $candidates_party_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_party_header_img'),'full')[0];
+        $candidates_party_header_sml = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_party_header_img'),'small_header')[0];
+        $candidates_constituency_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_constituency_header_img'),'full')[0];
+        $candidates_constituency_header_sml = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_constituency_header_img'),'small_header')[0];
+        $candidates_header_img = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_header_img'),'full')[0];
+        $candidates_header_sml = wp_get_attachment_image_src(Election_Data_Option::get_option('candidates_header_img'),'small_header')[0];
 
 				if(is_tax( $taxonomy = 'ed_candidates_party' ) ){
 					$header_image =($candidates_party_header_img!='') ? $candidates_party_header_img : $default_header_image;
+					$header_small =($candidates_party_header_sml!='') ? $candidates_party_header_sml : $default_header_small;
 				}
 				else if(is_tax( $taxonomy = 'ed_candidates_constituency' )){
 					$header_image = ($candidates_constituency_header_img!='') ? $candidates_constituency_header_img : $default_header_image;
+					$header_small = ($candidates_constituency_header_sml!='') ? $candidates_constituency_header_sml : $default_header_small;
 				}
 				else if(is_singular($post_type = 'ed_candidates')){
 					$header_image = ($candidates_header_img!='') ? $candidates_header_img : $default_header_image;
+					$header_small = ($candidates_header_sml!='') ? $candidates_header_sml : $default_header_small;
 				}
 				else if (is_page()){
 					$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full');
+					$small_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'small_header');
 					$header_image = has_post_thumbnail() ? $full_image_url[0] : $default_header_image;
+					$header_small = has_post_thumbnail() ? $small_image_url[0] : $default_header_small;
 				}
-				else
+				else {
 					$header_image = $default_header_image;
+          $header_small = $default_header_small;
+        }
 
 
         $zoom_style = Election_data_option::get_option('zoom_to_top') ? '' : 'background-position: 100% 100%;';
@@ -111,7 +123,10 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
                 }
                 @media (max-width: 768px){
                   body .head-top{
-                    background-size: auto 100%;}}
+                    background:url("'.$header_small.'") no-repeat;
+                    background-size: auto 100%;
+                    background-position-x: center; /* Remove if you LHS of image to show for small screens. */
+                }}
               </style>';
 			;?>
 
