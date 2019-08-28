@@ -24,6 +24,7 @@
     $(function() {
         $('div.issues').shuffle();
         $('div.politicians').shuffle();
+        $('div.front-party-logos').shuffle();
     });
 }(jQuery));
 
