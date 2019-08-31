@@ -346,6 +346,10 @@ p.news-article-notice{
   margin-right: 8px;
 }
 
+h2.constituency_header {
+  font-size: 2em;
+}
+
 .icons a i.fa-youtube {
   color: #ff0000;
 }
@@ -454,10 +458,14 @@ p.news-article-notice{
         width: auto; }
 
 .map_nav {
-  border: 3px solid #999;
+  border: 3px solid #bbb;
   border-radius: 10px;
   padding: 18px;
   margin-top: 50px;
+}
+
+.map_nav ul {
+  margin-left: 1em;
 }
 
 .home #container #main .page-list ul li .page-article p.pimg {
@@ -487,12 +495,22 @@ p.news-article-notice{
 	header .menu > ul > li:last-child > a{
 		padding:0 23px 0 15px;}
 
-  .map_nav {
-    border: none;
-    margin-top: 10px;
+  .highmap {
+    margin-bottom: 1em;
   }
 
-	}
+  .map_nav {
+    border: none;
+    padding: 0;
+    margin: 0 0 0 0.5em;
+    font-size: 1.5em;
+    width: auto;
+  }
+
+  .map_nav ul li {
+    padding-bottom: 1em;
+  }
+}
 
 @media all and (max-width: 639px) {
 	header {

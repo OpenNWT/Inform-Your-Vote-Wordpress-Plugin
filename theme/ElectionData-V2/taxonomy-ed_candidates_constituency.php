@@ -19,7 +19,7 @@ if($constituency['grandchildren']){
 get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
-	<h2>Select Your <?php echo $constituency['name']; ?> Electoral Division</h2>
+	<h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> Electoral Division</h2>
 	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
@@ -37,8 +37,12 @@ get_header();?>
 			</div>
 		<?php endif;?>
 		<div class='one_column map_nav'>
-				<h3>Select a <?php echo $constituency['name']; ?> Electoral Division</h3>
+        <h3>
+          <?php echo $constituency['name']; ?><br class="visible_block_when_mobile">
+          Electoral Divisions
+        </h3>
 
+        <ul>
 					<?php foreach ( $constituency['children'] as $name => $child ) :?>
 						<?php $child_constituency = get_constituency($child['id']);?>
 
@@ -50,11 +54,12 @@ get_header();?>
 								<?php endforeach;?>
 							</ul>
 						<?php else:?>
-							<li><a href="<?php echo $child['url']; ?>"><?php echo $name; ?></a></li>
+                <li><a href="<?php echo $child['url']; ?>"><?php echo $name; ?></a></li>
 						<?php endif;?>
 
 					<?php endforeach; ?>
-            <br>
+        </ul>
+        <br>
 		</div>
    </div>
 <?php else :
@@ -68,7 +73,7 @@ get_header();?>
     <?php endif ?>
     <a href="<?php echo $constituency['url']; ?>"><?php echo esc_html( $constituency['name'] ); ?></a> 
   </p>
-	<h2><?php echo $constituency['name']; ?></h2>
+	<h2 class="constituency_header"><?php echo $constituency['name']; ?></h2>
   <br>
   <p>
     <a class="hover_underline" href="#news">Read news articles that mentions these candidates</a>.
@@ -84,14 +89,23 @@ get_header();?>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
-  <p>
-    <span class="small grey">Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
+  <p class="small grey">
+    Candidates were sent questionnaires by email from August 28th to September 1st, 2019.
+  </p>
+  <p class="small grey">
+    Parties were contacted to help us reach campaigns without known email addresses.
+  </p>
+  <p class="small grey">
+     Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
   </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
+      <br>
+      <br>
 			<div class="three_columns constit_description">
-				<b><?php echo $constituency['name']; ?></b>
+				<h2>The <?php echo $constituency['name']; ?> Electoral Division</h2>
 				<p><?php echo $constituency['details']; ?></p>
+      <br>
 			</div>
 		<?php endif; ?>
     <div class="three_columns latest_news_small">
