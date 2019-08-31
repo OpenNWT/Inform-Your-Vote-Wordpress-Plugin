@@ -473,7 +473,8 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 
     <div class="incumbent">
       <?php if ($is_party_election): ?>
-        <?= $party['name'] ?>
+
+        <a href="<?= $party['url'] ?>"><?= $party['name'] ?></a>
         <?php if ($candidate['party_leader']): ?>
           Party Leader
         <?php else: ?>
