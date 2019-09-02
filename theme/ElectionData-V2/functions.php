@@ -339,7 +339,7 @@ function display_party( $party ) {
       <div class="info">
         <p>
           <a class="perma <?= dark_or_light_text($party['colour']) ?>" href="<?php echo $party['url'] ?>">
-            <?= esc_html( $party['name'] ) ?> <?= $party['name'] == 'Independent' ? '' : Party ?>
+            <?= esc_html( $party['name'] ) ?> <?= $party['name'] == 'Independent' ? '' : 'Party' ?>
           </a>
         </p>
         <div class="icons">
