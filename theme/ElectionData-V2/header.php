@@ -30,8 +30,10 @@
 	<meta property="og:image" content="<?php echo wp_get_attachment_image_src( Election_data_option::get_option('site_image'), 'full')[0];?>">
 <?php endif;?>
 
-<?php if(Election_Data_Option::get_option('site_title')):?>
+<?php if(Election_Data_Option::get_option('site_title') && (is_home() || is_front_page())) :?>
 	<meta property="og:title" content="<?= Election_Data_Option::get_option('site_title');?>" />
+<?php else: ?>
+	<meta property="og:title" content="<?= wp_title( '|', true, 'right') . bloginfo('name') ?>" />
 <?php endif;?>
 
 <?php if(Election_Data_Option::get_option('site_description')): ?>
