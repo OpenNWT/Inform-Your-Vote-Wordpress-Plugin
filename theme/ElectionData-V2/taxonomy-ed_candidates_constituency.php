@@ -20,8 +20,6 @@ get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
 	<h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> Electoral Division</h2>
-	<!-- <p class="small grey hidden_block_when_mobile">Find by name or click the map.</p> -->
-	<p class="small hidden_block_when_mobile" style="margin: 2em 1em;">If you do not know your electoral division, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/WhatsMyElectoralDivision">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
@@ -92,15 +90,6 @@ get_header();?>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
-  <p class="small grey">
-    Candidates were sent questionnaires by email from August 28th to September 1st, 2019.
-  </p>
-  <p class="small grey">
-    Parties were contacted to help us reach campaigns without known email addresses.
-  </p>
-  <p class="small grey">
-     Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
-  </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
       <br>
