@@ -41,8 +41,6 @@ get_header();?>
           Electoral Divisions
         </h3>
 
-        <p class="visible_block_when_mobile small" style="margin-bottom: 2em">If you do not know your electoral division, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/WhatsMyElectoralDivision">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
-
         <ul>
 					<?php foreach ( $constituency['children'] as $name => $child ) :?>
 						<?php $child_constituency = get_constituency($child['id']);?>
