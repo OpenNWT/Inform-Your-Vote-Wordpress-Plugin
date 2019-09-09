@@ -31,9 +31,10 @@ $right_column_url = Election_Data_Option::get_option('right_column_url') ?: "";
 $party_election = Election_Data_Option::get_option('party_election');
 
 if ($party_election) {
-  $constituencies = get_root_constituencies();
   $parties = get_parties_random();
 }
+
+$constituencies = get_root_constituencies();
 
 get_header(); ?>
 
@@ -111,9 +112,8 @@ get_header(); ?>
 	</ul>
 </div>
 
-<?php if ($party_election): ?>
     <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
-    <!-- <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p> -->
+    <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
@@ -126,6 +126,7 @@ get_header(); ?>
       <?php endforeach; ?>
     </div>
 
+<?php if ($party_election): ?>
     <h2 class="front-party-logos-header"><?php echo Election_Data_Option::get_option( 'party-label', 'The Political Parties' ); ?></h2>
     <div class="front-party-logos" >
       <?php foreach ( $parties as $party_id ) :
