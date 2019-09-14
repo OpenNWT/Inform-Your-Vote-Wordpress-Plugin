@@ -249,11 +249,11 @@ p.news-article-notice{
   zoom: 1; }
 
 .politician.tall {
-  height: 285px;
+  height: 300px;
 }
 
 .politician.short {
-  height: 260px;
+  height: 275px;
 }
 
 .politician .head img {
@@ -387,22 +387,19 @@ h2.constituency_header {
 
 .politician .minitile, .party .minitile {
   font-size: 12px;
-  width: 121px;
-  height: 54px;
+  width: 72px;
+  height: 69px;
   float: left;
   background: white;
   border-radius: 5px;
   margin-left: 13px;
   margin-bottom: 18px;
   padding: 8px 0 0 10px;
+  line-height: 1.2em;
 }
 
-
-  /*temp*/
-.politician .minitile.long, .party .minitile.long {
-  width: 262px;
-  height: 40px;
-  font-size: 14px;
+.politician .long .minitile {
+  width: 119px;
 }
 
 .minitile i {

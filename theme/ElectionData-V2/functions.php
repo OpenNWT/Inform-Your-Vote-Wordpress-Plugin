@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.3');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.15');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.16');
   // $updated_at = filemtime('wp-content/plugins/ElectionData/theme/ElectionData-V2/style.css');
   // wp_enqueue_style( 'style', get_stylesheet_uri(), array(), $updated_at);
 
@@ -441,26 +441,37 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       </div>
     </div>
 
-    <div class="election-website minitile">
-      <i class="far fa-address-card"></i>
-      <?php if ($candidate['website']): ?>
+    <div class="minitile-collection <?= !$candidate['open_hansard'] ? 'long' : 'short' ?>">
+      <div class="election-website minitile">
+        <i class="far fa-address-card"></i>
+        <?php if ($candidate['website']): ?>
+          <span>
+            <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
+          </span>
+        <?php else: ?>
+          <span class="no-site">No Election Site</span>
+        <?php endif ?>
+      </div>
+
+      <div class="news minitile">
+        <i class="far fa-newspaper"></i>
         <span>
-          <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
+          <a href="<?php echo "{$candidate['url']}#news"; ?>">
+            <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
+          </a>
         </span>
-      <?php else: ?>
-        <span class="no-site">No Election Site</span>
+      </div>
+      <?php if ($candidate['open_hansard']): ?>
+        <div class="open-hansard minitile">
+          <i class="fas fa-undo" style="color:red;"></i>
+          <span>
+            <a href="<?php echo $candidate['open_hansard'] ?>">
+              OpenNWT Hansard
+            </a>
+          </span>
+        </div>
       <?php endif ?>
     </div>
-
-    <div class="news minitile">
-      <i class="far fa-newspaper"></i>
-      <span>
-        <a href="<?php echo "{$candidate['url']}#news"; ?>">
-          <?php echo esc_html( $candidate['news_count'] ); ?> News Mentions
-        </a>
-      </span>
-    </div>
-
 
     <?php if ($display_questionnaire && $questionnaire_available): ?>
       <div class="qanda">

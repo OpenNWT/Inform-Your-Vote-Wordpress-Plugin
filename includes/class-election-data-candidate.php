@@ -209,6 +209,14 @@ class Election_Data_Candidate {
               'std' => '',
               'imported' => true,
             ),
+            'open_hansard' => array(
+              'label' => __( 'Open Hansard' ),
+              'id' => 'open_hansard',
+              'desc' => __( 'If the candidate is the incumbent, enter their Open Hansard URL here.'),
+              'type' => 'text',
+              'std' => '',
+              'imported' => true,
+            ),
             'party_leader' => array(
               'label' => __( 'Party Leader' ),
               'id' => 'party_leader',

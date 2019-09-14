@@ -600,6 +600,7 @@ function get_candidate( $candidate_id, $get_qanda = false ) {
 		'twitter' => get_post_meta( $candidate_id, 'twitter', true ),
 		'instagram' => get_post_meta( $candidate_id, 'instagram', true ),
 		'incumbent_year' => get_post_meta( $candidate_id, 'incumbent_year', true ),
+		'open_hansard' => trim(get_post_meta( $candidate_id, 'open_hansard', true )),
 		'party_leader' => get_post_meta( $candidate_id, 'party_leader', true ),
 		'url' => get_permalink( $candidate_id ),
 		'news_article_candidate_id' => get_post_meta( $candidate_id, 'news_article_candidate_id', true ),
