@@ -387,12 +387,12 @@ h2.constituency_header {
 
 .politician .minitile, .party .minitile {
   font-size: 12px;
-  width: 72px;
+  width: 70px;
   height: 69px;
   float: left;
   background: white;
   border-radius: 5px;
-  margin-left: 13px;
+  margin-left: 15px;
   margin-bottom: 18px;
   padding: 8px 0 0 10px;
   line-height: 1.2em;
@@ -400,6 +400,7 @@ h2.constituency_header {
 
 .politician .long .minitile {
   width: 119px;
+  margin-left: 13px;
 }
 
 .minitile i {
