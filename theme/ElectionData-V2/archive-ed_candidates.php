@@ -7,6 +7,7 @@
 get_header();
 
 ?>
+<p><span class="small grey">Candidates are displayed in random order.</span></p>
 <div id="primary">
     <div id="content" role="main">
 		<?php display_all_candidates( $wp_query ); ?>

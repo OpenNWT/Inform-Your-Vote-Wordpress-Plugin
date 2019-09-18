@@ -72,6 +72,16 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 <?php wp_head(); ?>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-50703437-7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-50703437-7');
+</script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -132,7 +142,7 @@ echo ' | ' . sprintf( __( 'Page %s', 'election_data_theme' ), max( $paged, $page
               </style>';
 			;?>
 
-        <h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+        <h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="https://nwtelection.ca/wp-content/uploads/2019/09/circle-2.jpg" height="32" width="32" style="padding-right:5px;"><?php bloginfo( 'name' ); ?></a></h1>
         <h2 class="site-description"><?php echo $site_description; ?></h2>
         <input id="menu-toggle" type="checkbox">
         <div id="menu-trigger">

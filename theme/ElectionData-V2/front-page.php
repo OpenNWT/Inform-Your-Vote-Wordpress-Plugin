@@ -112,17 +112,19 @@ get_header(); ?>
 	</ul>
 </div>
 
-    <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
+    <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Your 2019 MLA Candidates' ); ?></h2>
     <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
+        <?php if ( $constituency['children'] ): ?>
         <div>
           <a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
             <?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', true, array( 'alt' => $constituency['name'] ) ); ?>
           </a>
           <p><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
         </div>
+        <?php endif ?>
       <?php endforeach; ?>
     </div>
 
