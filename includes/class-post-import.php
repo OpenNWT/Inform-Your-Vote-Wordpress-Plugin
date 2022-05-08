@@ -333,7 +333,7 @@ class Post_Import {
 	/**
 	* Imports the taxonomies.
 	*/
-	function import_taxonomy_csv( $csv, $mode, $taxonomy, $taxonomy_name, $taxonomy_fields, $taxonomy_meta = null, $parent_field = null, $default_values = array(), $required_fields = null ) {
+	static function import_taxonomy_csv( $csv, $mode, $taxonomy, $taxonomy_name, $taxonomy_fields, $taxonomy_meta = null, $parent_field = null, $default_values = array(), $required_fields = null ) {
 		$headings = fgetcsv( $csv );
 		$found = true;
 		if ( $required_fields === null ){
