@@ -31,11 +31,31 @@ $right_column_url = Election_Data_Option::get_option('right_column_url') ?: "";
 $party_election = Election_Data_Option::get_option('party_election');
 
 if ($party_election) {
-  $constituencies = get_root_constituencies();
   $parties = get_parties_random();
 }
 
+$constituencies = get_root_constituencies();
+
 get_header(); ?>
+
+<?php if (!$party_election): ?>
+    <h2 id="candidates" class="no-party-front-page-header">Your Election Candidates</h2>
+    <div class="front-constituency-maps">
+      <?php foreach ( $constituencies as $constituency_id ) :
+        $constituency = get_constituency( $constituency_id ); ?>
+        <div>
+          <a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
+            <?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', true, array( 'alt' => $constituency['name'] ) ); ?>
+          </a>
+          <p><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+<?php endif ?>
 
 <!--Three columns part -->
 <div class="page-list">

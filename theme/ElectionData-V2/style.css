@@ -1934,6 +1934,10 @@ h2.front-constituency-header::before {
   height: 110px;
 }
 
+h2.no-party-front-page-header {
+  font-size: 2rem;
+}
+
 /* Vertically and horizontally allign the images. */
 .front-constituency-maps > div > a > img, .front-party-logos > div > a > img {
   margin: 0;
@@ -1957,10 +1961,10 @@ h2.front-constituency-header::before {
   }
 
   .front-constituency-maps { /* width plus 2x padding. */
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 
-  .front-party-logos { /* widdth plus 2x padding. */
+  .front-party-logos { /* width plus 2x padding. */
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 
