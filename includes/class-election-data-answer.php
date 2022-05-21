@@ -708,8 +708,11 @@ class Election_Data_Answer {
 		*/
 		public function send_email( $message_contents ){
 			require_once 'Html2Text.php';
-			require_once ABSPATH . WPINC . '/class-phpmailer.php';
-			$mail = new PHPMailer();
+      require_once(ABSPATH . WPINC . '/PHPMailer/PHPMailer.php');
+      require_once(ABSPATH . WPINC . '/PHPMailer/SMTP.php');
+      require_once(ABSPATH . WPINC . '/PHPMailer/Exception.php');
+
+      $mail = new PHPMailer\PHPMailer\PHPMailer( true );
 			$mail->isSMTP();
 			$mail->Host = Election_Data_Option::get_option( 'smtp-server' );
 			$mail->Port = Election_Data_Option::get_option( 'smtp-port' );
@@ -779,7 +782,7 @@ class Election_Data_Answer {
 			$replacements['question_url'] = "<a href='$url?token=$token'>$url?token=$token</a>";
 			$replacements['party'] = $party->name;
 			$replacements['party_alt'] = $party->description;
-			$replacements['question'] = '<p>' . implode( get_qanda_questions( $type, $term ), '</p><p>' ) . '</p>';
+			$replacements['question'] = '<p>' . implode( '</p><p>', get_qanda_questions( $type, $term )) . '</p>';
 			$pattern = array();
 			$replace = array();
 			foreach ( $replacements as $old => $new ) {
