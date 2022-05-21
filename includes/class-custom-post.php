@@ -236,7 +236,6 @@ class ED_Custom_Post_Type {
 	*
 	*/
 	public function initialize() {
-
 		register_post_type( $this->post_type, $this->custom_post_args );
 
 		foreach ( $this->taxonomy_args as $taxonomy_name => $taxonomy ) {
@@ -245,6 +244,11 @@ class ED_Custom_Post_Type {
 					$taxonomy['meta_box_cb'] = array( $this, 'taxonomy_radio_meta_box' );
 				}
 			}
+
+      // This skips empty party related taxonomies for non-party elections.
+      if (!$taxonomy_name) {
+        continue;
+      }
 
 			register_taxonomy( $taxonomy_name, $this->post_type, $taxonomy );
 			if ( isset( $this->taxonomy_filters[$taxonomy_name] ) ) {

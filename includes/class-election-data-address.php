@@ -57,7 +57,14 @@ class Election_Data_Address {
   */
   public function __construct( $define_hooks = true ) {
     global $ed_post_types;
+
+    // Hack to prevent address custom post type from registering when address lookup is disabled.
+    if (!isset($ed_post_types['address'])) {
+      return;
+    } 
+
     $this->post_type = $ed_post_types['address'];
+
     $args = array(
       'custom_post_args' => array(
         'labels' => array(
