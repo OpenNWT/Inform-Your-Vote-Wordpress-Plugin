@@ -51,84 +51,73 @@ get_header(); ?>
         </div>
       <?php endforeach; ?>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
 <?php endif ?>
 
 <!--Three columns part -->
-<div class="page-list">
-	<ul>
-		<li>
-			<div class="page-article">
+<h2 class="front-tile-head">Explore Further</h2>
+<div class="front-tiles">
+  <div class="tile">
+    <h1>
+      <a href="<?php echo $left_column_url;?>"><?php echo $left_column_title;?></a>
+    </h1>
+    <p class="description">
+      <a href="<?php echo $left_column_url;?>">
+        <?php echo $left_column_excerpt; ?>
+      </a>
+    </p>
+    <p class="img">
+      <a href="<?php echo $left_column_url;?>">
+        <?php
+          if($left_column_img) :
+            echo $left_column_img;
+          else :?>
+          <img src="/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/group.png" alt="group" />
+        <?php endif; ?>
+      </a>
+    </p>
+  </div>
 
-				<h1 class="ptitle">
+  <div class="tile">
+    <h1>
+      <a href="<?php echo $center_column_url;?>"><?php echo $center_column_title;?></a>
+    </h1>
+    <p class="description">
+      <a href="<?php echo $center_column_url;?>">
+        <?php echo $center_column_excerpt; ?>
+      </a>
+    </p>
+    <p class="img">
+      <a href="<?php echo $center_column_url;?>">
+        <?php
+          if($center_column_img) :
+            echo $center_column_img;
+          else :?>
+          <img src="/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/location.png" alt="locatoin" />
+        <?php endif; ?>
+      </a>
+    </p>
+  </div>
 
-					<a href="<?php echo $left_column_url;?>"><?php echo $left_column_title;?></a>
-				</h1>
-				<p class="excerpt">
-          <a href="<?php echo $left_column_url;?>">
-            <?php echo $left_column_excerpt; ?>
-          </a>
-				</p>
-				<p class="pimg">
-					<a href="<?php echo $left_column_url;?>">
-						<?php
-							if($left_column_img) :
-								echo $left_column_img;
-							else :?>
-							<img src="/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/group.png" alt="group" />
-						<?php endif; ?>
-					</a>
-				</p>
-			</div>
-		</li>
-		<li>
-			<div class="page-article">
-				<h1 class="ptitle">
-					<a href="<?php echo $center_column_url;?>"><?php echo $center_column_title;?></a>
-				</h1>
-				<p class="excerpt">
-          <a href="<?php echo $center_column_url;?>">
-            <?php echo $center_column_excerpt; ?>
-          </a>
-				</p>
-				<p class="pimg">
-					<a href="<?php echo $center_column_url;?>">
-						<?php
-							if($center_column_img) :
-								echo $center_column_img;
-							else :?>
-							<img src="/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/location.png" alt="locatoin" />
-						<?php endif; ?>
-					</a>
-				</p>
-			</div>
-		</li>
-		<li>
-			<div class="page-article">
-				<h1 class="ptitle">
-					<a href="<?php echo $right_column_url;?>"><?php echo $right_column_title;?></a>
-				</h1>
-				<p class="excerpt">
-					<a href="<?php echo $right_column_url;?>">
-            <?php echo $right_column_excerpt; ?>
-          </a>
-				 </p>
-				<p class="pimg">
-					<a href="<?php echo $right_column_url;?>">
-						<?php
-							if($right_column_img) :
-								echo $right_column_img;
-							else :?>
-							<img src="/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/document.png" alt="document" />
-						<?php endif; ?>
-					</a>
-				</p>
-			</div>
-		</li>
-	</ul>
+  <div class="tile">
+    <h1>
+      <a href="<?php echo $right_column_url;?>"><?php echo $right_column_title;?></a>
+    </h1>
+    <p class="description">
+      <a href="<?php echo $right_column_url;?>">
+        <?php echo $right_column_excerpt; ?>
+      </a>
+     </p>
+    <p class="img">
+      <a href="<?php echo $right_column_url;?>">
+        <?php
+          if($right_column_img) :
+            echo $right_column_img;
+          else :?>
+          <img src="/wp-content/themes/ElectionData/ElectionData-V2/images/imagesself/document.png" alt="document" />
+        <?php endif; ?>
+      </a>
+    </p>
+  </div>
 </div>
 
 <?php if ($party_election): ?>

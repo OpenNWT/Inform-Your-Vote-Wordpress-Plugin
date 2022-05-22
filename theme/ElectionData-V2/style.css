@@ -1900,20 +1900,26 @@ h2.front-constituency-header::before {
   height: 20px;
 }
 
-.front-constituency-maps > div, .front-party-logos > div {
+.front-tiles > div,
+.front-constituency-maps > div, 
+.front-party-logos > div {
   /* Inline and margin for now grid browsers. */
   display: inline-block;
   margin-right: 20px;
   margin-bottom: 20px;
-  border: 6px solid rgba(161, 136, 163, 0.95);
+  border: 6px solid #ececec;
   border-radius: 20px;
   padding: 10px 20px 15px 20px;
   /* horizontally align the name of the party or constituency. */
   text-align: center;
 }
 
+.front-constituency-maps {
+  margin-bottom: 5rem;
+}
 
-.front-constituency-maps > div > p, .front-party-logos > div > p {
+.front-constituency-maps > div > p, 
+.front-party-logos > div > p {
   margin: 0;
   font-size: 16px;
 }
@@ -1938,6 +1944,30 @@ h2.no-party-front-page-header {
   font-size: 2rem;
 }
 
+.front-tiles h1 {
+  margin-top: 1.5rem;
+}
+
+.front-tiles > div.tile {
+  padding-bottom: 0.5rem;
+}
+
+h2.front-tile-head {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.front-tiles p.description {
+  font-size: 15px;
+  line-height: 1.25rem;
+  height: 3.5rem;
+}
+
+.front-constituency-maps > div > p a:hover,
+.front-tiles p.description a:hover {
+  text-decoration: underline;
+}
+
 /* Vertically and horizontally allign the images. */
 .front-constituency-maps > div > a > img, .front-party-logos > div > a > img {
   margin: 0;
@@ -1951,15 +1981,20 @@ h2.no-party-front-page-header {
 
 /* Grid things up. Assumes a map width of 150px and a logo with of 100px. */
 @supports (display: grid) {
-  .front-constituency-maps > div, .front-party-logos > div {
+  .front-tiles > div,
+  .front-constituency-maps > div,
+  .front-party-logos > div {
     margin: 0;
   }
 
-  .front-constituency-maps, .front-party-logos {
+  .front-tiles,
+  .front-constituency-maps,
+  .front-party-logos {
     display: grid;
     grid-gap: 20px;
   }
 
+  .front-tiles,
   .front-constituency-maps { /* width plus 2x padding. */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
