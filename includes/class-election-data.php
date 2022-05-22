@@ -457,14 +457,14 @@ class Election_Data {
 					case 'plugin':
 						$current_value = Election_Data_Option::get_option( $data['setting_name'], '' );
 						if ( $current_value == $data['value'] || ( 'no_overwrite' == $mode && $current_value ) ) {
-							continue;
+							continue 2;
 						}
 						Election_Data_Option::update_option( $data['setting_name'], $data['value'] );
 						break;
 					case 'wordpress':
 						$current_value = get_option( $data['setting_name'], '' );
 						if ( $current_value == $data['value'] || ( 'no_overwrite' == $mode && $current_value ) ) {
-							continue;
+							continue 2;
 						}
 						update_option( $data['setting_name'], $data['value'] );
 						break;
