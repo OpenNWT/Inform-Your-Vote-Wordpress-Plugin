@@ -39,15 +39,16 @@ $constituencies = get_root_constituencies();
 get_header(); ?>
 
 <?php if (!$party_election): ?>
-    <h2 id="candidates" class="no-party-front-page-header">Your Election Candidates</h2>
+    <h2 class="no-party-front-page-header hidden_block_when_mobile">Your Election Candidates</h2>
+    <h2 class="no-party-front-page-header visible_block_when_mobile">Election Candidates</h2>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
         <div>
+          <h3><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></h3>
           <a href="<?php echo $constituency['url']; ?>" title="Click to see the candidates.">
             <?php echo wp_get_attachment_image($constituency['map_id'], 'map_thumb', true, array( 'alt' => $constituency['name'] ) ); ?>
           </a>
-          <p><a href="<?php echo $constituency['url']; ?>"><?php echo $constituency['name']; ?></a></p>
         </div>
       <?php endforeach; ?>
     </div>
