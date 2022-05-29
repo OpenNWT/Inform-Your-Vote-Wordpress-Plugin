@@ -393,6 +393,7 @@ SQL;
 	*
 	*/
 	public function add_filters() {
+    require_once(ABSPATH . 'wp-admin/includes/screen.php');
 		$screen = get_current_screen();
 		global $wp_query;
 
