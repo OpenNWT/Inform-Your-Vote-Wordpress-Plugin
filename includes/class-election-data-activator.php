@@ -41,7 +41,7 @@ class Election_Data_Activator {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-address.php';
 
 		$address = new Election_Data_Address( false );
-		$address->initialize();
+    $address->initialize();
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-election-data-news-article.php';
 

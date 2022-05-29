@@ -630,7 +630,9 @@ class Election_Data_Address {
   *
   */
   public function initialize() {
-    $this->custom_post->initialize();
+    if ($this->custom_post) {
+      $this->custom_post->initialize();
+    }
   }
 
 
