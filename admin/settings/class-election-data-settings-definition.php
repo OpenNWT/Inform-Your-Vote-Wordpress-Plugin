@@ -736,6 +736,13 @@ class Election_Data_Settings_Definition {
 				'type' => 'text',
 				'placeholder' => '/',
 				),
+        'electoral-division-term' => array(
+				'name' => __( 'Custom Term for Electoral Divisions', self::$plugin_name ),
+				'desc' => __( 'In a municipal election this term should likely be "Ward".'),
+				'type' => 'text',
+				'placeholder' => 'Electoral Division',
+				),
+
 			),
 		);
 

@@ -16,12 +16,13 @@ if($constituency['grandchildren']){
 	$child_constituencies = "children";
 }
 
+$electoral_division_term = Election_Data_Option::get_option('electoral-division-term') ?: "Electoral Division";
+
 get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
-	<h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> Electoral Division</h2>
-	<!-- <p class="small grey hidden_block_when_mobile">Find by name or click the map.</p> -->
-	<p class="small hidden_block_when_mobile" style="margin: 2em 1em;">If you do not know your electoral division, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/WhatsMyElectoralDivision">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
+  <h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
+	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
@@ -40,10 +41,9 @@ get_header();?>
 		<div class='one_column map_nav'>
         <h3>
           <?php echo $constituency['name']; ?><br class="visible_block_when_mobile">
-          Electoral Divisions
+          <?php echo $electoral_division_term ?>s
         </h3>
 
-        <p class="visible_block_when_mobile small" style="margin-bottom: 2em">If you do not know your electoral division, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/WhatsMyElectoralDivision">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
 
         <ul>
 					<?php foreach ( $constituency['children'] as $name => $child ) :?>
@@ -106,7 +106,7 @@ get_header();?>
       <br>
       <br>
 			<div class="three_columns constit_description">
-				<h2>The <?php echo $constituency['name']; ?> Electoral Division</h2>
+      <h2>The <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
 				<p><?php echo $constituency['details']; ?></p>
       <br>
 			</div>
