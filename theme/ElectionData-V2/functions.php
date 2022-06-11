@@ -204,7 +204,9 @@ function display_news_pagination( $args ) {
     'mid_size' => 1,
   );
   $args = wp_parse_args( $args, $default_args );
+  echo '<div class="news-pagination">';
   echo paginate_links( $args );
+  echo '</div>';
 }
 
 /**
