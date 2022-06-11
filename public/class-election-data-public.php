@@ -505,7 +505,7 @@ function get_qanda_answers( $type, $id, $count = null ) {
     } else {
       $pattern = array( '/\*candidate\*/' );
       $replacement = array( get_the_title( $candidate ) );
-    }    
+    }
 		break;
 	}
 	$answers = array();
@@ -679,6 +679,8 @@ function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) 
 * @return	$args		an array containing the paging arguments.
 */
 function get_paging_args( $type, $page ) {
+	/*
+	//doesn't seem to be used correctly so it's being commented out
 	switch ( $type ) {
 		case 'Candidate':
 		case 'Single':
@@ -696,6 +698,12 @@ function get_paging_args( $type, $page ) {
 		);
 		break;
 	}
+	*/
+
+	$args = array(
+		'current' => $page ? $page : 1,
+		'format' =>'?pagenum=%#%',
+	);
 	return $args;
 }
 
@@ -706,6 +714,8 @@ function get_paging_args( $type, $page ) {
 * @return 	$page 	the current page number
 */
 function get_current_page( $type ) {
+	/*
+	// as far as I can tell all of these other types aren't used
 	switch ( $type ) {
 		case 'Candidate':
 		case 'Single':
@@ -718,6 +728,8 @@ function get_current_page( $type ) {
 		$page = get_query_var( 'paged' );
 		break;
 	}
+	*/
+	$page = get_query_var( 'pagenum' );
 	return $page;
 }
 

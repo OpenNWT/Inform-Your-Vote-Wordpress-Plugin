@@ -93,10 +93,12 @@ add_action( 'after_switch_theme', 'configure_menu' );
 *
 */
 function election_data_init() {
+  global $wp;
   register_nav_menu('header-menu', __( 'Header Menu' ) );
   // register_nav_menu('footer-menu', __( 'Footer Menu' ) );
   add_theme_support( 'custom-header' );
   add_theme_support( 'post-thumbnails' );
+  $wp->add_query_var('pagenum');
 }
 add_action( 'init', 'election_data_init' );
 
@@ -200,7 +202,7 @@ else : ?>
 */
 function display_news_pagination( $args ) {
   $default_args = array(
-    'base' => @add_query_arg('page','%#%'),
+    'base' => @add_query_arg('pagenum','%#%'),
     'mid_size' => 1,
   );
   $args = wp_parse_args( $args, $default_args );
@@ -314,13 +316,13 @@ function display_news_article( $article, $candidates = false ){
 function dark_or_light_text($background_colour){
 	$r = hexdec(substr($background_colour,1,2));
 	$g = hexdec(substr($background_colour,3,2));
-	$b = hexdec(substr($background_colour,5,2));      
+	$b = hexdec(substr($background_colour,5,2));
 
 	$squared_contrast = ($r * $r * .299 +  $g * $g * .587 + $b * $b * .114);
 
 	if($squared_contrast > pow(130, 2)) {
 		return 'dark-text';
-	} else { 
+	} else {
     return 'light-text';
   }
 }
@@ -399,7 +401,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_questionnaire = in_array( 'questionnaire', $show_fields );
   $questionnaire_available = ! empty($candidate['answers']);
-  $party_colour = $is_party_election ? esc_attr($party['colour']) : '#888888'; 
+  $party_colour = $is_party_election ? esc_attr($party['colour']) : '#888888';
 
   ?>
     <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
@@ -483,7 +485,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
           Candidate
         <?php endif ?>
         <?php if ($candidate['incumbent_year']): ?>
-         and 
+         and
         <?php endif ?>
       <?php endif ?>
       <?php if ($candidate['incumbent_year']): ?>
