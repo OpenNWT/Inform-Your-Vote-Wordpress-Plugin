@@ -767,7 +767,7 @@ function display_front_page_news($candidate_ids, $count){
         <div class="one_column fancy-news">
           <div class="news-title-time">
             <a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
-            <span class="news-date-time"><?= $source_label ?> - <?php echo $date;?></span>
+            <span class="news-date-time"><?= $source_label ?> <br> <?php echo $date;?></span>
           </div>
 
            <?php
@@ -776,11 +776,17 @@ function display_front_page_news($candidate_ids, $count){
                $summary_candidate = get_term_by('name', $all_candidates[rand(0, (count($all_candidates)-1))], $ed_taxonomies['news_article_candidate'], "ARRAY_A");
            ?>
            <div class="news-summary">
-               <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] ?></a></p>
-              </div>
+               <a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] ?></a>
+           </div>
            <?php endif;?>
 
+          <?php
+          /*
+           * Removed because when many candidates are mentioned it break the flow of the css.
+           * But we can't just truncate the mentions without appearing to favour certain candidates.
           <p class="news-mention">Mentions: <?php echo implode (', ', $mentions); ?></p>
+           */
+          ?>
         </div>
     <?php endwhile; ?>
 <?php else : ?>
