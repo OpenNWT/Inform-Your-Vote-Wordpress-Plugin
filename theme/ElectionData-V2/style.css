@@ -122,7 +122,7 @@ footer p{
     padding-right: 1em;
 }
 
-.footer-menu{ max-height: 999px; 
+.footer-menu{ max-height: 999px;
 overflow: hidden;}
 
   header h1 {
@@ -265,7 +265,7 @@ p.news-article-notice{
   margin: 10px 0 0 10px; }
 
 .politician .head, .party .head {
-  border-radius: 10px; 
+  border-radius: 10px;
   overflow: hidden;
   zoom: 1;
   margin-bottom: 1em;
@@ -284,7 +284,7 @@ p.news-article-notice{
 }
 
 .politician .head .info, .party .head .info {
-  width: 160px; 
+  width: 160px;
   margin-top: 0;
 }
 
@@ -407,7 +407,7 @@ h2.constituency_header {
 
 .minitile i {
   display: block;
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
   font-size: 2em;
   color: #555;
 }
@@ -530,7 +530,7 @@ h2.constituency_header {
 
 	#container {
 		width: 320px; }
-  
+
   .short {
     height: auto;
   }
@@ -1121,7 +1121,7 @@ input:-ms-input-placeholder {
   float: left;
   text-align:center;
   }
-  
+
 .latest-news ul li{
 	list-style:none;
 	width: 31%;
@@ -1907,7 +1907,7 @@ h2.front-constituency-header::before {
 }
 
 .front-tiles > div,
-.front-constituency-maps > div, 
+.front-constituency-maps > div,
 .front-party-logos > div {
   /* Inline and margin for now grid browsers. */
   display: inline-block;
@@ -1924,29 +1924,29 @@ h2.front-constituency-header::before {
   margin-bottom: 3rem;
 }
 
-.front-constituency-maps > div > p, 
-.front-party-logos > div > p {
+.front-constituency-maps div > p,
+.front-party-logos div > p {
   margin: 0;
   font-size: 16px;
 }
 
 /* Switch to a relative block to vert/horz allign the child image. */
-.front-constituency-maps > div > a, .front-party-logos > div > a {
+.front-constituency-maps div > a, .front-party-logos div > a {
   display: block;
   position: relative;
 }
 
-.front-constituency-maps > div > h3 {
+.front-constituency-maps div > h3 {
   font-size: 1.5rem;
   margin-top: 1rem;
 }
 
 
-.front-constituency-maps > div > a {
+.front-constituency-maps div > a {
   height: 220px;
 }
 
-.front-party-logos > div > a {
+.front-party-logos div > a {
   height: 110px;
 }
 
@@ -1984,15 +1984,15 @@ h2.front-tile-head {
 }
 
 .front-tiles h1 a:hover,
-.front-constituency-maps > div > h3 a:hover,
-.front-constituency-maps > div > p a:hover,
+.front-constituency-maps div > h3 a:hover,
+.front-constituency-maps div > p a:hover,
 .front-tiles p.description a:hover {
   text-decoration: underline;
   color: #3b59bb;
 }
 
 /* Vertically and horizontally allign the images. */
-.front-constituency-maps > div > a > img, .front-party-logos > div > a > img {
+.front-constituency-maps div > a > img, .front-party-logos > div > a > img {
   margin: 0;
   position: absolute;
   top: 50%;

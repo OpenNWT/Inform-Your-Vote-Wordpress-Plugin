@@ -41,10 +41,12 @@ $constituencies = get_root_constituencies();
 
 get_header(); ?>
 
+
 <?php if (!$party_election): ?>
     <h2 class="no-party-front-page-header hidden_block_when_mobile">Your Election Candidates</h2>
     <h2 class="no-party-front-page-header visible_block_when_mobile">Election Candidates</h2>
     <div class="front-constituency-maps">
+      <?php echo do_shortcode("[address-lookup-widget]"); ?>
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
         <div>
