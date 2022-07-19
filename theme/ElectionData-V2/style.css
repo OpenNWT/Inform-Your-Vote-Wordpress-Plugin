@@ -1941,7 +1941,7 @@ h2.front-constituency-header::before {
 }
 
 .front-constituency-maps {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .front-constituency-maps div > p,
@@ -1968,6 +1968,24 @@ h2.front-constituency-header::before {
 
 .front-party-logos div > a {
   height: 110px;
+}
+
+#address-lookup-widget {
+  margin-bottom: 2rem;
+  border: 6px solid #ececec;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#address-lookup-widget h3, #address-lookup-widget p {
+  margin-left: 0;
+}
+
+#address-lookup-widget sub {
+  display: block;
+  margin-top: 0.4rem;
+  color: #555;
+  font-style: italic;
 }
 
 h2.no-party-front-page-header {

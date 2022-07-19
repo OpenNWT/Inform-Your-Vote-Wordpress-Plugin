@@ -45,8 +45,8 @@ get_header(); ?>
 <?php if (!$party_election): ?>
     <h2 class="no-party-front-page-header hidden_block_when_mobile">Your Election Candidates</h2>
     <h2 class="no-party-front-page-header visible_block_when_mobile">Election Candidates</h2>
+    <?php echo do_shortcode("[address-lookup-widget]"); ?>
     <div class="front-constituency-maps">
-      <?php echo do_shortcode("[address-lookup-widget]"); ?>
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
         <div>
@@ -60,7 +60,6 @@ get_header(); ?>
 <?php endif ?>
 
 <!--Three columns part -->
-<h2 class="front-tile-head">Explore Further</h2>
 <div class="front-tiles">
   <div class="tile">
     <h1>
