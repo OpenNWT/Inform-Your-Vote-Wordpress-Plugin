@@ -301,10 +301,10 @@ div.news-pagination a:hover {
 
 .politician .head .info p, .party .head .info p {
   display: table;
-  font-size: 1.27em;
-  margin: 0;
+  font-size: 1.2em;
+  margin: -5px 0 0 0;
   height: 60px;
-  max-width: 150px; }
+  max-width: 155px; }
 
 .politician .head .info p a.perma, .party .head .info p a.perma {
   display: table-cell;
