@@ -66,7 +66,7 @@ get_header(); ?>
       <p>
         <?= explode(' ', $candidate['name'])[0] ?>
         can be reached 
-        <?= implode(',', $contact) . '.' ?>
+        <?= implode(', ', $contact) . '.' ?>
       </p>
     <?php endif ?>
     <?php if ($has_qanda): ?>

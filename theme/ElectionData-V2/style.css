@@ -192,6 +192,9 @@ overflow: hidden;}
 	.one_column h1, .one_column h2, .one_column h3, .one_column h4, .two_columns h1, .two_columns h2, .two_columns h3, .two_columns h4, .three_columns h1, .three_columns h2, .three_columns h3, .three_columns h4, .two_columns_early_shrink h1, .two_columns_early_shrink h2, .two_columns_early_shrink h3, .two_columns_early_shrink h4 {
 		margin-bottom: 1em;
 		margin-left: 0; }
+	.two_columns_early_shrink p {
+    font-size: 1.1em;
+  }
 
 .three_columns {
 	width: 918px; }
@@ -222,12 +225,15 @@ overflow: hidden;}
 .news-article {
 	margin-bottom: 2em; }
 	.news-article h3 {
-		margin-bottom: 5px; }
+		margin-bottom: 5px;
+    font-size: 1.3em;
+  }
 	.news-article .date {
 		font-size: 0.75em;
 		margin-bottom: 1.1em; }
 	.news-article .summary {
-		font-size: 0.9em; }
+		font-size: 1.1em;
+    line-height: 1.4 }
 	.news-article .summary, .news-article .summary b, .news-article .summary em, .news-article .date {
 		font-family: Georgia, "Bitstream Charter", serif; }
 
