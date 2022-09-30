@@ -92,12 +92,11 @@ get_header();?>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
+<!--
   <p class="small grey">
     Candidates were sent questionnaires by email from August 28th to September 1st, 2019.
   </p>
-  <p class="small grey">
-    Parties were contacted to help us reach campaigns without known email addresses.
-  </p>
+-->
   <p class="small grey">
      Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
   </p>
