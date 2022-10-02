@@ -43,8 +43,10 @@ get_header(); ?>
 
 
 <?php if (!$party_election): ?>
+    <?php if (!shortcode_exists("address-lookup-widget")): ?>
     <h2 class="no-party-front-page-header hidden_block_when_mobile">Your Election Candidates</h2>
     <h2 class="no-party-front-page-header visible_block_when_mobile">Election Candidates</h2>
+    <?php endif; ?>
     <?php echo do_shortcode("[address-lookup-widget]"); ?>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
