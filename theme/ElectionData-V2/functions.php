@@ -417,7 +417,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         <div class="icons">
           <?php foreach ( $candidate['icon_data'] as $icon ) :
             if ( $icon['url'] ) : ?>
-              <a href="<?php echo esc_attr( $icon['url'] ); ?>">
+              <a href="<?php echo esc_attr( $icon['url'] ); ?>" target="_blank">
             <?php endif; ?>
             <?php if ($icon['fa_icon']): ?>
               <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
@@ -449,7 +449,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
       <i class="far fa-address-card"></i>
       <?php if ($candidate['website']): ?>
         <span>
-          <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
+          <a href="<?php echo esc_html( $candidate['website'] ); ?>" target="_blank">Election Site</a>
         </span>
       <?php else: ?>
         <span class="no-site">No Election Site</span>

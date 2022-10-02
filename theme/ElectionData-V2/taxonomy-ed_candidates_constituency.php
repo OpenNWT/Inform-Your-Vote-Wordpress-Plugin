@@ -22,7 +22,12 @@ get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
   <h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
-	<p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
+  <?php if ($constituency['name'] === 'Trustee Candidates'): ?>
+    <p class="small hidden_block_when_mobile">Minor boundary adjustments have been made that are not reflected on this school wards map.</p>
+    <p class="small">If you do not know your school ward, we recommend you use <a href="/">the address lookup tool on the homepage</a>.</p>
+  <?php else: ?>
+    <p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
+  <?php endif; ?>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
