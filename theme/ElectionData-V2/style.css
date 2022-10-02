@@ -658,6 +658,9 @@ h2.constituency_header {
 .latest_news_small p.mentions {
   color: #888888;
   font-size: 12px; }
+.latest_news_small p.link {
+  font-size: 1.1rem;
+}
 
 .latest_news_large ul {
   font-size: 13px; }
