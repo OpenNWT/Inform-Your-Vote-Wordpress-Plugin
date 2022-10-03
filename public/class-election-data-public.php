@@ -403,6 +403,7 @@ function get_news_article( $news_article_id ) {
 function get_qanda_questions( $type, $term ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
+  global $is_party_election;
 	$query_args = array(
 		'post_type' => $ed_post_types['answer'],
 		'nopaging' => true,
@@ -433,9 +434,13 @@ function get_qanda_questions( $type, $term ) {
 		$candidate_id = get_tax_meta( $term->term_id, 'candidate_id' );
 		$candidate = get_post( $candidate_id );
 		$pattern = array( '/\*candidate\*/', '/\*party\*/', '/\*party_alt\*/' );
-		$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
-		$party = $parties[0];
-		$replacement = array( get_the_title( $candidate ), $party->name, $party->description );
+    if ($is_party_election) {
+  		$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
+  		$party = $parties[0];
+		  $replacement = array( get_the_title( $candidate ), $party->name, $party->description );
+    } else {
+		  $replacement = array( get_the_title( $candidate ) );
+    }
 		break;
 	}
 	$questions = array();
