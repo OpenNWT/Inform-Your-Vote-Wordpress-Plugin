@@ -397,8 +397,29 @@ h2.constituency_header {
   font-size: 14px;
 }
 
+.politician .qanda a {
+  font-weight: bold;
+  animation: color-change 10s infinite;
+}
+
+@keyframes color-change {
+  0% {
+   filter: brightness(100%) saturate(100%);
+  }
+  50% {
+   filter: brightness(120%) saturate(130%);
+  }
+  100% {
+   filter: brightness(100%) saturate(100%);
+  }
+}
+
+.politician .qanda a b {
+  color: #2F7C24; /* Green */
+}
+
 .politician .qanda a span {
-  color: #2F7C24;
+  text-decoration: underline;
 }
 
 .politician .minitile, .party .minitile {
@@ -2088,4 +2109,9 @@ h2.front-tile-head {
 .front-info p {
   font-size: 18px;
   line-height: 1.4;
+}
+
+div.questionnaire {
+  font-size: 1.1em;
+  line-height: 1.45;
 }
