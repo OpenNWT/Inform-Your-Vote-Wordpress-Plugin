@@ -2078,3 +2078,14 @@ h2.front-tile-head {
 .front-party-logos {
   margin-bottom: 2em;
 }
+
+.front-info h2 {
+  font-size: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.front-info p {
+  font-size: 18px;
+  line-height: 1.4;
+}

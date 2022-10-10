@@ -127,6 +127,16 @@ get_header(); ?>
   </div>
 </div>
 
+<div class="front-info">
+  <h2>It's Election Time in Winnipeg</h2>
+  <p>The <a href="https://web2.gov.mb.ca/laws/statutes/2002/c03902e.php#19" target="_blank">City of Winnipeg Charter</a> states that the City of Winnipeg must hold an election on the “fourth Wednesday of October 2002, and in each fourth year thereafter.” As such, the next general election in Winnipeg is to be held <b>Wednesday, October 26th, 2022</b>.</p>
+  <p>As a voter, you will have the opportunity to vote for at least three candidates: one candidate for mayor, one candidate for councillor, and one or more candidates for school trustee.</p>
+  <p>This website is a voter resource built by <a href="https://www.winnipegelection.ca/about-winnipegelection-ca/#odm">Open Democracy Manitoba</a>, a non-profit organization that builds digital tools for democratic engagement. We are not affiliated with the City of Winnipeg.</p>
+  <p>The <a href="https://www.winnipeg.ca/clerks/election/election-2022/" target="_blank">Official City of Winnipeg 2022 Municipal Council and School Boards Election website</a> contains important information for candidates, voters, and elections workers.</p>
+  <p>Our site features an address lookup tool, interactive maps, election news, a calendar of election events, and educational resources about voting and government. Mayoral, City Council and School Board candidates are listed along with links to their web pages, contact details, and social media accounts. News articles that mention candidates are listed along with candidate responses to our election questionnaire.</p>
+  <p>This is the fourth edition of WinnipegElection.ca. We helped inform your vote in the 2010, 2014, and 2018 Winnipeg Elections. We describe the methodologies and technologies used to run this site on our <a href="/frequently-asked-questions/">Frequently Asked Questions Page</a>.</p>
+</div>
+
 <?php if ($party_election): ?>
     <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
     <!-- <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p> -->

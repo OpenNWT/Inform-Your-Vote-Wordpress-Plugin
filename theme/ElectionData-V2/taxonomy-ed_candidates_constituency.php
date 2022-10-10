@@ -22,12 +22,7 @@ get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
   <h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
-  <?php if ($constituency['name'] === 'Trustee Candidates'): ?>
-    <p class="small hidden_block_when_mobile">Minor boundary adjustments have been made that are not reflected on this school wards map.</p>
-    <p class="small">If you do not know your school ward, we recommend you use <a href="/">the address lookup tool on the homepage</a>.</p>
-  <?php else: ?>
-    <p class="small grey hidden_block_when_mobile">Find by name or click the map.</p>
-  <?php endif; ?>
+  <p class="small">If you do not know your ward, we recommend you use <a href="/">the address lookup tool on the homepage</a>.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
@@ -97,11 +92,9 @@ get_header();?>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
-<!--
   <p class="small grey">
-    Candidates were sent questionnaires by email from August 28th to September 1st, 2019.
+    Candidates were sent questionnaires by email on October 3rd, 2022.
   </p>
--->
   <p class="small grey">
      Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
   </p>
@@ -110,7 +103,11 @@ get_header();?>
       <br>
       <br>
 			<div class="three_columns constit_description">
-      <h2>The <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
+      <?php if ($constituency['name'] === 'Mayoral Candidates'): ?>
+        <h2>Roles and Responsibilities of Winnipeg's Mayor</h2>
+      <?php else: ?>
+        <h2>The <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
+      <?php endif ?>
 				<p><?php echo $constituency['details']; ?></p>
       <br>
 			</div>
