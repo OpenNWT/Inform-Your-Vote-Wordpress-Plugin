@@ -402,6 +402,11 @@ h2.constituency_header {
   animation: color-change 10s infinite;
 }
 
+.politician .no-qanda {
+  text-align: center;
+  color: #888;
+}
+
 @keyframes color-change {
   0% {
    filter: brightness(100%) saturate(100%);

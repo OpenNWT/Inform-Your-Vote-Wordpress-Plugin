@@ -78,9 +78,11 @@ get_header();?>
   </p>
 	<h2 class="constituency_header"><?php echo $constituency['name']; ?></h2>
   <br>
+  <!--
   <p>
     <a class="hover_underline" href="#news">Read news articles that mentions these candidates</a>.
   </p>
+-->
   <p>
     <?php if ($constituency['number_of_winners'] < 2) : ?>
     There are <?php echo $wp_query->post_count; ?> candidates in this election race.
@@ -89,14 +91,17 @@ get_header();?>
   <?php endif ?>
     <span class="small grey">Candidates are displayed in random order.</span>
   </p>
+  <p>
+    All candidates were sent our 2022 Winnipeg Election Questionnaire by email on October 3rd, 2022, with a reminder email on Oct 11th, 2022.
+  </p>
+  <p>
+    You can read the questionnaire responses below by following each candidate's response link.
+  </p>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
   <p class="small grey">
-    Candidates were sent questionnaires by email on October 3rd, 2022.
-  </p>
-  <p class="small grey">
-     Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
+     Our questionnaire and candidate data retrieval processes are available in <a href="/frequently-asked-questions">our FAQ</a>.</span>
   </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>

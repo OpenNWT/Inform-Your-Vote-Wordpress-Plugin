@@ -71,7 +71,9 @@ get_header(); ?>
     <?php endif ?>
     <?php if ($has_qanda): ?>
       <p>
-        Their response to our candidate questionnaire <a href="#qanda">can be read below</a>.
+        <b>
+          Their response to our candidate questionnaire <a href="#qanda">can be read below</a>.
+        </b>
       </p>
     <?php endif ?>
     <?php if ($candidate['news_count'] > 0): ?>
@@ -81,7 +83,7 @@ get_header(); ?>
     <?php endif ?>
     <br>
 
-    <p class="grey">Our candidate data retrieval process is available in <a href="/frequently-asked-questions">our FAQ</a>.</p>
+    <p class="grey">Our questionnaire and candidate data retrieval processes are available in <a href="/frequently-asked-questions">our FAQ</a>.</p>
   </div>
   <?php if ($has_qanda): ?>
     <div class="three_columns">
