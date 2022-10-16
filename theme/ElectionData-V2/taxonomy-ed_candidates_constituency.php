@@ -22,7 +22,7 @@ get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
   <h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
-  <p class="small">If you do not know your ward, we recommend you use <a href="/">the address lookup tool on the homepage</a>.</p>
+  <p>If you do not know your ward, we recommend you use <a href="/">the address lookup tool on the homepage</a>.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
@@ -85,12 +85,21 @@ get_header();?>
 -->
   <p>
     <?php if ($constituency['number_of_winners'] < 2) : ?>
-    There are <?php echo $wp_query->post_count; ?> candidates in this election race.
+    There is <?php echo $wp_query->post_count; ?> candidate in this election race.
   <?php else : ?>
     There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
   <?php endif ?>
     <span class="small grey">Candidates are displayed in random order.</span>
   </p>
+  <?php if ($wp_query->post_count == $constituency['number_of_winners']): ?>
+    <p class="grey"><b>
+      <?php if ($constituency['number_of_winners'] == 1): ?>
+        Because the candidate in this race is unopposed, they win the election race by acclamation.
+      <?php else: ?>
+        Because the number of candidates in this race matches the number of seats, all candidates win by acclamation.
+      <?php endif ?>
+    </b></p>
+  <?php endif ?>
   <p>
     All candidates were sent our 2022 Winnipeg Election Questionnaire by email on October 3rd, 2022, with a reminder email on Oct 11th, 2022.
   </p>
