@@ -18,12 +18,14 @@ $constituencies = get_root_constituencies();
 		<div class="flow_it who_constituencies_lists">
 			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Your Winnipeg Election Candidates' ); ?></h2>
       <p>Find your election candidates by search or follow the maps below.</p>
+      <?php echo do_shortcode("[address-lookup-widget]"); ?>
+      <!--
 			<p>
         <?php if($is_address_lookup_tool):?>
-         <!-- OR
-          Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address -->
+          Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address
         <?php endif;?>
       </p>
+      -->
 			<?php foreach ( $constituencies as $constituency_id ) :
 				$constituency = get_constituency( $constituency_id ); ?>
 				<div class="mini_maps one_column">
