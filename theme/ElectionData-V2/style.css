@@ -2109,11 +2109,13 @@ h2.front-tile-head {
   font-size: 2rem;
   margin-top: 3rem;
   margin-bottom: 2rem;
+  margin-left: 0;
 }
 
 .front-info p {
   font-size: 18px;
   line-height: 1.4;
+  margin-left: 0;
 }
 
 div.questionnaire {

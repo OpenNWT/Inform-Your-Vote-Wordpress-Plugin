@@ -22,7 +22,8 @@ get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
   <h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
-  <p>If you do not know your ward, we recommend you use <a href="/">the address lookup tool on the homepage</a>.</p>
+
+  <p>If you do not know your <?php echo strtolower($electoral_division_term) ?>, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/MyVotingInfo">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
