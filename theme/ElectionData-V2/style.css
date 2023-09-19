@@ -143,7 +143,7 @@ overflow: hidden;}
     font-weight: normal;
     font-size: 16px;
     color: #777;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 1.5em 0;
     padding-right: 45px;
     font-family: "Libre Franklin", sans-serif;
     font-style: italic; }
@@ -2089,9 +2089,12 @@ h2.front-tile-head {
     grid-gap: 20px;
   }
 
-  .front-tiles,
+  .front-tiles { /* width plus 2x padding. */
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  }
+
   .front-constituency-maps { /* width plus 2x padding. */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   }
 
   .front-party-logos { /* width plus 2x padding. */
@@ -2112,10 +2115,14 @@ h2.front-tile-head {
   margin-left: 0;
 }
 
-.front-info p {
+.front-info p, .front-info li {
   font-size: 18px;
   line-height: 1.4;
   margin-left: 0;
+}
+
+.front-info ul {
+  margin-left: 2rem;
 }
 
 div.questionnaire {
