@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.3');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.22');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '2023.09.16d');
   // $updated_at = filemtime('wp-content/plugins/ElectionData/theme/ElectionData-V2/style.css');
   // wp_enqueue_style( 'style', get_stylesheet_uri(), array(), $updated_at);
 
@@ -400,7 +400,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_questionnaire = in_array( 'questionnaire', $show_fields );
-  $questionnaire_available = ! empty($candidate['answers']);
+  $questionnaire_available = !empty($candidate['answers']);
   $party_colour = $is_party_election ? esc_attr($party['colour']) : '#888888';
 
   ?>
@@ -464,7 +464,6 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         </a>
       </span>
     </div>
-
 
     <?php if ($display_questionnaire && $questionnaire_available): ?>
       <div class="qanda">
@@ -555,7 +554,7 @@ function display_party_candidates( $candidate_query, $party, &$candidates ) {
   while ( $candidate_query->have_posts() ) {
     $candidate_query->the_post();
     $candidate_id = $candidate_query->post->ID;
-    $candidate = get_candidate( $candidate_id );
+    $candidate = get_candidate( $candidate_id, true);
     $constituency = get_constituency_from_candidate( $candidate_id );
     $candidates[] = $candidate['news_article_candidate_id'];
     display_candidate( $candidate, $constituency, $party, array( 'constituency', 'questionnaire'  ) );
