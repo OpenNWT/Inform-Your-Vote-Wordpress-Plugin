@@ -102,7 +102,7 @@ get_header();?>
     </b></p>
   <?php endif ?>
   <p>
-    All candidates were sent our 2022 Winnipeg Election Questionnaire by email on October 3rd, 2022, with a reminder email on Oct 11th, 2022.
+    Candidates with publicly available email addresses were sent our 2023 Election Questionnaire on September 17, 2023.
   </p>
   <p>
     You can read the questionnaire responses below by following each candidate's response link.
