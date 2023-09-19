@@ -64,6 +64,13 @@ get_header(); ?>
     </div>
 <?php endif ?>
 
+<div class="front-info">
+  <h2>It's Election Time in Manitoba</h2>
+  <p><strong>Mark your calendars! The next Manitoba General Provincial Election is slated for Tuesday, October 3rd, 2023.</strong></p>
+  <p>As mandated by the <a href="https://web2.gov.mb.ca/laws/statutes/ccsm/e030.php?lang=en">Elections Act of Manitoba</a>, provincial elections occur every four years on the first Tuesday in October. This pivotal event gives every eligible citizen in Manitoba the opportunity to exercise their democratic rights.</p>
+  <br><br>
+</div>
+
 <!--Three columns part -->
 <div class="front-tiles">
   <div class="tile">
@@ -132,8 +139,10 @@ get_header(); ?>
 
 <?php if ($party_election): ?>
     <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Constituencies' ); ?></h2>
-    <!-- <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p> -->
-    <p class="no-left-margin">If you do not know your <?php echo strtolower($electoral_division_term) ?>, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/MyVotingInfo">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
+    <div class="front-info">
+      <p>We list all Manitoba provincial election candidates, complete with contact details, web pages, and social media accounts. You'll also find news articles that mention the candidates, as well as their responses to our election questionnaire.</p>
+      <p><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?> If you do not know your electoral division, please use <a target="_blank" href="https://www.electionsmanitoba.ca/en/Voting/MyVotingInfo">Elections Manitoba's address lookup tool</a> and then return to our site.</p>
+    </div>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
         $constituency = get_constituency( $constituency_id ); ?>
