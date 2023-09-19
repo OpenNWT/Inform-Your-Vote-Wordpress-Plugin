@@ -716,7 +716,8 @@ class Election_Data_Answer {
 			$mail->isSMTP();
 			$mail->Host = Election_Data_Option::get_option( 'smtp-server' );
 			$mail->Port = Election_Data_Option::get_option( 'smtp-port' );
-      //$mail->Debugoutput = "error_log";
+      // $mail->SMTPDebur = true;
+      // $mail->Debugoutput = "error_log";
 
 			$smtp_user = Election_Data_Option::get_option( 'smtp-user' );
 			if ( $smtp_user ) {
@@ -823,6 +824,9 @@ class Election_Data_Answer {
 				if ( get_tax_meta( $party_id, 'qanda_sent' ) ) {
 					continue;
 				}
+        if (get_tax_meta( $party_id, 'email' ) == "") {
+          continue;
+        }
 
 				$party = get_term( $party_id, $ed_taxonomies['candidate_party'] );
 				$replacements = $this->get_pattern_replacements( 'party', get_term( $answer_party_id, $this->taxonomies['party'] ) );
@@ -880,9 +884,9 @@ class Election_Data_Answer {
 				$pattern = $replacements['pattern'];
 				$replacement = $replacements['replacement'];
 				$message = array(
-					'subject' => preg_replace( $pattern, $replacement, Election_Data_Option::get_option( 'subject-candidate' ) ),
-					'recipient' => $email,
-					'recipient-name' => get_the_title( $candidate ),
+				'subject' => preg_replace( $pattern, $replacement, Election_Data_Option::get_option( 'subject-candidate' ) ),
+				'recipient' => $email,
+				'recipient-name' => get_the_title( $candidate ),
 					'body' => '<html><head></head><body>' . preg_replace( $pattern, $replacement, Election_Data_Option::get_option( 'email-candidate' ) ) . '</body></html>',
 				);
 				$this->send_email( $message );
