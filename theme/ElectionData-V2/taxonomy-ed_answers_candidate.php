@@ -71,10 +71,10 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 	</div>
 	<?php if ( $can_edit && ! empty( $questions ) ) : ?>
 		<div class="three_columns q">
-			<h2>Questionnaire</h2>
+			<h2>Candidate Questionnaire</h2>
       <p>Please enter your responses for the questions listed below.</p>
       <p><strong>Be sure to click the "Update Answers" button at the bottom of the page to publish your responses.</strong></p>
-      <p>All responses have a 200 word maximum length.</p>
+      <p>All responses have a 250 word maximum length.</p>
       <p>Questions that do not have a response will not be displayed on the site.</p>
 			<form id="candidate" class="post-edit front-end-form" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="candidate_id" value="<?php echo $answer_candidate->term_id; ?>" />
@@ -87,7 +87,7 @@ wp_enqueue_script('wordcounts', get_template_directory_uri() . '/js/questionnair
 					<p><?php wp_editor( isset( $candidate['answers'][$question] ) ? $candidate['answers'][$question] : '', "question_$answer_id", $wp_editor_args ); ?></p>
 				<?php endforeach; ?><br />
 				<input type="submit" id="submit_answers" value="Update Answers" />
-				<p><span class="submit-warning" style="display:none; color: red;">Please limit all of your questions to 200 words or less</span>
+				<p><span class="submit-warning" style="display:none; color: red;">You cannot update until each of your answers is 250 words or less.</span>
         <p>⇧ Click this button to publish and update your responses.</p>
 			</form>
 		</div>
