@@ -16,10 +16,13 @@ if($constituency['grandchildren']){
 	$child_constituencies = "children";
 }
 
+$electoral_division_term = Election_Data_Option::get_option('electoral-division-term') ?: "Electoral Division";
+
 get_header();?>
 
 <?php if ( $constituency['children'] ) : ?>
-	<h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> Electoral Division</h2>
+  <h2 class="hidden_block_when_mobile">Select Your <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
+  <p>If you do not know your <?php echo strtolower($electoral_division_term) ?>, please use <a target="_blank" href="https://www.electionsnwt.ca/en/maps">Elections NWT's district lookup tool</a> and then return to our site.</p>
 	<div class='flow_it'>
 		<?php if ( $constituency['map_id'] ) : ?>
 			<div class='two_columns hidden_block_when_mobile'>
@@ -38,7 +41,7 @@ get_header();?>
 		<div class='one_column map_nav'>
         <h3>
           <?php echo $constituency['name']; ?><br class="visible_block_when_mobile">
-          Electoral Divisions
+          <?php echo $electoral_division_term ?>s
         </h3>
 
         <ul>
@@ -74,26 +77,50 @@ get_header();?>
   </p>
 	<h2 class="constituency_header"><?php echo $constituency['name']; ?></h2>
   <br>
+  <!--
   <p>
     <a class="hover_underline" href="#news">Read news articles that mentions these candidates</a>.
   </p>
+-->
   <p>
     <?php if ($constituency['number_of_winners'] < 2) : ?>
-    There are <?php echo $wp_query->post_count; ?> candidates in this election race.
+    There is <?php echo $wp_query->post_count; ?> candidate in this election race.
   <?php else : ?>
     There are <?php echo $wp_query->post_count; ?> candidates competing for <?php echo $constituency['number_of_winners'] ?> seats in this race.
   <?php endif ?>
     <span class="small grey">Candidates are displayed in random order.</span>
   </p>
+  <?php if ($wp_query->post_count == $constituency['number_of_winners']): ?>
+    <p class="grey"><b>
+      <?php if ($constituency['number_of_winners'] == 1): ?>
+        Because the candidate in this race is unopposed, they win the election race by acclamation.
+      <?php else: ?>
+        Because the number of candidates in this race matches the number of seats, all candidates win by acclamation.
+      <?php endif ?>
+    </b></p>
+  <?php endif ?>
+  <p>
+    Candidates with publicly available email addresses were sent our 2023 Election Questionnaire on September 17, 2023.
+  </p>
+  <p>
+    You can read the questionnaire responses below by following each candidate's response link.
+  </p>
   <div class="flow_it politicians">
     <?php display_constituency_candidates( $wp_query, $constituency, $candidate_references ); ?>
   </div>
+  <p class="small grey">
+     Our candidate data retrieval processes are available in <a href="/frequently-asked-questions">our FAQ</a>.
+  </p>
 	<div class="flow_it" >
 		<?php if ( !empty( $constituency['details'] ) ) : ?>
       <br>
       <br>
 			<div class="three_columns constit_description">
-				<h2>The <?php echo $constituency['name']; ?> Electoral Division</h2>
+      <?php if ($constituency['name'] === 'Mayoral Candidates'): ?>
+        <h2>Roles and Responsibilities of Winnipeg's Mayor</h2>
+      <?php else: ?>
+        <h2>The <?php echo $constituency['name']; ?> <?php echo $electoral_division_term ?></h2>
+      <?php endif ?>
 				<p><?php echo $constituency['details']; ?></p>
       <br>
 			</div>

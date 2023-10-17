@@ -122,7 +122,7 @@ footer p{
     padding-right: 1em;
 }
 
-.footer-menu{ max-height: 999px; 
+.footer-menu{ max-height: 999px;
 overflow: hidden;}
 
   header h1 {
@@ -143,7 +143,7 @@ overflow: hidden;}
     font-weight: normal;
     font-size: 16px;
     color: #777;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 1.5em 0;
     padding-right: 45px;
     font-family: "Libre Franklin", sans-serif;
     font-style: italic; }
@@ -192,6 +192,9 @@ overflow: hidden;}
 	.one_column h1, .one_column h2, .one_column h3, .one_column h4, .two_columns h1, .two_columns h2, .two_columns h3, .two_columns h4, .three_columns h1, .three_columns h2, .three_columns h3, .three_columns h4, .two_columns_early_shrink h1, .two_columns_early_shrink h2, .two_columns_early_shrink h3, .two_columns_early_shrink h4 {
 		margin-bottom: 1em;
 		margin-left: 0; }
+	.two_columns_early_shrink p {
+    font-size: 1.1em;
+  }
 
 .three_columns {
 	width: 918px; }
@@ -222,12 +225,14 @@ overflow: hidden;}
 .news-article {
 	margin-bottom: 2em; }
 	.news-article h3 {
-		margin-bottom: 5px; }
+		margin-bottom: 5px;
+    font-size: 1.3em;
+  }
 	.news-article .date {
-		font-size: 0.75em;
 		margin-bottom: 1.1em; }
 	.news-article .summary {
-		font-size: 0.9em; }
+		font-size: 1.1em;
+    line-height: 1.4 }
 	.news-article .summary, .news-article .summary b, .news-article .summary em, .news-article .date {
 		font-family: Georgia, "Bitstream Charter", serif; }
 
@@ -237,6 +242,17 @@ p.news-article-notice{
 	margin-bottom: 20px;
 	margin-top: -10px; }
 
+div.news-pagination a {
+  border: 1px solid grey;
+  background: #f5f7ff;
+  border-radius: .25rem;
+  padding: .25rem;
+}
+
+
+div.news-pagination a:hover {
+  text-decoration: underline;
+}
 .politician, .party {
 	margin: 10px;
 	width: 298px;
@@ -265,7 +281,7 @@ p.news-article-notice{
   margin: 10px 0 0 10px; }
 
 .politician .head, .party .head {
-  border-radius: 10px; 
+  border-radius: 10px;
   overflow: hidden;
   zoom: 1;
   margin-bottom: 1em;
@@ -284,16 +300,16 @@ p.news-article-notice{
 }
 
 .politician .head .info, .party .head .info {
-  width: 160px; 
+  width: 160px;
   margin-top: 0;
 }
 
 .politician .head .info p, .party .head .info p {
   display: table;
-  font-size: 1.27em;
-  margin: 0;
+  font-size: 1.2em;
+  margin: -5px 0 0 0;
   height: 60px;
-  max-width: 150px; }
+  max-width: 155px; }
 
 .politician .head .info p a.perma, .party .head .info p a.perma {
   display: table-cell;
@@ -381,8 +397,34 @@ h2.constituency_header {
   font-size: 14px;
 }
 
+.politician .qanda a {
+  font-weight: bold;
+  animation: color-change 10s infinite;
+}
+
+.politician .no-qanda {
+  text-align: center;
+  color: #888;
+}
+
+@keyframes color-change {
+  0% {
+   filter: brightness(100%) saturate(100%);
+  }
+  50% {
+   filter: brightness(120%) saturate(130%);
+  }
+  100% {
+   filter: brightness(100%) saturate(100%);
+  }
+}
+
+.politician .qanda a b {
+  color: #2F7C24; /* Green */
+}
+
 .politician .qanda a span {
-  color: #2F7C24;
+  text-decoration: underline;
 }
 
 .politician .minitile, .party .minitile {
@@ -405,7 +447,7 @@ h2.constituency_header {
 
 .minitile i {
   display: block;
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
   font-size: 2em;
   color: #555;
 }
@@ -512,21 +554,23 @@ h2.constituency_header {
 
 @media all and (max-width: 639px) {
 	header {
-        background-image: none;
+    background-image: none;
 		padding-top: 0.5em;
 		height: auto; }
+
 	header h1 {
 		font-size: 2.7em; }
 
-    /* Party thumbnails on separate lines when in mobile mode. */
-    .party_thumb {
+  /* Party thumbnails on separate lines when in mobile mode. */
+  .party_thumb {
         float: none; }
+
 	.party_thumb div img {
 		height: 150px; }
 
 	#container {
 		width: 320px; }
-  
+
   .short {
     height: auto;
   }
@@ -580,7 +624,6 @@ h2.constituency_header {
 		margin: 0 0 70px 0;}
 
 
-
   .home #container #main .page-list ul li .page-article p.excerpt {
     height: auto;
     margin-bottom: 0.5em;
@@ -594,6 +637,11 @@ h2.constituency_header {
 
 	#container .latest-news{
 		margin-top:15px;}
+
+  body .head-top {
+    background-image: none !important;
+    height: 125px;
+  }
 
   /* Footer in the mobile just 2 column in one row*/
 	#footer_left {
@@ -623,7 +671,7 @@ h2.constituency_header {
   margin-bottom: 0; }
 
 .latest_news_small ul, .latest_news_small p.more {
-  font-size: 12px; }
+  font-size: 14px; }
 .latest_news_small ul li {
   margin-bottom: 5px; }
 .latest_news_small p.date {
@@ -632,7 +680,10 @@ h2.constituency_header {
   font-size: 11px; }
 .latest_news_small p.mentions {
   color: #888888;
-  font-size: 10px; }
+  font-size: 12px; }
+.latest_news_small p.link {
+  font-size: 1.1rem;
+}
 
 .latest_news_large ul {
   font-size: 13px; }
@@ -714,7 +765,7 @@ box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
   left:100%;
   top:auto;
   margin:-31px 0 0 0px;
-  right: unset; // Needed or the second level menu collapses.
+  right: unset; /* Needed or the second level menu collapses. */
   -moz-border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
   -ms-border-radius: 0 0 5px 5px;
@@ -1113,7 +1164,7 @@ input:-ms-input-placeholder {
   float: left;
   text-align:center;
   }
-  
+
 .latest-news ul li{
 	list-style:none;
 	width: 31%;
@@ -1780,15 +1831,19 @@ input:-ms-input-placeholder {
 }
 
 .fancy-news {
-  min-height: 405px;
+  min-height: 370px;
 }
 
 .fancy-news a.news-title {
   display: block;
+  display: -webkit-box;
   font-size: 1.3em;
-  height: 4.7em;
+  height: 5em;
   line-height: 1.2;
   color: #333;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .fancy-news .news-title-time {
@@ -1803,7 +1858,12 @@ input:-ms-input-placeholder {
 }
 
 .fancy-news .news-summary {
-  height: 180px;
+  display: -webkit-box;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 165px;
+  margin-bottom: 2em;
 }
 
 .fancy-news .news-title-time, .fancy-news .news-summary, .fancy-news .news-mention {
@@ -1898,42 +1958,112 @@ h2.front-constituency-header::before {
   height: 20px;
 }
 
-.front-constituency-maps > div, .front-party-logos > div {
+.front-tiles > div,
+.front-constituency-maps > div,
+.front-party-logos > div {
   /* Inline and margin for now grid browsers. */
   display: inline-block;
   margin-right: 20px;
   margin-bottom: 20px;
-  border: 6px solid #c3474fd4;
+  /* Or OpennWT border border: 6px solid #c3474fd4; */
+  border: 6px solid #ececec;
   border-radius: 20px;
   padding: 10px 20px 15px 20px;
   /* horizontally align the name of the party or constituency. */
   text-align: center;
 }
 
+.front-constituency-maps {
+  margin-bottom: 2rem;
+}
 
-.front-constituency-maps > div > p, .front-party-logos > div > p {
+.front-constituency-maps div > p,
+.front-party-logos div > p {
   margin: 0;
   font-size: 16px;
 }
 
 /* Switch to a relative block to vert/horz allign the child image. */
-.front-constituency-maps > div > a, .front-party-logos > div > a {
+.front-constituency-maps div > a, .front-party-logos div > a {
   display: block;
   position: relative;
-  margin-bottom: 10px;
-
 }
 
-.front-constituency-maps > div > a {
+.front-constituency-maps div > h3 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+
+.front-constituency-maps div > a {
   height: 220px;
 }
 
-.front-party-logos > div > a {
+.front-party-logos div > a {
   height: 110px;
 }
 
+#address-lookup-widget {
+  margin-bottom: 2rem;
+  border: 6px solid #ececec;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#address-lookup-widget h3, #address-lookup-widget p {
+  margin-left: 0;
+}
+
+#address-lookup-widget sub {
+  display: block;
+  margin-top: 0.4rem;
+  color: #555;
+  font-style: italic;
+}
+
+h2.no-party-front-page-header {
+  font-size: 2rem;
+  color: #183153;
+}
+
+.front-tiles h1 {
+  margin-top: 1.5rem;
+}
+
+.front-tiles h1 a {
+  /* color: #183153; */
+}
+
+.front-tiles > div.tile {
+  padding-bottom: 0.5rem;
+}
+
+h2.front-tile-head {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #183153;
+}
+
+.front-tiles p.description {
+  font-size: 15px;
+  line-height: 1.25rem;
+  height: 3.5rem;
+}
+
+.front-tiles p.description a {
+  color: #183153;
+}
+
+.front-tiles h1 a:hover,
+.front-constituency-maps div > h3 a:hover,
+.front-constituency-maps div > p a:hover,
+.front-tiles p.description a:hover {
+  text-decoration: underline;
+  color: #3b59bb;
+}
+
 /* Vertically and horizontally allign the images. */
-.front-constituency-maps > div > a > img, .front-party-logos > div > a > img {
+.front-constituency-maps div > a > img, .front-party-logos > div > a > img {
   margin: 0;
   position: absolute;
   top: 50%;
@@ -1945,20 +2075,28 @@ h2.front-constituency-header::before {
 
 /* Grid things up. Assumes a map width of 150px and a logo with of 100px. */
 @supports (display: grid) {
-  .front-constituency-maps > div, .front-party-logos > div {
+  .front-tiles > div,
+  .front-constituency-maps > div,
+  .front-party-logos > div {
     margin: 0;
   }
 
-  .front-constituency-maps, .front-party-logos {
+  .front-tiles,
+  .front-constituency-maps,
+  .front-party-logos {
     display: grid;
     grid-gap: 20px;
   }
 
-  .front-constituency-maps { /* width plus 2x padding. */
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  .front-tiles { /* width plus 2x padding. */
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   }
 
-  .front-party-logos { /* widdth plus 2x padding. */
+  .front-constituency-maps { /* width plus 2x padding. */
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  .front-party-logos { /* width plus 2x padding. */
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 
@@ -1967,4 +2105,26 @@ h2.front-constituency-header::before {
 /* Space above the explanatory text. */
 .front-party-logos {
   margin-bottom: 2em;
+}
+
+.front-info h2 {
+  font-size: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  margin-left: 0;
+}
+
+.front-info p, .front-info li {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-left: 0;
+}
+
+.front-info ul {
+  margin-left: 2rem;
+}
+
+div.questionnaire {
+  font-size: 1.1em;
+  line-height: 1.45;
 }

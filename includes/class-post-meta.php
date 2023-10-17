@@ -376,10 +376,11 @@ class Post_Meta {
 	*
 	*/
 	function add_meta_filter() {
+    require_once(ABSPATH . 'wp-admin/includes/screen.php');
 		$screen = get_current_screen();
 		global $wp_query;
 
-		if ( $this->post_type == $screen->post_type ) {
+		if ( $screen && $this->post_type == $screen->post_type ) {
 			foreach ( $this->meta_filters as $field => $options ) {
 				$selected = isset( $_GET[$field] ) ? $_GET[$field] : '';
 
@@ -405,8 +406,9 @@ class Post_Meta {
 		global $pagenow;
 
 		if ( is_admin() && $pagenow == 'edit.php' ) {
+      require_once(ABSPATH . 'wp-admin/includes/screen.php');
 			$screen = get_current_screen();
-			if ( $this->post_type == $screen->post_type ) {
+			if ( $screen && $this->post_type == $screen->post_type ) {
 				foreach ( $this->meta_filters as $field => $options ) {
 					if ( ! empty( $_GET[$field] ) ) {
 						$query->query_vars['meta_key'] = $field;

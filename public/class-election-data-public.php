@@ -403,6 +403,7 @@ function get_news_article( $news_article_id ) {
 function get_qanda_questions( $type, $term ) {
 	global $ed_post_types;
 	global $ed_taxonomies;
+  global $is_party_election;
 	$query_args = array(
 		'post_type' => $ed_post_types['answer'],
 		'nopaging' => true,
@@ -433,9 +434,13 @@ function get_qanda_questions( $type, $term ) {
 		$candidate_id = get_tax_meta( $term->term_id, 'candidate_id' );
 		$candidate = get_post( $candidate_id );
 		$pattern = array( '/\*candidate\*/', '/\*party\*/', '/\*party_alt\*/' );
-		$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
-		$party = $parties[0];
-		$replacement = array( get_the_title( $candidate ), $party->name, $party->description );
+    if ($is_party_election) {
+  		$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
+  		$party = $parties[0];
+		  $replacement = array( get_the_title( $candidate ), $party->name, $party->description );
+    } else {
+		  $replacement = array( get_the_title( $candidate ) );
+    }
 		break;
 	}
 	$questions = array();
@@ -505,7 +510,7 @@ function get_qanda_answers( $type, $id, $count = null ) {
     } else {
       $pattern = array( '/\*candidate\*/' );
       $replacement = array( get_the_title( $candidate ) );
-    }    
+    }
 		break;
 	}
 	$answers = array();
@@ -680,6 +685,8 @@ function get_news( $candidate_id = null, $page = 1, $articles_per_page = null ) 
 * @return	$args		an array containing the paging arguments.
 */
 function get_paging_args( $type, $page ) {
+	/*
+	//doesn't seem to be used correctly so it's being commented out
 	switch ( $type ) {
 		case 'Candidate':
 		case 'Single':
@@ -697,6 +704,12 @@ function get_paging_args( $type, $page ) {
 		);
 		break;
 	}
+	*/
+
+	$args = array(
+		'current' => $page ? $page : 1,
+		'format' =>'?pagenum=%#%',
+	);
 	return $args;
 }
 
@@ -707,6 +720,8 @@ function get_paging_args( $type, $page ) {
 * @return 	$page 	the current page number
 */
 function get_current_page( $type ) {
+	/*
+	// as far as I can tell all of these other types aren't used
 	switch ( $type ) {
 		case 'Candidate':
 		case 'Single':
@@ -719,6 +734,8 @@ function get_current_page( $type ) {
 		$page = get_query_var( 'paged' );
 		break;
 	}
+	*/
+	$page = get_query_var( 'pagenum' );
 	return $page;
 }
 

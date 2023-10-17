@@ -708,11 +708,17 @@ class Election_Data_Answer {
 		*/
 		public function send_email( $message_contents ){
 			require_once 'Html2Text.php';
-			require_once ABSPATH . WPINC . '/class-phpmailer.php';
-			$mail = new PHPMailer();
+      require_once(ABSPATH . WPINC . '/PHPMailer/PHPMailer.php');
+      require_once(ABSPATH . WPINC . '/PHPMailer/SMTP.php');
+      require_once(ABSPATH . WPINC . '/PHPMailer/Exception.php');
+
+      $mail = new PHPMailer\PHPMailer\PHPMailer( true );
 			$mail->isSMTP();
 			$mail->Host = Election_Data_Option::get_option( 'smtp-server' );
 			$mail->Port = Election_Data_Option::get_option( 'smtp-port' );
+      // $mail->SMTPDebur = true;
+      // $mail->Debugoutput = "error_log";
+
 			$smtp_user = Election_Data_Option::get_option( 'smtp-user' );
 			if ( $smtp_user ) {
 				$mail->SMTPAuth = true;
@@ -749,6 +755,7 @@ class Election_Data_Answer {
 		*/
 		public function get_pattern_replacements( $type, $term ) {
 			global $ed_taxonomies;
+			global $is_party_election;
 
 			$replacements = array();
 			switch( $type ) {
@@ -765,8 +772,10 @@ class Election_Data_Answer {
 				$candidate_id = get_tax_meta( $term->term_id, 'candidate_id' );
 				$candidate = get_post( $candidate_id );
 				$replacements['candidate'] = get_the_title( $candidate );
-				$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
-				$party = $parties[0];
+        if ($is_party_election) {
+  				$parties = get_the_terms( $candidate, $ed_taxonomies['candidate_party'] );
+  				$party = $parties[0];
+        }
 				$token = get_post_meta( $candidate_id, 'qanda_token', true );
 				if ( empty( $token ) ) {
 					$token = Election_Data_Candidate::qanda_random_token();
@@ -777,9 +786,11 @@ class Election_Data_Answer {
 
 			$url = get_term_link( $term, $this->taxonomies[$type] );
 			$replacements['question_url'] = "<a href='$url?token=$token'>$url?token=$token</a>";
-			$replacements['party'] = $party->name;
-			$replacements['party_alt'] = $party->description;
-			$replacements['question'] = '<p>' . implode( get_qanda_questions( $type, $term ), '</p><p>' ) . '</p>';
+      if ($is_party_election) {
+  			$replacements['party'] = $party->name;
+  			$replacements['party_alt'] = $party->description;
+      }
+			$replacements['question'] = '<p>' . implode( '</p><p>', get_qanda_questions( $type, $term )) . '</p>';
 			$pattern = array();
 			$replace = array();
 			foreach ( $replacements as $old => $new ) {
@@ -813,6 +824,9 @@ class Election_Data_Answer {
 				if ( get_tax_meta( $party_id, 'qanda_sent' ) ) {
 					continue;
 				}
+        if (get_tax_meta( $party_id, 'email' ) == "") {
+          continue;
+        }
 
 				$party = get_term( $party_id, $ed_taxonomies['candidate_party'] );
 				$replacements = $this->get_pattern_replacements( 'party', get_term( $answer_party_id, $this->taxonomies['party'] ) );
@@ -863,15 +877,16 @@ class Election_Data_Answer {
 				if ( get_post_meta( $candidate_id, 'qanda_sent', true ) ) {
 					continue;
 				}
+        // error_log($email);
 
 				$candidate = get_post( $candidate_id );
 				$replacements = $this->get_pattern_replacements( 'candidate', get_term( $answer_candidate_id, $this->taxonomies['candidate'] ) );
 				$pattern = $replacements['pattern'];
 				$replacement = $replacements['replacement'];
 				$message = array(
-					'subject' => preg_replace( $pattern, $replacement, Election_Data_Option::get_option( 'subject-candidate' ) ),
-					'recipient' => $email,
-					'recipient-name' => get_the_title( $candidate ),
+				'subject' => preg_replace( $pattern, $replacement, Election_Data_Option::get_option( 'subject-candidate' ) ),
+				'recipient' => $email,
+				'recipient-name' => get_the_title( $candidate ),
 					'body' => '<html><head></head><body>' . preg_replace( $pattern, $replacement, Election_Data_Option::get_option( 'email-candidate' ) ) . '</body></html>',
 				);
 				$this->send_email( $message );

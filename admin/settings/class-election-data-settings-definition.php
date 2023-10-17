@@ -607,6 +607,12 @@ class Election_Data_Settings_Definition {
 				'desc' => __( 'The image to display on the right column.'),
 				'type' => 'image',
 				),
+        'front_page_seo' => array(
+					'name' => __( 'Front Page SEO Text', self::$plugin_name ),
+					'desc' => __( 'Display text at the bottom of the front page, mainly for SEO purposes.', self::$plugin_name ),
+					'type' => __( 'rich_editor' ),
+				),
+
 			),
 			'header_image_tab' => array(
 				'candidates_party_header_img' => array(
@@ -736,6 +742,13 @@ class Election_Data_Settings_Definition {
 				'type' => 'text',
 				'placeholder' => '/',
 				),
+        'electoral-division-term' => array(
+				'name' => __( 'Custom Term for Electoral Divisions', self::$plugin_name ),
+				'desc' => __( 'In a municipal election this term should likely be "Ward".'),
+				'type' => 'text',
+				'placeholder' => 'Electoral Division',
+				),
+
 			),
 		);
 

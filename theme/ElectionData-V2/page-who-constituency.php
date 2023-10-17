@@ -18,17 +18,14 @@ $constituencies = get_root_constituencies();
 		<div class="flow_it who_constituencies_lists">
 			<h2><?php echo Election_Data_Option::get_option( 'constituency-label', 'Your Winnipeg Election Candidates' ); ?></h2>
       <p>Find your election candidates by search or follow the maps below.</p>
-      <p>If you need to find your voting location <a target="_blank" href="https://www.winnipeg.ca/clerks/election/election2018/registration/WhereDoIVote.stm#where-do-i-vote">use the city's Where Do I Vote tool</a>.</p>
-      <br>
-      <iframe style="width: 100%; height: 220px;" id="address_frame" src="/we2018address/index.html"></iframe>
+      <?php echo do_shortcode("[address-lookup-widget]"); ?>
+      <!--
 			<p>
         <?php if($is_address_lookup_tool):?>
-         <!-- OR
-          Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address -->
+          Click <a href="<?=site_url();?>/address-lookup/">here</a> to search using your address
         <?php endif;?>
       </p>
-      <h2>All Winnipeg Election Candidates</h2>
-      <p>Click maps to list candidates by type and ward.</p>
+      -->
 			<?php foreach ( $constituencies as $constituency_id ) :
 				$constituency = get_constituency( $constituency_id ); ?>
 				<div class="mini_maps one_column">

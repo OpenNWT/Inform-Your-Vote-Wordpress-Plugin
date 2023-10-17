@@ -1,4 +1,4 @@
-var max_words = 200;
+var max_words = 250;
 function calculate_words(value) {
 
         var word_count = 0;

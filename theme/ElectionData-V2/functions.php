@@ -48,7 +48,7 @@ function election_data_theme_scripts() {
   wp_enqueue_script( 'shuffle', get_template_directory_uri() . '/js/shuffle.js', array(), '1.0.3');
 //  wp_enqueue_script( 'address_lookup_js', get_template_directory_uri() . '/js/address-lookup.js', array(), '1.1.0' );
 
-  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '5.3.16');
+  wp_enqueue_style( 'style', get_stylesheet_uri(), array(), '2023.09.16d');
   // $updated_at = filemtime('wp-content/plugins/ElectionData/theme/ElectionData-V2/style.css');
   // wp_enqueue_style( 'style', get_stylesheet_uri(), array(), $updated_at);
 
@@ -93,10 +93,12 @@ add_action( 'after_switch_theme', 'configure_menu' );
 *
 */
 function election_data_init() {
+  global $wp;
   register_nav_menu('header-menu', __( 'Header Menu' ) );
   // register_nav_menu('footer-menu', __( 'Footer Menu' ) );
   add_theme_support( 'custom-header' );
   add_theme_support( 'post-thumbnails' );
+  $wp->add_query_var('pagenum');
 }
 add_action( 'init', 'election_data_init' );
 
@@ -200,11 +202,13 @@ else : ?>
 */
 function display_news_pagination( $args ) {
   $default_args = array(
-    'base' => @add_query_arg('page','%#%'),
+    'base' => @add_query_arg('pagenum','%#%'),
     'mid_size' => 1,
   );
   $args = wp_parse_args( $args, $default_args );
+  echo '<div class="news-pagination">';
   echo paginate_links( $args );
+  echo '</div>';
 }
 
 /**
@@ -312,13 +316,13 @@ function display_news_article( $article, $candidates = false ){
 function dark_or_light_text($background_colour){
 	$r = hexdec(substr($background_colour,1,2));
 	$g = hexdec(substr($background_colour,3,2));
-	$b = hexdec(substr($background_colour,5,2));      
+	$b = hexdec(substr($background_colour,5,2));
 
 	$squared_contrast = ($r * $r * .299 +  $g * $g * .587 + $b * $b * .114);
 
 	if($squared_contrast > pow(130, 2)) {
 		return 'dark-text';
-	} else { 
+	} else {
     return 'light-text';
   }
 }
@@ -396,8 +400,8 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
 
   $display_constituency = in_array( 'constituency', $show_fields );
   $display_questionnaire = in_array( 'questionnaire', $show_fields );
-  $questionnaire_available = ! empty($candidate['answers']);
-  $party_colour = $is_party_election ? esc_attr($party['colour']) : '#888888'; 
+  $questionnaire_available = !empty($candidate['answers']);
+  $party_colour = $is_party_election ? esc_attr($party['colour']) : '#888888';
 
   ?>
     <div class="politician card_height show_constituency <?= $display_questionnaire ? 'tall' : 'short' ?>">
@@ -413,7 +417,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         <div class="icons">
           <?php foreach ( $candidate['icon_data'] as $icon ) :
             if ( $icon['url'] ) : ?>
-              <a href="<?php echo esc_attr( $icon['url'] ); ?>">
+              <a href="<?php echo esc_attr( $icon['url'] ); ?>" target="_blank">
             <?php endif; ?>
             <?php if ($icon['fa_icon']): ?>
               <i title="<?= esc_attr($icon['alt']) ?>" class="<?= $icon['fa_icon'] ?>"></i>
@@ -446,7 +450,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         <i class="far fa-address-card"></i>
         <?php if ($candidate['website']): ?>
           <span>
-            <a href="<?php echo esc_html( $candidate['website'] ); ?>">Election Site</a>
+            <a href="<?php echo esc_html( $candidate['website'] ); ?>" target="_blank">Election Site</a>
           </span>
         <?php else: ?>
           <span class="no-site">No Election Site</span>
@@ -465,7 +469,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
         <div class="open-hansard minitile">
           <i class="fas fa-undo" style="color:red;"></i>
           <span>
-            <a href="<?php echo $candidate['open_hansard'] ?>">
+            <a href="<?php echo $candidate['open_hansard'] ?>" target="_blank">
               OpenNWT Hansard
             </a>
           </span>
@@ -476,10 +480,14 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
     <?php if ($display_questionnaire && $questionnaire_available): ?>
       <div class="qanda">
         <a href="<?= $candidate['qanda'] ?>">
-          <span>Questionnaire:</span>
-          Read Candidate Response
+          <b>Questionnaire:</b>
+          <span>Read Candidate Response</span>
         </a>
       </div>
+    <?php elseif (!$questionnaire_available): ?>
+      <p class="no-qanda">
+        Awaiting Questionnaire Response
+      </p>
     <?php endif ?>
 
     <div class="incumbent">
@@ -492,7 +500,7 @@ function display_candidate( $candidate, $constituency, $party, $show_fields=arra
           Candidate
         <?php endif ?>
         <?php if ($candidate['incumbent_year']): ?>
-         and 
+         and
         <?php endif ?>
       <?php endif ?>
       <?php if ($candidate['incumbent_year']): ?>
@@ -558,7 +566,7 @@ function display_party_candidates( $candidate_query, $party, &$candidates ) {
   while ( $candidate_query->have_posts() ) {
     $candidate_query->the_post();
     $candidate_id = $candidate_query->post->ID;
-    $candidate = get_candidate( $candidate_id );
+    $candidate = get_candidate( $candidate_id, true);
     $constituency = get_constituency_from_candidate( $candidate_id );
     $candidates[] = $candidate['news_article_candidate_id'];
     display_candidate( $candidate, $constituency, $party, array( 'constituency', 'questionnaire'  ) );
@@ -774,7 +782,7 @@ function display_front_page_news($candidate_ids, $count){
         <div class="one_column fancy-news">
           <div class="news-title-time">
             <a class="news-title" href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?php echo get_the_title( $article_id ); ?></a>
-            <span class="news-date-time"><?= $source_label ?> - <?php echo $date;?></span>
+            <span class="news-date-time"><?= $source_label ?> <br> <?php echo $date;?></span>
           </div>
 
            <?php
@@ -783,11 +791,17 @@ function display_front_page_news($candidate_ids, $count){
                $summary_candidate = get_term_by('name', $all_candidates[rand(0, (count($all_candidates)-1))], $ed_taxonomies['news_article_candidate'], "ARRAY_A");
            ?>
            <div class="news-summary">
-               <p><a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] ?></a></p>
-              </div>
+               <a href="<?php echo esc_attr( get_post_meta( $article_id, 'url', true ) ); ?>"><?=$summary[$summary_candidate['term_id']] ?></a>
+           </div>
            <?php endif;?>
 
+          <?php
+          /*
+           * Removed because when many candidates are mentioned it break the flow of the css.
+           * But we can't just truncate the mentions without appearing to favour certain candidates.
           <p class="news-mention">Mentions: <?php echo implode (', ', $mentions); ?></p>
+           */
+          ?>
         </div>
     <?php endwhile; ?>
 <?php else : ?>
