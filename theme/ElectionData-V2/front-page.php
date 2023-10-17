@@ -112,7 +112,7 @@ get_header(); ?>
 	</ul>
 </div>
 
-    <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Your 2019 MLA Candidates' ); ?></h2>
+    <h2 class="front-constituency-header" id="mla-candidates"><?php echo Election_Data_Option::get_option( 'constituency-label', 'Research Your Election Candidates' ); ?></h2>
     <p class="small grey no-left-margin"><?php echo Election_Data_Option::get_option( 'constituency-subtext' ); ?></p>
     <div class="front-constituency-maps">
       <?php foreach ( $constituencies as $constituency_id ) :
